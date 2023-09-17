@@ -34,3 +34,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/weekends', [WeekendController::class, 'store'])->name('weekends.store');
 });
 
+Route::get('/home_page', function(){
+    return view("website.home.index");
+    // return view('admin.hotel.create')
+});
