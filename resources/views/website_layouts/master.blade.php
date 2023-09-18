@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')    
 </head>
 <body>
-    navbar
+    @include('website_layouts.partials._HeroSection')
     @yield('content')
     footer
 </body>
