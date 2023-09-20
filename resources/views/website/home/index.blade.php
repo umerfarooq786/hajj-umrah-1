@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="content-header row bg-red-500">
-    some text
+    some texttttts
 </div>
 
 

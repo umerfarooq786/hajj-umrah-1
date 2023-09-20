@@ -9,6 +9,6 @@
 <body>
     @include('website_layouts.partials._HeroSection')
     @yield('content')
-    footer
+    @include('website_layouts.partials._FooterSection')
 </body>
 </html>
