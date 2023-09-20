@@ -1,12 +1,12 @@
 <div class="flex flex-col items-center justify-center">
-    <div class="bg-second w-full text-white p-5 flex flex-col items-center justify-center gap-5">
+    <!-- <div class="bg-second w-full text-white p-5 flex flex-col items-center justify-center gap-5">
         <h4 class="text-first text-center font-bold text-3xl uppercase">FASTLINE Travel & Tours</h4>
         <p>Keep always updated with our fresh blog posts</p>
         <div class="flex flex-col md:flex-row items-center gap-3">
             <input type="email" placeholder="Enter your Email" class="bg-black py-2 px-5 rounded-md md:w-[350px] lg:w-[500px] text-white placeholder-white outline-none border border-gray1 focus:border-first">
             <button class="bg-black text-first py-2 px-7 rounded-md hover:bg-first hover:text-black">SUBSCRIBE</button>
         </div>
-    </div>
+    </div> -->
     <div class="bg-black text-gray2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full px-10 py-10  lg:px-40 lg:py-20 gap-10">
         <div>
             <img src="{{asset('images/logo.png')}}" alt="logo" class="h-[60px]">
@@ -15,19 +15,19 @@
         <div>
             <h4 class="text-white">Contact Us</h4>
             <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
-                <img src="{{asset('images/footer-icon4.svg')}}" alt="logo" class="h-[25px]">
+                <img src="{{asset('images/footer-icon1.png')}}" alt="logo" class="h-[25px]">
                 <span>PO Box 16122 Collins Street</span>            
             </a>
             <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
-                <img src="{{asset('images/footer-icon3.svg')}}" alt="logo" class="h-[25px]">
+                <img src="{{asset('images/footer-icon2.png')}}" alt="logo" class="h-[25px]">
                 <span>+12345678</span>            
             </a>
             <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
-                <img src="{{asset('images/footer-icon2.svg')}}" alt="logo" class="h-[25px]">
+                <img src="{{asset('images/footer-icon3.png')}}" alt="logo" class="h-[25px]">
                 <span>Email: simple@gmail.com</span>            
             </a>
             <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
-                <img src="{{asset('images/footer-icon1.svg')}}" alt="logo" class="h-[25px]">
+                <img src="{{asset('images/footer-icon4.png')}}" alt="logo" class="h-[25px]">
                 <span>yourwebsite.com</span>            
             </a>
         </div>
@@ -45,7 +45,7 @@
             <img src="{{asset('images/footer-gallery.png')}}" alt="logo" class="h-[200px]">            
         </div>
     </div>
-    <div class="bg-first w-full p-5 text-center font-semibold text-xs">
+    <div class="bg-first text-white w-full p-5 text-center font-semibold text-xs">
         <p>COPYRIGHT © 2023, FASTLINE TRAVEL & TOURS - ALL RIGHTS RESERVED</p>
     </div>
 </div>

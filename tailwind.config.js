@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./resources/**/*.blade.php",    
+    "./resources/**/*.blade.php",  
+    "./resources/**/*.js",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
@@ -16,9 +18,11 @@ module.exports = {
       'white': '#ffffff',
       'gray1': '#c1c1c1',
       'gray2': '#7a7a7a',
-      'first': '#ffb43a',  
+      'first': '#AE3234',  
       'second': '#2a2a2a'    
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }

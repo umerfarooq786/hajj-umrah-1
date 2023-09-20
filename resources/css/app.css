@@ -1,6 +1,11 @@
+/* @import 'swiper/css/bundle'; */
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 *{
     padding: 0px;
