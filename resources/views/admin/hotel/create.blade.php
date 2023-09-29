@@ -40,7 +40,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Google Map Iframe</label>
                                     <div class="col-md-9">
-                                        <textarea name="google_map" class="form-control" rows="5">
+                                        <textarea name="google_map" class="form-control" rows="5" required>
                                         </textarea>
                                     </div>
                                 </div>
@@ -56,8 +56,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input name="weekdays-cost-for-{{$room->id}}" type="number" class="form-control" placeholder="Price for {{$room->name}} Room" aria-label="Amount (to the nearest dollar)">
-                                            <input type="hidden" name="room_id" value="{{$room->id}}" />
+                                            <input type="hidden" name="room_id[]" value="{{$room->id}}" />
+                                            <input name="weekdays_price[]" type="number" class="form-control" placeholder="Price for {{$room->name}} Room" aria-label="Amount (to the nearest dollar)" required>
                                         </div>
                                     </div>
                                 </div>
@@ -70,8 +70,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input name="weekenddays-cost-for-{{$room->id}}" type="number" class="form-control" placeholder="Price for {{$room->name}} Room" aria-label="Amount (to the nearest dollar)">
-                                            
+                                            <input name="weekend_price[]" type="number" class="form-control" placeholder="Price for {{$room->name}} Room" aria-label="Amount (to the nearest dollar)">
                                         </div>
                                     </div>
                                 </div>
@@ -87,6 +86,7 @@
                                             <option selected disabled="">Select City</option>
                                             <option value="Makkah">Makkah</option>
                                             <option value="Madina">Madina</option>
+                                            <option value="Jeddah">Jeddah</option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input name="offer_cost" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
+                                            <input name="offer_cost_{{$room->id}}[]" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
                                             
                                         </div>
                                     </div>
