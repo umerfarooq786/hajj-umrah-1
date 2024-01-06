@@ -1,13 +1,29 @@
 /* @import 'swiper/css/bundle'; */
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-*{
+* {
     padding: 0px;
     margin: 0px;
+}
+
+/* home page styling */
+.specal-offer-box {
+    @apply w-[350px];
+}
+
+.specal-offer-box h4 {
+    @apply text-[22px] font-semibold py-3;
+}
+.specal-offer-box > div {
+    @apply px-7;
+}
+.specal-offer-box > div > div {
+    @apply flex space-x-3 mb-5;
+}
+
+.specal-offer-box div img {
+    @apply h-[40px] w-[40px] object-contain;
 }

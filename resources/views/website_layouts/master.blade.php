@@ -8,7 +8,6 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> -->
 </head>
 <body>
-    @include('website_layouts.partials._HeroSlider')
     @yield('content')
     @include('website_layouts.partials._FooterSection')
 
