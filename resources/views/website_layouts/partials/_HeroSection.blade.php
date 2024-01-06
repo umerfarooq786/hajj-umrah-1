@@ -42,7 +42,7 @@
         <div class="bg-black text-white w-full h-full flex flex-col items-center justify-start py-20 px-10">
             <div class="w-full flex items-center justify-between">
                     <img src="{{asset('images/logo.png')}}" alt="logo" class="h-[60px]">
-                    <img src="{{asset('images/home/cross-icon.jpg')}}" alt="" class="h-[30px] md:hidden" onclick="hideNav()">
+                    <img src="{{asset('images/home/cross.png')}}" alt="" class="h-[30px] md:hidden" onclick="hideNav()">
             </div>
 
             <div class="w-full flex flex-1 flex-col items-center justify-center gap-5">
