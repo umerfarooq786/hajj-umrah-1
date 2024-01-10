@@ -2,7 +2,6 @@
 
 @section('content')
 
-@include('website_layouts.partials._HeroSlider')
 
 <!-- special offers ssection -->
 <div class="content-header row bg-white">
@@ -195,8 +194,8 @@
 
             <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
                 <div class="bg-red-500 text-white p-8 relative h-[150px]">
-                    <h4 class="text-black font-bold">Hajj</h4>
-                    <p class="text-white ">$8000 USD / Person</p>
+                    <h4 class="text-black text-[22px]  font-bold">Hajj</h4>
+                    <p class="text-white mt-[-5px] ">$8000 USD / Person</p>
                     <a href="#" class="py-4 px-7 rounded-sm bg-[#2a2a2a] inline-block text-xs font-semibold text-white absolute bottom-[-20px]">GET STARTED</a>
                 </div>
                 <div class="px-5">

@@ -23,11 +23,11 @@
         </div>
     </div>
     <div class="bg-first text-white w-full h-[70px] hidden md:flex items-center justify-center gap-10 ">
-        <a href="#" class="font-semibold hover:underline">HOME</a>
+        <a href="/home_page" class="font-semibold hover:underline">HOME</a>
         <a href="#" class="font-semibold hover:underline">ABOUT</a>
         <a href="#" class="font-semibold hover:underline">CALCULATE</a>
         <a href="#" class="font-semibold hover:underline">HOTELS</a>
-        <a href="#" class="font-semibold hover:underline">CONTACT US</a>
+        <a href="/contact" class="font-semibold hover:underline">CONTACT US</a>
     </div>
 
     <!-- Mobile Menu starts -->
@@ -39,11 +39,11 @@
                 </div>
     
                 <div class="w-full flex flex-1 flex-col items-center justify-center gap-5">
-                    <a href="#" class="text-lg hover:underline">HOME</a>
+                    <a href="/home_page" class="text-lg hover:underline">HOME</a>
                     <a href="#" class="text-lg hover:underline">ABOUT</a>
                     <a href="#" class="text-lg hover:underline">CALCULATE</a>
                     <a href="#" class="text-lg hover:underline">HOTELS</a>
-                    <a href="#" class="text-lg hover:underline">CONTACT US</a>
+                    <a href="/contact" class="text-lg hover:underline">CONTACT US</a>
                 </div>
     
                 <div class="flex items-center gap-5 ">

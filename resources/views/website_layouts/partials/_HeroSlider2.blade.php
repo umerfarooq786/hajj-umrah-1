@@ -15,27 +15,12 @@
             </div>
         </div>
         <!-- Item 2 -->
-        <div style="background-image:url({{asset('images/home/hero-slider2.jpg')}})" class=" bg-cover bg-no-repeat bg-center m-0 hidden duration-700 ease-in-out " data-carousel-item="">
+        <div style="background-image:url({{asset('images/home/hero-slider2.jpg')}})" class=" bg-cover bg-no-repeat bg-center m-0 hidden duration-700 ease-in-out " data-carousel-item="active">
             <div class="absolute bottom-5 lg:bottom-20 mx-auto w-full flex flex-col items-center justify-center gap-10 mt-[140px] md:mt-[180px] lg:mt-[70px] ">
                 <h2 class="text-white text-center text-3xl md:text-5xl font-semibold ">Solution for <br/> The Hajj and Umrah</h2>
                 <button class="bg-first text-white font-semibold py-4 px-10 rounded-xl hover:bg-opacity-80 uppercase text-sm">Calculate</button>
             </div>
-        </div>
-        <!-- Item 3 -->
-        <div style="background-image:url({{asset('images/home/hero-slider1.png')}})" class=" bg-cover bg-no-repeat bg-center m-0 hidden duration-700 ease-in-out " data-carousel-item="">
-            <div class="absolute bottom-5 lg:bottom-20 mx-auto w-full flex flex-col items-center justify-center gap-10 mt-[140px] md:mt-[180px] lg:mt-[70px] ">
-                <h2 class="text-white text-center text-3xl md:text-5xl font-semibold ">Solution for <br/> The Hajj and Umrah</h2>
-                <button class="bg-first text-white font-semibold py-4 px-10 rounded-xl hover:bg-opacity-80 uppercase text-sm">Calculate</button>
-            </div>
-        </div>
-        <!-- Item 4 -->
-        <div style="background-image:url({{asset('images/home/hero-slider2.jpg')}})" class=" bg-cover bg-no-repeat bg-center m-0 hidden duration-700 ease-in-out " data-carousel-item="">
-            <div class="absolute bottom-5 lg:bottom-20 mx-auto w-full flex flex-col items-center justify-center gap-10 mt-[140px] md:mt-[180px] lg:mt-[70px] ">
-                <h2 class="text-white text-center text-3xl md:text-5xl font-semibold ">Solution for <br/> The Hajj and Umrah</h2>
-                <button class="bg-first text-white font-semibold py-4 px-10 rounded-xl hover:bg-opacity-80 uppercase text-sm">Calculate</button>
-            </div>
-        </div>
-        
+        </div>                
     </div>
     <!-- Slider controls -->
     <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>

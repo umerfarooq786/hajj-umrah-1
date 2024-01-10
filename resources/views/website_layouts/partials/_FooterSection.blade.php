@@ -7,7 +7,7 @@
             <button class="bg-black text-first py-2 px-7 rounded-md hover:bg-first hover:text-black">SUBSCRIBE</button>
         </div>
     </div> -->
-    <div class="bg-black text-gray2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full px-10 py-10  lg:px-40 lg:py-20 gap-10">
+    <div class="bg-[#1f1f1f] text-gray2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full px-10 py-10  lg:px-40 lg:py-20 gap-10">
         <div>
             <img src="{{asset('images/logo.png')}}" alt="logo" class="h-[60px]">
             <p class="mt-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic fugiat tempora voluptas saepe dolorem pariatur.</p>
