@@ -33,12 +33,12 @@
         </div>
         <div class="flex flex-col gap-3">
             <h4 class="text-white mb-3">Useful Links</h4>
-            <a href="#" class=" hover:text-first text-sm">Home</a>
-            <a href="#" class=" hover:text-first text-sm">About</a>
+            <a href="/home_page" class=" hover:text-first text-sm">Home</a>
+            <a href="/about" class=" hover:text-first text-sm">About</a>
             <a href="#" class=" hover:text-first text-sm">Package</a>
             <a href="#" class=" hover:text-first text-sm">Calculate</a>
             <a href="#" class=" hover:text-first text-sm">Hotels</a>
-            <a href="#" class=" hover:text-first text-sm">Contact Us</a>
+            <a href="/contact" class=" hover:text-first text-sm">Contact Us</a>
         </div>
         <div>
             <h4 class="text-white mb-5">Gallery</h4>
