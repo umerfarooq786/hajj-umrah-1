@@ -3,31 +3,31 @@
         
         <div class="hidden md:flex items-start gap-3 w-[33%]">
             <img src="{{asset('images/home/timeIcon.svg')}}" alt="" class="mt-1">
-            <div>
+            <div class="text-sm font-bold">
                 <p>MON-SAT: 6.00 AM - 10.00 PM</p>
                 <p class="mt-2">SUN: CLOSED</p>
             </div>
         </div>
         <div class="w-full md:w-[33%] flex items-center justify-between md:justify-center">
-            <img src="{{asset('images/logo.png')}}" alt="logo" class="h-[60px]">
+            <a href="/home_page"><img src="{{asset('images/logo.png')}}" alt="logo" class="h-[60px]"></a>
             <img src="{{asset('images/home/burger-icon.jpg')}}" alt="" class="h-[30px] md:hidden" onclick="showNav()">
         </div>
         <div class="hidden md:flex w-[33%] items-center justify-end gap-5y gap-3 lg:gap-7 ">
-            <a href="#"><img src="{{asset('images/home/facebook-f.svg')}}" alt="" class=""></a>
-            <a href="#"><img src="{{asset('images/home/instagram.svg')}}" alt="" class=""></a>
-            <a href="#"><img src="{{asset('images/home/youtube.svg')}}" alt="" class=""></a>
+            <a href="#"><img src="{{asset('images/home/facebook-f.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
+            <a href="#"><img src="{{asset('images/home/instagram.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
+            <a href="#"><img src="{{asset('images/home/youtube.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
             <div class="flex gap-3 items-center">
                 <a href="#"><img src="{{asset('images/home/pakistan.png')}}" alt="" class=""></a>
-                <p>PK</p>    
+                <p class="text-sm font-semibold">PK</p>    
             </div>
         </div>
     </div>
     <div class="bg-first text-white w-full h-[70px] hidden md:flex items-center justify-center gap-10 ">
-        <a href="/home_page" class="font-semibold hover:underline">HOME</a>
-        <a href="#" class="font-semibold hover:underline">ABOUT</a>
-        <a href="#" class="font-semibold hover:underline">CALCULATE</a>
-        <a href="#" class="font-semibold hover:underline">HOTELS</a>
-        <a href="/contact" class="font-semibold hover:underline">CONTACT US</a>
+        <a href="/home_page" class="font-semibold hover:underline text-sm">HOME</a>
+        <a href="/about" class="font-semibold hover:underline text-sm">ABOUT</a>
+        <a href="#" class="font-semibold hover:underline text-sm">CALCULATE</a>
+        <a href="#" class="font-semibold hover:underline text-sm">HOTELS</a>
+        <a href="/contact" class="font-semibold hover:underline text-sm">CONTACT US</a>
     </div>
 
     <!-- Mobile Menu starts -->
@@ -40,7 +40,7 @@
     
                 <div class="w-full flex flex-1 flex-col items-center justify-center gap-5">
                     <a href="/home_page" class="text-lg hover:underline">HOME</a>
-                    <a href="#" class="text-lg hover:underline">ABOUT</a>
+                    <a href="/about" class="text-lg hover:underline">ABOUT</a>
                     <a href="#" class="text-lg hover:underline">CALCULATE</a>
                     <a href="#" class="text-lg hover:underline">HOTELS</a>
                     <a href="/contact" class="text-lg hover:underline">CONTACT US</a>
@@ -52,7 +52,7 @@
                     <a href="#"><img src="{{asset('images/home/youtube.svg')}}" alt="" class=""></a>
                     <div class="flex gap-3 items-center">
                         <a href="#"><img src="{{asset('images/home/pakistan.png')}}" alt="" class=""></a>
-                        <p>PK</p>    
+                        <p >PK</p>    
                     </div>
                 </div>
     

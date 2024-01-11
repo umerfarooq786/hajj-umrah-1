@@ -14,6 +14,5 @@
     @include('website_layouts.partials._FooterSection')
 
     
-
 </body>
 </html>

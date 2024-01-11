@@ -42,3 +42,7 @@ Route::get('/home_page', function(){
 Route::get('/contact', function(){
     return view("website.contact.index");
 });
+
+Route::get('/about', function(){
+    return view("website.about.index");
+});

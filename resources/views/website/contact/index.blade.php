@@ -39,34 +39,35 @@
     <div class="border border-gray-200 rounded-[4px] py-16 px-10 space-y-10">
         <form>
             <div class="flex flex-col md:flex-row gap-8">
-                <div class="space-y-2">
+                <div class="space-y-2 w-full">
                     <label  class="font-bold text-sm" for="first_name">First Name</label>
                     <input type="text" id="first_name" placeholder="First name here" class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full">
                 </div>
 
-                <div class="space-y-2">
+                <div class="space-y-2 w-full">
                     <label  class="font-bold text-sm" for="last_name">Last Name</label>
-                    <input type="text" id="last_name" placeholder="First name here" class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5 w-full">
+                    <input type="text" id="last_name" placeholder="First name here" class="w-full border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5">
                 </div>
             </div>
 
             <div class="flex flex-col md:flex-row gap-8 mt-5">
-                <div class="space-y-2">
+                <div class="space-y-2 w-full">
                     <label  class="font-bold text-sm" for="email">Email Address</label>
                     <input type="text" id="email" placeholder="First name here" class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full">
                 </div>
 
-                <div class="space-y-2">
+                <div class="space-y-2 w-full">
                     <label  class="font-bold text-sm" for="subject">Subject</label>
                     <input type="text" id="subject" placeholder="First name here" class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5 w-full">
                 </div>
             </div>
 
-            <div class="space-y-2 mt-5">
+            <div class="space-y-2 mt-5 w-full">
                 <label  class="font-bold text-sm" for="comments">Comments / Questions</label>
                 <textarea name="" id="comments" class="h-[200px] border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5 w-full"></textarea>
             </div>
             
+            <input type="submit" class="bg-red-500 py-4 px-7 rounded-full text-[12px] uppercase font-semibold text-white mt-3 cursor-pointer hover:bg-opacity-90" value="Send Message">
         </form>
     </div>
 </div>
