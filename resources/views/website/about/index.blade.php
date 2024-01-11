@@ -24,10 +24,85 @@
 
 
         <!-- Slider2 -->
-        <div class="relative">
+        <div class="relative mt-10">
             @include('website_layouts.partials._AboutSlider2')
 
         </div>
+
+
+        <!-- Awards section -->
+        <div class="space-y-3 mt-10">
+            <h4 class="text-sm text-red-500 text-center font-semibold">AWARDS</h4>
+            <h2 class="text-center text-[#1f1f1f] font-semibold text-2xl">Awards and Mention</h2>            
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-16 mt-10 py-20 max-sm:px-10 border-t border-t-gray-200">
+            <h4 class="font-semibold">2022</h4>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-16 mt-10 py-20 max-sm:px-10 border-t border-t-gray-200">
+            <h4 class="font-semibold">2023</h4>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-16 mt-10 py-20 max-sm:px-10 border-t border-t-gray-200">
+            <h4 class="font-semibold">2024</h4>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+            <p class="text-gray-400 text-[16px] leading-8">Travel Agency of the Year Umrah Agency of the Year Travel Agency Awarded Travel</p>
+        </div>
+
+
+
+        <!-- Testimonial section -->
+        <div class="space-y-3 mt-10">
+            <h4 class="text-sm text-red-500 text-center font-semibold">TESTIMONOAL</h4>
+            <h2 class="text-center text-[#1f1f1f] font-semibold text-2xl">What did they say?</h2>            
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 pb-10">
+            <div class="border border-gray-200 rounded-[5px] h-[400px] flex flex-col items-center justify-center p-[10px] text-center">
+                <p class="text-gray-500 text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                <div class="flex mt-10 space-x-3">
+                    <img src="{{asset('images/about/team1.jpg')}}" alt="" class="h-[60px] w-[60px] rounded-full object-cover object-top">
+                    <div class="pt-1 text-start">
+                        <h4 class="text-red-500 font-semibold">Ali Hassan</h4>
+                        <p class="text-[12px]">CEO</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border border-gray-200 rounded-[5px] h-[400px] flex flex-col items-center justify-center p-[10px] text-center">
+                <p class="text-gray-500 text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                <div class="flex mt-10 space-x-3">
+                    <img src="{{asset('images/about/team1.jpg')}}" alt="" class="h-[60px] w-[60px] rounded-full object-cover object-top">
+                    <div class="pt-1 text-start">
+                        <h4 class="text-red-500 font-semibold">Ali Hassan</h4>
+                        <p class="text-[12px]">CEO</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border border-gray-200 rounded-[5px] h-[400px] flex flex-col items-center justify-center p-[10px] text-center">
+                <p class="text-gray-500 text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                <div class="flex mt-10 space-x-3">
+                    <img src="{{asset('images/about/team1.jpg')}}" alt="" class="h-[60px] w-[60px] rounded-full object-cover object-top">
+                    <div class="pt-1 text-start">
+                        <h4 class="text-red-500 font-semibold">Ali Hassan</h4>
+                        <p class="text-[12px]">CEO</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+
 
     </div>
 

@@ -6,22 +6,9 @@
         <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
         <h5 class="text-[15px] font-semibold ">Manager</h5>
         <div class=" text-[12px] space-x-10 mt-10">
-          <i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300" ></i>
-          <i class="fa-brands fa-linkedin " ></i>
-          <i class="fa-regular fa-envelope"></i>
-        </div>
-
-      </div>
-    </swiper-slide>
-    <swiper-slide>
-      <img src="{{asset('images/about/team1.jpg')}}" alt="">
-      <div class="text-white">
-        <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
-        <h5 class="text-[15px] font-semibold ">Manager</h5>
-        <div class=" text-[12px] space-x-10 mt-10">
-          <i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300" ></i>
-          <i class="fa-brands fa-linkedin " ></i>
-          <i class="fa-regular fa-envelope"></i>
+          <a href="#"><i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a> 
+          <a href="#"><i class="fa-brands fa-linkedin hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>
+          <a href="#"><i class="fa-regular fa-envelope hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>          
         </div>
 
       </div>
@@ -33,9 +20,9 @@
         <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
         <h5 class="text-[15px] font-semibold ">Manager</h5>
         <div class=" text-[12px] space-x-10 mt-10">
-          <i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300" ></i>
-          <i class="fa-brands fa-linkedin " ></i>
-          <i class="fa-regular fa-envelope"></i>
+          <a href="#"><i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a> 
+          <a href="#"><i class="fa-brands fa-linkedin hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>
+          <a href="#"><i class="fa-regular fa-envelope hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>          
         </div>
 
       </div>
@@ -47,9 +34,9 @@
         <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
         <h5 class="text-[15px] font-semibold ">Manager</h5>
         <div class=" text-[12px] space-x-10 mt-10">
-          <i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300" ></i>
-          <i class="fa-brands fa-linkedin " ></i>
-          <i class="fa-regular fa-envelope"></i>
+          <a href="#"><i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a> 
+          <a href="#"><i class="fa-brands fa-linkedin hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>
+          <a href="#"><i class="fa-regular fa-envelope hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>          
         </div>
 
       </div>
@@ -61,9 +48,9 @@
         <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
         <h5 class="text-[15px] font-semibold ">Manager</h5>
         <div class=" text-[12px] space-x-10 mt-10">
-          <i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300" ></i>
-          <i class="fa-brands fa-linkedin " ></i>
-          <i class="fa-regular fa-envelope"></i>
+          <a href="#"><i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a> 
+          <a href="#"><i class="fa-brands fa-linkedin hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>
+          <a href="#"><i class="fa-regular fa-envelope hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>          
         </div>
 
       </div>
@@ -75,13 +62,29 @@
         <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
         <h5 class="text-[15px] font-semibold ">Manager</h5>
         <div class=" text-[12px] space-x-10 mt-10">
-          <i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300" ></i>
-          <i class="fa-brands fa-linkedin " ></i>
-          <i class="fa-regular fa-envelope"></i>
+          <a href="#"><i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a> 
+          <a href="#"><i class="fa-brands fa-linkedin hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>
+          <a href="#"><i class="fa-regular fa-envelope hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>          
         </div>
 
       </div>
     </swiper-slide>
+    
+    <swiper-slide>
+      <img src="{{asset('images/about/team1.jpg')}}" alt="">
+      <div class="text-white">
+        <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4>
+        <h5 class="text-[15px] font-semibold ">Manager</h5>
+        <div class=" text-[12px] space-x-10 mt-10">
+          <a href="#"><i class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a> 
+          <a href="#"><i class="fa-brands fa-linkedin hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>
+          <a href="#"><i class="fa-regular fa-envelope hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]" ></i></a>          
+        </div>
+
+      </div>
+    </swiper-slide>
+    
+
     
     
   </swiper-container>
