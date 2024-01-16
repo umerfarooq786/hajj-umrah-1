@@ -41,3 +41,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
 });
 
+
+Route::get('/home_page', function(){
+    return view('website.home.index');    
+});
+
+Route::get('/contact', function(){
+    return view("website.contact.index");
+});
+
+Route::get('/about', function(){
+    return view("website.about.index");
+});
