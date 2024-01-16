@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('hotel_special_offers', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('name');
             $table->unsignedBigInteger('hotel_id');
-            $table->foreign('hotel_id')->references('id')->on('hotels');
-            $table->unsignedBigInteger('room_id');
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->string('package_name');
             $table->date('start_date');
             $table->date('end_date');
-
             $table->timestamps();
+
+            $table->foreign('hotel_id')->references('id')->on('hotels');
         });
     }
 

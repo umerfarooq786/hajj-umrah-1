@@ -22,17 +22,16 @@
                 </div>
                @endif
                 <div class="card-body">
-                    <form class="form form-horizontal" method="POST" action="{{route('hotels.store')}}" enctype="multipart/form-data">
+                    <form class="form form-horizontal" method="POST" action="{{route('hotels.update', $hotel->id)}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-body">
-                        <h4 class="form-section"><i class="la la-hotel"></i>Add Hotel</h4>
+                        <h4 class="form-section"><i class="la la-hotel"></i>Edit Hotel</h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control border-primary" placeholder="Name"
-                                        name="name" required>
+                                        <input type="text" class="form-control border-primary" name="name" value="{{$hotel->name}}" required>
                                     </div>
                                 </div>
                             </div>
@@ -40,37 +39,36 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Google Map Iframe</label>
                                     <div class="col-md-9">
-                                        <textarea name="google_map" class="form-control" rows="5" required>
-                                        </textarea>
+                                        <textarea name="google_map" class="form-control" rows="5" required>{{$hotel->google_map}}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @foreach($rooms as $room)
+                        @foreach($hotel_rooms as $hotel_room)
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-6 label-control" for="userinput3">Weekdays Price for <b>{{$room->name}} Room</b></label>
+                                    <label class="col-md-6 label-control" for="userinput3">Weekdays Price for <b>{{$hotel_room->room_name}} Room</b></label>
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input type="hidden" name="room_id[]" value="{{$room->id}}" />
-                                            <input name="weekdays_price[]" type="number" class="form-control" placeholder="Price for {{$room->name}} Room" aria-label="Amount (to the nearest dollar)" required>
+                                            <input type="hidden" name="room_id[]" value="{{$hotel_room->room_id}}" />
+                                            <input name="weekdays_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekdays_price}}" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-6 label-control" for="userinput3">Weekend Price for <b> {{$room->name}} Room</b></label>
+                                    <label class="col-md-6 label-control" for="userinput3">Weekend Price for <b> {{$hotel_room->room_name}} Room</b></label>
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input name="weekend_price[]" type="number" class="form-control" placeholder="Price for {{$room->name}} Room" aria-label="Amount (to the nearest dollar)">
+                                            <input name="weekend_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekend_price}}">
                                         </div>
                                     </div>
                                 </div>
@@ -84,9 +82,9 @@
                                     <div class="col-md-9">
                                     <select class="form-control border-primary" name="city" required>  
                                             <option selected disabled="">Select City</option>
-                                            <option value="Makkah">Makkah</option>
-                                            <option value="Madina">Madina</option>
-                                            <option value="Jeddah">Jeddah</option>
+                                            <option value="Makkah" {{ $hotel->city == 'Makkah' ? 'selected' : '' }}>Makkah</option>
+                                            <option value="Madina" {{ $hotel->city == 'Madina' ? 'selected' : '' }}>Madina</option>
+                                            <option value="Jeddah" {{ $hotel->city == 'Jeddah' ? 'selected' : '' }}>Jeddah</option>
                                         </select>
                                     </div>
                                 </div>
@@ -96,7 +94,7 @@
                                     <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                     <div class="col-md-9">
                                         <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                        name="validity" required>
+                                        name="validity" value="{{$hotel->validity}}" required>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +109,69 @@
                             </div>
                         </div>
                     </div>
-                    
+                    @if($hotel->specialOffers->count() > 0)
+                    <div class="special_offer">
+
+                        <div class="row justify-content-between align-items-center">
+                         <h4 class="border-0 my-2 pl-2"><i  class="la la-briefcase"></i> Special Offer </h4>
+                         <i style="cursor:pointer; color:red;" onclick="remove_special_offer(event)" class="fas fa-times pr-2"></i>
+                        </div>
+                        @foreach($hotel->specialOffers as $specialOffer)
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput1">Offer Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="userinput1" class="form-control border-primary" placeholder="Offer Name"
+                                        name="offer_name[]" value="{{$specialOffer->package_name}}" required >
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                        
+                        @foreach($specialOffer->rooms as $room)
+                            
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Price for {{$room_category[$room->room_id-1]}}  Bed</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input name="rooms_id" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$room->price}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        @endforeach
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Start Date</label>
+                                    <div class="col-md-9">
+                                        <input type="date" id="userinput1" class="form-control border-primary" placeholder="Start Date"
+                                        name="offer_start_date[]" value="{{$specialOffer->start_date}}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">End Date</label>
+                                    <div class="col-md-9">
+                                        <input type="date" id="userinput1" class="form-control border-primary" placeholder="Start Date"
+                                        name="offer_end_date[]" value="{{$specialOffer->end_date}}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
                     <div class="special_offer_parent">
                         <div class="row">
                             <div class="col-12 text-center">
@@ -123,7 +183,7 @@
                     </div>
                         <div class="form-actions right">
                             <button type="submit" class="btn btn-primary">
-                                <i class="la la-check-square-o"></i> Save
+                                <i class="la la-check-square-o"></i> Update
                             </button>
                         </div>
                     </form>
@@ -178,19 +238,19 @@
 
                         <div class="row">
 
-                            <?php foreach($rooms as $room)
+                            <?php foreach($hotel_rooms as $hotel_room)
                                 { 
                             ?>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput2">Price for {{$room->name}} Bed</label>
+                                    <label class="col-md-3 label-control" for="userinput2">Price for {{$hotel_room->room_name}} Bed</label>
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
                         
-                                            <input name="rooms[{{ $room->id }}][]" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
+                                            <input name="rooms[{{ $hotel_room->room_id }}][]" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
                                         </div>
                                     </div>
                                 </div>

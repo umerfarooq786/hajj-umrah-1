@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransportController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\WeekendController;
+use App\Http\Controllers\RouteController;
+
 
 
 /*
@@ -27,10 +29,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function() {
     //Route::resource('roles', RoleController::class);
     //Route::resource('users', UserController::class);
+    Route::resource('routes', RouteController::class);
     Route::resource('transports', TransportController::class);
     Route::resource('hotels', HotelController::class);
+    Route::get('/get_hotels',[HotelController::class, 'get_hotels']);
+    Route::get('/get_hotels',[HotelController::class, 'get_hotels']);
     Route::get('/get_tranports',[TransportController::class, 'get_transports']);
+    Route::get('/get_routes',[RouteController::class, 'get_routes']);
     Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index');
     Route::post('/weekends', [WeekendController::class, 'store'])->name('weekends.store');
+    Route::get('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
 });
 
