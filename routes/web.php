@@ -46,3 +46,7 @@ Route::get('/contact', function(){
 Route::get('/about', function(){
     return view("website.about.index");
 });
+
+Route::get('/custom-package', function(){
+    return view("website.custom-package.index");
+});
