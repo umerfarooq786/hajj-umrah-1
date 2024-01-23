@@ -180,6 +180,9 @@
                     nationality: nationality
                 });
 
+                if(error === true){
+                    return alert("All fields are required");
+                }
                 console.log(formData);
                 console.log("error = " + error);
                 // You can now use the formData array as needed (e.g., send it to the server).
