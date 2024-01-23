@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hajj Umrah</title>
+  <title>Fast Lines</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
 	<br/>
 	Thank You,
 	<br/>
-	<i>Hajj Umrah</i>
+	<i>Fast Lines</i>
 
 </body>
 </html>

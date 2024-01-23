@@ -127,7 +127,7 @@
 <script>
   $(document).ready(function () 
   {
-    toastr.success('<?php echo Session::get('success');?>', 'Hajj Umrah Says', {timeOut: 2000})
+    toastr.success('<?php echo Session::get('success');?>', 'Fast Lines Says', {timeOut: 2000})
   });
 </script>
 @endif

@@ -16,7 +16,7 @@
                 @if (count($errors) > 0)
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Hajj Umrah!</b>
+                    <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Fast Lines!</b>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -72,7 +72,7 @@
 <script>
   $(document).ready(function () 
   {
-    toastr.success('<?php echo Session::get('success');?>', 'Hajj Umrah Says', {timeOut: 2000})
+    toastr.success('<?php echo Session::get('success');?>', 'Fast Lines Says', {timeOut: 2000})
   });
 </script>
 @endif

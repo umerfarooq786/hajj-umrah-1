@@ -3,11 +3,11 @@
 @section('style')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert.css') }}">
-<!-- <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}"></script> -->
+<script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}"></script>
 <script>
   $(document).ready(function() {
     $('#link_table').DataTable({
-        "aoColumnDefs": [{"bSortable": false, "aTargets": [0,3]}],
+        "aoColumnDefs": [{"bSortable": false, "aTargets": [0,2]}],
         "bProcessing": true,
         "bServerSide": true,
         "aaSorting": [[0, "desc"]],
@@ -93,7 +93,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <!-- <th>Action</th> -->
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -121,7 +121,7 @@
 <script>
   $(document).ready(function () 
   {
-    toastr.success('<?php echo Session::get('success');?>', 'Hajj Umrah Says', {timeOut: 2000})
+    toastr.success('<?php echo Session::get('success');?>', 'Fast Lines Says', {timeOut: 2000})
   });
 </script>
 @endif

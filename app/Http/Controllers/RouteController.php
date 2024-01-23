@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Route;
+use App\Models\Route;
 
 class RouteController extends Controller
 {
@@ -152,7 +152,7 @@ class RouteController extends Controller
                 "DT_RowId" => "row_{$aRow->id}",
                 @$aRow->id,
                 @$name,
-            //    @$action
+                @$action
             );  
 
             $i++;

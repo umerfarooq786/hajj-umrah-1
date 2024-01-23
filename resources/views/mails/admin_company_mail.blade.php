@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hajj Umrah</title>
+  <title>Fast Lines</title>
 </head>
 
 <body>
@@ -13,12 +13,12 @@
 	</p>	
 	<br/>
 	<p>
-		 You are receiving this email from Hajj Umrah.
+		 You are receiving this email from Fast Lines.
 	</p>
 	
 	Thank You,
 	<br/>
-	<i>Hajj Umrah</i>
+	<i>Fast Lines</i>
 
 </body>
 </html>

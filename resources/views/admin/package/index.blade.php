@@ -9,7 +9,7 @@
                 @if (count($errors) > 0)
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Hajj Umrah!</b>
+                    <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Fast Lines!</b>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -115,7 +115,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Vehicle Qty</label>
                                     <div class="col-md-9">
-                                        <input type="number" id="userinput1" class="form-control border-primary" placeholder="No of Adults"
+                                        <input type="number" id="userinput1" class="form-control border-primary" placeholder="Vehicle Qty"
                                         name="no_of_vehicles[]" required>
                                     </div>
                                 </div>
@@ -134,18 +134,48 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="special_offer_parent1">
+                        <div class="transport_parent">
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    <button type="button" class="btn btn-primary specialOffer">
+                                    <button type="button" class="btn btn-primary transportBtn">
                                         Add More
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        <h4 class="form-section"><i class="la la-car"></i>Umrah Visa</h4>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Visa Charges</label>
+                                    <div class="col-md-9">
+                                        <input type="number" id="userinput1" class="form-control border-primary" placeholder="Visa Charges"
+                                        name="visa_charges" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Residence</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="userinput1" class="form-control border-primary" placeholder="Country of Residence"
+                                        name="country_of_residence" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Nationality</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="userinput1" class="form-control border-primary" placeholder="Nationality"
+                                        name="country_of_nationality" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-actions right">
                             <button type="submit" class="btn btn-primary">
-                                <i class="la la-check-square-o"></i> Save
+                                <i class="la la-check-square-o"></i> Calculate Package
                             </button>
                         </div>
                     </form>
@@ -171,6 +201,19 @@
     function remove_special_offer(e){
         if($(".special_offer").length == 3){
             $('.specialOffer').fadeIn(1)
+        }
+        let targetvalue =e.target;
+        $(targetvalue).parent().parent().remove();  
+    }
+     $('.transportBtn').on('click',()=>{
+        $('.transport_parent').append(add_transport);
+        if($(".new_transport").length == 3){
+            $('.transportBtn').fadeOut(1)
+        }                               
+    });
+    function remove_transport(e){
+        if($(".new_transport").length == 3){
+            $('.transportBtn').fadeIn(1)
         }
         let targetvalue =e.target;
         $(targetvalue).parent().parent().remove();  
@@ -242,6 +285,47 @@
                                     <div class="col-md-9">
                                         <input type="number" id="userinput1" class="form-control border-primary" placeholder="No of Children"
                                         name="no_of_children[]" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+        let add_transport = `<div class="new_transport">
+                      <div class="row justify-content-between align-items-center">
+                         <h4 class="border-0 my-2 pl-2"><i  class="la la-car"></i> Hotel Selection </h4>
+                         <a href="#" class="btn btn-danger" onclick="remove_transport(event)">Remove</a>
+                         </div>
+                         <div class="row">
+                            <div class="form-group row">
+                                <label class="col-md-3 label-control">Route</label>
+                                <div class="col-md-9">
+                                    <select class="form-control border-primary" name="route_id[]" required>  
+                                        <option selected disabled="">Select Route</option>
+                                        @foreach($routes as $route)
+                                        <option value="{{$route->id}}">{{$route->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Vehicle Qty</label>
+                                    <div class="col-md-9">
+                                        <input type="number" id="userinput1" class="form-control border-primary" placeholder="No of Adults"
+                                        name="no_of_vehicles[]" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Transport Type</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control border-primary" name="route_id[]" required>  
+                                            <option selected disabled="">Select Transport Type</option>
+                                            @foreach($transport_types as $transport_type)
+                                            <option value="{{$transport_type->id}}">{{$transport_type->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
