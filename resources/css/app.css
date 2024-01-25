@@ -133,3 +133,10 @@ swiper-slide:hover > div {
 #my-prev-button {
     left: -16px;
 }
+
+/* Package calculation page */
+.ui-datepicker-header {
+    background-color: #3498db; /* Set your desired header color */
+    color: #fff; /* Set text color to ensure readability */
+    border: 1px solid #2980b9; /* Add border for better separation */
+}

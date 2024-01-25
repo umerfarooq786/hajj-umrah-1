@@ -25,7 +25,7 @@
     <div class="bg-first text-white w-full h-[70px] hidden md:flex items-center justify-center gap-10 ">
         <a href="/home_page" class="font-semibold hover:underline text-sm">HOME</a>
         <a href="/about" class="font-semibold hover:underline text-sm">ABOUT</a>
-        <a href="#" class="font-semibold hover:underline text-sm">CALCULATE</a>
+        <a href="/custom-package" class="font-semibold hover:underline text-sm">CALCULATE</a>
         <a href="#" class="font-semibold hover:underline text-sm">HOTELS</a>
         <a href="/contact" class="font-semibold hover:underline text-sm">CONTACT US</a>
     </div>
