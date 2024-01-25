@@ -16,7 +16,7 @@
                 </div>
                @endif
                 <div class="card-body">
-                    <form class="form form-horizontal" method="POST" action="">
+                    <form class="form form-horizontal" method="POST" action="{{route('admin.calculate_package')}}">
                     @csrf
                     <div class="form-body">
                         <h4 class="form-section"><i class="la la-hotel"></i>Hotel Selection</h4>

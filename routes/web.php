@@ -38,7 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/get_routes',[RouteController::class, 'get_routes']);
     Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index');
     Route::post('/weekends', [WeekendController::class, 'store'])->name('weekends.store');
-    Route::get('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
+    Route::get('/custom_package',[HotelController::class, 'custom_package'])->name('admin.custom_package');
+    Route::post('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
 });
 
 

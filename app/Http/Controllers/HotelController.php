@@ -92,7 +92,7 @@ class HotelController extends Controller
             ]);
         }
         
-        if(count($request->offer_name) > 0) {
+        if(isset($request->offer_name) && count($request->offer_name) > 0) {
             foreach($request->offer_name as $key => $offer) {
                 
                 $data['hotel_id'] = $hotel->id;
@@ -113,13 +113,21 @@ class HotelController extends Controller
                 }
             }
         }
+        return redirect()->route('hotels.index')->with('success', 'Hotel has been added successfully!');
 
     }
-    public function calculate_package(){
+    public function custom_package(){
         $rooms = Room::all();
         $routes = Route::all();
         $transport_types = TransportType::all();
         return view('admin.package.index', compact('rooms','routes','transport_types'));
+    }
+
+    public function calculate_package(Request $request){
+        $total=0;
+        $total= $total + $request->visa_charges;
+        
+        return $total;
     }
     public function get_hotels(Request $request)
     {
