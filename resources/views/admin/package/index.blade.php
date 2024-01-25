@@ -292,7 +292,7 @@
                     </div>`;
         let add_transport = `<div class="new_transport">
                       <div class="row justify-content-between align-items-center">
-                         <h4 class="border-0 my-2 pl-2"><i  class="la la-car"></i> Hotel Selection </h4>
+                         <h4 class="border-0 my-2 pl-2"><i  class="la la-car"></i> Transport Selection </h4>
                          <a href="#" class="btn btn-danger" onclick="remove_transport(event)">Remove</a>
                          </div>
                          <div class="row">
