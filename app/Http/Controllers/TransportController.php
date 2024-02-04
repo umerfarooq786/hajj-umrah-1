@@ -8,6 +8,7 @@ use App\Models\Route;
 use App\Models\Transport;
 use App\Models\Cost;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 
 class TransportController extends Controller
@@ -239,6 +240,8 @@ class TransportController extends Controller
     public function destroy($id)
     {
        $transport = Transport::findOrFail($id);
+       DB::table('costs')->where('item_id', $transport->id)->delete();
+
        $transport->delete();
 
         return response()->json([
