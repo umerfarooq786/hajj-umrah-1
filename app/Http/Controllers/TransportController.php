@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TransportType;
 use App\Models\Route;
 use App\Models\Transport;
+use App\Models\Cost;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -34,6 +35,7 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
+        
         $rules = [
             'transport_type_id' => 'required',
             'make' => 'required|string|max:255',
@@ -53,15 +55,14 @@ class TransportController extends Controller
         $transport->make = $request->make;
         $transport->capacity = $request->capacity;
         $transport->route_id = $request->route_id;
-        // $transport->cost = $request->cost;
-        // $transport->validity = $request->validity;
+    
         $transport->save();
 
         $transport->costs()->create([
             'item_id' => $transport->id,
-            'item_type' => 'transport', 
+            'item_type' => 'transports', 
             'cost' => $request->cost,   
-            'validity' => $request->validity
+            'validity' => $request->validity,
         ]);
         return redirect()->route('transports.index')->with('success', 'Transport has been added successfully!');
     }
@@ -191,11 +192,13 @@ class TransportController extends Controller
      */
     public function edit($id)
     {
-        $transport = Transport::findOrFail($id);
 
+        $transport = Transport::findOrFail($id);
+        $costs = Cost::where('item_id','=',$transport->id)->get();
         $routes= Route::all();
         $transport_types = TransportType::all();
-        return view('admin.transport.edit',compact('routes','transport_types','transport'));
+        
+        return view('admin.transport.edit',compact('routes','transport_types','transport','costs'));
     }
 
     /**
@@ -209,8 +212,21 @@ class TransportController extends Controller
         $transport->make = $request->make;
         $transport->capacity = $request->capacity;
         $transport->route_id = $request->route_id;
-        $transport->cost = $request->cost;
-        $transport->validity = $request->validity;
+        foreach ($request->cost as $key => $costData) {
+            $costId = $request->cost_id[$key] ?? null; // Existing cost ID
+    
+            // Find the existing cost or create a new one
+            $cost = Cost::findOrNew($costId);
+    
+            // Update the cost attributes
+            $cost->item_id = $transport->id;
+            $cost->item_type = 'transports';
+            $cost->cost = $costData;
+            $cost->validity = $request->validity[$key];
+    
+            // Save the cost instance
+            $cost->save();
+        }
         $transport->save();
 
         return redirect()->route('transports.index')->with('success', 'Transport has been Updated successfully!');
