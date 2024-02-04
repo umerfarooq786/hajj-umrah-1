@@ -12,7 +12,8 @@ class Cost extends Model
         'item_id',
         'item_type',
         'cost',
-        
+        'validity'
+
     ];
 
     public function item()

@@ -77,11 +77,13 @@
                         </div>
                         <!-- row to repeat starts -->
                         <div class="row" id="validityContainer">
+                            @foreach($costs as $cost)
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">Cost</label>
                                     <div class="col-md-9">
-                                        <input type="number" class="form-control border-primary" placeholder="Cost" name="cost" required>
+                                        <input type="hidden" name="cost_id[]" value="{{$cost->id}}" />
+                                        <input type="number" class="form-control border-primary" placeholder="Cost" name="cost[]" value="{{$cost->cost}}">
                                     </div>
                                 </div>
                             </div>
@@ -89,10 +91,11 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                     <div class="col-md-9">
-                                        <input type="date" id="validity1" class="form-control border-primary" placeholder="Validity" name="validity" required>
+                                        <input type="date" id="validity{{$cost->id}}" class="form-control border-primary" placeholder="Validity" name="validity[]" value="{{$cost->validity}}">
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>   
+                            @endforeach                         
                         </div>
                         <div class="col-md-12 text-center" id="validity_button">
                             <button id="addValidity" class="btn btn-info mx-auto">Add Validity Date</button>
