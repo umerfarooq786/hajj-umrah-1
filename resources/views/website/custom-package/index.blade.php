@@ -43,11 +43,9 @@
                 <div class="flex flex-col md:flex-row  relative">
                     <select class="journey w-full mr-2 border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                         <option value="">Select Journey</option>
-                        <option value="1">Jeddah - Makkah - Madinah - Madinah Airport with Institutional Isolation</option>
-                        <option value="2">Parking - Haram's Station</option>
-                        <option value="3">Jeddah - Makkah - Madinah - Madinah Airport with Institutional Isolation</option>
-                        <option value="4">Yanbu - makkah - madinah - Yanbu</option>
-                        <option value="5">jeddah-makkah-jeddah</option>
+                        @foreach($routes as $route)
+                        <option value="{{$route->id}}">{{$route->name}}</option>
+                        @endforeach
                     </select>
                     
                     <input type="text" placeholder="Vehicle Quantity" class="vehiclequantity w-full mr-2 border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">

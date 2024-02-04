@@ -76,8 +76,9 @@
                             </div>
                         </div>
                         <!-- row to repeat starts -->
-                        <div class="row" id="validityContainer">
-                            @foreach($costs as $cost)
+
+                        @foreach($costs as $cost)
+                        <div class="row validityContainer" id="" style="position:relative">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">Cost</label>
@@ -95,13 +96,12 @@
                                     </div>
                                 </div>
                             </div>   
-                            @endforeach                         
                         </div>
+                        @endforeach                         
                         <div class="col-md-12 text-center" id="validity_button">
                             <button id="addValidity" class="btn btn-info mx-auto">Add Validity Date</button>
                         </div>
-                        
-                        
+                                                
                         <!-- tow to repeat ends --> 
                     </div>
 	                    <div class="form-actions right">
@@ -132,12 +132,13 @@
         addButtonCounter++;
         var addId = "addValidity" + addButtonCounter;
 
-        var validityRow = $("#validityContainer").clone();
+        var validityRow = $(".validityContainer:first").clone();
         validityRow.find("input").val(""); // Clear input values in the cloned row
         removeButtonCounter++;
         var removeButtonId = "removeValidity" + removeButtonCounter;
         validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px">-</button>');
-        $("#validityContainer").after(validityRow);
+        $(".validityContainer:last").after(validityRow);
+
     });
 
     // Use event delegation to handle the remove button click
