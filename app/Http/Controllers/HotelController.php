@@ -127,6 +127,7 @@ class HotelController extends Controller
     }
     public function currency_conversion()
     {
+        // return "ali ahmed";
         $currency_conversion = CurrencyConversion::findOrFail(1);
         return view('admin.currency.index',compact('currency_conversion'));
     }
