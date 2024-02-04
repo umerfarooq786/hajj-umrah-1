@@ -5,6 +5,11 @@ use App\Http\Controllers\TransportController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\WeekendController;
 use App\Http\Controllers\RouteController;
+use App\Models\Room;
+
+use App\Models\TransportType;
+
+use App\Models\Transport;
 
 
 
@@ -56,6 +61,10 @@ Route::get('/about', function(){
     return view("website.about.index");
 });
 
-Route::get('/custom-package', function(){
-    return view("website.custom-package.index");
-});
+// Route::get('/custom-package', function(){
+//     $rooms = Room::all();
+//     $routes = Route::all();
+//     $transport_types = TransportType::all();
+//     return view("website.custom-package.index", compact('rooms','routes','transport_types'));
+// });
+Route::get('/custom-package', [CostController::class,'calculate_package']);
