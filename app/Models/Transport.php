@@ -12,9 +12,7 @@ class Transport extends Model
         'transport_type_id',
         'make',
         'capacity',
-        'route_id',
-        'cost',
-        'validity'
+        'route_id'
     ];
 
     public function types()
@@ -25,5 +23,8 @@ class Transport extends Model
     {
         return $this->belongsTo(Route::class, 'route_id');
     }
-
+    public function costs()
+    {
+        return $this->morphMany(Cost::class, 'item');
+    }
 }
