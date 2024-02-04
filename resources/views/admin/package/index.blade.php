@@ -124,7 +124,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Transport Type</label>
                                     <div class="col-md-9">
-                                        <select class="form-control border-primary" name="route_id[]" required>  
+                                        <select class="form-control border-primary" name="transport_type_id[]" required>  
                                             <option selected disabled="">Select Transport Type</option>
                                             @foreach($transport_types as $transport_type)
                                             <option value="{{$transport_type->id}}">{{$transport_type->name}}</option>
@@ -320,7 +320,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Transport Type</label>
                                     <div class="col-md-9">
-                                        <select class="form-control border-primary" name="route_id[]" required>  
+                                        <select class="form-control border-primary" name="transport_type_id[]" required>  
                                             <option selected disabled="">Select Transport Type</option>
                                             @foreach($transport_types as $transport_type)
                                             <option value="{{$transport_type->id}}">{{$transport_type->name}}</option>

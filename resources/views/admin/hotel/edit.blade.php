@@ -23,6 +23,7 @@
                @endif
                 <div class="card-body">
                     <form class="form form-horizontal" method="POST" action="{{route('hotels.update', $hotel->id)}}" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div class="form-body">
                         <h4 class="form-section"><i class="la la-hotel"></i>Edit Hotel</h4>
@@ -122,6 +123,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput1">Offer Name</label>
                                     <div class="col-md-9">
+                                        <input type="hidden" name="offer_id[]" value="{{$specialOffer->id}}" />
                                         <input type="text" id="userinput1" class="form-control border-primary" placeholder="Offer Name"
                                         name="offer_name[]" value="{{$specialOffer->package_name}}" required >
                                     </div>
@@ -141,7 +143,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input name="rooms_id" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$room->price}}" />
+                                            <input name="rooms_price[{{ $room->id }}]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$room->price}}" />
                                         </div>
                                     </div>
                                 </div>
@@ -228,6 +230,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput1">Offer Name</label>
                                     <div class="col-md-9">
+                                        <input type="hidden" name="offer_id[]" value="0" />
                                         <input type="text" id="userinput1" class="form-control border-primary" placeholder="Offer Name"
                                         name="offer_name[]" required >
                                     </div>
