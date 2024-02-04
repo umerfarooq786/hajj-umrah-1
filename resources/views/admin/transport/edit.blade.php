@@ -75,13 +75,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- row to repeat starts -->
+                        <div class="row" id="validityContainer">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">Cost</label>
                                     <div class="col-md-9">
-                                    <input type="number" class="form-control border-primary" placeholder="Cost"
-                                        name="cost" value="{{$transport->cost}}" required>
+                                        <input type="number" class="form-control border-primary" placeholder="Cost" name="cost" required>
                                     </div>
                                 </div>
                             </div>
@@ -89,13 +89,17 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                     <div class="col-md-9">
-                                        <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                        name="validity" value="{{$transport->validity}}" required>
+                                        <input type="date" id="validity1" class="form-control border-primary" placeholder="Validity" name="validity" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
-                         
+                        <div class="col-md-12 text-center" id="validity_button">
+                            <button id="addValidity" class="btn btn-info mx-auto">Add Validity Date</button>
+                        </div>
+                        
+                        
+                        <!-- tow to repeat ends --> 
                     </div>
 	                    <div class="form-actions right">
 	                        <button type="submit" class="btn btn-primary">
@@ -116,6 +120,29 @@
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
+    // ****************** logic for adding validity again and again
+    var addButtonCounter = 0; // Counter for generating unique add button ids
+    var removeButtonCounter = 0; // Counter for generating unique remove button ids
+
+        $("#addValidity").on("click", function(e) {
+        e.preventDefault();
+        addButtonCounter++;
+        var addId = "addValidity" + addButtonCounter;
+
+        var validityRow = $("#validityContainer").clone();
+        validityRow.find("input").val(""); // Clear input values in the cloned row
+        removeButtonCounter++;
+        var removeButtonId = "removeValidity" + removeButtonCounter;
+        validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px">-</button>');
+        $("#validityContainer").after(validityRow);
+    });
+
+    // Use event delegation to handle the remove button click
+    $(document).on("click", ".removeValidity", function() {
+        $(this).closest('.row').remove();
+    });
+        // *************** logic for validity ends
+
     window.setTimeout(function() {
         $(".alert").fadeTo(2000, 0).slideUp(2000, function(){
             $(this).remove(); 
@@ -124,6 +151,7 @@
 </script>
 @if(Session::get('success')) 
 <script>
+    
   $(document).ready(function () 
   {
     toastr.success('<?php echo Session::get('success');?>', 'Fast Lines Says', {timeOut: 2000})
