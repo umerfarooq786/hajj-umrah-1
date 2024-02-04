@@ -53,10 +53,16 @@ class TransportController extends Controller
         $transport->make = $request->make;
         $transport->capacity = $request->capacity;
         $transport->route_id = $request->route_id;
-        $transport->cost = $request->cost;
-        $transport->validity = $request->validity;
+        // $transport->cost = $request->cost;
+        // $transport->validity = $request->validity;
         $transport->save();
 
+        $transport->costs()->create([
+            'item_id' => $transport->id,
+            'item_type' => 'transport', 
+            'cost' => $request->cost,   
+            'validity' => $request->validity
+        ]);
         return redirect()->route('transports.index')->with('success', 'Transport has been added successfully!');
     }
 
@@ -223,4 +229,5 @@ class TransportController extends Controller
             'message' => 'Welldone! Item deleted successfully.'
         ], 200);
     }
+
 }

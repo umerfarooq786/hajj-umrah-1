@@ -18,4 +18,8 @@ class Hotel extends Model
     {
         return $this->hasMany(HotelSpecialOffer::class, 'hotel_id');
     }
+    public function costs()
+    {
+        return $this->morphMany(Cost::class, 'item');
+    }
 }

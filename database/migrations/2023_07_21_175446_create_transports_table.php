@@ -19,8 +19,6 @@ return new class extends Migration
             $table->integer('capacity');
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id')->references('id')->on('routes');
-            $table->integer('cost');
-            $table->date('validity');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@ use App\Http\Controllers\TransportController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\WeekendController;
 use App\Http\Controllers\RouteController;
-
+use App\Http\Controllers\CostController;
 
 
 /*
@@ -56,6 +56,4 @@ Route::get('/about', function(){
     return view("website.about.index");
 });
 
-Route::get('/custom-package', function(){
-    return view("website.custom-package.index");
-});
+Route::get('/custom-package', [CostController::class,'calculate_package']);
