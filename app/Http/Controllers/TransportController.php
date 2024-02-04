@@ -198,6 +198,7 @@ class TransportController extends Controller
         $routes= Route::all();
         $transport_types = TransportType::all();
         
+        
         return view('admin.transport.edit',compact('routes','transport_types','transport','costs'));
     }
 

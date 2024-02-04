@@ -20,7 +20,7 @@ class RouteController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.route.create');
     }
 
     /**
@@ -28,7 +28,16 @@ class RouteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required'
+        ];
+        $route = new Route();
+        
+        $route->name = $request->name;
+
+        $route->save();
+
+        return redirect()->route('routes.index')->with('success', 'Route has been Added successfully!');
     }
 
     /**
@@ -42,9 +51,11 @@ class RouteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $route= Route::findOrFail($id);
+
+        return view('admin.route.edit',compact('route'));
     }
 
     /**
@@ -52,15 +63,26 @@ class RouteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $route= Route::findOrFail($id);
+        
+        $route->name = $request->name;
+
+        $route->save();
+        return redirect()->route('routes.index')->with('success', 'Route has been Updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+       $route = Route::findOrFail($id);
+       $route->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Welldone! Item deleted successfully.'
+        ], 200);
     }
     public function get_routes(Request $request)
     {
