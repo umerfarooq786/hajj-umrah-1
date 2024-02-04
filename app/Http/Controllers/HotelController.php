@@ -12,6 +12,7 @@ use App\Models\HotelSpecialOfferRoom;
 use App\Models\Route;
 use App\Models\Transport;
 use App\Models\HotelRoom;
+use App\Models\CurrencyConversion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -124,7 +125,22 @@ class HotelController extends Controller
         $transport_types = TransportType::all();
         return view('admin.package.index', compact('rooms','routes','transport_types'));
     }
+    public function currency_conversion()
+    {
+        $currency_conversion = CurrencyConversion::findOrFail(1);
+        return view('admin.currency.index',compact('currency_conversion'));
+    }
+    public function update_currency_conversion(Request $request){
+        $currency_conversion = CurrencyConversion::findOrFail(1);
 
+        $currency_conversion->usd = $request->usd;
+        $currency_conversion->sar = $request->sar;
+        $currency_conversion->default_currency = $request->default_currency;
+
+        $currency_conversion->save();
+       
+        return redirect()->route('admin.currency_conversion', compact('currency_conversion'))->with('success', 'Currency has been Updated successfully!');
+    }
     public function calculate_package(Request $request){
         $total=0;
         $total= $total + $request->visa_charges;

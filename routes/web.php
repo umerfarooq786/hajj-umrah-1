@@ -33,13 +33,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('transports', TransportController::class);
     Route::resource('hotels', HotelController::class);
     Route::get('/get_hotels',[HotelController::class, 'get_hotels']);
-    Route::get('/get_hotels',[HotelController::class, 'get_hotels']);
     Route::get('/get_tranports',[TransportController::class, 'get_transports']);
     Route::get('/get_routes',[RouteController::class, 'get_routes']);
     Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index');
     Route::post('/weekends', [WeekendController::class, 'store'])->name('weekends.store');
     Route::get('/custom_package',[HotelController::class, 'custom_package'])->name('admin.custom_package');
     Route::post('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
+    Route::get('/currency_conversion',[HotelController::class, 'currency_conversion'])->name('admin.currency_conversion');
+    Route::post('/update_currency_conversion',[HotelController::class, 'update_currency_conversion'])->name('admin.update_currency_conversion');
 });
 
 
