@@ -13,4 +13,6 @@
   <script src="{{ asset('app-assets/js/scripts/tables/datatables/datatable-basic.js') }}" type="text/javascript"></script>
 
   <script src="{{ asset('app-assets/toastr/toastr.min.js') }}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   @yield('script')

@@ -18,7 +18,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu-modern.css') }}">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <!-- END VENDOR CSS-->
   
   <!-- BEGIN MODERN CSS-->
