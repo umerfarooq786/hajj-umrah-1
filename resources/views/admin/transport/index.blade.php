@@ -98,7 +98,7 @@
                           <th>Capacity</th>
                           <th>Route</th>
                           <th>Cost</th>
-                          <th>Validity</th>
+                          <th>Validity</th><
                           <th>Action</th>
                         </tr>
                       </thead>
