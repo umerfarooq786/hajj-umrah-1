@@ -109,8 +109,7 @@ class TransportController extends Controller
                 $query->orWhere('make', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('capacity', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('route_id', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('cost', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('validity', 'LIKE', "%{$sKeywords}%");
+
             });
         }
 
