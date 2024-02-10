@@ -84,7 +84,7 @@
                                     <label class="col-md-3 label-control">Cost </label>
                                     <div class="col-md-9">
                                         <input type="hidden" name="cost_id[]" value="{{$cost->id}}" />
-                                        <input type="number" class="form-control border-primary" placeholder="Cost" name="cost[]" value="{{$cost->cost}}">
+                                        <input type="number" class="form-control border-primary" placeholder="Cost" name="cost[]" value="{{$cost->cost}}" required>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,8 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                     <div class="col-md-9">
-                                        <input type="date" id="validity{{$cost->id}}" class="form-control border-primary" placeholder="Validity" name="validity[]" value="{{$cost->validity}}">
+                                        <!-- <input type="date" id="validity{{$cost->id}}" class="form-control border-primary" placeholder="Validity" name="validity[]" value="{{$cost->validity}}"> -->
+                                        <input type="text"  id="validity{{$cost->id}}" class="form-control border-primary datepicker" name="validity[]" value="{{$cost->validity}}" placeholder="Validity Date" required>
                                     </div>
                                 </div>
                             </div>   
@@ -122,27 +123,67 @@
 <script src="{{ asset('app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 
+<script>
+    const datepickerElements = document.querySelectorAll('.datepicker');
+    
+    flatpickr(".datepicker", {
+      dateFormat: "Y-m-d",
+      minDate: "today",
+      enableTime: false, 
+      allowInput:true
+    });
+
+    
+</script>
+
+
 <script type="text/javascript">
     // ****************** logic for adding validity again and again
     var addButtonCounter = 0; // Counter for generating unique add button ids
     var removeButtonCounter = 0; // Counter for generating unique remove button ids
 
-        $("#addValidity").on("click", function(e) {
+    $("#addValidity").on("click", function(e) {
         e.preventDefault();
+        $("#validity_button").hide();
         addButtonCounter++;
         var addId = "addValidity" + addButtonCounter;
 
-        var validityRow = $(".validityContainer:first").clone();
+        var validityRow = $(".validityContainer:last").clone();
+        
+        var lastDate = validityRow.find("input[name='validity[]']").val();
+        lastDate = new Date(lastDate);
+        const nextDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
+        
         validityRow.find("input").val(""); // Clear input values in the cloned row
-        removeButtonCounter++;
+        validityRow.find("input[name='validity[]']").attr({
+            id: "newDate",            
+        });
+        
         var removeButtonId = "removeValidity" + removeButtonCounter;
-        validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px">-</button>');
+        const test = validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px">-</button>');
+        
+        // console.log(test);
+        // // Get the last dynamically created date input field
+        // var lastNewDateInput = test.prev().find("input[name='validity[]']").val();
+        // console.log(test.prev());
+        // Calculate the next day of the previous day
+        // var nextDay = new Date(new Date(lastNewDateInput.val()).getTime() + 24 * 60 * 60 * 1000);
+
+
         $(".validityContainer:last").after(validityRow);
+        
+        flatpickr("#newDate", {
+            dateFormat: "Y-m-d",
+            minDate: nextDate,
+            enableTime: false, 
+            allowInput:true
+        });
 
     });
 
     // Use event delegation to handle the remove button click
     $(document).on("click", ".removeValidity", function() {
+        $("#validity_button").show();
         $(this).closest('.row').remove();
     });
         // *************** logic for validity ends
