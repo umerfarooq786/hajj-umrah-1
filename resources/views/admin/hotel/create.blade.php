@@ -3,7 +3,43 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/selectize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/selectize.default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/selectize/selectize.css') }}">
+
     <script src="https://kit.fontawesome.com/d868f4cf6e.js" crossorigin="anonymous"></script>
+    <style>
+    .file-upload input[type='file'] {
+        display: none; /* Hide the file input element */
+    }
+
+    .file-upload {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .remove-icon {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 5px;
+        font-size: 18px;
+        color: #999;
+    }
+
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        background-size: cover;
+        background-position: center;
+        display: inline-block;
+    }
+    </style>
 @endsection
 @section('content')
 <div class="content-header row">
@@ -122,9 +158,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                <label class="col-md-3 label-control">Images Gallery</label>
-                                <div class="col-md-9">
-                                <input type="file" id="imageUpload" name="images[]" multiple>
+                                <label for="imageUpload" class="file-upload">
+                                    Select Images
+                                    <input type="file" id="imageUpload" name="images[]" multiple>
+                                </label>
+                                <div id="imagePreviews"></div>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +194,41 @@
 </script>
 <script src="{{ asset('app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    document.getElementById('imageUpload').addEventListener('change', function() {
+    const imagePreviews = document.getElementById('imagePreviews');
+    imagePreviews.innerHTML = ''; // Clear previous previews
 
+    const files = this.files;
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const imagePreview = document.createElement('div');
+                imagePreview.className = 'image-preview';
+                imagePreview.style.backgroundImage = `url('${event.target.result}')`;
+                
+                const removeIcon = document.createElement('span');
+                removeIcon.className = 'remove-icon';
+                removeIcon.innerHTML = '&times;'; // Cross icon
+                removeIcon.addEventListener('click', function() {
+                    imagePreview.remove(); // Remove the image preview
+                });
+
+                imagePreview.appendChild(removeIcon);
+                imagePreviews.appendChild(imagePreview);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+});
+
+</script>
 <script type="text/javascript">
     window.setTimeout(function() {
         $(".alert").fadeTo(2000, 0).slideUp(2000, function(){
