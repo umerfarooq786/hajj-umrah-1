@@ -58,6 +58,8 @@
             </li>
             <li class="nav-item"><a href="{{ route('admin.currency_conversion') }}"><i class="la la-dollar"></i><span class="menu-title" data-i18n="nav.dash.main">Currency Conversion</span></a>
             </li>
+            <li class="nav-item"><a href="{{ route('admin.visa_charges') }}"><i class="la la-dollar"></i><span class="menu-title" data-i18n="nav.dash.main">Visa Charges</span></a>
+            </li>
             
         </ul>
     </div>

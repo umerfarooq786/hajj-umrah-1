@@ -22,4 +22,8 @@ class Hotel extends Model
     {
         return $this->morphMany(Cost::class, 'item');
     }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

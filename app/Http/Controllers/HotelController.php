@@ -279,7 +279,6 @@ class HotelController extends Controller
                         ->where('hotel_rooms.hotel_id', $hotel->id)
                         ->get();
         $specialOffers = $hotel->specialOffers;
-
         // Retrieve a special offer and its rooms
         // $specialOffer = HotelSpecialOffer::find(6);
 
