@@ -10,6 +10,8 @@ class Hotel extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'excerpt',
+        'description',
         'google_map',
         'city',
         'validity'

@@ -38,10 +38,28 @@
                             </div>
                         	<div class="col-md-6">
                                 <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Excerpt</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control border-primary" placeholder="Excerpt"
+                                        name="excerpt" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Description</label>
+                                    <div class="col-md-9">
+                                        <textarea name="description" class="form-control" rows="5" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        	<div class="col-md-6">
+                                <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Google Map Iframe</label>
                                     <div class="col-md-9">
-                                        <textarea name="google_map" class="form-control" rows="5" required>
-                                        </textarea>
+                                        <textarea name="google_map" class="form-control" rows="5" required></textarea>
                                     </div>
                                 </div>
                             </div>
