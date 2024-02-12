@@ -21,8 +21,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        $hotels = Hotel::all();
-        return view('admin.package.create', compact('hotels'));
+        return view('admin.package.create');
     }
 
     /**
@@ -35,12 +34,22 @@ class PackageController extends Controller
             // Add validation rules for other fields
         ]);
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('app-assets/images/packages'), $imageName);
+
+            // Store the image path or perform any other necessary actions
+        }
+
         $package = new Package();
         $package->name = $request->name;
+        $package->price = $request->price;
+        $package->image = $imageName;
         // Set other fields as needed
         $package->save();
         // Attach selected hotels to the package
-        $package->hotels()->attach($request->input('hotels'));
+        // $package->hotels()->attach($request->input('hotels'));
 
         return redirect()->route('packages.index')->with('success', 'Package created successfully.');
     }
@@ -58,9 +67,8 @@ class PackageController extends Controller
      */
     public function edit(string $id)
     {
-        $package = Package::with('hotels')->findOrFail($id);
-        $hotels = Hotel::all();
-        return view('admin.package.edit', compact('package', 'hotels'));
+        $package = Package::findOrFail($id);
+        return view('admin.package.edit', compact('package'));
     }
 
     /**
@@ -68,14 +76,37 @@ class PackageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:4048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('app-assets/images/packages'), $imageName);
+
+            // Store the image path or perform any other necessary actions
+        }
+
+        $package = Package::findOrFail($id);
+        $package->name = $request->name;
+        $package->price = $request->price;
+        $package->image = $imageName;
+        // Set other fields as needed
+        $package->save();
+        // Attach selected hotels to the package
+        // $package->hotels()->attach($request->input('hotels'));
+
+        return redirect()->route('packages.index')->with('success', 'Package Updated successfully.');
     }
 
     public function get_packages(Request $request)
     {
-        $result = Package::with('hotels')->orderBy('created_at', 'DESC');
+        $result = Package::orderBy('created_at', 'DESC');
         
-        $aColumns = ['id', 'name', 'created_at'];
+        $aColumns = ['id', 'name','price','image', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -144,11 +175,11 @@ class PackageController extends Controller
                              <span></span>
                           </label>";
             $name = $aRow->name;
+            $price = $aRow->price;
+            $imageName = $aRow->image;
+            $imageUrl = asset('app-assets/images/packages/' . $imageName);
+            $image = "<img style='height:60px; width:60px' src='{$imageUrl}'>";
             
-            foreach ($aRow->hotels as $hotel){
-           $hotelName = $aRow->hotels->pluck('name')->implode(', '); ;
-            }
-
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -164,7 +195,8 @@ class PackageController extends Controller
                 "DT_RowId" => "row_{$aRow->id}",
                 @$aRow->id,
                 @$name,
-                @$hotelName,
+                @$price,
+                @$image,
                 @$action
             );
 
@@ -179,7 +211,6 @@ class PackageController extends Controller
     public function destroy(string $id)
     {
         $package = Package::findOrFail($id);
-        $package->hotels()->detach();
        $package->delete();
 
         return response()->json([

@@ -11,8 +11,7 @@ use App\Http\Controllers\VisaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\PackageController;
-
-
+use App\Http\Controllers\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,10 +59,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/update_visa_charges', [VisaController::class, 'update_visa_charges'])->name('admin.update_visa_charges');
 });
 
-
-Route::get('/home_page', function(){
-    return view('website.home.index');    
-});
+Route::get('/home_page',[WebsiteController::class, 'homepage']);
+// Route::get('/home_page', function(){
+//     return view('website.home.index');    
+// });
 
 Route::get('/contact', function(){
     return view("website.contact.index");
