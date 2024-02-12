@@ -81,7 +81,7 @@
                         <div class="row validityContainer" id="" style="position:relative">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control">Cost</label>
+                                    <label class="col-md-3 label-control">Cost </label>
                                     <div class="col-md-9">
                                         <input type="hidden" name="cost_id[]" value="{{$cost->id}}" />
                                         <input type="number" class="form-control border-primary" placeholder="Cost" name="cost[]" value="{{$cost->cost}}" required>

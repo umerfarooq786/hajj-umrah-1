@@ -59,6 +59,8 @@ class HotelController extends Controller
         $hotel = new Hotel();
 
         $hotel->name = $request->name;
+        $hotel->excerpt = $request->excerpt;
+        $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
         $hotel->city = $request->city;
         $hotel->validity = $request->validity;
@@ -279,7 +281,6 @@ class HotelController extends Controller
                         ->where('hotel_rooms.hotel_id', $hotel->id)
                         ->get();
         $specialOffers = $hotel->specialOffers;
-
         // Retrieve a special offer and its rooms
         // $specialOffer = HotelSpecialOffer::find(6);
 
@@ -298,6 +299,8 @@ class HotelController extends Controller
         $hotel = Hotel::findOrFail($id);
 
         $hotel->name = $request->name;
+        $hotel->excerpt = $request->excerpt;
+        $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
         $hotel->city = $request->city;
         $hotel->validity = $request->validity;

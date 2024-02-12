@@ -77,7 +77,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control">Cost</label>
+                                    <label class="col-md-3 label-control">Cost <b>({{$current_currency->default_currency}})</b></label>
                                     <div class="col-md-9">
                                     <input type="number" class="form-control border-primary" placeholder="Cost"
                                         name="cost" required>

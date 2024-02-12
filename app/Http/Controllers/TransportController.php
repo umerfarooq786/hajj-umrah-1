@@ -7,6 +7,7 @@ use App\Models\TransportType;
 use App\Models\Route;
 use App\Models\Transport;
 use App\Models\Cost;
+use App\Models\CurrencyConversion;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -26,9 +27,10 @@ class TransportController extends Controller
      */
     public function create()
     {
+        $current_currency = CurrencyConversion::findOrFail(1);
         $routes= Route::all();
         $transport_types = TransportType::all();
-        return view('admin.transport.create', compact('routes','transport_types'));
+        return view('admin.transport.create', compact('routes','transport_types','current_currency'));
     }
 
     /**
@@ -36,7 +38,7 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $current_currency = CurrencyConversion::findOrFail(1);
         $rules = [
             'transport_type_id' => 'required',
             'make' => 'required|string|max:255',
@@ -64,6 +66,7 @@ class TransportController extends Controller
             'item_type' => 'transports', 
             'cost' => $request->cost,   
             'validity' => $request->validity,
+            'current_currency' =>  $current_currency->default_currency
         ]);
         return redirect()->route('transports.index')->with('success', 'Transport has been added successfully!');
     }
@@ -150,8 +153,8 @@ class TransportController extends Controller
             $make = $aRow->make;
             $capacity = $aRow->capacity;
             $route_id = $aRow->route->name;
-            $cost = $aRow->cost;
-            $validity = $aRow->validity;
+            // $cost = $aRow->cost;
+            // $validity = $aRow->validity;
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -170,8 +173,8 @@ class TransportController extends Controller
                 @$make,
                 @$capacity,
                 @$route_id,
-                @$cost,
-                @$validity,
+                // @$cost,
+                // @$validity,
                 @$action
             );  
 
@@ -192,14 +195,14 @@ class TransportController extends Controller
      */
     public function edit($id)
     {
-
+        
+        $current_currency = CurrencyConversion::findOrFail(1);
         $transport = Transport::findOrFail($id);
         $costs = Cost::where('item_id','=',$transport->id)->get();
         $routes= Route::all();
         $transport_types = TransportType::all();
         
-        
-        return view('admin.transport.edit',compact('routes','transport_types','transport','costs'));
+        return view('admin.transport.edit',compact('routes','transport_types','transport','costs' ,'current_currency'));
     }
 
     /**
@@ -207,6 +210,7 @@ class TransportController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $current_currency = CurrencyConversion::findOrFail(1);
         $transport = Transport::findOrFail($id);
 
         $transport->transport_type_id = $request->transport_type_id;
@@ -224,7 +228,7 @@ class TransportController extends Controller
             $cost->item_type = 'transports';
             $cost->cost = $costData;
             $cost->validity = $request->validity[$key];
-    
+            $cost->current_currency = $current_currency->default_currency;
             // Save the cost instance
             $cost->save();
         }

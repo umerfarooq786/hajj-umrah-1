@@ -6,6 +6,8 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\WeekendController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CostController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\VisaController;
 
 
 /*
@@ -41,6 +43,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
     Route::get('/currency_conversion',[HotelController::class, 'currency_conversion'])->name('admin.currency_conversion');
     Route::post('/update_currency_conversion',[HotelController::class, 'update_currency_conversion'])->name('admin.update_currency_conversion');
+    Route::delete('/images/{id}', [ImageController::class, 'destroy'])->name('admin.delete_image');
+    Route::get('/visa_charges', [VisaController::class, 'visa_charges'])->name('admin.visa_charges');
+    Route::post('/update_visa_charges', [VisaController::class, 'update_visa_charges'])->name('admin.update_visa_charges');
 });
 
 

@@ -38,6 +38,25 @@
                             </div>
                         	<div class="col-md-6">
                                 <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Excerpt</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control border-primary" placeholder="Excerpt"
+                                        name="excerpt" value="{{$hotel->excerpt}}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="userinput2">Description</label>
+                                    <div class="col-md-9">
+                                        <textarea name="description" class="form-control" rows="5" required>{{$hotel->description}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        	<div class="col-md-6">
+                                <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Google Map Iframe</label>
                                     <div class="col-md-9">
                                         <textarea name="google_map" class="form-control" rows="5" required>{{$hotel->google_map}}</textarea>
@@ -108,6 +127,16 @@
                                 <input type="file" id="imageUpload" name="images[]" multiple>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            @if(count($hotel->images) > 0)
+                                @foreach($hotel->images as $image)
+                                    <div class="col-md-4">
+                                        <img src="{{ asset($image->path) }}" alt="{{ $image->name }}" class="img-fluid">
+                                        <a href="#" class="delete-image" data-id="{{ $image->id }}">×</a>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     @if($hotel->specialOffers->count() > 0)
@@ -200,7 +229,35 @@
 </script>
 <script src="{{ asset('app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.delete-image').click(function(e){
+            e.preventDefault();
+            var imageId = $(this).data('id');
+            var imageElement = $(this).closest('.col-md-4');
+            if(confirm("Are you sure you want to delete this image?")) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/images/' + imageId, // Assuming your delete route is /images/{id}
+                    success: function(response) {
+                        // Refresh or update the view as needed
+                        imageElement.remove();
+                        console.log('Image deleted successfully');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     window.setTimeout(function() {
         $(".alert").fadeTo(2000, 0).slideUp(2000, function(){

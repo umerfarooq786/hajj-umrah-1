@@ -10,6 +10,8 @@ class Hotel extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'excerpt',
+        'description',
         'google_map',
         'city',
         'validity'
@@ -21,5 +23,9 @@ class Hotel extends Model
     public function costs()
     {
         return $this->morphMany(Cost::class, 'item');
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }
