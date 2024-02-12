@@ -12,6 +12,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\FrontHotelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,3 +74,6 @@ Route::get('/about', function(){
 });
 
 Route::get('/custom-package', [CostController::class,'calculate_package']);
+
+Route::get('/all-hotels',[FrontHotelController::class, 'index']);
+Route::get('/hotel/{id}',[FrontHotelController::class, 'singleHotel']);

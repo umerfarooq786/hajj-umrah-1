@@ -26,7 +26,7 @@
         <a href="/home_page" class="font-semibold hover:underline text-sm">HOME</a>
         <a href="/about" class="font-semibold hover:underline text-sm">ABOUT</a>
         <a href="/custom-package" class="font-semibold hover:underline text-sm">CALCULATE</a>
-        <a href="#" class="font-semibold hover:underline text-sm">HOTELS</a>
+        <a href="/all-hotels" class="font-semibold hover:underline text-sm">HOTELS</a>
         <a href="/contact" class="font-semibold hover:underline text-sm">CONTACT US</a>
     </div>
 
