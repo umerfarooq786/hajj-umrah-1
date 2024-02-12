@@ -95,8 +95,9 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                     <div class="col-md-9">
-                                        <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                        name="validity" required>
+                                        <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
+                                        name="validity" required> -->
+                                        <input type="text" name="validity" required id="validityDate" class="form-control border-primary" placeholder="Validity Date">
                                     </div>
                                 </div>
                             </div>
@@ -138,6 +139,15 @@
 </script>
 <script src="{{ asset('app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
+
+<script>
+    flatpickr("#validityDate", {
+      dateFormat: "Y-m-d",
+      minDate: "today",
+      enableTime: false, // set to true if you want to enable time selection
+    });
+</script>
+
 
 <script type="text/javascript">
     window.setTimeout(function() {
