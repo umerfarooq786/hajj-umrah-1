@@ -8,6 +8,10 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CostController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\VisaController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\PackageController;
+
 
 
 /*
@@ -29,8 +33,16 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function() {
-    //Route::resource('roles', RoleController::class);
-    //Route::resource('users', UserController::class);
+    
+    Route::resource('users',UserController::class);
+    Route::get('/users',[UserController::class, 'index'])->name('users.index');
+    Route::get('/get_users',[UserController::class, 'get_users']);
+    
+    Route::resource('packages', PackageController::class);
+    Route::get('/get_packages',[PackageController::class, 'get_packages']);
+
+    Route::resource('roles', RoleController::class);
+
     Route::resource('routes', RouteController::class);
     Route::resource('transports', TransportController::class);
     Route::resource('hotels', HotelController::class);
