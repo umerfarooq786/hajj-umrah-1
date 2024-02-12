@@ -76,3 +76,4 @@ Route::get('/about', function(){
 Route::get('/custom-package', [CostController::class,'calculate_package']);
 
 Route::get('/all-hotels',[FrontHotelController::class, 'index']);
+Route::get('/hotel/{id}',[FrontHotelController::class, 'singleHotel']);

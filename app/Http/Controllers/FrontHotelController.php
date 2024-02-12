@@ -10,4 +10,10 @@ class FrontHotelController extends Controller
     {
         return view('website.hotels.index');
     }
+
+    public function singleHotel()
+    {
+        // return 'ali';
+        return view('website.hotelDetail.index');
+    }
 }
