@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="row bg-info">
+                        <div class="row ">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class=" label-control">Images Gallery</label>
@@ -154,7 +154,7 @@
                                         <div class="col-md-9">
                                             <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
                                             name="validity" value="{{$hotel->validity}}" required> -->
-                                            <input type="text"  class="form-control border-primary datepicker" name="validity[]" value="" placeholder="Validity Date" required>
+                                            <input type="text"  class="form-control border-primary datepicker" name="validity" value="{{$hotel->validity}}" placeholder="Validity Date" required>
                                         </div>
                                     </div>
                                 </div>
@@ -257,6 +257,14 @@
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- repititive validity starts -->
+<script>
+    flatpickr(".datepicker", {
+      dateFormat: "Y-m-d",
+      minDate: "today",
+      enableTime: false, 
+      allowInput:true
+    });
+</script>
 <script>
     $("#addValidity").on("click", function(e) {
         e.preventDefault();
