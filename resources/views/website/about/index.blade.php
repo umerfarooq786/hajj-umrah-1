@@ -1,5 +1,8 @@
 @extends('website_layouts.master')
 
+@section('custom_styles')
+    <link rel="stylesheet" href="{{ asset('css/teamSlider.css') }}">
+@endsection
 @section('content')
     <div class="w-[85%] md:w-[75%] mx-auto my-14">
         <!-- about us section -->
@@ -26,7 +29,6 @@
         <!-- Slider2 -->
         <div class="relative mt-10">
             @include('website_layouts.partials._AboutSlider2')
-
         </div>
 
 
