@@ -64,43 +64,12 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach($hotel_rooms as $hotel_room)
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-6 label-control" for="userinput3">Weekdays Price for <b>{{$hotel_room->room_name}} Room</b></label>
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-                                            <input type="hidden" name="room_id[]" value="{{$hotel_room->room_id}}" />
-                                            <input name="weekdays_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekdays_price}}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-6 label-control" for="userinput3">Weekend Price for <b> {{$hotel_room->room_name}} Room</b></label>
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-                                            <input name="weekend_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekend_price}}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">City</label>
                                     <div class="col-md-9">
-                                    <select class="form-control border-primary" name="city" required>  
+                                        <select class="form-control border-primary" name="city" required>  
                                             <option selected disabled="">Select City</option>
                                             <option value="Makkah" {{ $hotel->city == 'Makkah' ? 'selected' : '' }}>Makkah</option>
                                             <option value="Madina" {{ $hotel->city == 'Madina' ? 'selected' : '' }}>Madina</option>
@@ -109,22 +78,29 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <!-- <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput2">Validity</label>
+                                    <label class="col-md-3 label-control">Ali</label>
                                     <div class="col-md-9">
-                                        <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                        name="validity" value="{{$hotel->validity}}" required>
+                                        <select class="form-control border-primary" name="city" required>  
+                                            <option selected disabled="">Select City</option>
+                                            <option value="Makkah" {{ $hotel->city == 'Makkah' ? 'selected' : '' }}>Makkah</option>
+                                            <option value="Madina" {{ $hotel->city == 'Madina' ? 'selected' : '' }}>Madina</option>
+                                            <option value="Jeddah" {{ $hotel->city == 'Jeddah' ? 'selected' : '' }}>Jeddah</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> -->
+                        <div class="row bg-info">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                <label class="col-md-3 label-control">Images Gallery</label>
-                                <div class="col-md-9">
-                                <input type="file" id="imageUpload" name="images[]" multiple>
+                                    <label class=" label-control">Images Gallery</label>
+                                    <div class="col-md-9">
+                                        <input type="file" id="imageUpload" name="images[]" multiple>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -138,9 +114,59 @@
                                 @endforeach
                             @endif
                         </div>
+                        <!-- view for repetitive validity starts -->
+                        <div class="validityContainer "  style="margin-bottom:50px; position:relative">
+                            @foreach($hotel_rooms as $hotel_room)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-6 label-control" for="userinput3">Weekdays Price for <b>{{$hotel_room->room_name}} Room</b></label>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="hidden" name="room_id[]" value="{{$hotel_room->room_id}}" />
+                                                <input name="weekdays_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekdays_price}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-6 label-control" for="userinput3">Weekend Price for <b> {{$hotel_room->room_name}} Room</b></label>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input name="weekend_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekend_price}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            <div class="row">                                                
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="userinput2">Validity</label>
+                                        <div class="col-md-9">
+                                            <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
+                                            name="validity" value="{{$hotel->validity}}" required> -->
+                                            <input type="text"  class="form-control border-primary datepicker" name="validity[]" value="" placeholder="Validity Date" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center" id="validity_button">
+                                <button id="addValidity" class="btn btn-info mx-auto">Add Validity Date</button>
+                            </div>
+                        <!-- view for repetitive validity ends -->
+                        </div>
                     </div>
                     @if($hotel->specialOffers->count() > 0)
-                    <div class="special_offer">
+                    <div class="special_offer ">
 
                         <div class="row justify-content-between align-items-center">
                          <h4 class="border-0 my-2 pl-2"><i  class="la la-briefcase"></i> Special Offer </h4>
@@ -230,6 +256,45 @@
 <script src="{{ asset('app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- repititive validity starts -->
+<script>
+    $("#addValidity").on("click", function(e) {
+        e.preventDefault();
+        $("#validity_button").hide();
+        // addButtonCounter++;
+        // var addId = "addValidity" + addButtonCounter;
+
+        var validityRow = $(".validityContainer:last").clone();
+        
+        // var lastDate = validityRow.find("input[name='validity[]']").val();
+        // lastDate = new Date(lastDate);
+        // const nextDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
+        
+        validityRow.find("input").val(""); // Clear input values in the cloned row
+        // validityRow.find("input[name='validity[]']").attr({
+        //     id: "newDate",            
+        // });
+        var removeButtonCounter = 1;
+        var removeButtonId = "removeValidity" + removeButtonCounter;
+        const test = validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px; top:-50px">-</button>');
+        
+        $(".validityContainer:last").after(validityRow);
+        
+        // flatpickr("#newDate", {
+        //     dateFormat: "Y-m-d",
+        //     minDate: nextDate,
+        //     enableTime: false, 
+        //     allowInput:true
+        // });
+    });
+
+    // Use event delegation to handle the remove button click
+    $(document).on("click", ".removeValidity", function() {
+        $("#validity_button").show();
+        $(this).closest('.validityContainer ').remove();
+    });
+</script>
+<!-- Validity ends -->
 <script>
     $(document).ready(function(){
         $('.delete-image').click(function(e){
