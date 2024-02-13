@@ -34,18 +34,16 @@ class PackageController extends Controller
             // Add validation rules for other fields
         ]);
 
+        $package = new Package();
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('app-assets/images/packages'), $imageName);
-
-            // Store the image path or perform any other necessary actions
+            $package->image = $imageName;
         }
 
-        $package = new Package();
         $package->name = $request->name;
         $package->price = $request->price;
-        $package->image = $imageName;
         // Set other fields as needed
         $package->save();
         // Attach selected hotels to the package
@@ -82,18 +80,18 @@ class PackageController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:4048',
         ]);
 
+        $package = Package::findOrFail($id);
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('app-assets/images/packages'), $imageName);
 
             // Store the image path or perform any other necessary actions
+            $package->image = $imageName;
         }
 
-        $package = Package::findOrFail($id);
         $package->name = $request->name;
         $package->price = $request->price;
-        $package->image = $imageName;
         // Set other fields as needed
         $package->save();
         // Attach selected hotels to the package

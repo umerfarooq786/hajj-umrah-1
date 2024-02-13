@@ -125,7 +125,7 @@ class HotelController extends Controller
         $rooms = Room::all();
         $routes = Route::all();
         $transport_types = TransportType::all();
-        return view('admin.package.index', compact('rooms','routes','transport_types'));
+        return view('admin.package_calculation.index', compact('rooms','routes','transport_types'));
     }
     public function currency_conversion()
     {
