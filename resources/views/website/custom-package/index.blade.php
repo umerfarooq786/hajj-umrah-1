@@ -1,76 +1,110 @@
 @extends('website_layouts.master')
 
+@section('custom_styles')
+    <link rel="stylesheet" href="{{ asset('css/customPackage.css') }}">
+@endsection
+
 @section('content')
 
-<div class="mx-auto min-h-[500px] relative flex flex-col items-center justify-center">
+<div class="mx-auto min-h-[500px] relative flex flex-col items-center justify-center py-20 my-20">
         <video autoplay muted loop class="-z-10 h-full w-full absolute top-0 left-0 object-cover">
             <source src="{{asset('videos/package-bg.mp4')}}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
 
-        <div class="bg-white/80 p-10 pb-16 rounded-xl  lg:w-[60%] max-w-[1000px] ">
+        <div class="bg-white/80 p-10  pb-20 rounded-xl  lg:w-[80%] max-w-[1000px] ">
             <form action="" class="space-y-2" id="custom-package-form">
-                <!-- Hotel -->
+                <!-- Select Stay in Makkah -->
+                <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
                 <div class="flex flex-col md:flex-row stay relative">
-                    <select class="place w-full mr-2 border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Stay</option>
-                        <option value="Makkah">Makkah</option>
-                        <option value="Madinah">Madinah</option>
-                        <option value="Jeddah">Jeddah</option>
+                    <select id="makkah_hotel" class="place w-full  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        <option value="">Select Hotel</option>
+                        <option value="Makkah">hotel1</option>
+                        <option value="Madinah">hotel2</option>
+                        <option value="Jeddah">hotel3</option>
+                    </select>
+
+                    <select id="makkah_hotel_room_type" class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                        <option value="">Select Room Type</option>
+                        <option value="Makkah">hotel1</option>
+                        <option value="Madinah">hotel2</option>
+                        <option value="Jeddah">hotel3</option>
                     </select>
                     
-                    <div class="w-full mr-2 flex items-center relative h-[40px]">
+                    <div class=" flex items-center relative ">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"  ></i>
-                        <input type="text" placeholder="Start Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        <input type="text" id="makkah_hotel_start_date" placeholder="Start Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
 
-                    <div class="w-full mr-2 flex items-center relative h-[40px]">
+                    <div class="flex items-center relative ">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"  ></i>
-                        <input type="text" placeholder="End Date" class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
-                    </div>
-                    
-                    <select class="persons w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Persons</option>
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-                        <option value="three">3</option>
-                    </select>
-                    
-                    <button type="button" class="absolute right-[-25px] top-0" onclick="addNewDiv()"><i class="fa-solid fa-plus text-green-500  "></i></button>
+                        <input type="text" id="makkah_hotel_end_date" placeholder="End Date" class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>                                    
                 </div>
 
-                <!-- Transport -->
+                <!-- Select Stay in Madinah -->
+                <h4 class="font-semibold text-sm pt-3">Select Stay in Madinah</h4>
+                <div class="flex flex-col md:flex-row stay relative">
+                    <select id="madinah_hotel" class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                        <option value="">Select Hotel</option>
+                        <option value="Makkah">hotel1</option>
+                        <option value="Madinah">hotel2</option>
+                        <option value="Jeddah">hotel3</option>
+                    </select>
+
+                    <select id="madinah_hotel_room_type" class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                        <option value="">Select Room Type</option>
+                        <option value="Makkah">hotel1</option>
+                        <option value="Madinah">hotel2</option>
+                        <option value="Jeddah">hotel3</option>
+                    </select>
+                    
+                    <div class=" flex items-center relative h-[40px]">
+                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"  ></i>
+                        <input type="text" id="madinah_hotel_start_date" placeholder="Start Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>
+
+                    <div class=" flex items-center relative h-[40px]">
+                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"  ></i>
+                        <input type="text" id="madinah_hotel_end_date" placeholder="End Date" class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>                                    
+                </div>
+
+                <!-- Transport in Makah -->
+                <h4 class="font-semibold text-sm pt-3">Select Transport </h4>
                 <div class="flex flex-col md:flex-row  relative">
-                    <select class="journey w-full mr-2 border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Journey</option>
+                    <select class="journey  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                        <option value="">Select Route</option>
+                        @foreach($routes as $route)
+                        <option value="{{$route->id}}">{{$route->name}}</option>
+                        @endforeach
+                    </select>
+
+                    <select class="journey  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                        <option value="">Select Vehicle</option>
                         @foreach($routes as $route)
                         <option value="{{$route->id}}">{{$route->name}}</option>
                         @endforeach
                     </select>
                     
-                    <input type="text" placeholder="Vehicle Quantity" class="vehiclequantity w-full mr-2 border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                    
-                    <select class="vehicle w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Vehicle</option>
-                        <option value="1">Bus</option>
-                        <option value="2">Sedan Car</option>
-                        <option value="3">SUV Car</option>
-                        <option value="4">Van</option>
-                    </select>
+                    <div class=" flex items-center relative h-[40px]">
+                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"  ></i>
+                        <input type="text" id="makkah_transport_date" placeholder="Select Date" class=" pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>
                 </div>
 
-                <!-- Operator Company -->
+
+                <!-- Visa -->
+                <h4 class="font-semibold text-sm pt-3">Select Visa</h4>
                 <div class="flex flex-col md:flex-row  relative">
-                    <input type="text" placeholder="Operator Comapny" class="operator_comapny w-full mr-2 border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                     
-                    <select class="residence_country mr-2 w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Residence Country</option>
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-                        <option value="three">3</option>
+                    <select class="residence_country border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                        <option value="">Select Visa Type</option>
+                        <option value="one">Umrah Visa</option>
+                        <option value="two">Hajj Visa</option>                        
                     </select>
                     
-                    <select class="nationality w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                    <select class="nationality border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                         <option value="">Select Nationality</option>
                         <option value="one">1</option>
                         <option value="two">2</option>
@@ -81,7 +115,7 @@
             </form>
         </div>
 
-        <button type="button" class="bg-[#c02428] mt-[-50px] py-2 px-5 rounded-md hover:bg-red-500 text-white" onclick="getFormValues()">Start Umrah Journey</button>
+        <button type="button" class="bg-[#c02428] mt-[-50px] py-2 px-5 rounded-md hover:bg-red-500 text-white" onclick="getFormValues()">Calculate your package</button>
 
 </div>
         <script>
