@@ -288,3 +288,23 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert.min.js') }}" type="text/javascript"></script>
+    <link href="{{asset('app-assets/toastr/toastr.css') }}" rel="stylesheet" />
+    <script type="text/javascript">
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+    @if (Session::get('success'))
+        <script>
+            $(document).ready(function() {
+                toastr.success('<?php echo Session::get('success'); ?>', 'Zindawork Says', {
+                    timeOut: 2000
+                })
+            });
+        </script>
+    @endif
+@endsection

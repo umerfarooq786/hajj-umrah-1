@@ -10,4 +10,8 @@ class WebsiteController extends Controller
         $package = Package::all();
         return view('website.home.index' , compact('package'));
     }
+    
+    public function contact(){
+        return view('website.contact.index');
+    }
 }

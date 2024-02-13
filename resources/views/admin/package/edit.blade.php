@@ -48,7 +48,7 @@
                                             <label class="col-md-3 label-control" for="userinput2">Package Image </label>
                                             <div class="col-md-9">
                                                 <img style='height:60px; width:60px' src="{{ asset('app-assets/images/packages/'. $package->image )}}" alt="">
-                                                <input type="file" id="userinput2" class="form-control border-primary" name="image" required>
+                                                <input type="file" id="userinput2" class="form-control border-primary" name="image">
                                             </div>
                                         </div>
                                     </div>
