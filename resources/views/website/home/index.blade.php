@@ -104,7 +104,7 @@
 
 
     <!-- section 4 -->
-    <div class=" bg-white pb-20 text-center">
+    <!-- <div class=" bg-white pb-20 text-center">
         <h4 class="text-red-500 text-[16px] font-semibold pb-3">UMRAH</h4>
         <h2 class="text-[27px] font-semibold">Umrah and Hajj Package</h2>
 
@@ -256,5 +256,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
