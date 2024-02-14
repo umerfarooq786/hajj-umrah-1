@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class=""><i class="la la-dollar"></i>Default Currency</h4>
+                        {{-- <h4 class=""><i class="la la-dollar"></i>Default Currency</h4>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group row">
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                         <div class="form-actions right">
                             <button type="submit" class="btn btn-primary">
