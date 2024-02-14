@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('currency_conversions', function (Blueprint $table) {
             $table->id();
-            $table->double('usd', 8, 2);
-            $table->double('sar', 8, 2);
-            $table->string('default_currency');
+            $table->double('sar_to_usd', 8, 2);
+            $table->double('sar_to_pkr', 8, 2);
+            $table->string('default_currency')->default('sar');
             $table->timestamps();
         });
     }

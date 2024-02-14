@@ -136,9 +136,9 @@ class HotelController extends Controller
     public function update_currency_conversion(Request $request){
         $currency_conversion = CurrencyConversion::findOrFail(1);
 
-        $currency_conversion->usd = $request->usd;
-        $currency_conversion->sar = $request->sar;
-        $currency_conversion->default_currency = $request->default_currency;
+        $currency_conversion->sar_to_usd = $request->sar_to_usd;
+        $currency_conversion->sar_to_pkr = $request->sar_to_pkr;
+        // $currency_conversion->default_currency = $request->default_currency;
 
         $currency_conversion->save();
        
