@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransportController;
 use App\Http\Controllers\HotelController;
@@ -13,6 +13,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\FrontHotelController;
+use App\Http\Controllers\ContactsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('roles', RoleController::class);
 
+    Route::resource('contacts', ContactsController::class);
+    Route::get('/get_contacts',[ContactsController::class, 'get_contacts']);
+
     Route::resource('routes', RouteController::class);
     Route::resource('transports', TransportController::class);
     Route::resource('hotels', HotelController::class);
@@ -60,14 +64,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/update_visa_charges', [VisaController::class, 'update_visa_charges'])->name('admin.update_visa_charges');
 });
 
-Route::get('/home_page',[WebsiteController::class, 'homepage']);
+Route::get('/home_page',[WebsiteController::class, 'homepage'])->name('home_page');
 // Route::get('/home_page', function(){
 //     return view('website.home.index');    
 // });
+Route::get('/contact',[WebsiteController::class, 'contact']);
 
-Route::get('/contact', function(){
-    return view("website.contact.index");
-});
 
 Route::get('/about', function(){
     return view("website.about.index");
@@ -77,3 +79,7 @@ Route::get('/custom-package', [CostController::class,'calculate_package']);
 
 Route::get('/all-hotels',[FrontHotelController::class, 'index']);
 Route::get('/hotel/{id}',[FrontHotelController::class, 'singleHotel']);
+
+Route::get('/test', function(){
+    return view("admin.package.index");
+});

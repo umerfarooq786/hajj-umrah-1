@@ -1,46 +1,16 @@
 @extends('website_layouts.master')
-
+@section('custom_styles')
+    <link rel="stylesheet" href="{{ asset('css/specialOfferSlider.css') }}">
+@endsection
 @section('content')
     <!-- special offers ssection -->
     <div class="content-header row bg-white">
         <div class="w-[75%] mx-auto flex flex-col items-center justify-center py-20">
             <h4 class="text-red-500 text-[16px] font-semibold">Special Offers</h4>
             <h2 class="text-[27px] font-bold">Hajj and Umrah Special Offer</h2>
-            <div class="flex max-sm:flex-col items-center justify-center  gap-10 mt-8">
-                @foreach($package as $packages)
-                    <div class="specal-offer-box border rounded-md overflow-hidden">
-                        <img src="{{ asset('app-assets/images/packages/'. $packages->image) }}" alt="logo" class="object-cover rounded-md">
-                        <div>
-                            <h4>{{ $packages->name }}</h4>
-                            <div>
-                                <img src="{{ asset('images/home/hotel1.png') }}" alt="">
-                                <div>
-                                    <p class="text-[13px] font-bold">MECCA: <span class="text-[12px]">(QUARD ROOM)</span>
-                                    </p>
-                                    <p class="text-[15px] font-semibold text-[#006FDC]">200 M To Masjidil Haram</p>
-                                </div>
-                            </div>
-                            <div>
-                                <img src="{{ asset('images/home/hotel.png') }}" alt="">
-                                <div>
-                                    <p class="text-[13px] font-bold">MEDINA: <span class="text-[12px]">(QUARD ROOM)</span>
-                                    </p>
-                                    <p class="text-[15px] font-semibold text-[#006FDC]">200 M To Masjidil Haram</p>
-                                </div>
-                            </div>
-                            <p>
-                                <del class="text-gray-400 text-[16px]">{{ $packages->price + 1000}} SAR/Pax</del>
-                                <span class="text-[18px] font-bold text-[#006FDC]">{{ $packages->price }} SAR/Pax</span>
-                            </p>
-                            <a href=""
-                                class="bg-[#e2efff] text-[12px] uppercase py-4 px-6 rounded-full hover:bg-red-500 hover:text-white inline-block mt-3 mb-7">Apply
-                                Now</a>
-                        </div>
-                    </div>
-                @endforeach
-
+            <div class="w-full h-[350px]">
+                @include('website_layouts.partials._SpecialOffersSlider', ['package' => $package])
             </div>
-
         </div>
     </div>
 
@@ -134,7 +104,7 @@
 
 
     <!-- section 4 -->
-    <div class=" bg-white pb-20 text-center">
+    <!-- <div class=" bg-white pb-20 text-center">
         <h4 class="text-red-500 text-[16px] font-semibold pb-3">UMRAH</h4>
         <h2 class="text-[27px] font-semibold">Umrah and Hajj Package</h2>
 
@@ -286,5 +256,25 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+@endsection
+@section('script')
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert.min.js') }}" type="text/javascript"></script>
+    <link href="{{asset('app-assets/toastr/toastr.css') }}" rel="stylesheet" />
+    <script type="text/javascript">
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+    @if (Session::get('success'))
+        <script>
+            $(document).ready(function() {
+                toastr.success('<?php echo Session::get('success'); ?>', 'Zindawork Says', {
+                    timeOut: 2000
+                })
+            });
+        </script>
+    @endif
 @endsection

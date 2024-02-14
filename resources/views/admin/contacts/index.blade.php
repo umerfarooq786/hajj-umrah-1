@@ -1,16 +1,14 @@
 @extends('admin_layouts.master')
 
-
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert.css') }}">
     <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#link_table').DataTable({
                 "aoColumnDefs": [{
                     "bSortable": false,
-                    "aTargets": [0, 2]
+                    "aTargets": [0, 4]
                 }],
                 "bProcessing": true,
                 "bServerSide": true,
@@ -18,7 +16,7 @@
                     [0, "desc"]
                 ],
                 "sPaginationType": "full_numbers",
-                "sAjaxSource": "{{ url('/get_packages') }}",
+                "sAjaxSource": "{{ url('get_contacts') }}",
                 "aLengthMenu": [
                     [10, 50, 100, 500],
                     [10, 50, 100, 500]
@@ -26,10 +24,10 @@
             });
         });
 
-        function deletePackage(id) {
+        function deleteContacts(id) {
             swal({
                     title: "Are you sure？",
-                    text: "Do you want to delete this Package",
+                    text: "Do you want to delete this contcat",
                     icon: "warning",
                     buttons: {
                         cancel: {
@@ -57,12 +55,12 @@
                         });
                         $.ajax({
                             method: "DELETE",
-                            url: '{{ route('packages.destroy', ['package' => ':id']) }}'.replace(':id', id),
+                            url: '{{ route('contacts.destroy', ['contact' => ':id']) }}'.replace(':id', id),
                             success: function(result) {
-                                console.log(result)
+                                swal(result);
                                 if (result.status == "success") {
                                     $("#row_" + id).hide();
-                                    swal("Success！", "Package has been deleted", "success");
+                                    swal("Success！", "Contact has been deleted", "success");
                                 }
                             }
                         })
@@ -77,13 +75,13 @@
 @endsection
 @section('content')
     <div class="content-body">
+
         <section id="configuration">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <i class="la la-cars"></i>
-                            <h4 class="card-title">Route</h4>
+                            <h4 class="card-title">Users</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -101,10 +99,11 @@
                                     id="link_table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th style="width:110px">Name</th>
-                                            <th style="width:70px">Price</th>
-                                            <th style="width:110px">Image</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th style="width:50px">Email Address</th>
+                                            <th>Subject</th>
+                                            <th>Comments</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -139,43 +138,4 @@
             });
         </script>
     @endif
-@endsection
-
-
-@section('script')
-    <script type="text/javascript">
-        window.setTimeout(function() {
-            $(".alert").fadeTo(2000, 0).slideUp(2000, function() {
-                $(this).remove();
-            });
-        }, 2000);
-        $('.specialOffer').on('click', () => {
-            $('.special_offer_parent').append(add_special_offer);
-            if ($(".special_offer").length == 3) {
-                $('.specialOffer').fadeOut(1)
-            }
-        });
-
-        function remove_special_offer(e) {
-            if ($(".special_offer").length == 3) {
-                $('.specialOffer').fadeIn(1)
-            }
-            let targetvalue = e.target;
-            $(targetvalue).parent().parent().remove();
-        }
-        $('.transportBtn').on('click', () => {
-            $('.transport_parent').append(add_transport);
-            if ($(".new_transport").length == 3) {
-                $('.transportBtn').fadeOut(1)
-            }
-        });
-
-        function remove_transport(e) {
-            if ($(".new_transport").length == 3) {
-                $('.transportBtn').fadeIn(1)
-            }
-            let targetvalue = e.target;
-            $(targetvalue).parent().parent().remove();
-        }
-    </script>
 @endsection

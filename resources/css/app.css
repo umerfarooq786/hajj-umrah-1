@@ -11,7 +11,7 @@
 
 /* home page styling */
 .specal-offer-box {
-    @apply w-[350px];
+    @apply w-[350px] h-[400px];
 }
 
 .specal-offer-box h4 {
@@ -142,3 +142,5 @@ swiper-slide:hover > div {
     color: #fff; /* Set text color to ensure readability */
     border: 1px solid #2980b9; /* Add border for better separation */
 }
+
+/* styling scrollbar */
