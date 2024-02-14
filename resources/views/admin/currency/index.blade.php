@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control">SAR TO USD</label>
+                                    <label class="col-md-3 label-control">USD Rate</label>
                                     <div class="col-md-9">
                                     <input type="number" id="userinput1" class="form-control border-primary" placeholder="Dollar"
                                         name="sar_to_usd" value="{{$currency_conversion->sar_to_usd}}" required>
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput2">SAR TO PKR </label>
+                                    <label class="col-md-3 label-control" for="userinput2">SAR Rate</label>
                                     <div class="col-md-9">
                                         <input type="number" id="userinput1" class="form-control border-primary" placeholder="SAR"
                                         name="sar_to_pkr" value="{{$currency_conversion->sar_to_pkr}}" required>
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <h4 class=""><i class="la la-dollar"></i>Default Currency</h4>
+                        <h4 class=""><i class="la la-dollar"></i>Default Currency</h4>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group row">
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                         <div class="form-actions right">
                             <button type="submit" class="btn btn-primary">
