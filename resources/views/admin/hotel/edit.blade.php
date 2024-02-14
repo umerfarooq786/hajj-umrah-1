@@ -79,21 +79,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-3 label-control">Ali</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control border-primary" name="city" required>  
-                                            <option selected disabled="">Select City</option>
-                                            <option value="Makkah" {{ $hotel->city == 'Makkah' ? 'selected' : '' }}>Makkah</option>
-                                            <option value="Madina" {{ $hotel->city == 'Madina' ? 'selected' : '' }}>Madina</option>
-                                            <option value="Jeddah" {{ $hotel->city == 'Jeddah' ? 'selected' : '' }}>Jeddah</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                        
                         <div class="row ">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -152,9 +138,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                         <div class="col-md-9">
-                                            <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                            name="validity" value="{{$hotel->validity}}" required> -->
-                                            <input type="text"  class="form-control border-primary datepicker" name="validity" value="{{$hotel->validity}}" placeholder="Validity Date" required>
+                                            <input type="text"  class="form-control border-primary datepicker" name="validity[]" value="{{$hotel_room->validity}}" placeholder="Validity Date" required>
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +251,7 @@
 </script>
 <script>
     $("#addValidity").on("click", function(e) {
-        e.preventDefault();
+        e.preventDefault(); 
         $("#validity_button").hide();
         // addButtonCounter++;
         // var addId = "addValidity" + addButtonCounter;
@@ -287,13 +271,6 @@
         const test = validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px; top:-50px">-</button>');
         
         $(".validityContainer:last").after(validityRow);
-        
-        // flatpickr("#newDate", {
-        //     dateFormat: "Y-m-d",
-        //     minDate: nextDate,
-        //     enableTime: false, 
-        //     allowInput:true
-        // });
     });
 
     // Use event delegation to handle the remove button click

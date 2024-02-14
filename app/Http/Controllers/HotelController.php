@@ -41,6 +41,7 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
+        $current_currency = CurrencyConversion::first();
         $rules = [
             'name' => 'required',
             'google_map' => 'required',
@@ -63,7 +64,6 @@ class HotelController extends Controller
         $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
         $hotel->city = $request->city;
-        $hotel->validity = $request->validity;
         
         $hotel->save();
 
@@ -93,7 +93,9 @@ class HotelController extends Controller
                 'hotel_id' => $hotel->id,
                 'room_id' => $roomIds[$i], 
                 'weekdays_price' => $weekdaysPrices[$i],
-                'weekend_price' => $weekendPrices[$i]
+                'weekend_price' => $weekendPrices[$i],
+                'validity' => $request->validity,
+                'current_currency' => $current_currency->default_currency
             ]);
         }
         
@@ -129,8 +131,7 @@ class HotelController extends Controller
     }
     public function currency_conversion()
     {
-        // return "ali ahmed";
-        $currency_conversion = CurrencyConversion::findOrFail(1);
+        $currency_conversion = CurrencyConversion::first();
         return view('admin.currency.index',compact('currency_conversion'));
     }
     public function update_currency_conversion(Request $request){
@@ -160,7 +161,7 @@ class HotelController extends Controller
     {
         $result = Hotel::orderBy('created_at', 'DESC');
 
-        $aColumns = ['id','name','google_map','city', 'validity','created_at'];
+        $aColumns = ['id','name','google_map','city', 'excerpt','created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -235,7 +236,7 @@ class HotelController extends Controller
             $hotel_id = $aRow->id;
             $name = $aRow->name;
             $city = $aRow->city;
-            $validity = $aRow->validity;
+            $excerpt =  $aRow->excerpt;
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -252,7 +253,7 @@ class HotelController extends Controller
                 @$aRow->id,
                 @$name,
                 @$city,
-                @$validity,
+                @$excerpt,
                 @$action
             );  
 
@@ -281,11 +282,6 @@ class HotelController extends Controller
                         ->where('hotel_rooms.hotel_id', $hotel->id)
                         ->get();
         $specialOffers = $hotel->specialOffers;
-        // Retrieve a special offer and its rooms
-        // $specialOffer = HotelSpecialOffer::find(6);
-
-        // $rooms = $specialOffer->rooms;
-        // return $rooms;
         $room_category = ["Single","Double","Triple","Quad"];
         $room_count=0;
         return view('admin.hotel.edit',compact('hotel','hotel_rooms','room_category','room_count'));
@@ -296,6 +292,9 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        return $request;
+        $currency_conversion = CurrencyConversion::first();
+
         $hotel = Hotel::findOrFail($id);
 
         $hotel->name = $request->name;
@@ -303,7 +302,6 @@ class HotelController extends Controller
         $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
         $hotel->city = $request->city;
-        $hotel->validity = $request->validity;
         
         $hotel->save();
 
@@ -311,14 +309,19 @@ class HotelController extends Controller
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price; 
 
-        for ($i = 0; $i < count($roomIds); $i++) {
-            HotelRoom::where('hotel_id', $hotel->id)
-                ->where('room_id', $roomIds[$i])
-                ->update([
-                    'weekdays_price' => $weekdaysPrices[$i],
-                    'weekend_price' => $weekendPrices[$i]
-                ]);
+        for ($i=0; $i<count($request->validity); $i++){
+            for ($j = 0; $j < count($roomIds); $j++) {
+                HotelRoom::where('hotel_id', $hotel->id)
+                    ->where('room_id', $roomIds[$j])
+                    ->update([
+                        'weekdays_price' => $weekdaysPrices[$j],
+                        'weekend_price' => $weekendPrices[$j],
+                        'validity' => $request->validity[$i],
+                        'current_currency' => $currency_conversion->default_currency
+                    ]);
+            }
         }
+        
         
         if(isset($request->offer_id) && count($request->offer_id) > 0){
             foreach ($request->offer_id as $key => $val) {

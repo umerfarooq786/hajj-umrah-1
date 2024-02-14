@@ -3,7 +3,6 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class="nav-item"><a href=""><i class="la la-user"></i><span class="menu-title" data-i18n="nav.dash.main">Users</span></a>
                 <ul class="menu-content">
-                    
                     @can('user-create')
                     <li class="">
                         <a class="menu-item" href="{{ route('users.create') }}" data-i18n="nav.dash.ecommerce">Add User</a>
@@ -91,6 +90,9 @@
             <li class="nav-item"><a href="{{ route('admin.currency_conversion') }}"><i class="la la-dollar"></i><span class="menu-title" data-i18n="nav.dash.main">Currency Conversion</span></a>
             </li>
             @endcan
+            <li class="nav-item"><a href="{{ route('admin.visa_charges') }}"><i class="la la-dollar"></i><span class="menu-title" data-i18n="nav.dash.main">Visa Charges</span></a>
+            </li>
+            
             
         </ul>
     </div>
