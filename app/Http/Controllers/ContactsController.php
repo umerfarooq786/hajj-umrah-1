@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Contacts;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactUsMail;
 class ContactsController extends Controller
 {
     /**
@@ -138,10 +140,16 @@ class ContactsController extends Controller
         $contact->subject = $request->subject;
         $contact->comments = $request->comments;
         $contact->save();
+        $toEmail = 'mudasirasfi420@gmail.com'; // Specify the recipient email address
+        $formData = $request->all(); // Assuming $formData contains the form data
+        $mail = new ContactUsMail($formData);
+        $mail->from('example@gmail.com', 'Hajj & Ummrah');
+        Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+        // Mail::to($toEmail)->send(new ContactUsMail($formData));
+        return redirect()->route('home_page')->with('success', 'contact info sent successfully.');
+    }
 
-        return redirect()->route('home_page')->with('success', 'contact info sent successfully.');    }
 
-    
     /**
      * Remove the specified resource from storage.
      */

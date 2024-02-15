@@ -182,7 +182,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input name="rooms_price[{{ $room->id }}]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$room->price}}" />
+                                            <input type="hidden" name="rooms_id[]" value="{{$room->id}}">
+                                            <input name="rooms_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$room->price}}" />
                                         </div>
                                     </div>
                                 </div>

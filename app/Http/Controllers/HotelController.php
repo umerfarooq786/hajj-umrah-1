@@ -292,7 +292,8 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+    
+      
         $currency_conversion = CurrencyConversion::first();
 
         $hotel = Hotel::findOrFail($id);
@@ -321,30 +322,68 @@ class HotelController extends Controller
                     ]);
             }
         }
-        
-        
+         
         if(isset($request->offer_id) && count($request->offer_id) > 0){
             foreach ($request->offer_id as $key => $val) {
-                $specialOffer = HotelSpecialOffer::findOrFail($val);
-
+    
                 if($val!=0){
-
+                    $specialOffer = HotelSpecialOffer::findOrFail($val);
                     $specialOffer->update([
+
                         'package_name' => $request->offer_name[$key],
                         'start_date' => $request->offer_start_date[$key],
                         'end_date' => $request->offer_end_date[$key],
-                    ]);
+                    ]);   
+                    //$room = HotelSpecialOfferRoom::where('package_id ', $specialOffer->id);
                     
-                    //foreach ($request->rooms_price as $roomData => $value ) {
-                        
-                        // $hotel_special_offer_room = HotelSpecialOfferRoom::findOrFail($request->rooms_price);
-                        // echo $hotel_special_offer_room;
-                        // $room->update([
-                        //     'price' => $roomData['price'],
-                        //     // Any other fields you need to update in the room
-                        // ]);
+                    // for($i=0; $i<count($room); $i++){
+                    //     HotelSpecialOfferRoom::where('package_id')
+                    //                 ->where('room_id', $rooms_price[$i])
+                    //                 ->update([
+                    //                     'price' => $weekdaysPrices[$j],
+                    //                     'weekend_price' => $weekendPrices[$j],
+                    //                     'validity' => $request->validity[$i],
+                    //                     'current_currency' => $currency_conversion->default_currency
+                    //                 ]);
+                    // }
+
+                    // Get all existing room prices associated with the special offer
+                    // $existingRoomPrices = $specialOffer->rooms()->pluck('price', 'room_id')->toArray();
+
+                    // // Update room prices based on the request data
+                    // foreach ($request->rooms_price as $index => $price) {
+                    //     $roomId = $index + 1; // Assuming room IDs start from 1
+
+                    //     if (array_key_exists($roomId, $existingRoomPrices)) {
+                    //         // Update existing room price
+                    //         $room = $specialOffer->rooms()->where('room_id', $roomId)->first();
+                    //         $room->update(['price' => $price]);
+                    //     }
+                    // }
+                }
+                else{
+                    $specialOffer =  new HotelSpecialOffer();
+
+                    $specialOffer->hotel_id = $id;
+                    $specialOffer->package_name = $request->offer_name[$key];
+                    $specialOffer->start_date = $request->offer_start_date[$key];
+                    $specialOffer->end_date =  $request->offer_end_date[$key];
                     
-               }
+                    $specialOffer->save();
+
+                    if(count($request->rooms) > 0) {
+
+                        foreach ($request->rooms as $roomId => $prices) {
+                            foreach ($prices as $price) {
+                                HotelSpecialOfferRoom::create([
+                                    'room_id' => $roomId,
+                                    'price' => $price,
+                                    'package_id' => $specialOffer->id, 
+                                ]);
+                            }
+                        }
+                    }
+                }
             }
         }
         return redirect()->route('hotels.index')->with('success', 'Hotel has been Updated successfully!');
