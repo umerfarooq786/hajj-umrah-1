@@ -82,8 +82,8 @@
                     @endcan
                 </ul>
             </li>
-            <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-hotel"></i><span class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>
-            </li>
+            <!-- <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-hotel"></i><span class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>
+            </li> -->
            
             <li class="nav-item"><a href="{{ route('admin.visa_charges') }}"><i class="la la-hotel"></i><span class="menu-title" data-i18n="nav.dash.main">Visa Charges</span></a>
             </li>
