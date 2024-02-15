@@ -45,7 +45,7 @@
                             </div>
                             <div class="heading-elements">
                                 <div class="pull-right">
-                                    @can('role-create')
+                                    @can('roles-create')
                                         <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
                                     @endcan
                                 </div>
@@ -71,11 +71,11 @@
                                                 <td>
                                                     <a class="btn btn-info"
                                                         href="{{ route('roles.show', $role->id) }}">Show</a>
-                                                    @can('role-edit')
+                                                    @can('roles-edit')
                                                         <a class="btn btn-primary"
                                                             href="{{ route('roles.edit', $role->id) }}">Edit</a>
                                                     @endcan
-                                                    @can('role-delete')
+                                                    @can('roles-delete')
                                                         <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
                                                             style="display:inline">
                                                             @csrf

@@ -14,6 +14,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\FrontHotelController;
 use App\Http\Controllers\ContactsController;
+use App\Http\Middleware\CheckPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function() {
-    
     Route::resource('users',UserController::class);
     Route::get('/users',[UserController::class, 'index'])->name('users.index');
     Route::get('/get_users',[UserController::class, 'get_users']);
