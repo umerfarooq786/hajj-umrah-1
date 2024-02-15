@@ -1,10 +1,34 @@
 <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+<<<<<<< HEAD
             @if (auth()->user()->can('users-list') || auth()->user()->can('users-create') || auth()->user()->can('roles-list'))
                 <li class="nav-item"><a href=""><i class="la la-user"></i><span class="menu-title"
                             data-i18n="nav.dash.main">Users</span></a>
                     <ul class="menu-content">
+=======
+            <li class="nav-item"><a href=""><i class="la la-user"></i><span class="menu-title" data-i18n="nav.dash.main">Users</span></a>
+                <ul class="menu-content">
+                    @can('user-create')
+                    <li class="">
+                        <a class="menu-item" href="{{ route('users.create') }}" data-i18n="nav.dash.ecommerce">Add User</a>
+                    </li>
+                    @endcan
+                    @can('user-list')
+                    <li class="">
+                        <a class="menu-item" href="{{ route('users.index') }}" data-i18n="nav.dash.ecommerce">View Users</a>
+                    </li>
+                    @endcan
+                    @can('role-list')
+                    <li class="">
+                        <a class="menu-item" href="{{ route('roles.index') }}" data-i18n="nav.dash.ecommerce">Role Management</a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class="nav-item"><a href="{{ request()->routeIs('routes.index') ? 'active' : '' }}"><i class="la la-car"></i><span class="menu-title" data-i18n="nav.dash.main">Routes</span></a>
+                <ul class="menu-content">
+>>>>>>> c95b705b6eb2a96ddf50faaef153c62235e84dbb
 
                         @can('users-create')
                             <li class="">
@@ -126,6 +150,7 @@
                         class="menu-title" data-i18n="nav.dash.main">Visa Charges</span></a>
             </li>
             @endcan
+<<<<<<< HEAD
             @can('packages-calculation')
                 <li class="nav-item"><a href="{{ route('admin.custom_package') }}"><i class="la la-hotel"></i><span
                             class="menu-title" data-i18n="nav.dash.main">Package Calculation</span></a>
@@ -137,6 +162,12 @@
                 </li>
             @endcan
 
+=======
+            <li class="nav-item"><a href="{{ route('admin.visa_charges') }}"><i class="la la-dollar"></i><span class="menu-title" data-i18n="nav.dash.main">Visa Charges</span></a>
+            </li>
+            
+            
+>>>>>>> c95b705b6eb2a96ddf50faaef153c62235e84dbb
         </ul>
     </div>
 </div>

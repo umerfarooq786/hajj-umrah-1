@@ -143,7 +143,7 @@
     var removeButtonCounter = 0; // Counter for generating unique remove button ids
 
     $("#addValidity").on("click", function(e) {
-        e.preventDefault();
+        e.preventDefault(); 
         $("#validity_button").hide();
         addButtonCounter++;
         var addId = "addValidity" + addButtonCounter;

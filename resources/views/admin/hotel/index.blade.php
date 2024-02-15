@@ -95,7 +95,7 @@
                           <th>ID</th>
                           <th>Name</th>
                           <th>City</th>
-                          <th>Validity</th>
+                          <th>Title</th>
                           <th>Action</th>
                         </tr>
                       </thead>

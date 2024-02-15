@@ -37,7 +37,7 @@
                            Name
                            <span class="float-right"><i class="fa fa-info-circle"></i> </span></label>
                         <input id="usernameemail" type="text" data-placement="top" data-toggle="tooltip"
-                           name="name" class="form-control p-2" placeholder="Enter Name">
+                           name="first_name" class="form-control p-2" placeholder="Enter Name">
                      </div>
                      <div class="form-group">
                         <label for="usernameemail" style="font-size: 13px;font-weight: 500" class="w-100">
