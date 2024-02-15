@@ -292,8 +292,6 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
-      
         $currency_conversion = CurrencyConversion::first();
 
         $hotel = Hotel::findOrFail($id);
@@ -334,32 +332,14 @@ class HotelController extends Controller
                         'start_date' => $request->offer_start_date[$key],
                         'end_date' => $request->offer_end_date[$key],
                     ]);   
-                    //$room = HotelSpecialOfferRoom::where('package_id ', $specialOffer->id);
                     
-                    // for($i=0; $i<count($room); $i++){
-                    //     HotelSpecialOfferRoom::where('package_id')
-                    //                 ->where('room_id', $rooms_price[$i])
-                    //                 ->update([
-                    //                     'price' => $weekdaysPrices[$j],
-                    //                     'weekend_price' => $weekendPrices[$j],
-                    //                     'validity' => $request->validity[$i],
-                    //                     'current_currency' => $currency_conversion->default_currency
-                    //                 ]);
-                    // }
-
-                    // Get all existing room prices associated with the special offer
-                    // $existingRoomPrices = $specialOffer->rooms()->pluck('price', 'room_id')->toArray();
-
-                    // // Update room prices based on the request data
-                    // foreach ($request->rooms_price as $index => $price) {
-                    //     $roomId = $index + 1; // Assuming room IDs start from 1
-
-                    //     if (array_key_exists($roomId, $existingRoomPrices)) {
-                    //         // Update existing room price
-                    //         $room = $specialOffer->rooms()->where('room_id', $roomId)->first();
-                    //         $room->update(['price' => $price]);
-                    //     }
-                    // }
+                    for ($i=0; $i<count($request->rooms_price);  $i++) {
+                        HotelSpecialOfferRoom::where('package_id', $specialOffer->id)
+                        ->where('id', $request->rooms_id[$i])
+                        ->update([
+                            'price' => $request->rooms_price[$i]
+                        ]);
+                    }
                 }
                 else{
                     $specialOffer =  new HotelSpecialOffer();
@@ -373,14 +353,14 @@ class HotelController extends Controller
 
                     if(count($request->rooms) > 0) {
 
-                        foreach ($request->rooms as $roomId => $prices) {
-                            foreach ($prices as $price) {
-                                HotelSpecialOfferRoom::create([
-                                    'room_id' => $roomId,
-                                    'price' => $price,
-                                    'package_id' => $specialOffer->id, 
-                                ]);
-                            }
+                        for($i=0; $i<count($request->rooms); $i++) {
+                            
+                            HotelSpecialOfferRoom::create([
+                                'room_id' => $request->hotel_room_id[$i],
+                                'price' => $request->rooms[$i],
+                                'package_id' => $specialOffer->id, 
+                            ]);
+                            
                         }
                     }
                 }

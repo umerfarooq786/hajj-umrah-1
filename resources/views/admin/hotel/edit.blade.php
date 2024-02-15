@@ -360,8 +360,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                        
-                                            <input name="rooms[{{ $hotel_room->room_id }}][]" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
+                                            <input type="hidden" name="hotel_room_id[]"  value="{{ $hotel_room->room_id }}">
+                                            <input name="rooms[]" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
                                         </div>
                                     </div>
                                 </div>
