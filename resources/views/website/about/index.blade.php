@@ -61,47 +61,7 @@
 
 
 
-        <!-- Testimonial section -->
-        <div class="space-y-3 mt-10">
-            <h4 class="text-sm text-red-500 text-center font-semibold">TESTIMONOAL</h4>
-            <h2 class="text-center text-[#1f1f1f] font-semibold text-2xl">What did they say?</h2>            
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 pb-10">
-            <div class="border border-gray-200 rounded-[5px] h-[400px] flex flex-col items-center justify-center p-[10px] text-center">
-                <p class="text-gray-500 text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-                <div class="flex mt-10 space-x-3">
-                    <img src="{{asset('images/about/team1.jpg')}}" alt="" class="h-[60px] w-[60px] rounded-full object-cover object-top">
-                    <div class="pt-1 text-start">
-                        <h4 class="text-red-500 font-semibold">Ali Hassan</h4>
-                        <p class="text-[12px]">CEO</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border border-gray-200 rounded-[5px] h-[400px] flex flex-col items-center justify-center p-[10px] text-center">
-                <p class="text-gray-500 text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-                <div class="flex mt-10 space-x-3">
-                    <img src="{{asset('images/about/team1.jpg')}}" alt="" class="h-[60px] w-[60px] rounded-full object-cover object-top">
-                    <div class="pt-1 text-start">
-                        <h4 class="text-red-500 font-semibold">Ali Hassan</h4>
-                        <p class="text-[12px]">CEO</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border border-gray-200 rounded-[5px] h-[400px] flex flex-col items-center justify-center p-[10px] text-center">
-                <p class="text-gray-500 text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-                <div class="flex mt-10 space-x-3">
-                    <img src="{{asset('images/about/team1.jpg')}}" alt="" class="h-[60px] w-[60px] rounded-full object-cover object-top">
-                    <div class="pt-1 text-start">
-                        <h4 class="text-red-500 font-semibold">Ali Hassan</h4>
-                        <p class="text-[12px]">CEO</p>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+       
 
 
 
