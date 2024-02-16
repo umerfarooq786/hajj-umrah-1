@@ -68,7 +68,7 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
-        'checkPermission' => \App\Http\Middleware\CheckPermission::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class, // This is for the 'can' middleware alias
+        'check.permission' => \App\Http\Middleware\CheckPermission::class,
+
     ];
 }
