@@ -292,7 +292,6 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
         $currency_conversion = CurrencyConversion::first();
 
         $hotel = Hotel::findOrFail($id);
@@ -321,30 +320,50 @@ class HotelController extends Controller
                     ]);
             }
         }
-        
-        
+         
         if(isset($request->offer_id) && count($request->offer_id) > 0){
             foreach ($request->offer_id as $key => $val) {
-                $specialOffer = HotelSpecialOffer::findOrFail($val);
-
+    
                 if($val!=0){
-
+                    $specialOffer = HotelSpecialOffer::findOrFail($val);
                     $specialOffer->update([
+
                         'package_name' => $request->offer_name[$key],
                         'start_date' => $request->offer_start_date[$key],
                         'end_date' => $request->offer_end_date[$key],
-                    ]);
+                    ]);   
                     
-                    //foreach ($request->rooms_price as $roomData => $value ) {
-                        
-                        // $hotel_special_offer_room = HotelSpecialOfferRoom::findOrFail($request->rooms_price);
-                        // echo $hotel_special_offer_room;
-                        // $room->update([
-                        //     'price' => $roomData['price'],
-                        //     // Any other fields you need to update in the room
-                        // ]);
+                    for ($i=0; $i<count($request->rooms_price);  $i++) {
+                        HotelSpecialOfferRoom::where('package_id', $specialOffer->id)
+                        ->where('id', $request->rooms_id[$i])
+                        ->update([
+                            'price' => $request->rooms_price[$i]
+                        ]);
+                    }
+                }
+                else{
+                    $specialOffer =  new HotelSpecialOffer();
+
+                    $specialOffer->hotel_id = $id;
+                    $specialOffer->package_name = $request->offer_name[$key];
+                    $specialOffer->start_date = $request->offer_start_date[$key];
+                    $specialOffer->end_date =  $request->offer_end_date[$key];
                     
-               }
+                    $specialOffer->save();
+
+                    if(count($request->rooms) > 0) {
+
+                        for($i=0; $i<count($request->rooms); $i++) {
+                            
+                            HotelSpecialOfferRoom::create([
+                                'room_id' => $request->hotel_room_id[$i],
+                                'price' => $request->rooms[$i],
+                                'package_id' => $specialOffer->id, 
+                            ]);
+                            
+                        }
+                    }
+                }
             }
         }
         return redirect()->route('hotels.index')->with('success', 'Hotel has been Updated successfully!');
