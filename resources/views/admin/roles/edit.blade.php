@@ -41,8 +41,9 @@
                         @endif
 
                         <div class="card-body">
-                            <form class="form form-horizontal" method="PATCH"
-                                action="{{ route('roles.update', $role->id) }}" enctype="multipart/form-data">
+                            <form class="form form-horizontal" method="POST"
+                                action="{{ route('roles.update', $role->id) }}">
+                                @method('PUT')
                                 @csrf
                                 <div class="form-body">
                                     <h4 class="form-section"><i class="la la la-car"></i>Edit Role</h4>

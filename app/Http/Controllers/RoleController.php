@@ -59,7 +59,7 @@ class RoleController extends Controller
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
-
+        ddd($request->input('permission'));
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
@@ -119,8 +119,7 @@ class RoleController extends Controller
 
 
         // Update the role's permissions
-        $permissions = $request->input('permission', []);
-        $role->syncPermissions($permissions);
+        $role->syncPermissions($request->input('permission'));
 
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');
