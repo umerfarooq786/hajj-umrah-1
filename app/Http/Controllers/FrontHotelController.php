@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Hotel;
 
 class FrontHotelController extends Controller
 {
-    public function index()
+    public function index($city)
     {
-        return view('website.hotels.index');
+        $hotels = Hotel::where('city', $city)->paginate(10);        
+        return view('website.hotels.index', ['hotels' => $hotels]);
     }
 
     public function singleHotel()
