@@ -25,8 +25,15 @@
     <div class="bg-first text-white w-full h-[70px] hidden md:flex items-center justify-center gap-10 ">
         <a href="/home_page" class="font-semibold hover:underline text-sm">HOME</a>
         <a href="/about" class="font-semibold hover:underline text-sm">ABOUT</a>
-        <a href="/custom-package" class="font-semibold hover:underline text-sm">CALCULATE</a>
-        <a href="/all-hotels" class="font-semibold hover:underline text-sm">HOTELS</a>
+        <a href="/custom-package" class="font-semibold hover:underline text-sm">CALCULATE</a>    
+        <div href="#" class="relative font-semibold text-sm py-5 cursor-pointer group">
+            HOTELS
+            <div class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
+                <a href="/hotel-city/makkah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In Makkah</a>
+                <a href="/hotel-city/madinah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In Madinah</a>
+                <a href="/hotel-city/jeddah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In Jeddah</a>
+            </div>
+        </div>                    
         <a href="/contact" class="font-semibold hover:underline text-sm">CONTACT US</a>
     </div>
 
@@ -42,7 +49,14 @@
                     <a href="/home_page" class="text-lg hover:underline">HOME</a>
                     <a href="/about" class="text-lg hover:underline">ABOUT</a>
                     <a href="#" class="text-lg hover:underline">CALCULATE</a>
-                    <a href="#" class="text-lg hover:underline">HOTELS</a>
+                    <div href="#" class="relative text-lg  cursor-pointer group">
+                        HOTELS
+                        <div class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
+                            <a href="/hotel-city/makkah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In Makkah</a>
+                            <a href="/hotel-city/madinah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In Madinah</a>
+                            <a href="/hotel-city/jeddah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In Jeddah</a>
+                        </div>
+                    </div>   
                     <a href="/contact" class="text-lg hover:underline">CONTACT US</a>
                 </div>
     

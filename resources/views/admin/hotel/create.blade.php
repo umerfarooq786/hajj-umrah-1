@@ -138,9 +138,9 @@
                                     <div class="col-md-9">
                                     <select class="form-control border-primary" name="city" required>  
                                             <option selected disabled="">Select City</option>
-                                            <option value="Makkah">Makkah</option>
-                                            <option value="Madina">Madina</option>
-                                            <option value="Jeddah">Jeddah</option>
+                                            <option value="makkah">Makkah</option>
+                                            <option value="madinah">Madinah</option>
+                                            <option value="jeddah">Jeddah</option>
                                         </select>
                                     </div>
                                 </div>

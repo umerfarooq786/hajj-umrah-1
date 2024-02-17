@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 class FrontHotelController extends Controller
 {
-    public function index()
+    public function index($city)
     {
+        // $hotels = Hotel::where('city', $city)->get();
+        return $city;
         return view('website.hotels.index');
     }
 
