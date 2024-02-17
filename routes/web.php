@@ -14,7 +14,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\FrontHotelController;
 use App\Http\Controllers\ContactsController;
-use App\Http\Middleware\CheckPermission;
+use App\Http\Controllers\TestimonialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +45,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('roles', RoleController::class);
     Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
+    
+    Route::resource('testimonials', TestimonialController::class);
+    Route::get('/get_testimonial_result',[TestimonialController::class, 'get_testimonial_result'])->name('get_testimonial_result');
+    // Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
     
     Route::resource('contacts', ContactsController::class);
     Route::get('/contacts', [ContactsController::class , 'index'])->name('contacts.index')->middleware('check.permission:contacts-view');

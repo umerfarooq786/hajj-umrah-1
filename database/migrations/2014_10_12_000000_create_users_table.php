@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('designation')->nullable();
             $table->bigInteger('phone')->nullable();
             $table->string('address')->nullable();
-
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('image');
             $table->rememberToken();
             $table->timestamps();
         });

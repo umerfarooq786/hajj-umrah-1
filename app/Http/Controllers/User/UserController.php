@@ -47,6 +47,12 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('app-assets/images/profile'), $imageName);
+            $user->image = $imageName;
+        }
 
         $user->save(); // Save the user first
 
@@ -191,10 +197,13 @@ class UserController extends Controller
         if($request->password != NULL){
             $user->password = Hash::make($request->password);
         }
-
-
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('app-assets/images/profile'), $imageName);
+            $user->image = $imageName;
+        }
         $user->save(); // Save the user first
-
         // Assuming $request->input('roles') contains an array of role IDs
         $roles = $request->input('roles');
         $user->roles()->detach();

@@ -30,6 +30,16 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput1">Profile Picture</label>
+                                            <div class="col-md-9">
+                                                <input type="file" class="form-control border-primary" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">First Name</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"

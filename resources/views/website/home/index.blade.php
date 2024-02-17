@@ -106,10 +106,10 @@
      <!-- Testimonial section -->
      <div class="content-header row bg-white">
         <div class="w-[75%] mx-auto flex flex-col items-center justify-center pb-10">
-            <h4 class="text-red-500 text-[16px] font-semibold">TESTIMONOAL</h4>
+            <h4 class="text-red-500 text-[16px] font-semibold">TESTIMONIAL</h4>
             <h2 class="text-[27px] font-bold">What did they say?</h2>
             <div class="w-full h-[350px] testimonials ">
-                @include('website_layouts.partials._TestimonialsSlider', ['package' => $package])
+                @include('website_layouts.partials._TestimonialsSlider', ['testimonial' => $testimonial])
             </div>
         </div>
     </div>

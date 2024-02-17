@@ -22,11 +22,22 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('users.update', $route->id) }}">
-                            @method('PUT')
+                        <form class="form form-horizontal" method="POST" action="{{ route('users.update', $route->id) }}"
+                            enctype="multipart/form-data">
+                            @method('PATCH')
                             @csrf
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la la-car"></i>Edit User</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput1">Profile Picture</label>
+                                            <div class="col-md-9">
+                                                <input type="file" class="form-control border-primary" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -120,7 +131,8 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="userinput1">Change Password</label>
                                         <div class="col-md-9">
-                                            <input type="password" class="form-control border-primary" value="" name="password">
+                                            <input type="password" class="form-control border-primary" value=""
+                                                name="password">
                                         </div>
                                     </div>
                                 </div>
