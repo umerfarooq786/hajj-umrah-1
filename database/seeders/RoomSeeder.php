@@ -17,7 +17,7 @@ class RoomSeeder extends Seeder
             ['name' => 'Single'],
             ['name' => 'Double'],
             ['name' => 'Triple'],
-            ['name' => 'quad'],
+            ['name' => 'Quad'],
         ];
         foreach ($rooms as $room) {
             Room::create($room);

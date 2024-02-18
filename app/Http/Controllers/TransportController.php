@@ -196,7 +196,7 @@ class TransportController extends Controller
     public function edit($id)
     {
         
-        $current_currency = CurrencyConversion::findOrFail(1);
+        $current_currency = CurrencyConversion::first();
         $transport = Transport::findOrFail($id);
         $costs = Cost::where('item_id','=',$transport->id)->get();
         $routes= Route::all();
@@ -210,7 +210,7 @@ class TransportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $current_currency = CurrencyConversion::findOrFail(1);
+        $current_currency = CurrencyConversion::first();
         $transport = Transport::findOrFail($id);
 
         $transport->transport_type_id = $request->transport_type_id;
