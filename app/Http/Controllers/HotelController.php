@@ -63,6 +63,7 @@ class HotelController extends Controller
         $hotel->excerpt = $request->excerpt;
         $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
+        $hotel->note = $request->note;
         $hotel->city = $request->city;
         
         $hotel->save();
@@ -300,6 +301,7 @@ class HotelController extends Controller
         $hotel->excerpt = $request->excerpt;
         $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
+        $hotel->note = $request->note;
         $hotel->city = $request->city;
         
         $hotel->save();
