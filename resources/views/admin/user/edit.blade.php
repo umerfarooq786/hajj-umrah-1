@@ -32,8 +32,25 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Profile Picture</label>
-                                            <div class="col-md-9">
-                                                <input type="file" class="form-control border-primary" name="image">
+                                            <div
+                                                style="display: flex; align-items: center; justify-content: space-between; ">
+                                                @if ($route->image != null)
+                                                    <img src="{{ asset('app-assets/images/profile/' . $route->image) }} "
+                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
+                                                    border-radius: 5px; margin-left:142px;
+                                                    padding: 5px;
+                                                    margin-top: 5px;">
+                                                @else
+                                                    <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }} "
+                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
+                                                    border-radius: 5px; margin-left:142px;
+                                                    padding: 5px;
+                                                    margin-top: 5px;">
+                                                @endif
+                                                <div class="col-md-9">
+                                                    <input type="file" class="form-control border-primary"
+                                                        name="image">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
