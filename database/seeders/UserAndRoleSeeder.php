@@ -20,6 +20,7 @@ class UserAndRoleSeeder extends Seeder
             'last_name' => 'Umer',
             'email' => 'umar.farooq78686@gmail.com',
             'password' => bcrypt('Hanan$123'),
+            'image' => ''
         ]);
 
         $role = Role::create([
