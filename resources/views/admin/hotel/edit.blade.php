@@ -133,6 +133,16 @@
                                 </div>
                             </div>
                             @endforeach
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control">Note</label>
+                                        <div class="col-md-9">
+                                            <textarea name="note" class="form-control" rows="5" required>{{$hotel->note}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">                                                
                                 <div class="col-md-6">
                                     <div class="form-group row">

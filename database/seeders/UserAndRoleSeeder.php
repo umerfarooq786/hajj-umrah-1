@@ -17,9 +17,10 @@ class UserAndRoleSeeder extends Seeder
     {
         // Create a user
         $user = User::create([
-            'last_name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('123456'),
+            'last_name' => 'Umer',
+            'email' => 'umar.farooq78686@gmail.com',
+            'password' => bcrypt('Hanan$123'),
+            'image' => ''
         ]);
 
         $role = Role::create([
