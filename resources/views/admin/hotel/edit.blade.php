@@ -273,7 +273,7 @@
         // lastDate = new Date(lastDate);
         // const nextDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
         
-        validityRow.find("input").val(""); // Clear input values in the cloned row
+        validityRow.find("input:not([type=hidden])").val("");  // Clear input values in the cloned row
         // validityRow.find("input[name='validity[]']").attr({
         //     id: "newDate",            
         // });
