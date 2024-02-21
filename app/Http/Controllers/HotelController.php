@@ -293,6 +293,7 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return $request;
         $currency_conversion = CurrencyConversion::first();
 
         $hotel = Hotel::findOrFail($id);

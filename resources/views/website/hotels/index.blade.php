@@ -19,7 +19,7 @@
             <div class="space-y-5 px-10 py-5">
                 <h4 class="font-semibold text-xl">{{$hotel->name}}</h4>
                 <p>{{ Str::of($hotel->description)->limit(300, '...') }}</p>
-                <a href="/hotel/{{$hotel->id}}" class="bg-[#9a1d21] inline-block cursor-pointer text-white py-2 px-7 rounded-md hover:bg-opacity-90">View Details</a>            
+                <a href="/hotel-id/{{$hotel->id}}" class="bg-[#9a1d21] inline-block cursor-pointer text-white py-2 px-7 rounded-md hover:bg-opacity-90">View Details</a>            
             </div>
         </div>  
     @endforeach    

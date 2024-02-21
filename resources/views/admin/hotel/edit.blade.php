@@ -78,6 +78,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control">Note</label>
+                                    <div class="col-md-9">
+                                        <textarea name="note" class="form-control" rows="5" required>{{$hotel->note}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="row ">
@@ -286,7 +294,7 @@
         // lastDate = new Date(lastDate);
         // const nextDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
         
-        validityRow.find("input").val(""); // Clear input values in the cloned row
+        validityRow.find("input:not([type=hidden])").val("");  // Clear input values in the cloned row
         // validityRow.find("input[name='validity[]']").attr({
         //     id: "newDate",            
         // });
