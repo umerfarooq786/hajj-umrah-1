@@ -285,7 +285,7 @@ class HotelController extends Controller
         $specialOffers = $hotel->specialOffers;
         $room_category = ["Single","Double","Triple","Quad"];
         $room_count=0;
-        return view('admin.hotel.edit',compact('hotel','hotel_rooms','room_category','room_count'));
+        return view('admin.hotel.edit',compact('hotel','hotel_rooms','room_category','room_count', 'rooms'));
     }
 
     /**
@@ -310,16 +310,32 @@ class HotelController extends Controller
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price; 
 
-        for ($i=0; $i<count($request->validity); $i++){
+        // for ($i=0; $i<count($request->validity); $i++){
+        //     for ($j = 0; $j < count($roomIds); $j++) {
+        //         HotelRoom::where('hotel_id', $hotel->id)
+        //             ->where('room_id', $roomIds[$j])
+        //             ->update([
+        //                 'weekdays_price' => $weekdaysPrices[$j],
+        //                 'weekend_price' => $weekendPrices[$j],
+        //                 'validity' => $request->validity[$i],
+        //                 'current_currency' => $currency_conversion->default_currency
+        //             ]);
+        //     }
+        // }
+        foreach ($request->validity as $validity) {
             for ($j = 0; $j < count($roomIds); $j++) {
-                HotelRoom::where('hotel_id', $hotel->id)
-                    ->where('room_id', $roomIds[$j])
-                    ->update([
+                HotelRoom::updateOrCreate(
+                    [
+                        'hotel_id' => $hotel->id,
+                        'room_id' => $roomIds[$j],
+                        'validity' => $validity
+                    ],
+                    [
                         'weekdays_price' => $weekdaysPrices[$j],
                         'weekend_price' => $weekendPrices[$j],
-                        'validity' => $request->validity[$i],
                         'current_currency' => $currency_conversion->default_currency
-                    ]);
+                    ]
+                );
             }
         }
          

@@ -153,8 +153,6 @@ class TransportController extends Controller
             $make = $aRow->make;
             $capacity = $aRow->capacity;
             $route_id = $aRow->route->name;
-            // $cost = $aRow->cost;
-            // $validity = $aRow->validity;
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -173,8 +171,6 @@ class TransportController extends Controller
                 @$make,
                 @$capacity,
                 @$route_id,
-                // @$cost,
-                // @$validity,
                 @$action
             );  
 

@@ -162,12 +162,6 @@
         var removeButtonId = "removeValidity" + removeButtonCounter;
         const test = validityRow.append('<button id="' + removeButtonId + '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px">-</button>');
         
-        // console.log(test);
-        // // Get the last dynamically created date input field
-        // var lastNewDateInput = test.prev().find("input[name='validity[]']").val();
-        // console.log(test.prev());
-        // Calculate the next day of the previous day
-        // var nextDay = new Date(new Date(lastNewDateInput.val()).getTime() + 24 * 60 * 60 * 1000);
 
 
         $(".validityContainer:last").after(validityRow);
