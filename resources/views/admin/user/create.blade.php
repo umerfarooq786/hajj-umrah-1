@@ -68,7 +68,7 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="userinput1">Password</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary" placeholder="Password"
+                                            <input type="password" class="form-control border-primary" placeholder="Password"
                                                 name="password" required>
                                         </div>
                                     </div>

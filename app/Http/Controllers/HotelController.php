@@ -15,6 +15,9 @@ use App\Models\HotelRoom;
 use App\Models\CurrencyConversion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Jobs\SendHotelValidityExpirationNotification;
+use Illuminate\Support\Facades\Queue;
+use Carbon\Carbon;
 
 class HotelController extends Controller
 {
@@ -33,7 +36,7 @@ class HotelController extends Controller
     {
         $rooms = Room::all();
 
-        return view('admin.hotel.create',compact('rooms'));
+        return view('admin.hotel.create', compact('rooms'));
     }
 
     /**
@@ -51,7 +54,7 @@ class HotelController extends Controller
             'validity' => 'required|date',
             'room_id' => 'required|array|min:1'
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -65,17 +68,16 @@ class HotelController extends Controller
         $hotel->google_map = $request->google_map;
         $hotel->note = $request->note;
         $hotel->city = $request->city;
-        
+
         $hotel->save();
 
-        if($request->has('images'))
-        {
+        if ($request->has('images')) {
             $images = $request->file('images');
 
             foreach ($images as $image) {
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('uploads'), $imageName);
-        
+
                 $newImage = new Image();
                 $newImage->name = $imageName;
                 $newImage->path = 'uploads/' . $imageName;
@@ -86,23 +88,34 @@ class HotelController extends Controller
 
         $roomIds = $request->room_id;
         $weekdaysPrices = $request->weekdays_price;
-        $weekendPrices = $request->weekend_price;   
-
-        for ($i = 0; $i < count($roomIds); $i++)
-        {
-            DB::table('hotel_rooms')->insert([
+        $weekendPrices = $request->weekend_price;
+        $hotelRoomData = [];
+        for ($i = 0; $i < count($roomIds); $i++) {
+            $hotelRoomData[] = [
                 'hotel_id' => $hotel->id,
-                'room_id' => $roomIds[$i], 
+                'room_id' => $roomIds[$i],
                 'weekdays_price' => $weekdaysPrices[$i],
                 'weekend_price' => $weekendPrices[$i],
                 'validity' => $request->validity,
                 'current_currency' => $current_currency->default_currency
-            ]);
+            ];
         }
         
-        if(isset($request->offer_name) && count($request->offer_name) > 0) {
-            foreach($request->offer_name as $key => $offer) {
-                
+        HotelRoom::insert($hotelRoomData);
+        
+        // Retrieve the inserted hotel rooms
+        // $hotelRooms = HotelRoom::with('hotel')->where('hotel_id', $hotel->id)->get();
+        
+        // // Dispatch job for each hotel room
+        // foreach ($hotelRooms as $room) {
+        //     // SendHotelValidityExpirationNotification::dispatch($room)->delay(now()->addMinutes(5));
+        //     SendHotelValidityExpirationNotification::dispatch($room)->delay(Carbon::now()->addMinutes(1));
+
+        // }
+
+        if (isset($request->offer_name) && count($request->offer_name) > 0) {
+            foreach ($request->offer_name as $key => $offer) {
+
                 $data['hotel_id'] = $hotel->id;
                 $data['package_name'] = $offer;
                 $data['start_date'] = $request->offer_start_date[$key];
@@ -110,8 +123,8 @@ class HotelController extends Controller
 
                 $package = HotelSpecialOffer::create($data);
 
-                if(count($request->rooms) > 0) {
-                    foreach($request->rooms as $keyr => $room) {
+                if (count($request->rooms) > 0) {
+                    foreach ($request->rooms as $keyr => $room) {
                         $dataroom['package_id'] = $package->id;
                         $dataroom['room_id'] = $keyr;
                         $dataroom['price'] = $room[$key];
@@ -122,20 +135,21 @@ class HotelController extends Controller
             }
         }
         return redirect()->route('hotels.index')->with('success', 'Hotel has been added successfully!');
-
     }
-    public function custom_package(){
+    public function custom_package()
+    {
         $rooms = Room::all();
         $routes = Route::all();
         $transport_types = TransportType::all();
-        return view('admin.package_calculation.index', compact('rooms','routes','transport_types'));
+        return view('admin.package_calculation.index', compact('rooms', 'routes', 'transport_types'));
     }
     public function currency_conversion()
     {
         $currency_conversion = CurrencyConversion::first();
-        return view('admin.currency.index',compact('currency_conversion'));
+        return view('admin.currency.index', compact('currency_conversion'));
     }
-    public function update_currency_conversion(Request $request){
+    public function update_currency_conversion(Request $request)
+    {
         $currency_conversion = CurrencyConversion::findOrFail(1);
 
         $currency_conversion->sar_to_usd = $request->sar_to_usd;
@@ -143,17 +157,16 @@ class HotelController extends Controller
         // $currency_conversion->default_currency = $request->default_currency;
 
         $currency_conversion->save();
-       
+
         return redirect()->route('admin.currency_conversion', compact('currency_conversion'))->with('success', 'Currency has been Updated successfully!');
     }
-    public function calculate_package(Request $request){
-        $total=0;
-        $total= $total + $request->visa_charges;
-        if(isset($request->route_id) && count($request->route_id) > 0)
-        {
-            for($i=0; $i<count($request->route_id); $i++)
-            {
-                $transport = Transport::where('route_id',$request->route_id[$i]);
+    public function calculate_package(Request $request)
+    {
+        $total = 0;
+        $total = $total + $request->visa_charges;
+        if (isset($request->route_id) && count($request->route_id) > 0) {
+            for ($i = 0; $i < count($request->route_id); $i++) {
+                $transport = Transport::where('route_id', $request->route_id[$i]);
             }
         }
         return $total;
@@ -162,7 +175,7 @@ class HotelController extends Controller
     {
         $result = Hotel::orderBy('created_at', 'DESC');
 
-        $aColumns = ['id','name','google_map','city', 'excerpt','created_at'];
+        $aColumns = ['id', 'name', 'google_map', 'city', 'excerpt', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -170,8 +183,8 @@ class HotelController extends Controller
         $order = 'created_at';
         $sort = ' DESC';
 
-        if ($request->get('iSortCol_0')) { 
-      
+        if ($request->get('iSortCol_0')) {
+
             $sOrder = "ORDER BY  ";
 
             for ($i = 0; $i < intval($request->get('iSortingCols')); $i++) {
@@ -182,19 +195,18 @@ class HotelController extends Controller
 
             $sOrder = substr_replace($sOrder, "", -2);
             if ($sOrder == "ORDER BY") {
-                 $sOrder = " id ASC";
+                $sOrder = " id ASC";
             }
 
             $OrderArray = explode(' ', $sOrder);
             $order = trim($OrderArray[3]);
             $sort = trim($OrderArray[4]);
-
         }
 
         $sKeywords = $request->get('sSearch');
         if ($sKeywords != "") {
 
-            $result->Where(function($query) use ($sKeywords) {
+            $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('name', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('city', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('validity', 'LIKE', "%{$sKeywords}%");
@@ -204,7 +216,7 @@ class HotelController extends Controller
         for ($i = 0; $i < count($aColumns); $i++) {
             $request->get('sSearch_' . $i);
             if ($request->get('bSearchable_' . $i) == "true" && $request->get('sSearch_' . $i) != '') {
-                 $result->orWhere($aColumns[$i], 'LIKE', "%" . $request->orWhere('sSearch_' . $i) . "%");
+                $result->orWhere($aColumns[$i], 'LIKE', "%" . $request->orWhere('sSearch_' . $i) . "%");
             }
         }
 
@@ -220,10 +232,10 @@ class HotelController extends Controller
 
         $iTotal = $iFilteredTotal;
         $output = array(
-             "sEcho" => intval($request->get('sEcho')),
-             "iTotalRecords" => $iTotal,
-             "iTotalDisplayRecords" => $iFilteredTotal,
-             "aaData" => array()
+            "sEcho" => intval($request->get('sEcho')),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => array()
         );
         $i = 0;
 
@@ -232,7 +244,7 @@ class HotelController extends Controller
             $checkbox = "<label class=\"mt-checkbox mt-checkbox-single mt-checkbox-outline\">
                              <input type=\"checkbox\" class=\"checkbox-index\" value=\"{$aRow->id}\">
                              <span></span>
-                          </label>"; 
+                          </label>";
 
             $hotel_id = $aRow->id;
             $name = $aRow->name;
@@ -248,7 +260,7 @@ class HotelController extends Controller
                           </span>
                         </span>
                         ";
- 
+
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
                 @$aRow->id,
@@ -256,11 +268,11 @@ class HotelController extends Controller
                 @$city,
                 @$excerpt,
                 @$action
-            );  
+            );
 
             $i++;
         }
-        echo json_encode($output);           
+        echo json_encode($output);
     }
     /**
      * Display the specified resource.
@@ -278,14 +290,14 @@ class HotelController extends Controller
         $hotel = Hotel::findOrFail($id);
         $rooms = Room::all();
         $hotel_rooms = DB::table('hotel_rooms')
-                        ->join('rooms', 'rooms.id', '=', 'hotel_rooms.room_id')
-                        ->select('hotel_rooms.*','rooms.id as room_id', 'rooms.name as room_name')
-                        ->where('hotel_rooms.hotel_id', $hotel->id)
-                        ->get();
+            ->join('rooms', 'rooms.id', '=', 'hotel_rooms.room_id')
+            ->select('hotel_rooms.*', 'rooms.id as room_id', 'rooms.name as room_name')
+            ->where('hotel_rooms.hotel_id', $hotel->id)
+            ->get();
         $specialOffers = $hotel->specialOffers;
-        $room_category = ["Single","Double","Triple","Quad"];
-        $room_count=0;
-        return view('admin.hotel.edit',compact('hotel','hotel_rooms','room_category','room_count'));
+        $room_category = ["Single", "Double", "Triple", "Quad"];
+        $room_count = 0;
+        return view('admin.hotel.edit', compact('hotel', 'hotel_rooms', 'room_category', 'room_count'));
     }
 
     /**
@@ -303,14 +315,14 @@ class HotelController extends Controller
         $hotel->google_map = $request->google_map;
         $hotel->note = $request->note;
         $hotel->city = $request->city;
-        
+
         $hotel->save();
 
         $roomIds = $request->room_id;
         $weekdaysPrices = $request->weekdays_price;
-        $weekendPrices = $request->weekend_price; 
+        $weekendPrices = $request->weekend_price;
 
-        for ($i=0; $i<count($request->validity); $i++){
+        for ($i = 0; $i < count($request->validity); $i++) {
             for ($j = 0; $j < count($roomIds); $j++) {
                 HotelRoom::where('hotel_id', $hotel->id)
                     ->where('room_id', $roomIds[$j])
@@ -322,47 +334,45 @@ class HotelController extends Controller
                     ]);
             }
         }
-         
-        if(isset($request->offer_id) && count($request->offer_id) > 0){
+
+        if (isset($request->offer_id) && count($request->offer_id) > 0) {
             foreach ($request->offer_id as $key => $val) {
-    
-                if($val!=0){
+
+                if ($val != 0) {
                     $specialOffer = HotelSpecialOffer::findOrFail($val);
                     $specialOffer->update([
 
                         'package_name' => $request->offer_name[$key],
                         'start_date' => $request->offer_start_date[$key],
                         'end_date' => $request->offer_end_date[$key],
-                    ]);   
-                    
-                    for ($i=0; $i<count($request->rooms_price);  $i++) {
+                    ]);
+
+                    for ($i = 0; $i < count($request->rooms_price); $i++) {
                         HotelSpecialOfferRoom::where('package_id', $specialOffer->id)
-                        ->where('id', $request->rooms_id[$i])
-                        ->update([
-                            'price' => $request->rooms_price[$i]
-                        ]);
+                            ->where('id', $request->rooms_id[$i])
+                            ->update([
+                                'price' => $request->rooms_price[$i]
+                            ]);
                     }
-                }
-                else{
+                } else {
                     $specialOffer =  new HotelSpecialOffer();
 
                     $specialOffer->hotel_id = $id;
                     $specialOffer->package_name = $request->offer_name[$key];
                     $specialOffer->start_date = $request->offer_start_date[$key];
                     $specialOffer->end_date =  $request->offer_end_date[$key];
-                    
+
                     $specialOffer->save();
 
-                    if(count($request->rooms) > 0) {
+                    if (count($request->rooms) > 0) {
 
-                        for($i=0; $i<count($request->rooms); $i++) {
-                            
+                        for ($i = 0; $i < count($request->rooms); $i++) {
+
                             HotelSpecialOfferRoom::create([
                                 'room_id' => $request->hotel_room_id[$i],
                                 'price' => $request->rooms[$i],
-                                'package_id' => $specialOffer->id, 
+                                'package_id' => $specialOffer->id,
                             ]);
-                            
                         }
                     }
                 }
@@ -376,8 +386,11 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-       $hotel = Hotel::findOrFail($id);
-       $hotel->delete();
+        $hotel_room = HotelRoom::where('hotel_id' , $id);
+        $hotel_room->delete();
+        
+        $hotel = Hotel::findOrFail($id);
+        $hotel->delete();
 
         return response()->json([
             'status' => 'success',
