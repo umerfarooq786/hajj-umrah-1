@@ -78,6 +78,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control">Note</label>
+                                    <div class="col-md-9">
+                                        <textarea name="note" class="form-control" rows="5" required>{{$hotel->note}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="row ">
@@ -86,6 +94,7 @@
                                     <label class=" label-control">Images Gallery</label>
                                     <div class="col-md-9">
                                         <input type="file" id="imageUpload" name="images[]" multiple>
+                                        <div id="imagePreview"></div>
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +109,18 @@
                                 @endforeach
                             @endif
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control">Note</label>
+                                    <div class="col-md-9">
+                                        <textarea name="note" class="form-control" rows="5" required>{{$hotel->note}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- view for repetitive validity starts -->
-                        <div class="validityContainer "  style="margin-bottom:50px; position:relative">
+                        <div class="validityContainer"  style="margin-bottom:50px; position:relative">
                             @foreach($hotel_rooms as $hotel_room)
                             <div class="row">
                                 <div class="col-md-6">
@@ -112,7 +131,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="hidden" name="room_id[]" value="{{$hotel_room->room_id}}" />
+                                                <input type="hidden" name="room_id[]" value="{{ $hotel_room->room_id }}" />
                                                 <input name="weekdays_price[]" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{$hotel_room->weekdays_price}}" required>
                                             </div>
                                         </div>
@@ -133,16 +152,6 @@
                                 </div>
                             </div>
                             @endforeach
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-md-3 label-control">Note</label>
-                                        <div class="col-md-9">
-                                            <textarea name="note" class="form-control" rows="5" required>{{$hotel->note}}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">                                                
                                 <div class="col-md-6">
                                     <div class="form-group row">
@@ -261,6 +270,18 @@
     });
 </script>
 <script>
+    $('#imageUpload').on('change', function(e) {
+    var files = e.target.files;
+    $('#imagePreview').empty();
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').append('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(files[i]);
+        }
+    });
+
     $("#addValidity").on("click", function(e) {
         e.preventDefault(); 
         $("#validity_button").hide();

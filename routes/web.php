@@ -95,7 +95,7 @@ Route::get('/about', function(){
 Route::get('/custom-package', [CostController::class,'calculate_package']);
 
 Route::get('/hotel-city/{city}',[FrontHotelController::class, 'index'])->name('hotels.city');
-Route::get('/hotel-city/{id}',[FrontHotelController::class, 'singleHotel']);
+Route::get('/hotel-id/{id}',[FrontHotelController::class, 'singleHotel']);
 
 Route::get('/test', function(){
     return view("admin.package.index");

@@ -100,12 +100,12 @@ class HotelController extends Controller
                 'current_currency' => $current_currency->default_currency
             ];
         }
-        
+
         HotelRoom::insert($hotelRoomData);
-        
+
         // Retrieve the inserted hotel rooms
         // $hotelRooms = HotelRoom::with('hotel')->where('hotel_id', $hotel->id)->get();
-        
+
         // // Dispatch job for each hotel room
         // foreach ($hotelRooms as $room) {
         //     // SendHotelValidityExpirationNotification::dispatch($room)->delay(now()->addMinutes(5));
@@ -305,6 +305,7 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return $request;
         $currency_conversion = CurrencyConversion::first();
 
         $hotel = Hotel::findOrFail($id);
@@ -322,16 +323,21 @@ class HotelController extends Controller
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price;
 
-        for ($i = 0; $i < count($request->validity); $i++) {
+
+        foreach ($request->validity as $validity) {
             for ($j = 0; $j < count($roomIds); $j++) {
-                HotelRoom::where('hotel_id', $hotel->id)
-                    ->where('room_id', $roomIds[$j])
-                    ->update([
+                HotelRoom::updateOrCreate(
+                    [
+                        'hotel_id' => $hotel->id,
+                        'room_id' => $roomIds[$j],
+                        'validity' => $validity
+                    ],
+                    [
                         'weekdays_price' => $weekdaysPrices[$j],
                         'weekend_price' => $weekendPrices[$j],
-                        'validity' => $request->validity[$i],
                         'current_currency' => $currency_conversion->default_currency
-                    ]);
+                    ]
+                );
             }
         }
 
@@ -386,9 +392,9 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-        $hotel_room = HotelRoom::where('hotel_id' , $id);
+        $hotel_room = HotelRoom::where('hotel_id', $id);
         $hotel_room->delete();
-        
+
         $hotel = Hotel::findOrFail($id);
         $hotel->delete();
 
