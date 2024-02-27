@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransportController;
@@ -27,53 +28,54 @@ use App\Http\Controllers\TestimonialController;
 |
 */
 
-Route::get('/', function(){
+Route::get('/', function () {
     return redirect()->route('login');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group(['middleware' => ['auth']], function() {
-    Route::resource('users',UserController::class);
-    Route::get('/users',[UserController::class, 'index'])->name('users.index')->middleware('check.permission:users-list');
-    Route::get('/get_users',[UserController::class, 'get_users']);
-    
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('users', UserController::class);
+    Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware('check.permission:users-list');
+    Route::get('/get_users', [UserController::class, 'get_users']);
+
     Route::resource('packages', PackageController::class);
-    Route::get('/packages', [PackageController::class , 'index'])->name('packages.index')->middleware('check.permission:packages-list');
-    Route::get('/get_packages',[PackageController::class, 'get_packages']);
+    Route::get('/packages', [PackageController::class, 'index'])->name('packages.index')->middleware('check.permission:packages-list');
+    Route::get('/get_packages', [PackageController::class, 'get_packages']);
 
     Route::resource('roles', RoleController::class);
-    Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
-    
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index')->middleware('check.permission:roles-list');
+
     Route::resource('testimonials', TestimonialController::class);
-    Route::get('/get_testimonial_result',[TestimonialController::class, 'get_testimonial_result'])->name('get_testimonial_result');
+    Route::get('/get_testimonial_result', [TestimonialController::class, 'get_testimonial_result'])->name('get_testimonial_result');
     // Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
-    
+
     Route::resource('contacts', ContactsController::class);
-    Route::get('/contacts', [ContactsController::class , 'index'])->name('contacts.index')->middleware('check.permission:contacts-view');
-    Route::get('/get_contacts',[ContactsController::class, 'get_contacts']);
-    
+    Route::get('/contacts', [ContactsController::class, 'index'])->name('contacts.index')->middleware('check.permission:contacts-view');
+    Route::get('/get_contacts', [ContactsController::class, 'get_contacts']);
+
     Route::resource('routes', RouteController::class);
-    Route::get('/routes', [RouteController::class , 'index'])->name('routes.index')->middleware('check.permission:routes-list');
-    Route::get('/get_routes',[RouteController::class, 'get_routes']);
+    Route::get('/routes', [RouteController::class, 'index'])->name('routes.index')->middleware('check.permission:routes-list');
+    Route::get('/get_routes', [RouteController::class, 'get_routes']);
 
     Route::resource('transports', TransportController::class);
-    Route::get('/transports', [TransportController::class , 'index'])->name('transports.index')->middleware('check.permission:transports-list');
-    Route::get('/get_tranports',[TransportController::class, 'get_transports']);
+    Route::get('/transports', [TransportController::class, 'index'])->name('transports.index')->middleware('check.permission:transports-list');
+    Route::get('/get_tranports', [TransportController::class, 'get_transports']);
 
+    Route::GET('/delete.validity/{date}', [HotelController::class, 'deleteValidity'])->name('delete.validity');
     Route::resource('hotels', HotelController::class);
-    Route::get('/hotels', [HotelController::class , 'index'])->name('hotels.index')->middleware('check.permission:hotels-list');
-    Route::get('/get_hotels',[HotelController::class, 'get_hotels']);
-    
+    Route::get('/hotels', [HotelController::class, 'index'])->name('hotels.index')->middleware('check.permission:hotels-list');
+    Route::get('/get_hotels', [HotelController::class, 'get_hotels']);
+
     Route::post('/weekends', [WeekendController::class, 'store'])->name('weekends.store');
     Route::get('/weekends', [WeekendController::class, 'index'])->name('weekends.index')->middleware('check.permission:add-weekends-days');
-    
-    Route::get('/custom_package',[HotelController::class, 'custom_package'])->name('admin.custom_package')->middleware('check.permission:packages-calculation');
-    Route::post('/calculate_package',[HotelController::class, 'calculate_package'])->name('admin.calculate_package');
-    
-    Route::get('/currency_conversion',[HotelController::class, 'currency_conversion'])->name('admin.currency_conversion')->middleware('check.permission:currencys-conversion');
-    Route::post('/update_currency_conversion',[HotelController::class, 'update_currency_conversion'])->name('admin.update_currency_conversion');
+
+    Route::get('/custom_package', [HotelController::class, 'custom_package'])->name('admin.custom_package')->middleware('check.permission:packages-calculation');
+    Route::post('/calculate_package', [HotelController::class, 'calculate_package'])->name('admin.calculate_package');
+
+    Route::get('/currency_conversion', [HotelController::class, 'currency_conversion'])->name('admin.currency_conversion')->middleware('check.permission:currencys-conversion');
+    Route::post('/update_currency_conversion', [HotelController::class, 'update_currency_conversion'])->name('admin.update_currency_conversion');
 
     Route::delete('/images/{id}', [ImageController::class, 'destroy'])->name('admin.delete_image');
 
@@ -81,22 +83,22 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/update_visa_charges', [VisaController::class, 'update_visa_charges'])->name('admin.update_visa_charges');
 });
 
-Route::get('/home_page',[WebsiteController::class, 'homepage'])->name('home_page');
+Route::get('/home_page', [WebsiteController::class, 'homepage'])->name('home_page');
 // Route::get('/home_page', function(){
 //     return view('website.home.index');    
 // });
-Route::get('/contact',[WebsiteController::class, 'contact']);
+Route::get('/contact', [WebsiteController::class, 'contact']);
 
 
-Route::get('/about', function(){
+Route::get('/about', function () {
     return view("website.about.index");
 });
 
-Route::get('/custom-package', [CostController::class,'calculate_package']);
+Route::get('/custom-package', [CostController::class, 'calculate_package']);
 
-Route::get('/hotel-city/{city}',[FrontHotelController::class, 'index'])->name('hotels.city');
-Route::get('/hotel-id/{id}',[FrontHotelController::class, 'singleHotel']);
+Route::get('/hotel-city/{city}', [FrontHotelController::class, 'index'])->name('hotels.city');
+Route::get('/hotel-id/{id}', [FrontHotelController::class, 'singleHotel']);
 
-Route::get('/test', function(){
+Route::get('/test', function () {
     return view("admin.package.index");
 });

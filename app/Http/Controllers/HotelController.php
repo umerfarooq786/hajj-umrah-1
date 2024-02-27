@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Jobs\SendHotelValidityExpirationNotification;
 use Illuminate\Support\Facades\Queue;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class HotelController extends Controller
 {
@@ -293,7 +294,9 @@ class HotelController extends Controller
             ->join('rooms', 'rooms.id', '=', 'hotel_rooms.room_id')
             ->select('hotel_rooms.*', 'rooms.id as room_id', 'rooms.name as room_name')
             ->where('hotel_rooms.hotel_id', $hotel->id)
-            ->get();
+            ->orderBy('hotel_rooms.validity') // Optional: You can order the results by validity
+            ->get()
+            ->groupBy('validity');
         $specialOffers = $hotel->specialOffers;
         $room_category = ["Single", "Double", "Triple", "Quad"];
         $room_count = 0;
@@ -305,6 +308,7 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         // return $request;
         $currency_conversion = CurrencyConversion::first();
 
@@ -320,21 +324,35 @@ class HotelController extends Controller
         $hotel->save();
 
         $roomIds = $request->room_id;
+        $ids = $request->id;
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price;
 
+        foreach ($request->validity as $i => $validity) {
+            // Extract corresponding room IDs and details for the current validity date
+            $currentRoomIds = $roomIds[$i];
+            $currentIds = $ids[$i] ?? []; // Ensure the IDs array is set
+            $currentWeekdaysPrices = $weekdaysPrices[$i];
+            $currentWeekendPrices = $weekendPrices[$i];
 
-        foreach ($request->validity as $validity) {
-            for ($j = 0; $j < count($roomIds); $j++) {
+            // Loop through the room IDs and update or create records for each room
+            foreach ($currentRoomIds as $index => $roomId) {
+                // Extract corresponding prices and ID for the current room
+                $idss = $currentIds[$index] ?? null;
+                $weekdaysPrice = $currentWeekdaysPrices[$index];
+                $weekendPrice = $currentWeekendPrices[$index];
+
+                // Update or create the hotel room record for the current room ID and validity date
                 HotelRoom::updateOrCreate(
                     [
                         'hotel_id' => $hotel->id,
-                        'room_id' => $roomIds[$j],
+                        'room_id' => $roomId,
+                        'id' => $idss,
                         'validity' => $validity
                     ],
                     [
-                        'weekdays_price' => $weekdaysPrices[$j],
-                        'weekend_price' => $weekendPrices[$j],
+                        'weekdays_price' => $weekdaysPrice,
+                        'weekend_price' => $weekendPrice,
                         'current_currency' => $currency_conversion->default_currency
                     ]
                 );
@@ -387,6 +405,23 @@ class HotelController extends Controller
         return redirect()->route('hotels.index')->with('success', 'Hotel has been Updated successfully!');
     }
 
+    public function deleteValidity($date)
+    {
+        try {
+            // Parse the date string to a Carbon instance
+            $parsedDate = Carbon::parse($date);
+
+            // Find all hotel rooms associated with the validity date
+            $rooms = HotelRoom::whereDate('validity', $parsedDate)->get();
+
+            // Delete all the found rooms
+            foreach ($rooms as $room) {
+                $room->delete();
+            }
+        } catch (\Exception $e) {
+        }
+        return redirect()->route('hotels.index')->with('success', 'Record deleted successfully!');
+    }
     /**
      * Remove the specified resource from storage.
      */
