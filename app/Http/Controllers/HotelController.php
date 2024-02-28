@@ -328,37 +328,38 @@ class HotelController extends Controller
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price;
 
-        foreach ($request->validity as $i => $validity) {
-            // Extract corresponding room IDs and details for the current validity date
-            $currentRoomIds = $roomIds[$i];
-            $currentIds = $ids[$i] ?? []; // Ensure the IDs array is set
-            $currentWeekdaysPrices = $weekdaysPrices[$i];
-            $currentWeekendPrices = $weekendPrices[$i];
+        if ($request->validity != NULL) {
+            foreach ($request->validity as $i => $validity) {
+                // Extract corresponding room IDs and details for the current validity date
+                $currentRoomIds = $roomIds[$i];
+                $currentIds = $ids[$i] ?? []; // Ensure the IDs array is set
+                $currentWeekdaysPrices = $weekdaysPrices[$i];
+                $currentWeekendPrices = $weekendPrices[$i];
 
-            // Loop through the room IDs and update or create records for each room
-            foreach ($currentRoomIds as $index => $roomId) {
-                // Extract corresponding prices and ID for the current room
-                $idss = $currentIds[$index] ?? null;
-                $weekdaysPrice = $currentWeekdaysPrices[$index];
-                $weekendPrice = $currentWeekendPrices[$index];
+                // Loop through the room IDs and update or create records for each room
+                foreach ($currentRoomIds as $index => $roomId) {
+                    // Extract corresponding prices and ID for the current room
+                    $idss = $currentIds[$index] ?? null;
+                    $weekdaysPrice = $currentWeekdaysPrices[$index];
+                    $weekendPrice = $currentWeekendPrices[$index];
 
-                // Update or create the hotel room record for the current room ID and validity date
-                HotelRoom::updateOrCreate(
-                    [
-                        'hotel_id' => $hotel->id,
-                        'room_id' => $roomId,
-                        'id' => $idss,
-                        'validity' => $validity
-                    ],
-                    [
-                        'weekdays_price' => $weekdaysPrice,
-                        'weekend_price' => $weekendPrice,
-                        'current_currency' => $currency_conversion->default_currency
-                    ]
-                );
+                    // Update or create the hotel room record for the current room ID and validity date
+                    HotelRoom::updateOrCreate(
+                        [
+                            'hotel_id' => $hotel->id,
+                            'room_id' => $roomId,
+                            'id' => $idss,
+                            'validity' => $validity
+                        ],
+                        [
+                            'weekdays_price' => $weekdaysPrice,
+                            'weekend_price' => $weekendPrice,
+                            'current_currency' => $currency_conversion->default_currency
+                        ]
+                    );
+                }
             }
         }
-
         if ($request->has('images')) {
             $images = $request->file('images');
 
@@ -373,7 +374,7 @@ class HotelController extends Controller
                 $newImage->save();
             }
         }
-        
+
         if (isset($request->offer_id) && count($request->offer_id) > 0) {
             foreach ($request->offer_id as $key => $val) {
 
@@ -437,17 +438,16 @@ class HotelController extends Controller
         }
         return redirect()->route('hotels.index')->with('success', 'Record deleted successfully!');
     }
-    
+
     public function deleteOffer($id)
     {
         try {
-    
-            $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
-            $specialOffer ->delete();
 
+            $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
+            $specialOffer->delete();
         } catch (\Exception $e) {
         }
-            return redirect()->route('hotels.index')->with('success', 'Offer deleted successfully!');
+        return redirect()->route('hotels.index')->with('success', 'Offer deleted successfully!');
     }
     /**
      * Remove the specified resource from storage.
@@ -458,9 +458,9 @@ class HotelController extends Controller
         $hotel_room->delete();
 
         $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
-        $specialOffer ->delete();
+        $specialOffer->delete();
 
-        
+
         $hotel = Hotel::findOrFail($id);
         $hotel->delete();
 
