@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get_tranports', [TransportController::class, 'get_transports']);
 
     Route::GET('/delete.validity/{date}', [HotelController::class, 'deleteValidity'])->name('delete.validity');
+    Route::GET('/delete.offer/{id}', [HotelController::class, 'deleteOffer'])->name('delete.offer');
     Route::resource('hotels', HotelController::class);
     Route::get('/hotels', [HotelController::class, 'index'])->name('hotels.index')->middleware('check.permission:hotels-list');
     Route::get('/get_hotels', [HotelController::class, 'get_hotels']);

@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ImageController extends Controller
 {
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $image = Image::find($id);
-        if(!$image) {
+        if (!$image) {
             return response()->json(['error' => 'Image not found.'], 404);
         }
-        Storage::delete($image->path);
+
+        // Check if the file exists
+        if (File::exists($image->path)) {
+            // Delete the file
+            File::delete($image->path);
+        }
         $image->delete();
         return response()->json(['message' => 'Image deleted successfully.']);
     }

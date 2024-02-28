@@ -120,13 +120,21 @@
                                 <div class="row">
                                     @if (count($hotel->images) > 0)
                                         @foreach ($hotel->images as $image)
-                                            <div class="col-md-4">
-                                                <img src="{{ asset($image->path) }}" alt="{{ $image->name }}"
-                                                    class="img-fluid">
-                                                <a href="#" class="delete-image"
-                                                    data-id="{{ $image->id }}">×</a>
+                                            <div class="col-md-2 mb-2">
+                                                <div class="card">
+                                                    <img src="{{ asset($image->path) }}" alt="{{ $image->name }}"
+                                                        class="card-img-top image_galery"
+                                                        style="max-width: 70px;height:140;object-fit: cover">
+                                                    <a href="#" style="max-width: 70px"
+                                                        class="btn btn-danger delete-image"
+                                                        data-id="{{ $image->id }}">Delete</a>
+                                                </div>
                                             </div>
                                         @endforeach
+                                    @else
+                                        <div class="col-12">
+                                            <p>No images found.</p>
+                                        </div>
                                     @endif
                                 </div>
                                 <br>
@@ -188,15 +196,16 @@
                                                         for="userinput2">Validity</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
-                                                            <input type="date"
-                                                                class="form-control border-primary datepicker"
+                                                            <input type="text" class="form-control border-primary "
                                                                 name="validity[]" value="{{ $validity }}"
-                                                                placeholder="Validity Date" required>
+                                                                placeholder="Validity Date" readonly>
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-danger delete-button"
                                                                     data-date="{{ $validity }}">Delete</button>
-
                                                             </div>
+                                                            <script>
+                                                                window.lastValidity = {!! json_encode($validity) !!};
+                                                            </script>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -213,6 +222,7 @@
                             </div>
                             <script>
                                 window.myGlobalVariable = {!! json_encode($i) !!};
+                                window.HotelId = {!! json_encode($hotel->id) !!};
                             </script>
                             @if ($hotel->specialOffers->count() > 0)
                                 <div class="special_offer ">
@@ -296,9 +306,11 @@
                             <div class="special_offer_parent">
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-primary specialOffer">
-                                            Add Any Special offer
-                                        </button>
+                                        @if ($hotel->specialOffers->count() == 0)
+                                            <button type="button" class="btn btn-primary specialOffer">
+                                                Add Any Special offer
+                                            </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -421,6 +433,7 @@
                         success: function(response) {
                             // Refresh or update the view as needed
                             imageElement.remove();
+                            window.location.reload();
                             console.log('Image deleted successfully');
                         },
                         error: function(xhr, status, error) {
@@ -442,9 +455,40 @@
             if ($(".special_offer").length == 3) {
                 $('.specialOffer').fadeOut(1)
             }
+            $(".specialOffer").hide();
         });
 
         function remove_special_offer(e) {
+            var hotel_id = window.HotelId;
+            if (confirm('Are you sure you want to delete the Offer record for this hotel?')) {
+                fetch("{{ route('delete.offer', '') }}/" + hotel_id, {
+                        method: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Validity record for ' + hotel_id + ' deleted successfully.');
+                            $(".specialOffer").show();
+                            // Perform any necessary actions after successful deletion
+                            window.location.reload();
+                        } else {
+                            console.error('Error deleting validity record for ' + hotel_id + '.');
+                            $(".specialOffer").show();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+
+        }
+
+        function remove_special_offerEdit(e) {
+
             if ($(".special_offer").length == 3) {
                 $('.specialOffer').fadeIn(1)
             }
@@ -454,7 +498,7 @@
         let add_special_offer = `<div class="special_offer">
                       <div class="row justify-content-between align-items-center">
                          <h4 class="border-0 my-2 pl-2"><i  class="la la-briefcase"></i> Special Offer </h4>
-                         <i style="cursor:pointer; color:red;" onclick="remove_special_offer(event)" class="fas fa-times pr-2"></i>
+                         <i style="cursor:pointer; color:red;" onclick="remove_special_offerEdit(event)" class="fas fa-times pr-2"></i>
                          </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -471,9 +515,6 @@
                         </div>
 
                         <div class="row">
-
-                        
-
                             <?php foreach($hotel_rooms as $validity => $room)
                                 { 
                                     foreach($rooms as $room){
@@ -502,7 +543,7 @@
                                     <label class="col-md-3 label-control" for="userinput2">Start Date</label>
                                     <div class="col-md-9">
                                         <input type="date" id="userinput1" class="form-control border-primary" placeholder="Start Date"
-                                        name="offer_start_date[]" required>
+                                        name="offer_start_date[]" min="<?php echo date('Y-m-d'); ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -511,12 +552,18 @@
                                     <label class="col-md-3 label-control" for="userinput2">End Date</label>
                                     <div class="col-md-9">
                                         <input type="date" id="userinput1" class="form-control border-primary" placeholder="Start Date"
-                                        name="offer_end_date[]" required>
+                                          name="offer_end_date[]" min="<?php echo date('Y-m-d'); ?>" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>`;
+
+
+        if (typeof window.lastValidity !== 'undefined' && window.lastValidity !== null) {} else {
+            window.lastValidity = {!! json_encode(date('Y-m-d')) !!};
+        }
+
 
         let add_validity =
             `<div class="row">
@@ -694,7 +741,8 @@
                                                 <div class="col-md-9">
                                                     <input type="date" class="form-control border-primary datepicker"
                                                         name="validity[]" value=""
-                                                        placeholder="Validity Date" required>
+                                                        placeholder="Validity Date" min="` + window.lastValidity + `"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>

@@ -359,6 +359,21 @@ class HotelController extends Controller
             }
         }
 
+        if ($request->has('images')) {
+            $images = $request->file('images');
+
+            foreach ($images as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads'), $imageName);
+
+                $newImage = new Image();
+                $newImage->name = $imageName;
+                $newImage->path = 'uploads/' . $imageName;
+                $newImage->hotel_id = $hotel->id;
+                $newImage->save();
+            }
+        }
+        
         if (isset($request->offer_id) && count($request->offer_id) > 0) {
             foreach ($request->offer_id as $key => $val) {
 
@@ -422,6 +437,18 @@ class HotelController extends Controller
         }
         return redirect()->route('hotels.index')->with('success', 'Record deleted successfully!');
     }
+    
+    public function deleteOffer($id)
+    {
+        try {
+    
+            $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
+            $specialOffer ->delete();
+
+        } catch (\Exception $e) {
+        }
+            return redirect()->route('hotels.index')->with('success', 'Offer deleted successfully!');
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -430,6 +457,10 @@ class HotelController extends Controller
         $hotel_room = HotelRoom::where('hotel_id', $id);
         $hotel_room->delete();
 
+        $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
+        $specialOffer ->delete();
+
+        
         $hotel = Hotel::findOrFail($id);
         $hotel->delete();
 
