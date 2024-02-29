@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Jobs\SendHotelValidityExpirationNotification;
 use Illuminate\Support\Facades\Queue;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 class HotelController extends Controller
 {
@@ -459,6 +459,9 @@ class HotelController extends Controller
 
         $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
         $specialOffer->delete();
+        
+        $image = Image::where('hotel_id', $id);
+        $image->delete();
 
 
         $hotel = Hotel::findOrFail($id);

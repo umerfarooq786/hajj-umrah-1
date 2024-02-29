@@ -85,11 +85,11 @@
                                             <div class="col-md-9">
                                                 <select class="form-control border-primary" name="city" required>
                                                     <option selected disabled="">Select City</option>
-                                                    <option value="Makkah"
-                                                        {{ $hotel->city == 'Makkah' ? 'selected' : '' }}>
+                                                    <option value="makkah"
+                                                        {{ $hotel->city == 'makkah' ? 'selected' : '' }}>
                                                         Makkah</option>
-                                                    <option value="Madina"
-                                                        {{ $hotel->city == 'Madina' ? 'selected' : '' }}>Madina</option>
+                                                    <option value="madina"
+                                                        {{ $hotel->city == 'madina' ? 'selected' : '' }}>Madina</option>
                                                     <option value="jeddah"
                                                         {{ $hotel->city == 'jeddah' ? 'selected' : '' }}>Jeddah</option>
                                                 </select>
@@ -387,31 +387,17 @@
         $("#addValidity").on("click", function(e) {
             e.preventDefault();
             $("#validity_button").hide();
-            // addButtonCounter++;
-            // var addId = "addValidity" + addButtonCounter;
 
+            // Append add_validity to the last .validityContainer
             var validityRow = $(".validityContainer:last").append(add_validity);
-            // var lastDate = validityRow.find("input[name='validity[]']").val();
-            // lastDate = new Date(lastDate);
-            // const nextDate = new Date(lastDate.getTime() + 24 * 60 * 60 * 1000);
 
-            // validityRow.find("input:not([type=hidden])").val(""); // Clear input values in the cloned row
-            // validityRow.find("input[name='validity[]']").attr({
-            //     id: "newDate",            
-            // });
-            var removeButtonCounter = 1;
-            var removeButtonId = "removeValidity" + removeButtonCounter;
-            const test = validityRow.append('<button id="' + removeButtonId +
-                '" class="btn btn-danger removeValidity" style="position:absolute; right:-20px; top:-50px">-</button>'
-            );
-
-            $(".validityContainer:last").after(validityRow);
         });
 
         // Use event delegation to handle the remove button click
         $(document).on("click", ".removeValidity", function() {
             $("#validity_button").show();
-            $(this).closest('.validityContainer ').remove();
+            $("#newValidity").removeAttr("min");
+            $(".row1").remove();
         });
     </script>
     <!-- Validity ends -->
@@ -563,10 +549,18 @@
         if (typeof window.lastValidity !== 'undefined' && window.lastValidity !== null) {} else {
             window.lastValidity = {!! json_encode(date('Y-m-d')) !!};
         }
+        var lastValidityDate = new Date(window.lastValidity);
+        var nextDay = new Date(lastValidityDate);
+        nextDay.setDate(lastValidityDate.getDate() + 1);
+        var nextDayFormatted = nextDay.toISOString().split('T')[0];
+        window.lastValidity =  nextDayFormatted ;
+
+
 
 
         let add_validity =
-            `<div class="row">
+            `<div class="row1">
+                <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-md-6 label-control" for="userinput3">Weekdays
@@ -738,18 +732,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="userinput2">Validity</label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-9 validity-container d-flex align-items-center">
                                                     <input type="date" class="form-control border-primary datepicker"
-                                                        name="validity[]" value=""
+                                                        name="validity[]" id="newValidity"
                                                         placeholder="Validity Date" min="` + window.lastValidity + `"
                                                         required>
+                                                        <button id="" class="btn btn-danger removeValidity" style="margin-left:6px">X</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
 
                       `;
     </script>
+    
+
     @if (Session::get('success'))
         <script>
             $(document).ready(function() {
