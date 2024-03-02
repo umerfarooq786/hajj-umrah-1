@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "flowbite": "^1.8.1",
+        "laravel-vite": "^0.0.24",
         "swiper": "^10.2.0"
     }
 }
