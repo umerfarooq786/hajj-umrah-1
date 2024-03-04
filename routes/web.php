@@ -96,6 +96,7 @@ Route::get('/about', function () {
 });
 
 Route::get('/custom-package', [CostController::class, 'calculate_package']);
+Route::get('/custom-package/result', [CostController::class, 'calculate_package_result']);
 
 Route::get('/hotel-city/{city}', [FrontHotelController::class, 'index'])->name('hotels.city');
 Route::get('/hotel-id/{id}', [FrontHotelController::class, 'singleHotel']);

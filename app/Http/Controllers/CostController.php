@@ -17,4 +17,9 @@ class CostController extends Controller
 
         return view("website.custom-package.index", compact('rooms','routes','transport_types'));
     }
+
+    public function calculate_package_result(){
+        
+        return view("website.custom-package.result");
+    }
 }
