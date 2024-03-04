@@ -21,4 +21,9 @@ class Cost extends Model
     {
         return $this->morphTo();
     }
+
+    public function transport()
+    {
+        return $this->morphTo();
+    }
 }

@@ -21,10 +21,12 @@ class Transport extends Model
     }
     public function route()
     {
-        return $this->belongsTo(Route::class, 'route_id');
+        // return $this->hasMany(Route::class, 'route_id');
+        return $this->belongsTo(Route::class);
     }
     public function costs()
     {
-        return $this->morphMany(Cost::class, 'item');
+        return $this->hasMany(Cost::class, 'item_id');
     }
+    
 }

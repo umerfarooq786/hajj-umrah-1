@@ -14,6 +14,7 @@ class Route extends Model
 
     public function transport()
     {
-        return $this->hasMany(Transport::class, 'route_id');
+        return $this->morphTo();
+        // return $this->hasMany(Transport::class, 'route_id');
     }
 }

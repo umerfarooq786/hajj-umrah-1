@@ -295,6 +295,7 @@ class HotelController extends Controller
             ->select('hotel_rooms.*', 'rooms.id as room_id', 'rooms.name as room_name')
             ->where('hotel_rooms.hotel_id', $hotel->id)
             ->orderBy('hotel_rooms.validity') // Optional: You can order the results by validity
+            ->orderBy('rooms.id')
             ->get()
             ->groupBy('validity');
         $specialOffers = $hotel->specialOffers;
