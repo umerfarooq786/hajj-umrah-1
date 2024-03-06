@@ -51,10 +51,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get_testimonial_result', [TestimonialController::class, 'get_testimonial_result'])->name('get_testimonial_result');
     // Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
 
-    Route::resource('contacts', ContactsController::class);
-    Route::get('/contacts', [ContactsController::class, 'index'])->name('contacts.index')->middleware('check.permission:contacts-view');
-    Route::get('/get_contacts', [ContactsController::class, 'get_contacts']);
-
     Route::resource('routes', RouteController::class);
     Route::get('/routes', [RouteController::class, 'index'])->name('routes.index')->middleware('check.permission:routes-list');
     Route::get('/get_routes', [RouteController::class, 'get_routes']);
@@ -84,6 +80,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/update_visa_charges', [VisaController::class, 'update_visa_charges'])->name('admin.update_visa_charges');
 });
 
+// Contacts Routes
+Route::resource('contacts', ContactsController::class);
+Route::get('/contacts', [ContactsController::class, 'index'])->name('contacts.index')->middleware('check.permission:contacts-view');
+Route::get('/get_contacts', [ContactsController::class, 'get_contacts']);
+
+
 Route::get('/home_page', [WebsiteController::class, 'homepage'])->name('home_page');
 // Route::get('/home_page', function(){
 //     return view('website.home.index');    
@@ -96,6 +98,7 @@ Route::get('/about', function () {
 });
 
 Route::get('/custom-package', [CostController::class, 'calculate_package']);
+Route::post('/calculate_package_result', [CostController::class, 'calculate'])->name('calculate.calculate_package_result');
 Route::get('/custom-package/result', [CostController::class, 'calculate_package_result']);
 
 Route::get('/hotel-city/{city}', [FrontHotelController::class, 'index'])->name('hotels.city');

@@ -5,7 +5,7 @@
     <title>Hotel Room Validity About To Expire In 222 Days</title>
 </head>
 <body>
-    <h2>Hotel Room Validity About To Expire In 123 Day</h2>
+    <h2>Hotel Room Validity About To Expire In 2 Day</h2>
     <p>Hotel Name: {{ $formData->hotel['name'] }}</p>
     <p>Note: {{ $formData->hotel['note'] }} </p>
     <p>City: {{ $formData->hotel['city'] }}</p>
