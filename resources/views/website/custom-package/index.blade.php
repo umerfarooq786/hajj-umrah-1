@@ -98,17 +98,17 @@
 
                 <!-- Transport in Makah -->
                 <h4 class="font-semibold text-sm pt-3">Select Transport </h4>
-                <div class="flex flex-col md:flex-row  relative">
-                    <select class="journey  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                        name="route">
+                <div class="flex flex-col md:flex-row stay relative">
+                    <select id="route" name="route"
+                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                         <option value="">Select Route</option>
                         @foreach ($routes as $route)
                             <option value="{{ $route->id }}">{{ $route->name }}</option>
                         @endforeach
                     </select>
 
-                    <select class="journey  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                        name="vehicle">
+                    <select id="vehicle" name="vehicle"
+                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                         <option value="">Select Vehicle</option>
                         @foreach ($transport_types as $trantransport_type)
                             <option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }}</option>
@@ -117,9 +117,9 @@
 
                     <div class=" flex items-center relative h-[40px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                        <input type="text" name="travel_date" id="makkah_transport_date" placeholder="Select Date"
-                            class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400"
-                            class="startDate">
+                        <input type="text" id="travel_date" name="travel_date"
+                            placeholder="Date"
+                            class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
                 </div>
 
