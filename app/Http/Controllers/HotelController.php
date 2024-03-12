@@ -53,7 +53,8 @@ class HotelController extends Controller
             'weekdays_price' => 'required|array|min:1',
             'city' => 'required',
             'validity' => 'required|date',
-            'room_id' => 'required|array|min:1'
+            'room_id' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -309,8 +310,21 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // return $request;
+        $rules = [
+            'name' => 'required',
+            'google_map' => 'required',
+            'weekend_price' => 'required|array|min:1',
+            'weekdays_price' => 'required|array|min:1',
+            'city' => 'required',
+            'room_id' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $currency_conversion = CurrencyConversion::first();
 
         $hotel = Hotel::findOrFail($id);

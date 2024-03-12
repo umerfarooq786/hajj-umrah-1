@@ -255,12 +255,12 @@
     }, 2000);
     $('.specialOffer').on('click',()=>{
         $('.special_offer_parent').append(add_special_offer);
-        if($(".special_offer").length == 3){
+        if($(".special_offer").length == 1){
             $('.specialOffer').fadeOut(1)
         }                               
     });
     function remove_special_offer(e){
-        if($(".special_offer").length == 3){
+        if($(".special_offer").length == 1){
             $('.specialOffer').fadeIn(1)
         }
         let targetvalue =e.target;

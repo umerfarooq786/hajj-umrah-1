@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -31,8 +31,14 @@ class UserController extends Controller
     {
         $rules = [
             'first_name' => 'required',
-            'last_name' => 'required'
+            'last_name' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
         ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         // $input = $request->all();
         // $input['password'] = Hash::make($input['password']);
         $user = new User();
@@ -184,6 +190,17 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
+
+        $rules = [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $user = User::findOrFail($id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
