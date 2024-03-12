@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cost;
+use App\Models\CurrencyConversion;
 use App\Models\Hotel;
 use App\Models\HotelRoom;
 use App\Models\Room;
@@ -109,7 +109,12 @@ class CostController extends Controller
         $visa = ($visa == 'umrah') ? 2500 : (($visa == 'hajj') ? 3500 : null);
 
         $total_cost = $hotel_room_price + $transport_cost + $visa;
+        $CurrencyConversion = CurrencyConversion::all();
+        foreach($CurrencyConversion as $CurrencyConversions){
+            $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
+            $sar_to_usd = $CurrencyConversions->sar_to_usd;
+        }
 
-        return view('website.custom-package.result', compact('total_cost', 'hotel_room_perday_price', 'hotel_room_price', 'transport_cost', 'visa'));
+        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'hotel_room_perday_price', 'hotel_room_price', 'transport_cost', 'visa'));
     }
 }
