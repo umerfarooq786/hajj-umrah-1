@@ -15,10 +15,7 @@ use App\Models\HotelRoom;
 use App\Models\CurrencyConversion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use App\Jobs\SendHotelValidityExpirationNotification;
-use Illuminate\Support\Facades\Queue;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\File;
 
 class HotelController extends Controller
 {

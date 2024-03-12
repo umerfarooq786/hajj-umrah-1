@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 
 class TestimonialController extends Controller
 {
@@ -33,18 +33,35 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'content' => 'required|string',
-        ]);
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'designation' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:3000',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $user = auth()->user();
+
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('app-assets/images/testimonial'), $imageName);
 
         // Update existing testimonial or create a new one
         Testimonial::updateOrCreate(
             ['user_id' => $user->id], // Find testimonial by user ID
-            ['content' => $request->input('content')] // Update or create content
+            [
+                'content' => $request->input('content'),
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'designation' => $request->input('designation'),
+                'image' => $imageName // Update or create content
+            ]
         );
-
 
         // Redirect the user back with a success message
         return redirect()->route('testimonials.index')->with('success', 'Testimonial added successfully.');
@@ -73,7 +90,6 @@ class TestimonialController extends Controller
     {
         //
     }
-
 
     public function get_testimonial_result(Request $request)
     {
@@ -138,7 +154,7 @@ class TestimonialController extends Controller
             "sEcho" => intval($request->get('sEcho')),
             "iTotalRecords" => $iTotal,
             "iTotalDisplayRecords" => $iFilteredTotal,
-            "aaData" => array()
+            "aaData" => array(),
         );
         $i = 0;
 
@@ -149,7 +165,6 @@ class TestimonialController extends Controller
                              <span></span>
                           </label>";
             $content = $aRow->content;
-
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -164,7 +179,7 @@ class TestimonialController extends Controller
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
                 @$content,
-                @$action
+                @$action,
             );
 
             $i++;

@@ -49,11 +49,46 @@
                                 <div class="form-body">
                                     <h4 class="form-section"><i class="la la la-car"></i>Add Testimonial</h4>
                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput1">First Name</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control border-primary"
+                                                        placeholder="First Name" name="first_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row">
+                                            <label class="col-md-3 label-control" for="userinput1">Last Name</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control border-primary"
+                                                    placeholder="Last Name" name="last_name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput1">Image</label>
+                                                <div class="col-md-9">
+                                                    <input type="file" class="form-control border-primary"
+                                                        name="image">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 row">
+                                            <label class="col-md-3 label-control" for="userinput1">Designation</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control border-primary"
+                                                    placeholder="Designation" name="designation">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Content:</strong>
-                                                <textarea type="text" name="content" placeholder="Content"
-                                                    class="form-control"></textarea>
+                                                <textarea type="text" name="content" placeholder="Content" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">

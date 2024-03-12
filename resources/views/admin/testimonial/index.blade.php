@@ -58,14 +58,21 @@
                                     id="link_table">
                                     <thead>
                                         <tr>
+                                            <th>Name</th>
+                                            <th>Designation</th>
                                             <th>Content</th>
+                                            <th>Image</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($roles as $key => $role)
                                             <tr>
+                                                <td>{{ $role->last_name }}</td>
+                                                <td>{{ $role->designation }}</td>
                                                 <td>{{ $role->content }}</td>
+                                                <td><img src="{{ asset('app-assets/images/testimonial/' . $role->image) }}"
+                                                    alt="" style="height:30px; width:30px"></td>
                                                 <td>
                                                         <form method="POST" action="{{ route('testimonials.destroy', $role->id) }}"
                                                             style="display:inline">

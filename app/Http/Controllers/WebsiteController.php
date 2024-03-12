@@ -9,7 +9,7 @@ class WebsiteController extends Controller
 {
     public function homepage(){
         $package = Package::all();
-        $testimonial = Testimonial::with('user')->get();
+        $testimonial = Testimonial::all();
         return view('website.home.index' , compact('package', 'testimonial'));
     }
     

@@ -6,8 +6,8 @@
                 <p class="text-gray-500 text-[15px]">{{ $testimonials->content }}.</p>
                 <div class="flex mt-10 space-x-3">
                     <div class="h-[60px] w-[60px] rounded-full overflow-hidden">
-                        @if ($testimonials->user->image != null)
-                            <img src="{{ asset('app-assets/images/profile/' . $testimonials->user->image) }}"
+                        @if ($testimonials->image != null)
+                            <img src="{{ asset('app-assets/images/testimonial/' . $testimonials->image) }}"
                                 alt="" class="h-full w-full  object-cover object-top">
                         @else
                             <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }}"
@@ -15,9 +15,9 @@
                         @endif
                     </div>
                     <div class="pt-1 text-start">
-                        <h4 class="text-red-500 font-semibold">{{ $testimonials->user->first_name }}
-                            {{ $testimonials->user->last_name }} </h4>
-                        <p class="text-[12px]">{{ $testimonials->user->designation }}</p>
+                        <h4 class="text-red-500 font-semibold">{{ $testimonials->first_name }}
+                            {{ $testimonials->last_name }} </h4>
+                        <p class="text-[12px]">{{ $testimonials->designation }}</p>
                     </div>
                 </div>
             </div>
