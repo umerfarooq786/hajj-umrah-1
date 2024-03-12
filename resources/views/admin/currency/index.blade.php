@@ -21,7 +21,7 @@
                     <div class="form-body">
                         <h4 class="form-section"><i class="la la-dollar"></i>Currency Conversion</h4>
                         <div class="row">
-                            <span style="margin-left: 40px; color:green; padding-bottom:20px">Note: The rates are equivalent to PKR</span>
+                            <span style="margin-left: 40px; color:green; padding-bottom:20px">Note: The rates are equivalent to SAR</span>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput2">SAR Rate</label>
+                                    <label class="col-md-3 label-control" for="userinput2">1 SAR into PKR</label>
                                     <div class="col-md-9">
                                         <input type="number" id="userinput1" class="form-control border-primary" placeholder="SAR"
                                         name="sar_to_pkr" value="{{$currency_conversion->sar_to_pkr}}" required>

@@ -135,9 +135,9 @@
                 </li>
             @endcan
             @can('packages-calculation')
-                <li class="nav-item"><a href="{{ route('admin.custom_package') }}"><i class="la la-hotel"></i><span
+                <!-- <li class="nav-item"><a href="{{ route('admin.custom_package') }}"><i class="la la-hotel"></i><span
                             class="menu-title" data-i18n="nav.dash.main">Package Calculation</span></a>
-                </li>
+                </li> -->
             @endcan
             @can('currencys-conversion')
                 <li class="nav-item"><a href="{{ route('admin.currency_conversion') }}"><i class="la la-dollar"></i><span
