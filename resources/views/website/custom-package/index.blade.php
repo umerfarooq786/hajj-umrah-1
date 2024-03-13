@@ -24,6 +24,7 @@
                     </ul>
                 </div><br><br>
             @endif
+            <h2 class="text-green-600">Note: The rates may vary, kindly contact admin by clicking <a href="/contact" class="text-red-600">this link</a> </h2>
             <form method="POST" action="{{ route('calculate.calculate_package_result') }}" class="space-y-2"
                 id="custom-package-form" enctype="multipart/form-data">
                 @csrf
