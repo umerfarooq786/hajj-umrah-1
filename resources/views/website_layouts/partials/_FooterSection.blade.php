@@ -14,19 +14,19 @@
         </div>
         <div>
             <h4 class="text-white">Contact Us</h4>
-            <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon1.png')}}" alt="logo" class="h-[25px]">
                 <span>PO Box 16122 Collins Street</span>            
             </a>
-            <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon2.png')}}" alt="logo" class="h-[25px]">
                 <span>+12345678</span>            
             </a>
-            <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon3.png')}}" alt="logo" class="h-[25px]">
                 <span>Email: simple@gmail.com</span>            
             </a>
-            <a href="#" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon4.png')}}" alt="logo" class="h-[25px]">
                 <span>yourwebsite.com</span>            
             </a>
@@ -35,9 +35,11 @@
             <h4 class="text-white mb-3">Useful Links</h4>
             <a href="/home_page" class=" hover:text-first text-sm">Home</a>
             <a href="/about" class=" hover:text-first text-sm">About</a>
-            <a href="#" class=" hover:text-first text-sm">Package</a>
-            <a href="#" class=" hover:text-first text-sm">Calculate</a>
-            <a href="#" class=" hover:text-first text-sm">Hotels</a>
+            <a href="/home_page#special-offers" class=" hover:text-first text-sm">Packages</a>
+            <a href="/custom-package" class=" hover:text-first text-sm">Calculate</a>
+            <a href="/hotel-city/makkah" class=" hover:text-first text-sm">Hotels in Makkah</a>
+            <a href="/hotel-city/madinah" class=" hover:text-first text-sm">Hotels in Madinah</a>
+            <a href="/hotel-city/jeddah" class=" hover:text-first text-sm">Hotels in Jeddah</a>
             <a href="/contact" class=" hover:text-first text-sm">Contact Us</a>
         </div>
         <div>

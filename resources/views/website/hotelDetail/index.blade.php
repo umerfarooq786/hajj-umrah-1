@@ -7,7 +7,9 @@
 @section('content')
 
 <div class="w-[95%] md:w-[80%] mx-auto space-y-10 my-20">
+    
     <h2 class="font-semibold text-2xl">{{$hotel->name}}</h2>
+    <span class="text-gray1">Note: {{$hotel->note}}</span>
     <div class="w-full h-[600px]">
         @include('website_layouts.partials._HotelDetailSlider1', ['hotel_images' => $hotel_images])
     </div>
