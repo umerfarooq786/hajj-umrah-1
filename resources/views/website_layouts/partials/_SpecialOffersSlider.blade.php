@@ -5,7 +5,7 @@
     coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
     @foreach($package as $packages)
     <swiper-slide>
-      <img src="{{ asset('app-assets/images/packages/'. $packages->image) }}" />
+      <img src="{{ asset('uploads/'. $packages->image) }}" />
     </swiper-slide>
     @endforeach
     <!-- <swiper-slide>
