@@ -71,7 +71,7 @@
                                                 <td>{{ $role->last_name }}</td>
                                                 <td>{{ $role->designation }}</td>
                                                 <td>{{ $role->content }}</td>
-                                                <td><img src="{{ asset('app-assets/images/testimonial/' . $role->image) }}"
+                                                <td><img src="{{ asset('uploads/' . $role->image) }}"
                                                     alt="" style="height:30px; width:30px"></td>
                                                 <td>
                                                         <form method="POST" action="{{ route('testimonials.destroy', $role->id) }}"

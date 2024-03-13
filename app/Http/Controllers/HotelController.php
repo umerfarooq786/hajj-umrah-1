@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CurrencyConversion;
 use App\Models\Hotel;
-use Illuminate\Http\Request;
-use App\Models\Room;
-use App\Models\Image;
+use App\Models\HotelRoom;
 use App\Models\HotelSpecialOffer;
-use App\Models\TransportType;
 use App\Models\HotelSpecialOfferRoom;
+use App\Models\Image;
+use App\Models\Room;
 use App\Models\Route;
 use App\Models\Transport;
-use App\Models\HotelRoom;
-use App\Models\CurrencyConversion;
+use App\Models\TransportType;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
 
 class HotelController extends Controller
 {
@@ -51,7 +51,7 @@ class HotelController extends Controller
             'city' => 'required',
             'validity' => 'required|date',
             'room_id' => 'required|array|min:1',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -96,7 +96,7 @@ class HotelController extends Controller
                 'weekdays_price' => $weekdaysPrices[$i],
                 'weekend_price' => $weekendPrices[$i],
                 'validity' => $request->validity,
-                'current_currency' => $current_currency->default_currency
+                'current_currency' => $current_currency->default_currency,
             ];
         }
 
@@ -234,7 +234,7 @@ class HotelController extends Controller
             "sEcho" => intval($request->get('sEcho')),
             "iTotalRecords" => $iTotal,
             "iTotalDisplayRecords" => $iFilteredTotal,
-            "aaData" => array()
+            "aaData" => array(),
         );
         $i = 0;
 
@@ -248,7 +248,7 @@ class HotelController extends Controller
             $hotel_id = $aRow->id;
             $name = $aRow->name;
             $city = $aRow->city;
-            $excerpt =  $aRow->excerpt;
+            $excerpt = $aRow->excerpt;
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -266,7 +266,7 @@ class HotelController extends Controller
                 @$name,
                 @$city,
                 @$excerpt,
-                @$action
+                @$action,
             );
 
             $i++;
@@ -314,7 +314,7 @@ class HotelController extends Controller
             'weekdays_price' => 'required|array|min:1',
             'city' => 'required',
             'room_id' => 'required|array|min:1',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -340,7 +340,7 @@ class HotelController extends Controller
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price;
 
-        if ($request->validity != NULL) {
+        if ($request->validity != null) {
             foreach ($request->validity as $i => $validity) {
                 // Extract corresponding room IDs and details for the current validity date
                 $currentRoomIds = $roomIds[$i];
@@ -361,12 +361,12 @@ class HotelController extends Controller
                             'hotel_id' => $hotel->id,
                             'room_id' => $roomId,
                             'id' => $idss,
-                            'validity' => $validity
+                            'validity' => $validity,
                         ],
                         [
                             'weekdays_price' => $weekdaysPrice,
                             'weekend_price' => $weekendPrice,
-                            'current_currency' => $currency_conversion->default_currency
+                            'current_currency' => $currency_conversion->default_currency,
                         ]
                     );
                 }
@@ -403,16 +403,16 @@ class HotelController extends Controller
                         HotelSpecialOfferRoom::where('package_id', $specialOffer->id)
                             ->where('id', $request->rooms_id[$i])
                             ->update([
-                                'price' => $request->rooms_price[$i]
+                                'price' => $request->rooms_price[$i],
                             ]);
                     }
                 } else {
-                    $specialOffer =  new HotelSpecialOffer();
+                    $specialOffer = new HotelSpecialOffer();
 
                     $specialOffer->hotel_id = $id;
                     $specialOffer->package_name = $request->offer_name[$key];
                     $specialOffer->start_date = $request->offer_start_date[$key];
-                    $specialOffer->end_date =  $request->offer_end_date[$key];
+                    $specialOffer->end_date = $request->offer_end_date[$key];
 
                     $specialOffer->save();
 
@@ -471,17 +471,24 @@ class HotelController extends Controller
 
         $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
         $specialOffer->delete();
-        
-        $image = Image::where('hotel_id', $id);
-        $image->delete();
 
+        $images = Image::where('hotel_id', $id)->get();
+
+        foreach ($images as $image) {
+            $imageFileName = $image->name;
+            $imagePath = public_path('uploads') . '/' . $imageFileName;
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $image->delete(); 
+        }
 
         $hotel = Hotel::findOrFail($id);
         $hotel->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Hotel deleted successfully.'
+            'message' => 'Hotel deleted successfully.',
         ], 200);
     }
 }

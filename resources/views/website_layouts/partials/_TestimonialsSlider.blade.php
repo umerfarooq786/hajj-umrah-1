@@ -7,7 +7,7 @@
                 <div class="flex mt-10 space-x-3">
                     <div class="h-[60px] w-[60px] rounded-full overflow-hidden">
                         @if ($testimonials->image != null)
-                            <img src="{{ asset('app-assets/images/testimonial/' . $testimonials->image) }}"
+                            <img src="{{ asset('uploads/' . $testimonials->image) }}"
                                 alt="" class="h-full w-full  object-cover object-top">
                         @else
                             <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }}"

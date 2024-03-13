@@ -49,7 +49,7 @@ class TestimonialController extends Controller
 
         $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
-        $image->move(public_path('app-assets/images/testimonial'), $imageName);
+        $image->move(public_path('uploads'), $imageName);
 
         // Update existing testimonial or create a new one
         Testimonial::updateOrCreate(
@@ -59,7 +59,7 @@ class TestimonialController extends Controller
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'designation' => $request->input('designation'),
-                'image' => $imageName // Update or create content
+                'image' => $imageName, // Update or create content
             ]
         );
 
@@ -192,13 +192,18 @@ class TestimonialController extends Controller
     public function destroy(string $id)
     {
         $testimonial = Testimonial::findOrFail($id);
+
+        $imagePath = public_path('uploads');
+        $imageFileName = $testimonial->image; // Assuming the image file name is stored in the 'image' column
+        if ($imageFileName && file_exists($imagePath . '/' . $imageFileName)) {
+            unlink($imagePath . '/' . $imageFileName);
+        }
+
+        // Delete the testimonial
         $testimonial->delete();
+
         return redirect()->route('testimonials.index')
             ->with('success', 'Your testimonial deleted successfully');
 
-        //  return response()->json([
-        //      'status' => 'success',
-        //      'message' => 'Welldone! Testimonial deleted successfully.'
-        //  ], 200);
     }
 }

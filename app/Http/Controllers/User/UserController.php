@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
 
-
         return view('admin.user.view');
     }
-
 
     public function create()
     {
@@ -26,13 +24,12 @@ class UserController extends Controller
         return view('admin.user.create', compact('roles'));
     }
 
-
     public function store(Request $request)
     {
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -56,7 +53,7 @@ class UserController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('app-assets/images/profile'), $imageName);
+            $image->move(public_path('uploads'), $imageName);
             $user->image = $imageName;
         }
 
@@ -135,7 +132,7 @@ class UserController extends Controller
             "sEcho" => intval($request->get('sEcho')),
             "iTotalRecords" => $iTotal,
             "iTotalDisplayRecords" => $iFilteredTotal,
-            "aaData" => array()
+            "aaData" => array(),
         );
         $i = 0;
 
@@ -173,7 +170,7 @@ class UserController extends Controller
                 @$id_card,
                 @$phone,
                 @$role,
-                @$action
+                @$action,
             );
 
             $i++;
@@ -185,7 +182,7 @@ class UserController extends Controller
     {
         $route = User::findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
-        return view('admin.user.edit', compact('route') , compact('roles'));
+        return view('admin.user.edit', compact('route'), compact('roles'));
     }
 
     public function update(Request $request, string $id)
@@ -194,7 +191,7 @@ class UserController extends Controller
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000'
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -211,13 +208,13 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->email = $request->email;
-        if($request->password != NULL){
+        if ($request->password != null) {
             $user->password = Hash::make($request->password);
         }
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('app-assets/images/profile'), $imageName);
+            $image->move(public_path('uploads'), $imageName);
             $user->image = $imageName;
         }
         $user->save(); // Save the user first
@@ -232,11 +229,16 @@ class UserController extends Controller
     public function destroy($id)
     {
         $hotel = User::findOrFail($id);
+        $imagePath = public_path('uploads');
+        $imageFileName = $hotel->image; // Assuming the image file name is stored in the 'image' column
+        if ($imageFileName && file_exists($imagePath . '/' . $imageFileName)) {
+            unlink($imagePath . '/' . $imageFileName);
+        }
         $hotel->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'User deleted successfully.'
+            'message' => 'User deleted successfully.',
         ], 200);
 
         return view('website.user.dashboard');
@@ -244,7 +246,7 @@ class UserController extends Controller
 
     public function simple_profile()
     {
-    	return view('website.user.simple-profile.index');
+        return view('website.user.simple-profile.index');
     }
 
     public function detail_profile()
@@ -252,37 +254,37 @@ class UserController extends Controller
         $user = Auth::user();
 
         $professional_skills = json_decode($user->professional_skills);
-        if(empty(json_decode($user->interpersonal_skills))){
+        if (empty(json_decode($user->interpersonal_skills))) {
             $interpersonal_skills = array();
-        }else{
+        } else {
             $interpersonal_skills = json_decode($user->interpersonal_skills);
         }
 
-        if(empty(json_decode($user->professional_skills))){
+        if (empty(json_decode($user->professional_skills))) {
             $professional_skills = array();
-        }else{
+        } else {
             $professional_skills = json_decode($user->professional_skills);
         }
-        
+
         $careerBackgrounds = $user->careerBackgrounds;
         $personalizedBackgrounds = $user->personalizedBackgrounds;
-        $qualifications = $user->qualifications; 
+        $qualifications = $user->qualifications;
 
-        return view('website.user.detail-profile.index' , compact('user' , 'careerBackgrounds' , 'professional_skills' , 'interpersonal_skills' ,'personalizedBackgrounds' , 'qualifications'));
+        return view('website.user.detail-profile.index', compact('user', 'careerBackgrounds', 'professional_skills', 'interpersonal_skills', 'personalizedBackgrounds', 'qualifications'));
     }
 
     public function edit_simple_profile()
     {
         $user = Auth::user();
 
-    	return view('website.user.simple-profile.edit' , compact('user'));
+        return view('website.user.simple-profile.edit', compact('user'));
     }
 
     public function simple_profile_settings()
     {
         $user = Auth::user();
 
-        return view('website.user.simple-profile.account-setting' , compact('user'));
+        return view('website.user.simple-profile.account-setting', compact('user'));
     }
 
     public function store_detail_profile(Request $request)
@@ -290,7 +292,7 @@ class UserController extends Controller
         return $request;
     }
 
-    public function update_simple_profile(Request $request , $id)
+    public function update_simple_profile(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
@@ -301,14 +303,13 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->location = $request->location;
 
-        if($request->has('image'))
-        {
-            if(isset($user->image)) {
+        if ($request->has('image')) {
+            if (isset($user->image)) {
                 @unlink('storage/user_image/' . $user->image);
             }
-            
+
             $image = $request->file('image');
-            $user_image = time().'.'.$image->getClientOriginalExtension();
+            $user_image = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/storage/user_image');
             $image->move($destinationPath, $user_image);
             $user->image = $user_image;
@@ -317,12 +318,12 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('user.simple.profile')->with('success' , "Simple Profile Updated Successfully");
+        return redirect()->route('user.simple.profile')->with('success', "Simple Profile Updated Successfully");
     }
 
     public function resume()
     {
-        $id=Auth::user()->id;
+        $id = Auth::user()->id;
         $user = User::findOrFail($id);
 
         $professionalSkills = json_decode($user->professional_skills);
@@ -330,48 +331,38 @@ class UserController extends Controller
         $interpersonalSkills = json_decode($user->interpersonal_skills);
         $intpersonalSkills = explode(",", $interpersonalSkills[0]);
 
-        return view('website.user.resume.index' , compact('profSkills' , 'intpersonalSkills'));
+        return view('website.user.resume.index', compact('profSkills', 'intpersonalSkills'));
     }
 
-    public function update_profile_settings(Request $request , $id)
-    { 
+    public function update_profile_settings(Request $request, $id)
+    {
         $user = User::findOrFail($id);
         $hashedPassword = $user->password;
 
-        if(isset($request->password))
-        {
-            if($this->checkPassword($request->current_password, $hashedPassword)==true)
-            {
+        if (isset($request->password)) {
+            if ($this->checkPassword($request->current_password, $hashedPassword) == true) {
                 $user->password = Hash::make($request->password);
-            }
-            else
-            {
-                return redirect()->back()->with('error' , "Your current password is incorrect");
+            } else {
+                return redirect()->back()->with('error', "Your current password is incorrect");
             }
         }
 
-        if($request->is_active == "on")
-        {
-            $user->is_active= 1;
-        }
-        else
-        {
-            $user->is_active= 0;
+        if ($request->is_active == "on") {
+            $user->is_active = 1;
+        } else {
+            $user->is_active = 0;
         }
 
         $user->save();
 
-        return redirect()->back()->with('success' , "Your settings has been updated Successfully");
+        return redirect()->back()->with('success', "Your settings has been updated Successfully");
     }
 
-    public function checkPassword($current_password , $hashedPassword)
+    public function checkPassword($current_password, $hashedPassword)
     {
-        if (Hash::check($current_password , $hashedPassword)) 
-        {
+        if (Hash::check($current_password, $hashedPassword)) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
 
