@@ -35,7 +35,7 @@
                                             <div
                                                 style="display: flex; align-items: center; justify-content: space-between; ">
                                                 @if ($route->image != null)
-                                                    <img src="{{ asset('app-assets/images/profile/' . $route->image) }} "
+                                                    <img src="{{ asset('uploads/' . $route->image) }} "
                                                         style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
                                                     border-radius: 5px; margin-left:142px;
                                                     padding: 5px;
