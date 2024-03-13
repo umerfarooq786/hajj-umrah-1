@@ -28,7 +28,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control">1 SAR into USD</label>
                                     <div class="col-md-9">
-                                    <input type="number" id="userinput1" class="form-control border-primary" placeholder="Dollar"
+                                    <input type="text" id="userinput1" class="form-control border-primary" placeholder="Dollar"
                                         name="sar_to_usd" value="{{$currency_conversion->sar_to_usd}}" required>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput2">1 SAR into PKR</label>
                                     <div class="col-md-9">
-                                        <input type="number" id="userinput1" class="form-control border-primary" placeholder="SAR"
+                                        <input type="text" id="userinput1" class="form-control border-primary" placeholder="SAR"
                                         name="sar_to_pkr" value="{{$currency_conversion->sar_to_pkr}}" required>
                                     </div>
                                 </div>
