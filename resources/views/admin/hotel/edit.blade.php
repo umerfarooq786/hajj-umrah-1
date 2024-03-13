@@ -124,7 +124,7 @@
                                                 <div class="card">
                                                     <img src="{{ asset($image->path) }}" alt="{{ $image->name }}"
                                                         class="card-img-top image_galery"
-                                                        style="max-width: 70px;height:140;object-fit: cover">
+                                                        style="max-width: 140px;height:140px;object-fit: cover">
                                                     <a href="#" style="max-width: 70px"
                                                         class="btn btn-danger delete-image"
                                                         data-id="{{ $image->id }}">Delete</a>
