@@ -38,7 +38,7 @@ class PackageController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('app-assets/images/packages'), $imageName);
+            $image->move(public_path('uploads'), $imageName);
             $package->image = $imageName;
         }
 
@@ -84,7 +84,7 @@ class PackageController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('app-assets/images/packages'), $imageName);
+            $image->move(public_path('uploads'), $imageName);
 
             // Store the image path or perform any other necessary actions
             $package->image = $imageName;
@@ -175,7 +175,7 @@ class PackageController extends Controller
             $name = $aRow->name;
             $price = $aRow->price;
             $imageName = $aRow->image;
-            $imageUrl = asset('app-assets/images/packages/' . $imageName);
+            $imageUrl = asset('uploads/' . $imageName);
             $image = "<img style='height:60px; width:60px' src='{$imageUrl}'>";
             
 
@@ -209,6 +209,11 @@ class PackageController extends Controller
     public function destroy(string $id)
     {
         $package = Package::findOrFail($id);
+        $imagePath = public_path('uploads');
+        $imageFileName = $package->image; // Assuming the image file name is stored in the 'image' column
+        if ($imageFileName && file_exists($imagePath . '/' . $imageFileName)) {
+            unlink($imagePath . '/' . $imageFileName);
+        }
        $package->delete();
 
         return response()->json([
