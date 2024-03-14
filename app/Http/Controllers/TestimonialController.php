@@ -52,16 +52,26 @@ class TestimonialController extends Controller
         $image->move(public_path('uploads'), $imageName);
 
         // Update existing testimonial or create a new one
-        Testimonial::updateOrCreate(
-            ['user_id' => $user->id], // Find testimonial by user ID
-            [
-                'content' => $request->input('content'),
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'designation' => $request->input('designation'),
-                'image' => $imageName, // Update or create content
-            ]
-        );
+        $Testimonial = new Testimonial();
+        
+        $Testimonial->user_id = $user->id;
+        $Testimonial->content = $request->input('content');
+        $Testimonial->first_name = $request->input('first_name');
+        $Testimonial->last_name = $request->input('last_name');
+        $Testimonial->designation = $request->input('designation');
+        $Testimonial->image = $imageName;
+
+        $Testimonial->save();
+        // Testimonial::updateOrCreate(
+        //     ['user_id' => $user->id], // Find testimonial by user ID
+        //     [
+        //         'content' => $request->input('content'),
+        //         'first_name' => $request->input('first_name'),
+        //         'last_name' => $request->input('last_name'),
+        //         'designation' => $request->input('designation'),
+        //         'image' => $imageName, // Update or create content
+        //     ]
+        // );
 
         // Redirect the user back with a success message
         return redirect()->route('testimonials.index')->with('success', 'Testimonial added successfully.');

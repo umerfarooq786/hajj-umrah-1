@@ -43,13 +43,13 @@
                                     <li><a data-action="close"><i class="ft-x"></i></a></li>
                                 </ul>
                             </div>
-                            @if(count($roles) == NULL)
+                            {{-- @if(count($roles) == NULL) --}}
                             <div class="heading-elements">
                                 <div class="pull-right">
                                         <a class="btn btn-success" href="{{ route('testimonials.create') }}"> Create New Testimonial</a>
                                 </div>
                             </div>
-                            @endif
+                            {{-- @endif --}}
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
