@@ -8,15 +8,6 @@
       <img src="{{ asset('uploads/'. $packages->image) }}" />
     </swiper-slide>
     @endforeach
-    <!-- <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-    </swiper-slide> -->
     
   </swiper-container>
 
