@@ -2,10 +2,37 @@
 
 @section('custom_styles')
     <link rel="stylesheet" href="{{ asset('css/customPackage.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
+    <style>
+        /* Add More Button Style */
+        #addMoreBtn {
+            background-color: #4CAF50;
+            /* Green background */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            /* Padding for better spacing */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            /* Add margin for spacing */
+            cursor: pointer;
+            border-radius: 5px;
+            /* Rounded corners */
+            transition-duration: 0.4s;
+            /* Smooth hover transition */
+        }
 
+        #addMoreBtn:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+    </style>
     <div class="mx-auto min-h-[500px] relative flex flex-col items-center justify-center py-20 my-20">
         <video autoplay muted loop class="-z-10 h-full w-full absolute top-0 left-0 object-cover">
             <source src="{{ asset('videos/package-bg.mp4') }}" type="video/mp4">
@@ -24,7 +51,8 @@
                     </ul>
                 </div><br><br>
             @endif
-            <h2 class="text-green-600">Note: The rates may vary, kindly contact admin by clicking <a href="/contact" class="text-red-600">this link</a> </h2>
+            <h2 class="text-green-600">Note: The rates may vary, kindly contact admin by clicking <a href="/contact"
+                    class="text-red-600">this link</a> </h2>
             <form method="POST" action="{{ route('calculate.calculate_package_result') }}" class="space-y-2"
                 id="custom-package-form" enctype="multipart/form-data">
                 @csrf
@@ -99,30 +127,33 @@
 
                 <!-- Transport in Makah -->
                 <h4 class="font-semibold text-sm pt-3">Select Transport </h4>
-                <div class="flex flex-col md:flex-row stay relative">
-                    <select id="route" name="route"
-                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Route</option>
-                        @foreach ($routes as $route)
-                            <option value="{{ $route->id }}">{{ $route->name }}</option>
-                        @endforeach
-                    </select>
+                <div id="RoutesDiv">
+                    <div class="flex flex-col md:flex-row stay relative">
+                        <select id="route" name="route[]"
+                            class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                            <option value="">Select Route</option>
+                            @foreach ($routes as $route)
+                                <option value="{{ $route->id }}">{{ $route->name }}</option>
+                            @endforeach
+                        </select>
 
-                    <select id="vehicle" name="vehicle"
-                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
-                        <option value="">Select Vehicle</option>
-                        @foreach ($transport_types as $trantransport_type)
-                            <option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }}</option>
-                        @endforeach
-                    </select>
+                        <select id="vehicle" name="vehicle[]"
+                            class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                            <option value="">Select Vehicle</option>
+                            @foreach ($transport_types as $trantransport_type)
+                                <option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }}</option>
+                            @endforeach
+                        </select>
 
-                    <div class=" flex items-center relative h-[40px]">
-                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                        <input type="text" id="travel_date" name="travel_date"
-                            placeholder="Date"
-                            class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        <div class=" flex items-center relative h-[40px]">
+                            <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
+                            <input type="date" id="travel_date" name="travel_date[]" placeholder="Date"
+                                class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        </div>
                     </div>
                 </div>
+                <button id="addMoreBtn" class="btn btn-primary">Add More</button>
+
 
 
                 <!-- Visa -->
@@ -156,6 +187,74 @@
 
     </div>
     <script>
+        $(document).ready(function() {
+            $('#makkah_hotel').change(function() {
+                var selectedValue = $(this).val();
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route('calculate.hotel_room_type') }}',
+                    method: 'POST',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Extract data from the response
+                        var responseData = response.data;
+
+                        populate_makkah_hotel_room_type(responseData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+
+
+            });
+
+            function populate_makkah_hotel_room_type(data) {
+                var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                }
+
+                // Populate the second dropdown with options
+                $('#makkah_hotel_room_type').html(options);
+            }
+
+
+            $('#addMoreBtn').click(function(e) {
+                e.preventDefault();
+                var newInputGroup = $('<div class="flex flex-col md:flex-row stay relative">' +
+                    '<select name="route[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                    '<option value="">Select Route</option>' +
+                    '@foreach ($routes as $route)' +
+                    '<option value="{{ $route->id }}">{{ $route->name }}</option>' +
+                    '@endforeach' +
+                    '</select>' +
+                    '<select name="vehicle[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                    '<option value="">Select Vehicle</option>' +
+                    '@foreach ($transport_types as $trantransport_type)' +
+                    '<option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }}</option>' +
+                    '@endforeach' +
+                    '</select>' +
+                    '<div class="flex items-center relative h-[40px]">' +
+                    '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
+                    '<input type="date" name="travel_date[]" placeholder="Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">' +
+                    '</div>' +
+                    '</div>');
+
+                // Append the new HTML structure to the container
+                $('#RoutesDiv').append(newInputGroup);
+                initFlatpickr(newInputGroup[0]);
+            });
+        });
+
         const initialFields = document.querySelectorAll('.stay'); // Select all initial fields
 
         const initFlatpickr = function(element) {
@@ -177,6 +276,9 @@
             });
         };
 
+
+
+
         // Initialize Flatpickr for the initial fields
         initialFields.forEach(initFlatpickr);
 
@@ -191,7 +293,8 @@
             // Create a "Remove" button
             const removeButton = document.createElement('button');
             removeButton.type = 'button';
-            removeButton.innerHTML = '<i class="fa-solid fa-minus text-red-500 absolute right-[-25px] bottom-0"></i>';
+            removeButton.innerHTML =
+                '<i class="fa-solid fa-minus text-red-500 absolute right-[-25px] bottom-0"></i>';
             removeButton.onclick = function() {
                 // Remove the parent div when the "Remove" button is clicked
                 newDiv.remove();
@@ -218,7 +321,8 @@
                 const startDateValue = field.querySelector('.startDate').value;
                 const endDateValue = field.querySelector('.endDate').value;
                 const personsValue = field.querySelector('.persons').value;
-                if (placeValue === "" || startDateValue === "" || endDateValue === "" || personsValue === "") {
+                if (placeValue === "" || startDateValue === "" || endDateValue === "" ||
+                    personsValue === "") {
                     error = true;
                 }
                 formData.push({

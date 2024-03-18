@@ -138,6 +138,18 @@
                                     @endif
                                 </div>
                                 <br>
+
+                                <div class="form-group row">
+                                    <label class="col-md-2 label-control">Display on Website</label>
+                                    <div class="col-md-9">
+                                        <div class="custom-control custom-switch custom-switch-lg">
+                                            <input type="checkbox" class="custom-control-input" id="displayOnWebsite"
+                                                name="display" value="1" {{ $hotel->display ? 'checked' : '' }}>
+                                            <label id="displayOnWebsiteLabel" class="custom-control-label"
+                                                for="displayOnWebsite">{{ $hotel->display ? 'Yes, display this hotel on the website' : 'No, do not display this hotel on the website' }}</label>
+                                        </div>
+                                    </div>
+                                </div> <br>
                                 <!-- view for repetitive validity starts -->
                                 <div class="validityContainer" style="margin-bottom:50px; position:relative">
                                     <?php $i = 0; ?>
@@ -154,7 +166,7 @@
                                                         <div class="col-md-6">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">$</span>
+                                                                    <span class="input-group-text">SAR</span>
                                                                 </div>
                                                                 <input type="hidden"
                                                                     name="room_id[{{ $i }}][]"
@@ -164,7 +176,7 @@
                                                                 <input name="weekdays_price[{{ $i }}][]"
                                                                     type="number" class="form-control"
                                                                     aria-label="Amount (to the nearest dollar)"
-                                                                    value="{{ $room->weekdays_price }}" required>
+                                                                    value="{{ $room->weekdays_price }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -177,7 +189,7 @@
                                                         <div class="col-md-6">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">$</span>
+                                                                    <span class="input-group-text">SAR</span>
                                                                 </div>
                                                                 <input name="weekend_price[{{ $i }}][]"
                                                                     type="number" class="form-control"
@@ -196,9 +208,10 @@
                                                         for="userinput2">Validity</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control border-primary "
+                                                            <input type="text"
+                                                                class="form-control border-primary datepicker"
                                                                 name="validity[]" value="{{ $validity }}"
-                                                                placeholder="Validity Date" readonly>
+                                                                placeholder="Validity Date">
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-danger delete-button"
                                                                     data-date="{{ $validity }}">Delete</button>
@@ -260,7 +273,7 @@
                                                         <div class="col-md-9">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text">$</span>
+                                                                    <span class="input-group-text">SAR</span>
                                                                 </div>
                                                                 <input type="hidden" name="rooms_id[]"
                                                                     value="{{ $room->id }}">
@@ -333,9 +346,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- repititive validity starts -->
     <script>
+        if (typeof window.lastValidity !== 'undefined' && window.lastValidity !== null) {} else {
+            window.lastValidity = {!! json_encode(date('Y-m-d')) !!};
+        }
+        var lastValidityDate = new Date(window.lastValidity);
+        var nextDay = new Date(lastValidityDate);
+        nextDay.setDate(lastValidityDate.getDate() + 1);
+        var nextDayFormatted = nextDay.toISOString().split('T')[0];
+        window.lastValidity = nextDayFormatted;
+
         flatpickr(".datepicker", {
             dateFormat: "Y-m-d",
-            minDate: "today",
+            minDate: window.lastValidity,
             enableTime: false,
             allowInput: true
         });
@@ -481,6 +503,27 @@
             let targetvalue = e.target;
             $(targetvalue).parent().parent().remove();
         }
+
+
+        function toggleLabel() {
+            var checkbox = document.getElementById('displayOnWebsite');
+            var label = document.getElementById('displayOnWebsiteLabel');
+
+            if (checkbox.checked) {
+                label.textContent = "Yes, display this hotel on the website calculation";
+            } else {
+                label.textContent = "No, do not display this hotel on the website calculation";
+            }
+        }
+
+        // Add event listener to the checkbox to trigger the function
+        document.getElementById('displayOnWebsite').addEventListener('change', toggleLabel);
+
+        // Initial call to set the label text based on the initial state of the checkbox
+        toggleLabel();
+
+
+
         let add_special_offer = `<div class="special_offer">
                       <div class="row justify-content-between align-items-center">
                          <h4 class="border-0 my-2 pl-2"><i  class="la la-briefcase"></i> Special Offer </h4>
@@ -511,7 +554,7 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input type="hidden" name="hotel_room_id[]"  value="{{ $room->room_id }}">
                                             <input name="rooms[]" type="number" class="form-control" placeholder="Enter Price" aria-label="Amount (to the nearest dollar)">
@@ -546,14 +589,7 @@
                     </div>`;
 
 
-        if (typeof window.lastValidity !== 'undefined' && window.lastValidity !== null) {} else {
-            window.lastValidity = {!! json_encode(date('Y-m-d')) !!};
-        }
-        var lastValidityDate = new Date(window.lastValidity);
-        var nextDay = new Date(lastValidityDate);
-        nextDay.setDate(lastValidityDate.getDate() + 1);
-        var nextDayFormatted = nextDay.toISOString().split('T')[0];
-        window.lastValidity =  nextDayFormatted ;
+
 
 
 
@@ -569,7 +605,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input type="hidden" name="room_id[` + window.myGlobalVariable + `][]"
                                                 value="1" />
@@ -578,7 +614,7 @@
                                             <input name="weekdays_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
                                                 aria-label="Amount (to the nearest dollar)"
-                                                value="" required>
+                                                value="" >
                                         </div>
                                     </div>
                                 </div>
@@ -591,7 +627,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input name="weekend_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
@@ -611,7 +647,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input type="hidden" name="room_id[` + window.myGlobalVariable + `][]"
                                                 value="2" />
@@ -620,7 +656,7 @@
                                             <input name="weekdays_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
                                                 aria-label="Amount (to the nearest dollar)"
-                                                value="" required>
+                                                value="" >
                                         </div>
                                     </div>
                                 </div>
@@ -633,7 +669,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input name="weekend_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
@@ -653,7 +689,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input type="hidden" name="room_id[` + window.myGlobalVariable + `][]"
                                                 value="3" />
@@ -662,7 +698,7 @@
                                             <input name="weekdays_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
                                                 aria-label="Amount (to the nearest dollar)"
-                                                value="" required>
+                                                value="" >
                                         </div>
                                     </div>
                                 </div>
@@ -675,7 +711,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input name="weekend_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
@@ -695,7 +731,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input type="hidden" name="room_id[` + window.myGlobalVariable + `][]"
                                                 value="4" />
@@ -704,7 +740,7 @@
                                             <input name="weekdays_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
                                                 aria-label="Amount (to the nearest dollar)"
-                                                value="" required>
+                                                value="" >
                                         </div>
                                     </div>
                                 </div>
@@ -717,7 +753,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
+                                                <span class="input-group-text">SAR</span>
                                             </div>
                                             <input name="weekend_price[` + window.myGlobalVariable + `][]" type="number"
                                                 class="form-control"
@@ -746,7 +782,7 @@
 
                       `;
     </script>
-    
+
 
     @if (Session::get('success'))
         <script>

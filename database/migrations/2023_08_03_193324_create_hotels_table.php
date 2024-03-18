@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('google_map');
+            $table->longText('excerpt');
+            $table->longText('description');
+            $table->longText('note');
+            $table->boolean('display')->default(false);
             $table->string('city');
             $table->timestamps();
         });

@@ -53,16 +53,18 @@ class HotelController extends Controller
             'room_id' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
-
+        
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $display = $request->display ?? 0;
         $hotel = new Hotel();
 
         $hotel->name = $request->name;
         $hotel->excerpt = $request->excerpt;
+        $hotel->display = $display;
         $hotel->description = $request->description;
         $hotel->google_map = $request->google_map;
         $hotel->note = $request->note;
@@ -90,14 +92,16 @@ class HotelController extends Controller
         $weekendPrices = $request->weekend_price;
         $hotelRoomData = [];
         for ($i = 0; $i < count($roomIds); $i++) {
-            $hotelRoomData[] = [
-                'hotel_id' => $hotel->id,
-                'room_id' => $roomIds[$i],
-                'weekdays_price' => $weekdaysPrices[$i],
-                'weekend_price' => $weekendPrices[$i],
-                'validity' => $request->validity,
-                'current_currency' => $current_currency->default_currency,
-            ];
+            if ($weekdaysPrices[$i]) {
+                $hotelRoomData[] = [
+                    'hotel_id' => $hotel->id,
+                    'room_id' => $roomIds[$i],
+                    'weekdays_price' => $weekdaysPrices[$i],
+                    'weekend_price' => $weekendPrices[$i],
+                    'validity' => $request->validity,
+                    'current_currency' => $current_currency->default_currency,
+                ];
+            }
         }
 
         HotelRoom::insert($hotelRoomData);
@@ -324,11 +328,13 @@ class HotelController extends Controller
 
         $currency_conversion = CurrencyConversion::first();
 
+        $display = $request->display ?? 0;
         $hotel = Hotel::findOrFail($id);
 
         $hotel->name = $request->name;
         $hotel->excerpt = $request->excerpt;
         $hotel->description = $request->description;
+        $hotel->display = $display;
         $hotel->google_map = $request->google_map;
         $hotel->note = $request->note;
         $hotel->city = $request->city;
@@ -351,24 +357,27 @@ class HotelController extends Controller
                 // Loop through the room IDs and update or create records for each room
                 foreach ($currentRoomIds as $index => $roomId) {
                     // Extract corresponding prices and ID for the current room
-                    $idss = $currentIds[$index] ?? null;
-                    $weekdaysPrice = $currentWeekdaysPrices[$index];
-                    $weekendPrice = $currentWeekendPrices[$index];
+                    if ($currentWeekdaysPrices[$index]) {
+                        $idss = $currentIds[$index] ?? null;
+                        $weekdaysPrice = $currentWeekdaysPrices[$index];
+                        $weekendPrice = $currentWeekendPrices[$index];
 
-                    // Update or create the hotel room record for the current room ID and validity date
-                    HotelRoom::updateOrCreate(
-                        [
-                            'hotel_id' => $hotel->id,
-                            'room_id' => $roomId,
-                            'id' => $idss,
-                            'validity' => $validity,
-                        ],
-                        [
-                            'weekdays_price' => $weekdaysPrice,
-                            'weekend_price' => $weekendPrice,
-                            'current_currency' => $currency_conversion->default_currency,
-                        ]
-                    );
+                        // Update or create the hotel room record for the current room ID and validity date
+                        HotelRoom::updateOrCreate(
+                            [
+                                'hotel_id' => $hotel->id,
+                                'room_id' => $roomId,
+                                'id' => $idss
+                                
+                            ],
+                            [
+                                'validity' => $validity,
+                                'weekdays_price' => $weekdaysPrice,
+                                'weekend_price' => $weekendPrice,
+                                'current_currency' => $currency_conversion->default_currency,
+                            ]
+                        );
+                    }
                 }
             }
         }
@@ -480,7 +489,7 @@ class HotelController extends Controller
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-            $image->delete(); 
+            $image->delete();
         }
 
         $hotel = Hotel::findOrFail($id);

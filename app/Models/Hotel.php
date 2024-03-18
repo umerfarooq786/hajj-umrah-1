@@ -12,6 +12,7 @@ class Hotel extends Model
         'name',
         'excerpt',
         'description',
+        'display',
         'google_map',
         'city'
     ];
