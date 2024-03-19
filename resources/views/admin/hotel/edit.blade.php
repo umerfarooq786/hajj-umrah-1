@@ -237,7 +237,7 @@
                                 window.myGlobalVariable = {!! json_encode($i) !!};
                                 window.HotelId = {!! json_encode($hotel->id) !!};
                             </script>
-                            @if ($hotel->specialOffers->count() > 0)
+                            {{-- @if ($hotel->specialOffers->count() > 0)
                                 <div class="special_offer ">
 
                                     <div class="row justify-content-between align-items-center">
@@ -326,7 +326,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-actions right">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="la la-check-square-o"></i> Update

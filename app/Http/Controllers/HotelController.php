@@ -357,12 +357,22 @@ class HotelController extends Controller
                 // Loop through the room IDs and update or create records for each room
                 foreach ($currentRoomIds as $index => $roomId) {
                     // Extract corresponding prices and ID for the current room
-                    if ($currentWeekdaysPrices[$index]) {
+                    
                         $idss = $currentIds[$index] ?? null;
                         $weekdaysPrice = $currentWeekdaysPrices[$index];
                         $weekendPrice = $currentWeekendPrices[$index];
 
+                        
                         // Update or create the hotel room record for the current room ID and validity date
+                        
+                        if ($weekdaysPrice === null) {
+                            // If $weekdaysPrice is null, delete the row
+                            HotelRoom::where([
+                                'hotel_id' => $hotel->id,
+                                'room_id' => $roomId,
+                                'id' => $idss
+                            ])->delete();
+                        } else {
                         HotelRoom::updateOrCreate(
                             [
                                 'hotel_id' => $hotel->id,

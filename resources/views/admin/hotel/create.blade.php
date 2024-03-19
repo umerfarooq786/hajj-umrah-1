@@ -203,7 +203,7 @@
                                 </div>
                             </div>
 
-                            <div class="special_offer_parent">
+                            {{-- <div class="special_offer_parent">
                                 <div class="row">
                                     <div class="col-12 text-center">
                                         <button type="button" class="btn btn-primary specialOffer">
@@ -211,7 +211,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-actions right">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="la la-check-square-o"></i> Save

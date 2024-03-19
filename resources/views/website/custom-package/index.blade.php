@@ -246,12 +246,19 @@
                     '<div class="flex items-center relative h-[40px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="date" name="travel_date[]" placeholder="Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">' +
+                    '<button class="deleteBtn">Delete</button>' +
                     '</div>' +
                     '</div>');
 
                 // Append the new HTML structure to the container
                 $('#RoutesDiv').append(newInputGroup);
                 initFlatpickr(newInputGroup[0]);
+            });
+
+            // Add click event listener to dynamically added delete buttons using event delegation
+            $('#RoutesDiv').on('click', '.deleteBtn', function(e) {
+                e.preventDefault();
+                $(this).closest('.stay').remove(); // Adjusted the selector here
             });
         });
 
