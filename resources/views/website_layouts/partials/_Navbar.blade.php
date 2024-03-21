@@ -4,8 +4,8 @@
         <div class="hidden md:flex items-start gap-3 w-[33%]">
             <img src="{{asset('images/home/timeIcon.svg')}}" alt="" class="mt-1">
             <div class="text-sm font-bold">
-                <p>MON-SAT: 6.00 AM - 10.00 PM</p>
-                <p class="mt-2">SUN: CLOSED</p>
+                <!-- <p>MON-SAT: 6.00 AM - 10.00 PM</p> -->
+                <!-- <p class="mt-2">SUN: CLOSED</p> -->
             </div>
         </div>
         <div class="w-full md:w-[33%] flex items-center justify-between md:justify-center">
@@ -16,10 +16,10 @@
             <a href="#"><img src="{{asset('images/home/facebook-f.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
             <a href="#"><img src="{{asset('images/home/instagram.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
             <a href="#"><img src="{{asset('images/home/youtube.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
-            <div class="flex gap-3 items-center">
+            <!-- <div class="flex gap-3 items-center">
                 <a href="#"><img src="{{asset('images/home/pakistan.png')}}" alt="" class=""></a>
                 <p class="text-sm font-semibold">PK</p>    
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="bg-first text-white w-full h-[70px] hidden md:flex items-center justify-center gap-10 ">
