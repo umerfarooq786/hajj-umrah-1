@@ -50,91 +50,100 @@ class CostController extends Controller
 
         $visa = $request->visa;
 
-        if ($makkah_id) {
-            $hotelRoom = HotelRoom::where('hotel_id', $makkah_id)->where('room_id', $makkah_hotel_room_type_id)->get();
+        if (($makkah_id || $madinah_id) && $route_id && $visa) {
+            if ($makkah_id) {
+                $hotelRoom = HotelRoom::where('hotel_id', $makkah_id)->where('room_id', $makkah_hotel_room_type_id)->get();
 
-            foreach ($hotelRoom as $hotelRooms) {
-                $startDate = Carbon::parse($makkah_hotel_start_date);
-                $endDate = Carbon::parse($makkah_hotel_end_date);
-                $validityDate = Carbon::parse($hotelRooms->validity);
-            }
-            if ($validityDate->between($startDate, $endDate)) {
-                $daysDifference = $startDate->diffInDays($endDate);
-                $hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
-                $hotel_room_perday_price = $hotelRooms->weekdays_price;
-            } else {
-                $errorMessage = "Sorry, No hotel room available between the selected start and end dates.";
-                return back()->withErrors([$errorMessage]);}
-        } elseif ($madinah_id) {
-            $hotelRoom = HotelRoom::where('hotel_id', $madinah_id)->where('room_id', $madinah_hotel_room_type_id)->get();
-
-            $startDate = Carbon::parse($madinah_hotel_start_date);
-            $endDate = Carbon::parse($madinah_hotel_end_date);
-            foreach ($hotelRoom as $hotelRooms) {
-                $validityDate = Carbon::parse($hotelRooms->validity);
-            }
-            if ($validityDate->between($startDate, $endDate)) {
-                $daysDifference = $startDate->diffInDays($endDate);
-                $hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
-                $hotel_room_perday_price = $hotelRooms->weekdays_price;
-            } else {
-                $errorMessage = "Sorry, No hotel room available between the selected start and end dates.";
-                return back()->withErrors([$errorMessage]);
-            }
-        }
-
-        $routes = $request->input('route');
-        $vehicles = $request->input('vehicle');
-        $travel_dates = $request->input('travel_date');
-        $transport_cost = 0;
-        $transport_cost = 0;
-        foreach ($routes as $key => $route) {
-            $routeName = Route::where('id', $routes[$key])->pluck('name');
-            $routeName = $routeName[0];
-            $transports = Transport::where('route_id', $routes[$key])
-                ->where('transport_type_id', $vehicles[$key])
-                ->get();
-
-            if ($transports->isNotEmpty()) {
-                foreach ($transports as $transport) {
-                    $cost = $transport->costs()
-                        ->where('validity', '>=', $travel_dates[$key])
-                        ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
-                        ->first();
-
-                    if ($cost) {
-                        // Assign the transport cost and break the loop
-                        $transport_cost = $cost->cost;
-                        $transport_cost = $transport_cost+$transport_cost;
-                        break;
-                    }
+                foreach ($hotelRoom as $hotelRooms) {
+                    $startDate = Carbon::parse($makkah_hotel_start_date);
+                    $endDate = Carbon::parse($makkah_hotel_end_date);
+                    $validityDate = Carbon::parse($hotelRooms->validity);
                 }
+                if ($validityDate->between($startDate, $endDate)) {
+                    $daysDifference = $startDate->diffInDays($endDate);
+                    $hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
+                    $hotel_room_perday_price = $hotelRooms->weekdays_price;
+                } else {
+                    $errorMessage = "Sorry, No hotel room available between the selected start and end dates.";
+                    return back()->withErrors([$errorMessage]);}
+            } elseif ($madinah_id) {
+                $hotelRoom = HotelRoom::where('hotel_id', $madinah_id)->where('room_id', $madinah_hotel_room_type_id)->get();
 
-                if (!isset($transport_cost)) {
-                   
-                    $errorMessage = "Sorry, No Transport ( {{$routeName}} ) available between the given date.";
+                $startDate = Carbon::parse($madinah_hotel_start_date);
+                $endDate = Carbon::parse($madinah_hotel_end_date);
+                foreach ($hotelRoom as $hotelRooms) {
+                    $validityDate = Carbon::parse($hotelRooms->validity);
+                }
+                if ($validityDate->between($startDate, $endDate)) {
+                    $daysDifference = $startDate->diffInDays($endDate);
+                    $hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
+                    $hotel_room_perday_price = $hotelRooms->weekdays_price;
+                } else {
+                    $errorMessage = "Sorry, No hotel room available between the selected start and end dates.";
                     return back()->withErrors([$errorMessage]);
                 }
-            } else {
-                $errorMessage = "Sorry, No Transport ( {$routeName} ) available between the given date.";
-                return back()->withErrors([$errorMessage]);
             }
-        }
-        $visaCharges = Visa::where('id', '1')->get();
-        foreach($visaCharges as $visaCharge){
-            $hajj_charges = $visaCharge->hajj_charges;
-            $umrah_charges = $visaCharge->umrah_charges;
-        }
 
-        $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
+            $routes = $request->input('route');
+            $vehicles = $request->input('vehicle');
+            $travel_dates = $request->input('travel_date');
+            $transport_cost = 0;
+            $transport_cost = 0;
+            foreach ($routes as $key => $route) {
+                $routeName = Route::where('id', $routes[$key])->pluck('name');
+                $routeName = $routeName[0];
+                $transports = Transport::where('route_id', $routes[$key])
+                    ->where('transport_type_id', $vehicles[$key])
+                    ->get();
 
-        $total_cost = $hotel_room_price + $transport_cost + $visa;
-        $CurrencyConversion = CurrencyConversion::all();
-        foreach ($CurrencyConversion as $CurrencyConversions) {
-            $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
-            $sar_to_usd = $CurrencyConversions->sar_to_usd;
+                if ($transports->isNotEmpty()) {
+                    foreach ($transports as $transport) {
+                        $cost = $transport->costs()
+                            ->where('validity', '>=', $travel_dates[$key])
+                            ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
+                            ->first();
+
+                        if ($cost) {
+                            // Assign the transport cost and break the loop
+                            $transport_cost = $cost->cost;
+                            $transport_cost = $transport_cost + $transport_cost;
+                            break;
+                        }
+                    }
+
+                    if (!isset($transport_cost)) {
+
+                        $errorMessage = "Sorry, No Transport ( {{$routeName}} ) available between the given date.";
+                        return back()->withErrors([$errorMessage]);
+                    }
+                } else {
+                    $errorMessage = "Sorry, No Transport ( {$routeName} ) available between the given date.";
+                    return back()->withErrors([$errorMessage]);
+                }
+            }
+            $visaCharges = Visa::where('id', '1')->get();
+            foreach ($visaCharges as $visaCharge) {
+                $hajj_charges = $visaCharge->hajj_charges;
+                $umrah_charges = $visaCharge->umrah_charges;
+            }
+
+            $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
+
+            $total_cost = $hotel_room_price + $transport_cost + $visa;
+            $CurrencyConversion = CurrencyConversion::all();
+            foreach ($CurrencyConversion as $CurrencyConversions) {
+                $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
+                $sar_to_usd = $CurrencyConversions->sar_to_usd;
+            }
+        } else {
+            $total_cost = 0;
+            $sar_to_pkr = 0;
+            $sar_to_usd = 0;
+            $hotel_room_perday_price = 0;
+            $hotel_room_price = 0;
+            $transport_cost = 0;
+            $visa = 0;
         }
-
         return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'hotel_room_perday_price', 'hotel_room_price', 'transport_cost', 'visa'));
     }
 
