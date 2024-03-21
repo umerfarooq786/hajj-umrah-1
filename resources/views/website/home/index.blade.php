@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     <!-- special offers ssection -->
+    @if(!$package->isEmpty())
     <div class="content-header row bg-white" id="special-offers">
         <div class="w-[75%] mx-auto flex flex-col items-center justify-center py-20">
             <h4 class="text-red-500 text-[16px] font-semibold">Special Offers</h4>
@@ -13,7 +14,7 @@
             </div>
         </div>
     </div>
-
+    @endif
 
     <!-- What we offer section -->
     <div class="bg-[#e2efff] flex">
@@ -104,6 +105,7 @@
 
 
      <!-- Testimonial section -->
+     @if(!$testimonial->isEmpty())
      <div class="content-header row bg-white">
         <div class="w-[75%] mx-auto flex flex-col items-center justify-center pb-10">
             <h4 class="text-red-500 text-[16px] font-semibold">TESTIMONIAL</h4>
@@ -113,7 +115,7 @@
             </div>
         </div>
     </div>
-     
+     @endif
     <!-- section 4 -->
     <!-- <div class=" bg-white pb-20 text-center">
         <h4 class="text-red-500 text-[16px] font-semibold pb-3">UMRAH</h4>
