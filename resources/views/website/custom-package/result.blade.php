@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
-    <div>
+    <div class="w-[80%] mx-auto py-10">
+        <h2 class="text-green-600">Note: The rates may vary, kindly contact admin by clicking 
+            <a href="/contact" class="text-red-600">this link</a> </h2>
+            
         <!-- Currency selection dropdown -->
         <select id="currencySelect">
             <option value="SAR">SAR</option>
