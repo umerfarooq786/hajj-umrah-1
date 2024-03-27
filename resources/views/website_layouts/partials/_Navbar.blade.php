@@ -13,9 +13,9 @@
             <img src="{{asset('images/home/burger-icon2.png')}}" alt="" class="cursor-pointer h-[30px] md:hidden" onclick="showNav()">
         </div>
         <div class="hidden md:flex w-[33%] items-center justify-end gap-5y gap-3 lg:gap-7 ">
-            <a href="#"><img src="{{asset('images/home/facebook-f.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
-            <a href="#"><img src="{{asset('images/home/instagram.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
-            <a href="#"><img src="{{asset('images/home/youtube.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
+            <a href="https://www.facebook.com/profile.php?id=61557448243394" target="_blank"><img src="{{asset('images/home/facebook-f.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
+            <a href="https://www.instagram.com/fastline.pk/" target="_blank"><img src="{{asset('images/home/instagram.svg')}}" alt="" class="hover:scale-90 transition-all"></a>
+            <!-- <a href="#"><img src="{{asset('images/home/youtube.svg')}}" alt="" class="hover:scale-90 transition-all"></a> -->
             <!-- <div class="flex gap-3 items-center">
                 <a href="#"><img src="{{asset('images/home/pakistan.png')}}" alt="" class=""></a>
                 <p class="text-sm font-semibold">PK</p>    

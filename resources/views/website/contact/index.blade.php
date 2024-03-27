@@ -7,38 +7,38 @@
 
             <div class="space-y-2">
                 <h4 class="font-semibold">BUSINESS ADDRESS</h4>
-                <p class="text-sm text-gray-500 font-semibold">LONDON OXFORD STREET, 012 UNITED KINGDOM.</p>
+                <p class="text-sm text-gray-500 font-semibold">14-15 Ground Floor, Ashrafi Heights, Main Market Gulberg ll, Lahore, Pakistan</p>
             </div>
 
             <div class="space-y-2">
                 <h4 class="font-semibold">BUSINESS E-MAIL</h4>
-                <p class="text-sm text-gray-500 font-semibold">ASTERIA@MAIL.CA</p>
+                <p class="text-sm text-gray-500 font-semibold">fastlinetourss.pk@gmail.com</p>
             </div>
 
             <div class="space-y-2">
                 <h4 class="font-semibold">PHONE</h4>
-                <p class="text-sm text-gray-500 font-semibold">+1 222 333 456</p>
+                <p class="text-sm text-gray-500 font-semibold">+92 321-8430304</p>
             </div>
 
             <div class="flex items-center gap-3">
-                <a href="#"
+                <a href="https://www.facebook.com/profile.php?id=61557448243394" target="_blank"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i
                         class="fa-brands fa-facebook-f text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
-                <a href="#"
+                <!-- <a href="#"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                </a>
-                <a href="#"
+                </a> -->
+                <a href="https://www.instagram.com/fastline.pk/" target="_blank"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i
                         class="fa-brands fa-instagram text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
-                <a href="#"
+                <!-- <a href="#"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                </a>
+                </a> -->
             </div>
         </div>
         <div class="border border-gray-200 rounded-[4px] py-16 px-10 space-y-10">
