@@ -28,5 +28,9 @@ class Transport extends Model
     {
         return $this->hasMany(Cost::class, 'item_id');
     }
+    public function transportType()
+    {
+        return $this->belongsTo(TransportType::class, 'transport_type_id');
+    }
     
 }

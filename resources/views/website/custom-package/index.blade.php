@@ -57,6 +57,34 @@
                 id="custom-package-form" enctype="multipart/form-data">
                 @csrf
                 <!-- Select Stay in Makkah -->
+                <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
+                {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
+                    <select id="no_of_persons" name="no_of_persons"
+                        class="place w-full  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        <option value="">Select Persons</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                {{-- </div> --}}
+
                 <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
                 <div class="flex flex-col md:flex-row stay relative">
                     <select id="makkah_hotel" name="makkah_hotel"
@@ -140,8 +168,13 @@
                         <select id="vehicle" name="vehicle[]"
                             class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                             <option value="">Select Vehicle</option>
-                            @foreach ($transport_types as $trantransport_type)
-                                <option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }}</option>
+                            @foreach ($transport_types as $transport)
+                                <option value="{{ $transport->transportType->id }}">
+                                    {{ $transport->transportType->name }}
+                                    @if ($transport->capacity)
+                                        <span class="text-xs text-gray-500">Capacity: {{ $transport->capacity }}</span>
+                                    @endif
+                                </option>
                             @endforeach
                         </select>
 
@@ -162,9 +195,7 @@
                     <select
                         class="residence_country border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
                         name="visa">
-                        <option value="">Select Visa Type</option>
-                        <option value="umrah">Umrah Visa</option>
-                        <option value="hajj">Hajj Visa</option>
+                        <option value="umrah" selected>Umrah Visa</option>
                     </select>
 
                     {{-- <select
@@ -225,6 +256,45 @@
 
                 // Populate the second dropdown with options
                 $('#makkah_hotel_room_type').html(options);
+            }
+            
+            $('#madinah_hotel').change(function() {
+                var selectedValue = $(this).val();
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route('calculate.hotel_room_type') }}',
+                    method: 'POST',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Extract data from the response
+                        var responseData = response.data;
+
+                        populate_madinah_hotel_room_type(responseData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+
+
+            });
+
+            function populate_madinah_hotel_room_type(data) {
+                var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                }
+
+                // Populate the second dropdown with options
+                $('#madinah_hotel_room_type').html(options);
             }
 
 

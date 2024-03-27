@@ -8,7 +8,6 @@ use App\Models\HotelRoom;
 use App\Models\Room;
 use App\Models\Route;
 use App\Models\Transport;
-use App\Models\TransportType;
 use App\Models\Visa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ class CostController extends Controller
         $routes = Route::all();
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
         $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
-        $transport_types = TransportType::all();
+        $transport_types = Transport::with('transportType')->get();
 
         return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types'));
     }
@@ -34,6 +33,8 @@ class CostController extends Controller
 
     public function calculate(Request $request)
     {
+        // dd($request->all());
+        $no_of_persons = $request->no_of_persons;
         $makkah_id = $request->makkah_hotel;
         $makkah_hotel_room_type_id = $request->makkah_hotel_room_type;
         $makkah_hotel_start_date = $request->makkah_hotel_start_date;
@@ -50,36 +51,53 @@ class CostController extends Controller
 
         $visa = $request->visa;
 
+        $makkah_hotel_room_price = 0;
+        $madinah_hotel_room_price = 0;
+        $makkah_hotel_room_perday_price = 0;
+        $madinah_hotel_room_perday_price = 0;
+
         if (($makkah_id || $madinah_id) && $route_id && $visa) {
             if ($makkah_id) {
                 $hotelRoom = HotelRoom::where('hotel_id', $makkah_id)->where('room_id', $makkah_hotel_room_type_id)->get();
 
+                $validityFound = 0;
                 foreach ($hotelRoom as $hotelRooms) {
                     $startDate = Carbon::parse($makkah_hotel_start_date);
                     $endDate = Carbon::parse($makkah_hotel_end_date);
                     $validityDate = Carbon::parse($hotelRooms->validity);
+                    if ($validityDate->between($startDate, $endDate)) {
+                        $daysDifference = $startDate->diffInDays($endDate);
+                        $makkah_hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
+                        $makkah_hotel_room_perday_price = $hotelRooms->weekdays_price;
+                        $validityFound = 1;
+                    }
                 }
-                if ($validityDate->between($startDate, $endDate)) {
-                    $daysDifference = $startDate->diffInDays($endDate);
-                    $hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
-                    $hotel_room_perday_price = $hotelRooms->weekdays_price;
+                if ($validityFound == 1) {
                 } else {
-                    $errorMessage = "Sorry, No hotel room available between the selected start and end dates.";
-                    return back()->withErrors([$errorMessage]);}
-            } elseif ($madinah_id) {
+                    $errorMessage = "Sorry, No makkah hotel room available between the selected start and end dates.";
+                    return back()->withErrors([$errorMessage]);
+                }
+            } 
+            if ($madinah_id) {
                 $hotelRoom = HotelRoom::where('hotel_id', $madinah_id)->where('room_id', $madinah_hotel_room_type_id)->get();
 
                 $startDate = Carbon::parse($madinah_hotel_start_date);
                 $endDate = Carbon::parse($madinah_hotel_end_date);
+                $Madinah_validityFound = 0;
                 foreach ($hotelRoom as $hotelRooms) {
                     $validityDate = Carbon::parse($hotelRooms->validity);
+                    if ($validityDate->between($startDate, $endDate)) {
+                        $daysDifference = $startDate->diffInDays($endDate);
+                        $madinah_hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
+                        $madinah_hotel_room_perday_price = $hotelRooms->weekdays_price;
+                        $Madinah_validityFound = 1;
+                    }
                 }
-                if ($validityDate->between($startDate, $endDate)) {
-                    $daysDifference = $startDate->diffInDays($endDate);
-                    $hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
-                    $hotel_room_perday_price = $hotelRooms->weekdays_price;
+
+                if ($Madinah_validityFound == 1) {
+                    
                 } else {
-                    $errorMessage = "Sorry, No hotel room available between the selected start and end dates.";
+                    $errorMessage = "Sorry, No madinah hotel room available between the selected start and end dates.";
                     return back()->withErrors([$errorMessage]);
                 }
             }
@@ -128,23 +146,20 @@ class CostController extends Controller
             }
 
             $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
+            $visa_per_person = $visa;
+            $visa = $visa * $no_of_persons;
 
-            $total_cost = $hotel_room_price + $transport_cost + $visa;
+            $total_cost = $madinah_hotel_room_price + $makkah_hotel_room_price + $transport_cost + $visa;
             $CurrencyConversion = CurrencyConversion::all();
             foreach ($CurrencyConversion as $CurrencyConversions) {
                 $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
                 $sar_to_usd = $CurrencyConversions->sar_to_usd;
             }
         } else {
-            $total_cost = 0;
-            $sar_to_pkr = 0;
-            $sar_to_usd = 0;
-            $hotel_room_perday_price = 0;
-            $hotel_room_price = 0;
-            $transport_cost = 0;
-            $visa = 0;
+            $errorMessage = "Please select options to get calculated value.";
+            return back()->withErrors([$errorMessage]);
         }
-        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'hotel_room_perday_price', 'hotel_room_price', 'transport_cost', 'visa'));
+        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price' , 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'transport_cost', 'visa', 'visa_per_person'));
     }
 
     public function hotel_room_type(Request $request)
