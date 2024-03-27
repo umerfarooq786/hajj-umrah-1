@@ -5,7 +5,7 @@
 @section('content')
     <!-- special offers ssection -->
     @if(!$package->isEmpty())
-    <div class="content-header row bg-white" id="special-offers">
+    <div class="content-header row bg-white" id="pre-defined">
         <div class="w-[75%] mx-auto flex flex-col items-center justify-center py-20">
             <h4 class="text-red-500 text-[16px] font-semibold">Special Offers</h4>
             <h2 class="text-[27px] font-bold">Hajj and Umrah Special Offer</h2>
