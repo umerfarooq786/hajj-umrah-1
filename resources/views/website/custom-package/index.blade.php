@@ -141,7 +141,7 @@
                 <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
                 {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
                 <select id="no_of_persons" name="no_of_persons"
-                    class="place w-full  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    class="place w-full lg:w-[300px] border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     <option value="">Select Persons</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -167,9 +167,9 @@
                 {{-- </div> --}}
 
                 <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
-                <div class="flex flex-col md:flex-row stay relative">
+                <div class="flex flex-col lg:flex-row stay relative gap-3">
                     <select id="makkah_hotel" name="makkah_hotel"
-                        class="place w-full  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                         <option value="">Select Hotel</option>
                         @foreach ($makkah_hotels as $hotel)
                             <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
@@ -177,7 +177,7 @@
                     </select>
 
                     <select id="makkah_hotel_room_type" name="makkah_hotel_room_type"
-                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                        class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
                         <option value="">Select Room Type</option>
                         <option value="1">Single</option>
                         <option value="2">Double</option>
@@ -185,8 +185,9 @@
                         <option value="4">Quad</option>
                     </select>
 
-                    <div class="relative inline-block">
-                        <button id="selectMakkahMealButton" type="button" class="btn btn-primary">Meal</button>
+                    <!-- <div class="relative inline-block">
+                        
+                        <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
                         <div id="MakkahmealOptions"
                             class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
                             <ul>
@@ -194,16 +195,34 @@
                             </ul>
                             <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
                         </div>
+                    </div> -->
+                    <!-- test start -->
+                    <div class="relative">
+                        <div id="makkah_meal_button" class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">Meals</div>
+                        <div id="makkah_meal_card" class="absolute hidden top-[100%] left-0 bg-white h-[100px] w-[200px] p-3 z-10 border border-gray-300">
+                            <div class="flex items-center gap-3">
+                                <input  type="checkbox" name="makkah_meal" id="makkah-meal-1" value="makkah-meal-1" class="ring-transparent ring">
+                                <label for="makkah-meal-1">Meal 1</label>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input  type="checkbox" name="makkah_meal" id="makkah-meal-2" value="makkah-meal-2" class="outline-none ring-0">
+                                <label for="makkah-meal-2">Meal 2</label>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input  type="checkbox" name="makkah_meal" id="makkah-meal-3" value="makkah-meal-3" class="outline-none ring-0">
+                                <label for="makkah-meal-3">Meal 3</label>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class=" flex items-center relative ">
+                    <!-- test end -->
+                    <div class=" flex items-center relative lg:w-[150px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
                         <input type="text" id="makkah_hotel_start_date" name="makkah_hotel_start_date"
                             placeholder="Start Date"
                             class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
 
-                    <div class="flex items-center relative ">
+                    <div class="flex items-center relative lg:w-[150px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
                         <input type="text" id="makkah_hotel_end_date" name="makkah_hotel_end_date" placeholder="End Date"
                             class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
@@ -212,17 +231,17 @@
 
                 <!-- Select Stay in Madinah -->
                 <h4 class="font-semibold text-sm pt-3">Select Stay in Madinah</h4>
-                <div class="flex flex-col md:flex-row stay relative">
-                    <select id="madinah_hotel" name="madinah_hotel"
-                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                <div class="flex flex-col lg:flex-row stay relative gap-3">
+                    <select id="makkah_hotel" name="makkah_hotel"
+                        class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                         <option value="">Select Hotel</option>
-                        @foreach ($madina_hotels as $hotel)
+                        @foreach ($makkah_hotels as $hotel)
                             <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                         @endforeach
                     </select>
 
-                    <select id="madinah_hotel_room_type" name="madinah_hotel_room_type"
-                        class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                    <select id="makkah_hotel_room_type" name="makkah_hotel_room_type"
+                        class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
                         <option value="">Select Room Type</option>
                         <option value="1">Single</option>
                         <option value="2">Double</option>
@@ -230,36 +249,55 @@
                         <option value="4">Quad</option>
                     </select>
 
-                    <div class="relative inline-block">
-                        <button id="selectMadinahMealButton" type="button" class="btn btn-primary">Meal</button>
-                        <div id="MadinahmealOptions"
+                    <!-- <div class="relative inline-block">
+                        
+                        <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
+                        <div id="MakkahmealOptions"
                             class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
                             <ul>
 
                             </ul>
-                            <button id="MadinahapplyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                            <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                        </div>
+                    </div> -->
+                    <!-- test start -->
+                    <div class="relative">
+                        <div id="madinah_meal_button" class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">Meals</div>
+                        <div id="madinah_meal_card" class="absolute hidden top-[100%] left-0 bg-white h-[100px] w-[200px] p-3 z-10 border border-gray-300">
+                            <div class="flex items-center gap-3">
+                                <input  type="checkbox" name="makkah_meal" id="makkah-meal-1" value="makkah-meal-1" class="ring-transparent ring">
+                                <label for="makkah-meal-1">Meal 1</label>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input  type="checkbox" name="makkah_meal" id="makkah-meal-2" value="makkah-meal-2" class="outline-none ring-0">
+                                <label for="makkah-meal-2">Meal 2</label>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input  type="checkbox" name="makkah_meal" id="makkah-meal-3" value="makkah-meal-3" class="outline-none ring-0">
+                                <label for="makkah-meal-3">Meal 3</label>
+                            </div>
                         </div>
                     </div>
-
-                    <div class=" flex items-center relative h-[40px]">
+                    <!-- test end -->
+                    <div class=" flex items-center relative lg:w-[150px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                        <input type="text" id="madinah_hotel_start_date" name="madinah_hotel_start_date"
+                        <input type="text" id="makkah_hotel_start_date" name="makkah_hotel_start_date"
                             placeholder="Start Date"
                             class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
 
-                    <div class=" flex items-center relative h-[40px]">
+                    <div class="flex items-center relative lg:w-[150px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                        <input type="text" id="madinah_hotel_end_date" name="madinah_hotel_end_date"
-                            placeholder="End Date"
+                        <input type="text" id="makkah_hotel_end_date" name="makkah_hotel_end_date" placeholder="End Date"
                             class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
                 </div>
 
+
                 <!-- Transport in Makah -->
                 <h4 class="font-semibold text-sm pt-3">Select Transport </h4>
-                <div id="RoutesDiv">
-                    <div class="flex flex-col md:flex-row stay relative">
+                <div id="RoutesDiv" >
+                    <div class="flex flex-col md:flex-row stay relative gap-3">
                         <select id="route" name="route[]"
                             class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                             <option value="">Select Route</option>
@@ -640,6 +678,49 @@
         }
     </script>
 
+
+
+
+    
+    <script>
+        // Logic for makkah meals
+        const mealButton = document.getElementById('makkah_meal_button');
+        const mealCard = document.getElementById('makkah_meal_card');
+
+        mealButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from propagating to the document body
+            mealCard.classList.toggle('hidden'); // Toggle the 'hidden' class on the meal card
+        });
+
+        document.body.addEventListener('click', function() {
+            if (!mealCard.classList.contains('hidden')) {
+                mealCard.classList.add('hidden');
+            }
+        });
+
+        mealCard.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from propagating to the document body
+        });
+
+        // Logic for madinah meals
+        const madinahMealButton = document.getElementById('madinah_meal_button');
+        const madinahMealCard = document.getElementById('madinah_meal_card');
+
+        madinahMealButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from propagating to the document body
+            madinahMealCard.classList.toggle('hidden'); // Toggle the 'hidden' class on the meal card
+        });
+
+        document.body.addEventListener('click', function() {
+            if (!madinahMealCard.classList.contains('hidden')) {
+                madinahMealCard.classList.add('hidden');
+            }
+        });
+
+        madinahMealCard.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from propagating to the document body
+        });
+    </script>
 
 
 @endsection
