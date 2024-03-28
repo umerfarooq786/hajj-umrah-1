@@ -10,26 +10,26 @@
     <div class="bg-[#1f1f1f] text-gray2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full px-10 py-10  lg:px-40 lg:py-20 gap-10">
         <div>
             <img src="{{asset('images/logo.png')}}" alt="logo" class="h-[60px]">
-            <p class="mt-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic fugiat tempora voluptas saepe dolorem pariatur.</p>
+            <p class="mt-5"><b>Fastline Travels & Tours:</b> We handle the travel, so you can focus on the experience</p>
         </div>
         <div>
             <h4 class="text-white">Contact Us</h4>
             <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon1.png')}}" alt="logo" class="h-[25px]">
-                <span>PO Box 16122 Collins Street</span>            
+                <span>14-15 Ground Floor, Ashrafi Heights, Main Market Gulberg ll, Lahore, Pakistan</span>            
             </a>
             <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon2.png')}}" alt="logo" class="h-[25px]">
-                <span>+12345678</span>            
+                <span>+92 321-8430304</span>            
             </a>
             <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon3.png')}}" alt="logo" class="h-[25px]">
-                <span>Email: simple@gmail.com</span>            
+                <span>fastlinetourss.pk@gmail.com</span>            
             </a>
-            <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <!-- <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{asset('images/footer-icon4.png')}}" alt="logo" class="h-[25px]">
                 <span>yourwebsite.com</span>            
-            </a>
+            </a> -->
         </div>
         <div class="flex flex-col gap-3">
             <h4 class="text-white mb-3">Useful Links</h4>
@@ -43,11 +43,11 @@
             <a href="/contact" class=" hover:text-first text-sm">Contact Us</a>
         </div>
         <div>
-            <h4 class="text-white mb-5">Gallery</h4>
+            <!-- <h4 class="text-white mb-5">Gallery</h4> -->
             <img src="{{asset('images/footer-gallery.png')}}" alt="logo" class="h-[200px]">            
         </div>
     </div>
     <div class="bg-first text-white w-full p-5 text-center font-semibold text-xs">
-        <p>COPYRIGHT © 2023, FASTLINE TRAVEL & TOURS - ALL RIGHTS RESERVED</p>
+        <p>COPYRIGHT © 2024, FASTLINE TRAVEL & TOURS - ALL RIGHTS RESERVED</p>
     </div>
 </div>

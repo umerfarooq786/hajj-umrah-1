@@ -5,7 +5,7 @@
 @section('content')
     <!-- special offers ssection -->
     @if(!$package->isEmpty())
-    <div class="content-header row bg-white" id="special-offers">
+    <div class="content-header row bg-white" id="pre-defined">
         <div class="w-[75%] mx-auto flex flex-col items-center justify-center py-20">
             <h4 class="text-red-500 text-[16px] font-semibold">Special Offers</h4>
             <h2 class="text-[27px] font-bold">Hajj and Umrah Special Offer</h2>
@@ -21,20 +21,16 @@
         <div class=" mx-auto py-10 max-md:px-10 max-lg:px-20 lg:pl-44 lg:w-[50%]">
             <h4 class="text-red-500 text-[13px] font-semibold pb-3">FEATURED</h4>
             <h2 class="text-[27px] font-semibold">What Do We Offer?</h2>
-            <p class="text-gray-500 mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio itaque neque ipsam,
-                sapiente nam placeat eligendi asperiores perspiciatis. Natus aperiam tempore consectetur facere ipsam iure
-                labore rerum eligendi asperiores fugit.</p>
-            <a href="#"
-                class="inline-block mt-5 py-3 px-5 rounded-full uppercase bg-red-500 hover:bg-opacity-80 text-xs text-white">Apply
-                Now</a>
+            <p class="text-gray-500 mt-3 text-justify">Embark on your pilgrimage with confidence through our tailored Hajj and Umrah packages, designed to seamlessly accommodate your spiritual journey. Our offerings encompass every aspect of your sacred voyage, from meticulously arranged accommodations to reliable transportation and insightful guided tours. With our unwavering commitment to exceptional service, personalized assistance, and unwavering support, we ensure your pilgrimage experience is not just fulfilling but truly transformative.</p>
+            <a href="/contact"
+                class="inline-block mt-5 py-3 px-5 rounded-full uppercase bg-red-500 hover:bg-opacity-80 text-xs text-white">Contact Us</a>
             <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="flex space-x-4">
                     <img src="{{ asset('images/home/luggage.png') }}" alt="logo"
                         class="object-contain h-[40px] w-[50px]">
                     <div>
                         <h4 class="text-[18px] font-semibold">Free Luggage</h4>
-                        <p class="text-[14px] text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam
-                            esse aliquid obcaecati sed quaerat.</p>
+                        <p class="text-[14px] text-gray-500 ">Enjoy the added convenience of free luggage allowances, easing your travel burdens as you embark on your sacred pilgrimage.</p>
                     </div>
                 </div>
                 <div class="flex space-x-4">
@@ -42,25 +38,22 @@
                         class="object-contain h-[40px] w-[50px]">
                     <div>
                         <h4 class="text-[18px] font-semibold">Customer Support</h4>
-                        <p class="text-[14px] text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam
-                            esse aliquid obcaecati sed quaerat.</p>
+                        <p class="text-[14px] text-gray-500">Receive unparalleled customer support, ensuring all your inquiries and needs are promptly addressed throughout your pilgrimage journey.</p>
                     </div>
                 </div>
                 <div class="flex space-x-4">
                     <img src="{{ asset('images/home/reception-bell.png') }}" alt="logo"
                         class="object-contain h-[40px] w-[50px]">
                     <div>
-                        <h4 class="text-[18px] font-semibold">5 Star Hotel</h4>
-                        <p class="text-[14px] text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam
-                            esse aliquid obcaecati sed quaerat.</p>
+                        <h4 class="text-[18px] font-semibold">Hotels</h4>
+                        <p class="text-[14px] text-gray-500">Discover handpicked accommodations meticulously selected to provide comfort and convenience, enhancing your pilgrimage experience with memorable stays at top-rated hotels.</p>
                     </div>
                 </div>
                 <div class="flex space-x-4">
                     <img src="{{ asset('images/home/kaaba.png') }}" alt="logo" class="object-contain h-[40px] w-[50px]">
                     <div>
-                        <h4 class="text-[18px] font-semibold">Hajj Tour</h4>
-                        <p class="text-[14px] text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam
-                            esse aliquid obcaecati sed quaerat.</p>
+                        <h4 class="text-[18px] font-semibold">Tours</h4>
+                        <p class="text-[14px] text-gray-500">Embark on enlightening tours to sacred sites, enhancing your spiritual journey with insightful guidance, all supported by attentive customer assistance.</p>
                     </div>
                 </div>
             </div>
@@ -80,25 +73,22 @@
             <div class=" lg:w-[60%]">
                 <h4 class="text-red-500 text-[13px] font-semibold pb-3">ABOUT</h4>
                 <h2 class="text-[27px] font-semibold lg:w-[60%]">The Smart Way to Go Umrah and Hajj</h2>
-                <p class="text-gray-500 mt-3 leading-7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio itaque
-                    neque ipsam, sapiente nam placeat eligendi asperiores perspiciatis. Natus aperiam tempore consectetur
-                    facere ipsam iure labore rerum eligendi asperiores fugit.</p>
+                <p class="text-gray-500 mt-3 leading-7">Experience the epitome of pilgrimage convenience with "The Smart Way to Go Umrah and Hajj", where meticulous planning meets seamless execution, ensuring an enriching and hassle-free journey to the holiest of sites.</p>
                 <div class="flex gap-3 mt-8">
                     <img src="{{ asset('images/home/tick.svg') }}">
-                    <p class="text-[14px] text-gray-500">Enhanced Features for High-Quality 360 Content</p>
+                    <p class="text-[14px] text-gray-500">Streamlined logistics for effortless travel arrangements.</p>
                 </div>
                 <div class="flex gap-3 mt-2">
                     <img src="{{ asset('images/home/tick.svg') }}">
-                    <p class="text-[14px] text-gray-500">Always Stay Connected with 360 Social Live Broadcast</p>
+                    <p class="text-[14px] text-gray-500">Personalized guidance for a fulfilling spiritual experience.</p>
                 </div>
                 <div class="flex gap-3 mt-2">
                     <img src="{{ asset('images/home/tick.svg') }}">
-                    <p class="text-[14px] text-gray-500">Expanded Compatibility for More 360 Experiences</p>
+                    <p class="text-[14px] text-gray-500">Expert support every step of the way for peace of mind pilgrimage.</p>
                 </div>
 
-                <a href="#"
-                    class="inline-block mt-8 py-3 px-5 rounded-full uppercase bg-red-500 hover:bg-opacity-80 text-xs text-white">Apply
-                    Now</a>
+                <a href="/contact"
+                    class="inline-block mt-8 py-3 px-5 rounded-full uppercase bg-red-500 hover:bg-opacity-80 text-xs text-white">Contact Us</a>
             </div>
         </div>
     </div>
