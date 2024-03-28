@@ -7,6 +7,35 @@
 
 @section('content')
     <style>
+        .checkbox-sm {
+            width: 16px;
+            /* Set the width of the checkbox */
+            height: 16px;
+            /* Set the height of the checkbox */
+            margin-right: 8px;
+            /* Add margin between checkbox and label */
+        }
+
+        #MakkahmealOptions {
+            position: absolute;
+            top: 100%;
+            width: 400px;
+            /* Position it below the parent element */
+            left: 0;
+            z-index: 9999;
+            /* Ensure it appears above other content */
+        }
+        
+        #MadinahmealOptions {
+            position: absolute;
+            top: 100%;
+            width: 400px;
+            /* Position it below the parent element */
+            left: 0;
+            z-index: 9999;
+            /* Ensure it appears above other content */
+        }
+
         /* Add More Button Style */
         #addMoreBtn {
             background-color: #4CAF50;
@@ -29,6 +58,60 @@
         }
 
         #addMoreBtn:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+
+        #selectMakkahMealButton {
+            background-color: #4CAF50;
+            /* Green background */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            height: 40px;
+            margin-right: 8px;
+            /* Padding for better spacing */
+            text-align: center;
+            text-decoration: none;
+            text-size: 2px;
+            display: inline-block;
+            font-size: 16px;
+            /* Add margin for spacing */
+            cursor: pointer;
+            border-radius: 5px;
+            /* Rounded corners */
+            transition-duration: 0.4s;
+            /* Smooth hover transition */
+        }
+
+        #selectMakkahMealButton:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+        
+        #selectMadinahMealButton {
+            background-color: #4CAF50;
+            /* Green background */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            height: 40px;
+            margin-right: 8px;
+            /* Padding for better spacing */
+            text-align: center;
+            text-decoration: none;
+            text-size: 2px;
+            display: inline-block;
+            font-size: 16px;
+            /* Add margin for spacing */
+            cursor: pointer;
+            border-radius: 5px;
+            /* Rounded corners */
+            transition-duration: 0.4s;
+            /* Smooth hover transition */
+        }
+
+        #selectMadinahMealButton:hover {
             background-color: #45a049;
             /* Darker green on hover */
         }
@@ -57,30 +140,30 @@
                 <!-- Select Stay in Makkah -->
                 <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
                 {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
-                    <select id="no_of_persons" name="no_of_persons"
-                        class="place w-full  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
-                        <option value="">Select Persons</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                <select id="no_of_persons" name="no_of_persons"
+                    class="place w-full  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    <option value="">Select Persons</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
                 {{-- </div> --}}
 
                 <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
@@ -101,6 +184,17 @@
                         <option value="3">Triple</option>
                         <option value="4">Quad</option>
                     </select>
+
+                    <div class="relative inline-block">
+                        <button id="selectMakkahMealButton" type="button" class="btn btn-primary">Meal</button>
+                        <div id="MakkahmealOptions"
+                            class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
+                            <ul>
+
+                            </ul>
+                            <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                        </div>
+                    </div>
 
                     <div class=" flex items-center relative ">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
@@ -136,6 +230,17 @@
                         <option value="4">Quad</option>
                     </select>
 
+                    <div class="relative inline-block">
+                        <button id="selectMadinahMealButton" type="button" class="btn btn-primary">Meal</button>
+                        <div id="MadinahmealOptions"
+                            class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
+                            <ul>
+
+                            </ul>
+                            <button id="MadinahapplyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                        </div>
+                    </div>
+
                     <div class=" flex items-center relative h-[40px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
                         <input type="text" id="madinah_hotel_start_date" name="madinah_hotel_start_date"
@@ -170,7 +275,7 @@
                                 <option value="{{ $transport->transportType->id }}">
                                     {{ $transport->transportType->name }}
                                     @if ($transport->capacity)
-                                        <span class="text-xs text-gray-500">Capacity: {{ $transport->capacity }}</span>
+                                        <span class="text-xs text-gray-500">( {{ $transport->capacity }}-Person )</span>
                                     @endif
                                 </option>
                             @endforeach
@@ -187,22 +292,9 @@
 
 
 
-                <!-- Visa -->
-                <h4 class="font-semibold text-sm pt-3">Select Visa</h4>
+                
                 <div class="flex flex-col md:flex-row  relative">
-                    <select
-                        class="residence_country border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                        name="visa">
-                        <option value="umrah" selected>Umrah Visa</option>
-                    </select>
-
-                    {{-- <select
-                        class="nationality border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="nationality">
-                        <option value="">Select Nationality</option>
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-                        <option value="three">3</option>
-                    </select> --}}
+                    <input name="visa" value="umrah" hidden>
                 </div>
 
                 <div class="flex justify-center">
@@ -217,9 +309,45 @@
     </div>
     <script>
         $(document).ready(function() {
+            $('#selectMakkahMealButton').on('click', function() {
+                $('#MakkahmealOptions').toggleClass('hidden');
+            });
+
+            $('#applyButton').on('click', function() {
+                // Collect selected meal options
+                var selectedMeals = [];
+                $('#MakkahmealOptions input[type="checkbox"]:checked').each(function() {
+                    selectedMeals.push($(this).val());
+                });
+
+                // Update the value of the hidden input field with selected meal options
+                // $('#selectedMakkahMealsInput').val(selectedMeals.join(','));
+
+                // Hide the meal options dropdown
+                $('#MakkahmealOptions').addClass('hidden');
+            });
+           
+           
+            $('#selectMadinahMealButton').on('click', function() {
+                $('#MadinahmealOptions').toggleClass('hidden');
+            });
+
+            $('#MadinahapplyButton').on('click', function() {
+                // Collect selected meal options
+                var selectedMeals = [];
+                $('#MadinahmealOptions input[type="checkbox"]:checked').each(function() {
+                    selectedMeals.push($(this).val());
+                });
+
+                // Update the value of the hidden input field with selected meal options
+                // $('#selectedMadinahMealsInput').val(selectedMeals.join(','));
+
+                // Hide the meal options dropdown
+                $('#MadinahmealOptions').addClass('hidden');
+            });
+
             $('#makkah_hotel').change(function() {
                 var selectedValue = $(this).val();
-                // Make AJAX request
                 $.ajax({
                     url: '{{ route('calculate.hotel_room_type') }}',
                     method: 'POST',
@@ -240,7 +368,24 @@
                     }
                 });
 
-
+                $.ajax({
+                    url: '{{ route('calculate.hotel_meal_type') }}',
+                    method: 'POST',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Extract data from the response
+                        var responseData = response.data;
+                        populate_makkah_hotel_meal_type(responseData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
 
             });
 
@@ -255,7 +400,30 @@
                 // Populate the second dropdown with options
                 $('#makkah_hotel_room_type').html(options);
             }
-            
+
+            function populate_makkah_hotel_meal_type(data) {
+                var listItems = '';
+                var options = '<option value="">Select Meal Type</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    // options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    listItems += '<li class="flex items-center">';
+                    listItems += '<input type="checkbox" id="meal_' + data[i].id + '" name="Makkahmeal[]" value="' + data[
+                        i].id + '" class="mr-2">';
+                    listItems += '<label for="meal_' + data[i].id + '">' + data[i].name + '</label>';
+                    listItems += '</li>';
+                }
+
+                // Populate the second dropdown with options
+                // $('#makkah_hotel_meal_type').html(opti
+                // Update the HTML content of the ul element with the generated list items
+                $('#MakkahmealOptions ul').html(listItems);
+
+                // Show the meal options dropdown
+                // $('#MakkahmealOptions').removeClass('hidden');
+            }
+
             $('#madinah_hotel').change(function() {
                 var selectedValue = $(this).val();
                 // Make AJAX request
@@ -279,6 +447,24 @@
                     }
                 });
 
+                $.ajax({
+                    url: '{{ route('calculate.hotel_meal_type') }}',
+                    method: 'POST',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Extract data from the response
+                        var responseData = response.data;
+                        populate_madinah_hotel_meal_type(responseData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
 
 
             });
@@ -293,6 +479,22 @@
 
                 // Populate the second dropdown with options
                 $('#madinah_hotel_room_type').html(options);
+            }
+
+            function populate_madinah_hotel_meal_type(data) {
+                var listItems = '';
+                var options = '<option value="">Select Meal Type</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    // options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    listItems += '<li class="flex items-center">';
+                    listItems += '<input type="checkbox" id="meal_' + data[i].id + '" name="Madinahmeal[]" value="' + data[
+                        i].id + '" class="mr-2">';
+                    listItems += '<label for="meal_' + data[i].id + '">' + data[i].name + '</label>';
+                    listItems += '</li>';
+                }
+                $('#MadinahmealOptions ul').html(listItems);
             }
 
 

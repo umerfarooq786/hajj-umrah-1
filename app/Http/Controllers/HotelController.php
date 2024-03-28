@@ -8,6 +8,8 @@ use App\Models\HotelRoom;
 use App\Models\HotelSpecialOffer;
 use App\Models\HotelSpecialOfferRoom;
 use App\Models\Image;
+use App\Models\Meal;
+use App\Models\MealType;
 use App\Models\Room;
 use App\Models\Route;
 use App\Models\Transport;
@@ -33,8 +35,9 @@ class HotelController extends Controller
     public function create()
     {
         $rooms = Room::all();
+        $meal_types = MealType::all();
 
-        return view('admin.hotel.create', compact('rooms'));
+        return view('admin.hotel.create', compact('rooms', 'meal_types'));
     }
 
     /**
@@ -42,6 +45,7 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $current_currency = CurrencyConversion::first();
         $rules = [
             'name' => 'required',
@@ -53,7 +57,7 @@ class HotelController extends Controller
             'room_id' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
-        
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -105,6 +109,24 @@ class HotelController extends Controller
         }
 
         HotelRoom::insert($hotelRoomData);
+
+        $meal_type_id = $request->meal_type_id;
+        $meal_price = $request->meal_price;
+        $displayMeal = $request->displayMeal;
+        $mealData = [];
+        for ($i = 0; $i < count($meal_type_id); $i++) {
+            $display = in_array($meal_type_id[$i], $displayMeal) ? 1 : 0;
+            if ($meal_price[$i]) {
+                $mealData[] = [
+                    'hotel_id' => $hotel->id,
+                    'meal_type_id' => $meal_type_id[$i],
+                    'price' => $meal_price[$i],
+                    'display' => $display,
+                ];
+            }
+        }
+
+        Meal::insert($mealData);
 
         // Retrieve the inserted hotel rooms
         // $hotelRooms = HotelRoom::with('hotel')->where('hotel_id', $hotel->id)->get();
@@ -300,10 +322,19 @@ class HotelController extends Controller
             ->orderBy('rooms.id')
             ->get()
             ->groupBy('validity');
+        $meals = DB::table('meals')
+            ->join('meal_types', 'meal_types.id', '=', 'meals.meal_type_id')
+            ->select('meals.*', 'meal_types.id as meal_id', 'meal_types.name as name')
+            ->where('meals.hotel_id', $hotel->id)
+            ->orderBy('meal_types.id')
+            ->get();
+
+        $meal_types = MealType::all();
+
         $specialOffers = $hotel->specialOffers;
         $room_category = ["Single", "Double", "Triple", "Quad"];
         $room_count = 0;
-        return view('admin.hotel.edit', compact('hotel', 'hotel_rooms', 'room_category', 'room_count'));
+        return view('admin.hotel.edit', compact('hotel', 'hotel_rooms', 'room_category', 'room_count', 'meal_types', 'meals'));
     }
 
     /**
@@ -357,28 +388,27 @@ class HotelController extends Controller
                 // Loop through the room IDs and update or create records for each room
                 foreach ($currentRoomIds as $index => $roomId) {
                     // Extract corresponding prices and ID for the current room
-                    
-                        $idss = $currentIds[$index] ?? null;
-                        $weekdaysPrice = $currentWeekdaysPrices[$index];
-                        $weekendPrice = $currentWeekendPrices[$index];
 
-                        
-                        // Update or create the hotel room record for the current room ID and validity date
-                        
-                        if ($weekdaysPrice === null) {
-                            // If $weekdaysPrice is null, delete the row
-                            HotelRoom::where([
-                                'hotel_id' => $hotel->id,
-                                'room_id' => $roomId,
-                                'id' => $idss
-                            ])->delete();
-                        } else {
+                    $idss = $currentIds[$index] ?? null;
+                    $weekdaysPrice = $currentWeekdaysPrices[$index];
+                    $weekendPrice = $currentWeekendPrices[$index];
+
+                    // Update or create the hotel room record for the current room ID and validity date
+
+                    if ($weekdaysPrice === null) {
+                        // If $weekdaysPrice is null, delete the row
+                        HotelRoom::where([
+                            'hotel_id' => $hotel->id,
+                            'room_id' => $roomId,
+                            'id' => $idss,
+                        ])->delete();
+                    } else {
                         HotelRoom::updateOrCreate(
                             [
                                 'hotel_id' => $hotel->id,
                                 'room_id' => $roomId,
-                                'id' => $idss
-                                
+                                'id' => $idss,
+
                             ],
                             [
                                 'validity' => $validity,
@@ -404,6 +434,52 @@ class HotelController extends Controller
                 $newImage->hotel_id = $hotel->id;
                 $newImage->save();
             }
+        }
+
+        // for meal update
+        $meal_type_id = $request->meal_type_id;
+        $meal_price = $request->meal_price;
+        $displayMeal = $request->displayMeal;
+
+// Retrieve existing meals for the hotel
+        $existingMeals = Meal::where('hotel_id', $hotel->id)->get()->keyBy('meal_type_id');
+
+// Initialize an array to store meal IDs with NULL price
+        $mealIdsWithNullPrice = [];
+
+        foreach ($meal_type_id as $index => $type_id) {
+            $display = in_array($type_id, $displayMeal) ? 1 : 0;
+            $price = $meal_price[$index];
+
+            // If price is NULL, add meal ID to the array
+            if ($price === null) {
+                $mealIdsWithNullPrice[] = $type_id;
+                continue;
+            }
+
+            // Check if the meal already exists
+            if ($existingMeals->has($type_id)) {
+                $meal = $existingMeals[$type_id];
+                // Update existing meal data
+                $meal->price = $price;
+                $meal->display = $display;
+                $meal->save();
+            } else {
+                // If meal doesn't exist, create new meal
+                Meal::create([
+                    'hotel_id' => $hotel->id,
+                    'meal_type_id' => $type_id,
+                    'price' => $price,
+                    'display' => $display,
+                ]);
+            }
+        }
+
+// Delete previous records corresponding to meal IDs with NULL price
+        if (!empty($mealIdsWithNullPrice)) {
+            Meal::where('hotel_id', $hotel->id)
+                ->whereIn('meal_type_id', $mealIdsWithNullPrice)
+                ->delete();
         }
 
         if (isset($request->offer_id) && count($request->offer_id) > 0) {
@@ -490,6 +566,9 @@ class HotelController extends Controller
 
         $specialOffer = HotelSpecialOffer::where('hotel_id', $id);
         $specialOffer->delete();
+        
+        $Meals = Meal::where('hotel_id', $id);
+        $Meals->delete();
 
         $images = Image::where('hotel_id', $id)->get();
 

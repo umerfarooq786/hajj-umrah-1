@@ -226,6 +226,52 @@
                                         </div> </br>
                                         <?php $i++; ?>
                                     @endforeach
+                                    <h3 style="text-underline-position: below"><b>Meal Pricing</b></h3>
+                                    @foreach ($meal_types as $meal_type)
+                                        @php
+                                            // Find the meal corresponding to the current meal type
+                                            $meal = $meals->where('name', $meal_type->name)->first();
+                                        @endphp
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-6 label-control" for="userinput3">Price for
+                                                        <b>{{ $meal_type->name }}</b></label>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">SAR</span>
+                                                            </div>
+                                                            <input type="hidden" name="meal_type_id[]"
+                                                                value="{{ $meal_type->id }}" />
+                                                            <!-- Display meal price if meal exists -->
+                                                            <input name="meal_price[]" type="number"
+                                                                class="form-control"
+                                                                value="{{ $meal ? $meal->price : '' }}"
+                                                                placeholder="Price for {{ $meal_type->name }}"
+                                                                aria-label="Amount (to the nearest dollar)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="displayMeal{{ $meal_type->id }}" name="displayMeal[]"
+                                                        value="{{ $meal_type->id }}"
+                                                        {{ $meal && $meal->display == 1 ? 'checked' : '' }}>
+
+                                                    <label class="custom-control-label"
+                                                        for="displayMeal{{ $meal_type->id }}" style="margin-left: 30px;">
+                                                        Show Meal On Website Calculation
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+
                                     <div class="col-md-12 text-center" id="validity_button">
                                         <button id="addValidity" class="btn btn-info mx-auto">Add Validity
                                             Date</button>

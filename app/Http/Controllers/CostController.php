@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CurrencyConversion;
 use App\Models\Hotel;
 use App\Models\HotelRoom;
+use App\Models\Meal;
 use App\Models\Room;
 use App\Models\Route;
 use App\Models\Transport;
@@ -22,8 +23,9 @@ class CostController extends Controller
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
         $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
         $transport_types = Transport::with('transportType')->get();
+        $mealData = Meal::all();
 
-        return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types'));
+        return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData'));
     }
 
     public function calculate_package_result()
@@ -55,8 +57,9 @@ class CostController extends Controller
         $madinah_hotel_room_price = 0;
         $makkah_hotel_room_perday_price = 0;
         $madinah_hotel_room_perday_price = 0;
+        $transport_cost = 0;
 
-        if (($makkah_id || $madinah_id) && $route_id && $visa) {
+        if ($makkah_id || $madinah_id || $route_id) {
             if ($makkah_id) {
                 $hotelRoom = HotelRoom::where('hotel_id', $makkah_id)->where('room_id', $makkah_hotel_room_type_id)->get();
 
@@ -77,7 +80,7 @@ class CostController extends Controller
                     $errorMessage = "Sorry, No makkah hotel room available between the selected start and end dates.";
                     return back()->withErrors([$errorMessage]);
                 }
-            } 
+            }
             if ($madinah_id) {
                 $hotelRoom = HotelRoom::where('hotel_id', $madinah_id)->where('room_id', $madinah_hotel_room_type_id)->get();
 
@@ -95,7 +98,7 @@ class CostController extends Controller
                 }
 
                 if ($Madinah_validityFound == 1) {
-                    
+
                 } else {
                     $errorMessage = "Sorry, No madinah hotel room available between the selected start and end dates.";
                     return back()->withErrors([$errorMessage]);
@@ -103,6 +106,7 @@ class CostController extends Controller
             }
 
             $routes = $request->input('route');
+            if($routes[0] != NULL){
             $vehicles = $request->input('vehicle');
             $travel_dates = $request->input('travel_date');
             $transport_cost = 0;
@@ -139,17 +143,40 @@ class CostController extends Controller
                     return back()->withErrors([$errorMessage]);
                 }
             }
+        }
             $visaCharges = Visa::where('id', '1')->get();
             foreach ($visaCharges as $visaCharge) {
                 $hajj_charges = $visaCharge->hajj_charges;
                 $umrah_charges = $visaCharge->umrah_charges;
             }
 
+            $mealPrices = 0;
+
+            if( $makkah_id){
+            $mealIds = $request->input('Makkahmeal');
+            foreach ($mealIds as $mealId) {
+                $meal = Meal::where('hotel_id', $makkah_id)->where('meal_type_id', $mealId)->first();
+                if ($meal) {
+                    $mealPrices += $meal->price;
+                }
+            }
+        }
+            
+            if( $madinah_id){
+            $madinahMealIds = $request->input('Madinahmeal');
+            foreach ($madinahMealIds as $mealId) {
+                $meal = Meal::where('hotel_id', $madinah_id)->where('meal_type_id', $mealId)->first();
+                if ($meal) {
+                    $mealPrices += $meal->price;
+                }
+            }
+        }
+
             $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
 
-            $total_cost = $madinah_hotel_room_price + $makkah_hotel_room_price + $transport_cost + $visa;
+            $total_cost = $madinah_hotel_room_price + $makkah_hotel_room_price + $transport_cost + $visa + $mealPrices;
             $CurrencyConversion = CurrencyConversion::all();
             foreach ($CurrencyConversion as $CurrencyConversions) {
                 $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
@@ -159,7 +186,7 @@ class CostController extends Controller
             $errorMessage = "Please select options to get calculated value.";
             return back()->withErrors([$errorMessage]);
         }
-        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price' , 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'transport_cost', 'visa', 'visa_per_person'));
+        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price', 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'transport_cost', 'visa', 'mealPrices', 'visa_per_person'));
     }
 
     public function hotel_room_type(Request $request)
@@ -180,6 +207,31 @@ class CostController extends Controller
 
         // Return the response with the data
         return response()->json(['data' => $roomNames]);
+
+    }
+
+    public function hotel_meal_type(Request $request)
+    {
+
+        $selectedValue = $request->input('selectedValue');
+
+        $hotelMeals = Meal::where('hotel_id', $selectedValue)
+            ->where('display', '1')
+            ->distinct('meal_type_id')
+            ->with('mealType') // Corrected relationship name
+            ->get(['meal_type_id']);
+
+        $mealNames = [];
+
+        foreach ($hotelMeals as $hotelMeal) {
+            // Access the meal name through the relationship
+            $mealNames[] = [
+                'id' => $hotelMeal->mealType->id,
+                'name' => $hotelMeal->mealType->name,
+            ];
+        }
+
+        return response()->json(['data' => $mealNames]);
 
     }
 }

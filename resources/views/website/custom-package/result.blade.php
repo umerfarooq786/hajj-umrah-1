@@ -28,6 +28,7 @@
             <p id="madinahHotelRoomPriceDay"><b>Madinah Hotel Room Per Day Price:</b> {{ $madinah_hotel_room_perday_price }}
                 SAR</p>
         @endif
+        <p id="mealPrices"><b>Meal Cost:</b> {{ $mealPrices }} SAR</p>
         <p id="transportPrice"><b>Transport Cost:</b> {{ $transport_cost }} SAR</p>
         <p id="visa"><b>Visa Cost:</b> {{ $visa }} SAR</p>
         <p id="visa_per_person"><b>Visa Cost Per Person:</b> {{ $visa_per_person }} SAR</p>
@@ -51,6 +52,7 @@
                     madinah_hotel_room_price = {{ $madinah_hotel_room_price }} * usd_price;
                     madinah_hotel_room_perday_price = {{ $madinah_hotel_room_perday_price }} * usd_price;
                     transport_cost = {{ $transport_cost }} * usd_price;
+                    mealPrices = {{ $mealPrices }} * usd_price;
                     visa = {{ $visa }} * usd_price;
                     visa_per_person = {{ $visa_per_person }} * usd_price;
                     // Adjust other costs accordingly
@@ -63,6 +65,7 @@
                     makkah_hotel_room_perday_price = {{ $makkah_hotel_room_perday_price }} * pkr_price;
                     madinah_hotel_room_price = {{ $madinah_hotel_room_price }} * pkr_price;
                     madinah_hotel_room_perday_price = {{ $madinah_hotel_room_perday_price }} * pkr_price;
+                    mealPrices = {{ $mealPrices }} * pkr_price;
                     transport_cost = {{ $transport_cost }} * pkr_price;
                     visa = {{ $visa }} * pkr_price;
                     visa_per_person = {{ $visa_per_person }} * pkr_price;
@@ -75,6 +78,7 @@
                     makkah_hotel_room_perday_price = {{ $makkah_hotel_room_perday_price }} ;
                     madinah_hotel_room_price = {{ $madinah_hotel_room_price }} ;
                     madinah_hotel_room_perday_price = {{ $madinah_hotel_room_perday_price }} ;
+                    mealPrices = {{ $mealPrices }};
                     transport_cost = {{ $transport_cost }};
                     visa = {{ $visa }};
                     visa_per_person = {{ $visa_per_person }};
@@ -100,6 +104,8 @@
             document.getElementById('madinahHotelRoomPriceDay').innerHTML =
                 '<b>Makkah Hotel Room Per Day Price:</b> ' +
                 madinah_hotel_room_perday_price.toFixed(2) + ' ' + selectedCurrency;
+            document.getElementById('mealPrices').innerHTML = '<b>Meal Cost:</b> ' + mealPrices
+                .toFixed(2) + ' ' + selectedCurrency;
             document.getElementById('transportPrice').innerHTML = '<b>Transport Cost:</b> ' + transport_cost
                 .toFixed(2) + ' ' + selectedCurrency;
             document.getElementById('visa').innerHTML = '<b>Visa Cost:</b> ' + visa.toFixed(2) + ' ' +

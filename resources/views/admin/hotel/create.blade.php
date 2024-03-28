@@ -164,6 +164,44 @@
                                     </div>
                                 @endforeach
 
+
+                                <h3 style="text-underline-position: below"><b>Meal Pricing</b></h3>
+                                @foreach ($meal_types as $meal_type)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-6 label-control" for="userinput3">Price for
+                                                    <b>{{ $meal_type->name }}</b></label>
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">SAR</span>
+                                                        </div>
+                                                        <input type="hidden" name="meal_type_id[]"
+                                                            value="{{ $meal_type->id }}" />
+                                                        <input name="meal_price[]" type="number" class="form-control"
+                                                            placeholder="Price for {{ $meal_type->name }}"
+                                                            aria-label="Amount (to the nearest dollar)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <!-- Unique ID for each toggle -->
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="displayMeal{{ $meal_type->id }}" name="displayMeal[]"
+                                                    value="{{ $meal_type->id }}">
+                                                <label class="custom-control-label" for="displayMeal{{ $meal_type->id }}"
+                                                    style="margin-left: 30px;">Show Meal On Website Calculation</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+
+
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -183,7 +221,7 @@
                                             <label class="col-md-3 label-control" for="userinput2">Validity</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                        name="validity" required> -->
+                                                                        name="validity" required> -->
                                                 <input type="text" name="validity" required id="datepicker"
                                                     class="form-control border-primary" placeholder="Validity Date">
                                             </div>
@@ -237,22 +275,29 @@
     </script>
 
     <script type="text/javascript">
-        function toggleLabel() {
-            var checkbox = document.getElementById('displayOnWebsite');
-            var label = document.getElementById('displayOnWebsiteLabel');
+        function toggleLabels() {
+            toggleLabel('displayOnWebsite', 'displayOnWebsiteLabel', 'Yes, display this hotel on the website calculation',
+                'No, do not display this hotel on the website calculation');
+            toggleLabel('displayMeal', 'displayMealLabel', 'Yes, display this meal', 'No, do not display this meal');
+        }
+
+        function toggleLabel(checkboxId, labelId, checkedText, uncheckedText) {
+            var checkbox = document.getElementById(checkboxId);
+            var label = document.getElementById(labelId);
 
             if (checkbox.checked) {
-                label.textContent = "Yes, display this hotel on the website calculation";
+                label.textContent = checkedText;
             } else {
-                label.textContent = "No, do not display this hotel on the website calculation";
+                label.textContent = uncheckedText;
             }
         }
 
-        // Add event listener to the checkbox to trigger the function
-        document.getElementById('displayOnWebsite').addEventListener('change', toggleLabel);
+        // Add event listeners to the checkboxes to trigger the function
+        document.getElementById('displayOnWebsite').addEventListener('change', toggleLabels);
+        document.getElementById('displayMeal').addEventListener('change', toggleLabels);
 
-        // Initial call to set the label text based on the initial state of the checkbox
-        toggleLabel();
+        // Initial call to set the label texts based on the initial states of the checkboxes
+        toggleLabels();
 
         document.getElementById('imageUpload').addEventListener('change', function() {
             const imagePreviews = document.getElementById('imagePreviews');
