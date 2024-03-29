@@ -7,14 +7,22 @@
 <script>
   $(document).ready(function() {
     $('#link_table').DataTable({
-        "aoColumnDefs": [{"bSortable": false, "aTargets": [0,3]}],
-        "bProcessing": true,
-        "bServerSide": true,
-        "aaSorting": [[0, "desc"]],
-        "sPaginationType": "full_numbers",
-        "sAjaxSource": "{{ url('/get_tranports') }}",
-        "aLengthMenu": [[10, 50, 100, 500], [10, 50, 100, 500]]
-    });  
+                "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [0, 3]
+                }],
+                "bProcessing": true,
+                "bServerSide": true,
+                "aaSorting": [
+                    [0, "desc"]
+                ],
+                "sPaginationType": "full_numbers",
+                "sAjaxSource": "{{ url('/get_tranports') }}",
+                "aLengthMenu": [
+                    [10, 50, 100, 500],
+                    [10, 50, 100, 500]
+                ]
+            });
   });
 
   function deleteTransport(id) {
@@ -94,11 +102,7 @@
                         <tr>
                           <th>ID</th>
                           <th>Transport Type</th>
-                          <th>Make</th>
-                          <th>Capacity</th>
                           <th>Route</th>
-                          <!-- <th>Cost</th>
-                          <th>Validity</th> -->
                           <th>Action</th>
                         </tr>
                       </thead>

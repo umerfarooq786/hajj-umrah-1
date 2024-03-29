@@ -9,6 +9,7 @@ use App\Models\Meal;
 use App\Models\Room;
 use App\Models\Route;
 use App\Models\Transport;
+use App\Models\Vehicle;
 use App\Models\Visa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,9 +23,8 @@ class CostController extends Controller
         $routes = Route::all();
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
         $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
-        $transport_types = Transport::with('transportType')->get();
+        $transport_types = Vehicle::all();
         $mealData = Meal::all();
-
         return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData'));
     }
 
@@ -110,12 +110,11 @@ class CostController extends Controller
             $vehicles = $request->input('vehicle');
             $travel_dates = $request->input('travel_date');
             $transport_cost = 0;
-            $transport_cost = 0;
             foreach ($routes as $key => $route) {
                 $routeName = Route::where('id', $routes[$key])->pluck('name');
                 $routeName = $routeName[0];
                 $transports = Transport::where('route_id', $routes[$key])
-                    ->where('transport_type_id', $vehicles[$key])
+                    ->where('vehicle_id', $vehicles[$key])
                     ->get();
 
                 if ($transports->isNotEmpty()) {
@@ -124,11 +123,10 @@ class CostController extends Controller
                             ->where('validity', '>=', $travel_dates[$key])
                             ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
                             ->first();
-
-                        if ($cost) {
+                        if ($cost != "") {
                             // Assign the transport cost and break the loop
-                            $transport_cost = $cost->cost;
-                            $transport_cost = $transport_cost + $transport_cost;
+                            $new_transport_cost = $cost->cost;
+                            $transport_cost = $transport_cost + $new_transport_cost;
                             break;
                         }
                     }
@@ -153,7 +151,7 @@ class CostController extends Controller
             $mealPrices = 0;
 
             if( $makkah_id){
-            $mealIds = $request->input('Makkahmeal');
+            $mealIds = $request->input('makkah_meal');
             foreach ($mealIds as $mealId) {
                 $meal = Meal::where('hotel_id', $makkah_id)->where('meal_type_id', $mealId)->first();
                 if ($meal) {
@@ -163,7 +161,7 @@ class CostController extends Controller
         }
             
             if( $madinah_id){
-            $madinahMealIds = $request->input('Madinahmeal');
+            $madinahMealIds = $request->input('madinah_meal');
             foreach ($madinahMealIds as $mealId) {
                 $meal = Meal::where('hotel_id', $madinah_id)->where('meal_type_id', $mealId)->first();
                 if ($meal) {

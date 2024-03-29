@@ -16,6 +16,7 @@ use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\FrontHotelController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/visa_charges', [VisaController::class, 'visa_charges'])->name('admin.visa_charges')->middleware('check.permission:visa-charges');
     Route::post('/update_visa_charges', [VisaController::class, 'update_visa_charges'])->name('admin.update_visa_charges');
+
+    Route::resource('vehicles', VehicleController::class);
+    // Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index')->middleware('check.permission:vehicle-list');
+    Route::get('/get_vehicles', [VehicleController::class, 'get_vehicles']);
 });
 
 // Contacts Routes

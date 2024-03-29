@@ -8,6 +8,7 @@ use App\Models\Route;
 use App\Models\Transport;
 use App\Models\Cost;
 use App\Models\CurrencyConversion;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +30,7 @@ class TransportController extends Controller
     {
         $current_currency = CurrencyConversion::findOrFail(1);
         $routes= Route::all();
-        $transport_types = TransportType::all();
+        $transport_types = Vehicle::all();
         return view('admin.transport.create', compact('routes','transport_types','current_currency'));
     }
 
@@ -40,9 +41,7 @@ class TransportController extends Controller
     {
         $current_currency = CurrencyConversion::findOrFail(1);
         $rules = [
-            'transport_type_id' => 'required',
-            'make' => 'required|string|max:255',
-            'capacity' => 'required',
+            'vehicle_id' => 'required',
             'route_id' => 'required',
             'cost' => 'required',
             'validity' => 'required|date'
@@ -54,9 +53,7 @@ class TransportController extends Controller
         }
         $transport = new Transport();
 
-        $transport->transport_type_id = $request->transport_type_id;
-        $transport->make = $request->make;
-        $transport->capacity = $request->capacity;
+        $transport->vehicle_id = $request->vehicle_id;
         $transport->route_id = $request->route_id;
     
         $transport->save();
@@ -75,7 +72,7 @@ class TransportController extends Controller
     {
         $result = Transport::orderBy('created_at', 'DESC');
 
-        $aColumns = ['id','transport_type_id','make','capacity', 'route_id','cost','validity','created_at'];
+        $aColumns = ['id','vehicle_id', 'route_id','cost','validity','created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -108,9 +105,7 @@ class TransportController extends Controller
         if ($sKeywords != "") {
 
             $result->Where(function($query) use ($sKeywords) {
-                $query->orWhere('transport_type_id', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('make', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('capacity', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('vehicle_id', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('route_id', 'LIKE', "%{$sKeywords}%");
 
             });
@@ -149,9 +144,7 @@ class TransportController extends Controller
                              <span></span>
                           </label>"; 
 
-            $transport_type_id = $aRow->types->name;
-            $make = $aRow->make;
-            $capacity = $aRow->capacity;
+            $vehicle_id = $aRow->types->name;
             $route_id = $aRow->route->name;
 
             $action = "<span class=\"dropdown\">
@@ -167,9 +160,7 @@ class TransportController extends Controller
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
                 @$aRow->id,
-                @$transport_type_id,
-                @$make,
-                @$capacity,
+                @$vehicle_id,
                 @$route_id,
                 @$action
             );  
@@ -196,7 +187,7 @@ class TransportController extends Controller
         $transport = Transport::findOrFail($id);
         $costs = Cost::where('item_id','=',$transport->id)->get();
         $routes= Route::all();
-        $transport_types = TransportType::all();
+        $transport_types = Vehicle::all();
         
         return view('admin.transport.edit',compact('routes','transport_types','transport','costs' ,'current_currency'));
     }
@@ -209,9 +200,7 @@ class TransportController extends Controller
         $current_currency = CurrencyConversion::first();
         $transport = Transport::findOrFail($id);
 
-        $transport->transport_type_id = $request->transport_type_id;
-        $transport->make = $request->make;
-        $transport->capacity = $request->capacity;
+        $transport->vehicle_id = $request->vehicle_id;
         $transport->route_id = $request->route_id;
         foreach ($request->cost as $key => $costData) {
             $costId = $request->cost_id[$key] ?? null; // Existing cost ID

@@ -17,20 +17,28 @@ class Transport extends Model
 
     public function types()
     {
-        return $this->belongsTo(TransportType::class, 'transport_type_id');
+        return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
+    
     public function route()
     {
         // return $this->hasMany(Route::class, 'route_id');
         return $this->belongsTo(Route::class);
     }
+
     public function costs()
     {
         return $this->hasMany(Cost::class, 'item_id');
     }
-    public function transportType()
+
+    // public function transportType()
+    // {
+    //     return $this->belongsTo(TransportType::class, 'transport_type_id');
+    // }
+
+    public function vehicles()
     {
-        return $this->belongsTo(TransportType::class, 'transport_type_id');
+        return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
     
 }

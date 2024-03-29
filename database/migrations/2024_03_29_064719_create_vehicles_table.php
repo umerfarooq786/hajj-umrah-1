@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transports', function (Blueprint $table) {
+        Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transport_type_id');
-            $table->foreign('transport_type_id')->references('id')->on('transport_types');
+            $table->string('name');
             $table->string('make');
-            $table->integer('capacity');
-            $table->unsignedBigInteger('route_id');
-            $table->foreign('route_id')->references('id')->on('routes');
+            $table->integer('capacity')->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transports');
+        Schema::dropIfExists('vehicles');
     }
 };

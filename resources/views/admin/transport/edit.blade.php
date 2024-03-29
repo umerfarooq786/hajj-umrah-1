@@ -32,32 +32,12 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="userinput1">Type</label>
                                     <div class="col-md-9">
-                                        <select class="form-control border-primary" name="transport_type_id" required>  
+                                        <select class="form-control border-primary" name="vehicle_id" required>  
                                             <option selected disabled="">Select Type</option>
                                             @foreach($transport_types as $type)
-                                            <option value="{{$type->id}}" {{ $transport->transport_type_id === $type->id ? 'selected' : '' }}>{{$type->name}}</option>
+                                            <option value="{{$type->id}}" {{ $transport->vehicle_id === $type->id ? 'selected' : '' }}>{{$type->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-                        	<div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput2">Make</label>
-                                    <div class="col-md-9">
-                                        <input type="text" id="userinput2" class="form-control border-primary" placeholder="Make"
-                                        name="make" value="{{$transport->make}}" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput3">Capacity</label>
-                                    <div class="col-md-9">
-                                        <input type="number" id="password" class="form-control border-primary" placeholder="Capacity"
-                                        name="capacity" value="{{$transport->capacity}}" required>
                                     </div>
                                 </div>
                             </div>
