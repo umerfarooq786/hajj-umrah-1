@@ -225,6 +225,23 @@ class TransportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function delete_transport_validity($id)
+    {
+        try {
+
+            // Find all hotel rooms associated with the validity date
+            $validity = Cost::where('id', $id)->get();
+
+            // Delete all the found rooms
+            foreach ($validity as $validity) {
+                $validity->delete();
+            }
+        } catch (\Exception $e) {
+        }
+        $validity = Cost::where('id', $id)->get();
+        return redirect()->route('transports.index')->with('success', 'Record deleted successfully!');
+    }
+    
     public function destroy($id)
     {
        $transport = Transport::findOrFail($id);
