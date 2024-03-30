@@ -29,9 +29,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput3">Hajj Charges</label>
+                                    <label class="col-md-3 label-control" style="text-align: left" for="userinput3">Hajj Charges <br> (SAR)</label>
                                     <div class="col-md-9">
-                                        <input type="number" id="password" class="form-control border-primary" placeholder="Hajj Charges"
+                                        <input type="number" id="userinput3" class="form-control border-primary" placeholder="Hajj Charges"
                                         name="hajj_charges" value="{{$visa->hajj_charges}}" required>
                                         <input type="hidden" name="id" value="{{$visa->id}}" />
                                     </div>
@@ -39,7 +39,7 @@
                             </div>
                         	<div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control" for="userinput2">Umrah Charges</label>
+                                    <label class="col-md-3 label-control" style="" for="userinput2">Umrah Charges <br> (SAR) </label>
                                     <div class="col-md-9">
                                         <input type="number" id="userinput2" class="form-control border-primary" placeholder="Umrah Charges"
                                         name="umrah_charges" value="{{$visa->umrah_charges}}" required>
