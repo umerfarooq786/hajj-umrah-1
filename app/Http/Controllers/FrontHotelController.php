@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\Image;
@@ -26,4 +27,14 @@ class FrontHotelController extends Controller
         // return $hotel_images;
         return view('website.hotelDetail.index',['hotel'=> $hotel, 'hotel_images' => $hotel_images]);
     }
+
+    public function predefinedUmrah(Request $request){
+        $packages = Package::where('type', 'umrah')->get();
+        return view('website.predefined-package.index', ['packages'=>$packages]);
+    }    
+
+    public function predefinedHajj(Request $request){
+        $packages = Package::where('type', 'hajj')->get();
+        return view('website.predefined-package.index', ['packages'=>$packages]);
+    }    
 }

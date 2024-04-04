@@ -109,8 +109,12 @@ Route::post('/get-hotel-rooms', [CostController::class, 'hotel_room_type'])->nam
 Route::post('/get-hotel-meals', [CostController::class, 'hotel_meal_type'])->name('calculate.hotel_meal_type');
 Route::get('/custom-package/result', [CostController::class, 'calculate_package_result']);
 
+
 Route::get('/hotel-city/{city}', [FrontHotelController::class, 'index'])->name('hotels.city');
 Route::get('/hotel-id/{id}', [FrontHotelController::class, 'singleHotel']);
+
+Route::get('/predefined-package/umrah', [FrontHotelController::class, 'predefinedUmrah']);
+Route::get('/predefined-package/hajj', [FrontHotelController::class, 'predefinedHajj']);
 
 Route::get('/test', function () {
     return view("admin.package.index");

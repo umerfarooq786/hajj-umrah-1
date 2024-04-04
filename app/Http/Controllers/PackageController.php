@@ -43,7 +43,8 @@ class PackageController extends Controller
         }
 
         $package->name = $request->name;
-        $package->price = $request->price;
+        $package->type = $request->type;
+        // $package->price = $request->price;
         // Set other fields as needed
         $package->save();
         // Attach selected hotels to the package
@@ -76,7 +77,8 @@ class PackageController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            // 'price' => 'required|numeric',
+            'type' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:4048',
         ]);
 
@@ -91,7 +93,8 @@ class PackageController extends Controller
         }
 
         $package->name = $request->name;
-        $package->price = $request->price;
+        $package->type = $request->type;
+        // $package->price = $request->price;
         // Set other fields as needed
         $package->save();
         // Attach selected hotels to the package
@@ -104,7 +107,7 @@ class PackageController extends Controller
     {
         $result = Package::orderBy('created_at', 'DESC');
         
-        $aColumns = ['id', 'name','price','image', 'created_at'];
+        $aColumns = ['id', 'name','type','image', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -173,7 +176,8 @@ class PackageController extends Controller
                              <span></span>
                           </label>";
             $name = $aRow->name;
-            $price = $aRow->price;
+            // $price = $aRow->price;
+            $type = $aRow->type;
             $imageName = $aRow->image;
             $imageUrl = asset('uploads/' . $imageName);
             $image = "<img style='height:60px; width:60px' src='{$imageUrl}'>";
@@ -193,7 +197,7 @@ class PackageController extends Controller
                 "DT_RowId" => "row_{$aRow->id}",
                 @$aRow->id,
                 @$name,
-                @$price,
+                @$type,
                 @$image,
                 @$action
             );

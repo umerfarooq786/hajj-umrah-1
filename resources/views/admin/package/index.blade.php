@@ -83,7 +83,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Route</h4>
+                            <h4 class="card-title">Predefined Packages</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -103,7 +103,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th style="width:110px">Name</th>
-                                            <th style="width:70px">Price</th>
+                                            <th style="width:70px">Type</th>
                                             <th style="width:110px">Image</th>
                                             <th>Action</th>
                                         </tr>

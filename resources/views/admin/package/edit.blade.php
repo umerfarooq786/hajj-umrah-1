@@ -35,20 +35,27 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Price / SAR </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Package Type </label>
                                             <div class="col-md-9">
-                                                <input type="number" id="userinput2" class="form-control border-primary" 
-                                                name="price" value="{{ $package->price }}">
+                                                <select id="userinput2" class="form-control border-primary" name="type">
+
+                                                    <option value="umrah"
+                                                        {{ $package->type === 'umrah' ? 'selected' : '' }}>Umrah</option>
+                                                    <option value="hajj"
+                                                        {{ $package->type === 'hajj' ? 'selected' : '' }}>Hajj</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Package Image </label>
                                             <div class="col-md-9">
-                                                <img style='height:60px; width:60px' src="{{ asset('uploads/'. $package->image )}}" alt="">
-                                                <input type="file" id="userinput2" class="form-control border-primary" name="image">
+                                                <img style='height:60px; width:60px'
+                                                    src="{{ asset('uploads/' . $package->image) }}" alt="">
+                                                <input type="file" id="userinput2" class="form-control border-primary"
+                                                    name="image">
                                             </div>
                                         </div>
                                     </div>
