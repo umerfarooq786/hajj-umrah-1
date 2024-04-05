@@ -59,6 +59,7 @@
                 Jeddah</a>
         </div>
     </div>
+    <a href="/airlines" class="font-semibold hover:underline text-sm">AIRLINES</a>
     <a href="/contact" class="font-semibold hover:underline text-sm">CONTACT US</a>
 </div>
 

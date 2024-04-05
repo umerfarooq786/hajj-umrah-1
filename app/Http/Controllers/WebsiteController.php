@@ -16,4 +16,8 @@ class WebsiteController extends Controller
     public function contact(){
         return view('website.contact.index');
     }
+
+    public function airlines(){
+        return view('website.contact.airlines');
+    }    
 }

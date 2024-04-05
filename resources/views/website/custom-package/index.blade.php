@@ -61,7 +61,6 @@
             background-color: #45a049;
             /* Darker green on hover */
         }
-
     </style>
     <div class="mx-auto min-h-[500px] relative flex flex-col items-center justify-center py-20 my-20">
         <video autoplay muted loop class="-z-10 h-full w-full absolute top-0 left-0 object-cover">
@@ -81,6 +80,12 @@
                     </ul>
                 </div><br><br>
             @endif
+
+            {{-- This note field should be in a flash message, which will end after redirection --}}
+            <div class="mb-5">
+                <p class="text-red-600"><b>Note from hotel name:</b> This is some message from makkah hotel</p>
+                <p class="text-red-600"><b>Note from hotel name:</b> This is some message from madinah hotel</p>
+            </div>
             <form method="POST" action="{{ route('calculate.calculate_package_result') }}" class="space-y-2"
                 id="custom-package-form" enctype="multipart/form-data">
                 @csrf
@@ -132,7 +137,7 @@
                         <option value="4">Quad</option>
                     </select>
 
-                    
+
                     <div class="relative">
                         <div id="makkah_meal_button"
                             class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">
@@ -180,16 +185,16 @@
                     </select>
 
                     <!-- <div class="relative inline-block">
-                                
-                                <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
-                                <div id="MakkahmealOptions"
-                                    class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
-                                    <ul>
+                                                        
+                                                        <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
+                                                        <div id="MakkahmealOptions"
+                                                            class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
+                                                            <ul>
 
-                                    </ul>
-                                    <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
-                                </div>
-                            </div> -->
+                                                            </ul>
+                                                            <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                                                        </div>
+                                                    </div> -->
                     <!-- test start -->
                     <div class="relative">
                         <div id="madinah_meal_button"
