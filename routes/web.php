@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MaktabController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransportController;
@@ -84,6 +85,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('vehicles', VehicleController::class);
     // Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index')->middleware('check.permission:vehicle-list');
     Route::get('/get_vehicles', [VehicleController::class, 'get_vehicles']);
+
+    Route::resource('maktab', MaktabController::class);
 });
 
 // Contacts Routes

@@ -30,7 +30,7 @@
 
             @if (auth()->user()->can('routes-create') || auth()->user()->can('routes-list'))
                 <li class="nav-item"><a href="{{ request()->routeIs('routes.index') ? 'active' : '' }}"><i
-                            class="la la-car"></i><span class="menu-title" data-i18n="nav.dash.main">Routes</span></a>
+                            class="la la-road"></i><span class="menu-title" data-i18n="nav.dash.main">Routes</span></a>
                     <ul class="menu-content">
 
                         @can('routes-create')
@@ -102,18 +102,20 @@
             @endif
 
             @if (auth()->user()->can('vehicles-create') || auth()->user()->can('vehicles-list'))
-                <li class="nav-item"><a href=""><i class="la la-hotel"></i><span class="menu-title"
+                <li class="nav-item"><a href=""><i class="la la-car"></i><span class="menu-title"
                             data-i18n="nav.dash.main">Vehicles</span></a>
                     <ul class="menu-content">
                         @can('vehicles-create')
                             <li class="">
-                                <a class="menu-item" href="{{ route('vehicles.create') }}" data-i18n="nav.dash.ecommerce">Add
+                                <a class="menu-item" href="{{ route('vehicles.create') }}"
+                                    data-i18n="nav.dash.ecommerce">Add
                                     Vehicle</a>
                             </li>
                         @endcan
                         @can('vehicles-list')
                             <li class="">
-                                <a class="menu-item" href="{{ route('vehicles.index') }}" data-i18n="nav.dash.ecommerce">View
+                                <a class="menu-item" href="{{ route('vehicles.index') }}"
+                                    data-i18n="nav.dash.ecommerce">View
                                     Vehicles</a>
                             </li>
                         @endcan
@@ -122,7 +124,7 @@
             @endif
 
             @if (auth()->user()->can('packages-create') || auth()->user()->can('packages-list'))
-                <li class="nav-item"><a href=""><i class="la la-user"></i><span class="menu-title"
+                <li class="nav-item"><a href=""><i class="la la-calendar-o"></i><span class="menu-title"
                             data-i18n="nav.dash.main">Predefine Packages</span></a>
                     <ul class="menu-content">
                         @can('packages-create')
@@ -144,20 +146,44 @@
             @endif
 
             @can('contacts-view')
-                <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-hotel"></i><span
+                <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-phone"></i><span
                             class="menu-title" data-i18n="nav.dash.main">View User Contacts</span></a>
                 </li>
             @endcan
 
+            {{-- This is dummy and will be changed by mudassir --}}
+            @if (auth()->user()->can('routes-create') || auth()->user()->can('routes-list'))
+                <li class="nav-item"><a href="{{ request()->routeIs('routes.index') ? 'active' : '' }}"><i
+                            class="la la-pencil-square"></i><span class="menu-title"
+                            data-i18n="nav.dash.main">Maktab</span></a>
+                    <ul class="menu-content">
+
+                        @can('routes-create')
+                            <li class="{{ request()->routeIs('maktab.create') ? 'active' : '' }}">
+                                <a class="menu-item" href="{{ route('maktab.create') }}"
+                                    data-i18n="nav.dash.ecommerce">Add Maktab</a>
+                            </li>
+                        @endcan
+                        @can('routes-list')
+                            <li class="{{ request()->routeIs('maktab.index') ? 'active' : '' }}">
+                                <a class="menu-item" href="{{ route('maktab.index') }}"
+                                    data-i18n="nav.dash.ecommerce">View Maktabs</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endif
+
+
             @can('visa-charges')
-                <li class="nav-item"><a href="{{ route('admin.visa_charges') }}"><i class="la la-hotel"></i><span
+                <li class="nav-item"><a href="{{ route('admin.visa_charges') }}"><i class="la la-money"></i><span
                             class="menu-title" data-i18n="nav.dash.main">Visa Charges</span></a>
                 </li>
             @endcan
             @can('packages-calculation')
                 <!-- <li class="nav-item"><a href="{{ route('admin.custom_package') }}"><i class="la la-hotel"></i><span
-                                    class="menu-title" data-i18n="nav.dash.main">Package Calculation</span></a>
-                        </li> -->
+                                                                                                        class="menu-title" data-i18n="nav.dash.main">Package Calculation</span></a>
+                                                                                            </li> -->
             @endcan
             @can('currencys-conversion')
                 <li class="nav-item"><a href="{{ route('admin.currency_conversion') }}"><i
@@ -165,7 +191,7 @@
                             Conversion</span></a>
                 </li>
             @endcan
-            <li class="nav-item"><a href="{{ route('testimonials.index') }}"><i class="la la-dollar"></i><span
+            <li class="nav-item"><a href="{{ route('testimonials.index') }}"><i class="la la-thumbs-o-up"></i><span
                         class="menu-title" data-i18n="nav.dash.main">Testimonials</span></a>
             </li>
         </ul>
