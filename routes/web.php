@@ -18,7 +18,7 @@ use App\Http\Controllers\FrontHotelController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\VehicleController;
-
+use App\Http\Controllers\PDFController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -123,3 +123,6 @@ Route::get('/predefined-package/hajj', [FrontHotelController::class, 'predefined
 Route::get('/test', function () {
     return view("admin.package.index");
 });
+
+Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
+
