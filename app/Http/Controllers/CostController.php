@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CurrencyConversion;
 use App\Models\Hotel;
 use App\Models\HotelRoom;
+use App\Models\Maktab;
 use App\Models\Meal;
 use App\Models\Room;
 use App\Models\Route;
@@ -13,6 +14,7 @@ use App\Models\Vehicle;
 use App\Models\Visa;
 use App\Models\Weekend;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class CostController extends Controller
@@ -27,6 +29,19 @@ class CostController extends Controller
         $transport_types = Vehicle::all();
         $mealData = Meal::all();
         return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData'));
+    }
+    
+    public function calculate_package_hajj()
+    {
+        $rooms = Room::all();
+        $routes = Route::all();
+        $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
+        $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
+        $transport_types = Vehicle::all();
+        $maktabs = Maktab::all();
+        $mealData = Meal::all();
+        $showpage = Visa::all();
+        return view("website.custom-package.index1", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData', 'showpage', 'maktabs'));
     }
 
     public function calculate_package_result()
@@ -53,7 +68,7 @@ class CostController extends Controller
         $travel_date = $request->travel_date;
 
         $visa = $request->visa;
-
+        $maktab = $request->maktab;
         $makkah_hotel_room_price = 0;
         $madinah_hotel_room_price = 0;
         $makkah_hotel_room_perday_price = 0;
@@ -90,7 +105,7 @@ class CostController extends Controller
                         }
                     }
                     $validityDate = Carbon::parse($hotelRooms->validity);
-                    if ($validityDate->between($startDate, $endDate)) {
+                    if ($validityDate <= $endDate) {
                         $daysDifference = $startDate->diffInDays($endDate);
                         $Weekdays = $daysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;
@@ -136,7 +151,7 @@ class CostController extends Controller
 
                 foreach ($hotelRoom as $hotelRooms) {
                     $validityDate = Carbon::parse($hotelRooms->validity);
-                    if ($validityDate->between($startDate, $endDate)) {
+                    if ($validityDate <= $endDate) {
                         $daysDifference = $startDate->diffInDays($endDate);
                         $Weekdays = $daysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;
@@ -224,8 +239,12 @@ class CostController extends Controller
                     }
                 }
             }
-
-            $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
+            if ($maktab != NULL) {
+                $maktab = Maktab::findOrFail($maktab);
+                $visa = $maktab->cost;
+            } else {
+                $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
+            }
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
 

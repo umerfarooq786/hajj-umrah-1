@@ -42,7 +42,7 @@
         Hajj PACKAGE
         <div
             class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
-            <a href="/custom-package" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Customized</a>
+            <a href="/custom-package-hajj" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Customized</a>
             <a href="/predefined-package/hajj" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Pre
                 Defined</a>
         </div>

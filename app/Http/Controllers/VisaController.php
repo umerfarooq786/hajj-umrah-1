@@ -21,6 +21,7 @@ class VisaController extends Controller
 
         $visa->hajj_charges = $request->hajj_charges;
         $visa->umrah_charges = $request->umrah_charges;
+        $visa->show_hajj = $request->show_hajj ?? 0;
         $visa->current_currency = $current_currency->default_currency;
 
         $visa->save();

@@ -85,8 +85,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('vehicles', VehicleController::class);
     // Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index')->middleware('check.permission:vehicle-list');
     Route::get('/get_vehicles', [VehicleController::class, 'get_vehicles']);
-
+    
     Route::resource('maktab', MaktabController::class);
+    Route::get('/get_maktabs', [MaktabController::class, 'get_maktabs']);
 });
 
 // Contacts Routes
@@ -107,6 +108,7 @@ Route::get('/about', function () {
 });
 
 Route::get('/custom-package', [CostController::class, 'calculate_package']);
+Route::get('/custom-package-hajj', [CostController::class, 'calculate_package_hajj']);
 Route::post('/calculate_package_result', [CostController::class, 'calculate'])->name('calculate.calculate_package_result');
 Route::post('/get-hotel-rooms', [CostController::class, 'hotel_room_type'])->name('calculate.hotel_room_type');
 Route::get('/get-hotel-note', [CostController::class, 'hotel_note'])->name('calculate.hotel_note');
