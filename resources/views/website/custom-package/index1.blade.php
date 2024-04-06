@@ -194,16 +194,16 @@
                             </select>
 
                             <!-- <div class="relative inline-block">
-                                                                        
-                                                                        <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
-                                                                        <div id="MakkahmealOptions"
-                                                                            class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
-                                                                            <ul>
+                                                                            
+                                                                            <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
+                                                                            <div id="MakkahmealOptions"
+                                                                                class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
+                                                                                <ul>
 
-                                                                            </ul>
-                                                                            <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
-                                                                        </div>
-                                                                    </div> -->
+                                                                                </ul>
+                                                                                <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                                                                            </div>
+                                                                        </div> -->
                             <!-- test start -->
                             <div class="relative">
                                 <div id="madinah_meal_button"
@@ -564,7 +564,7 @@
                     endDateInput.disabled = false;
 
                     const minEndDate = instance.selectedDates[0];
-                    minEndDate.setDate(minEndDate.getDate() + 5);
+                    minEndDate.setDate(minEndDate.getDate() + 1);
                     endDateInput.set("minDate", minEndDate);
                 }
             });
