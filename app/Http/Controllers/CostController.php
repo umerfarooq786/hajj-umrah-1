@@ -11,6 +11,7 @@ use App\Models\Route;
 use App\Models\Transport;
 use App\Models\Vehicle;
 use App\Models\Visa;
+use App\Models\Weekend;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -67,10 +68,35 @@ class CostController extends Controller
                 foreach ($hotelRoom as $hotelRooms) {
                     $startDate = Carbon::parse($makkah_hotel_start_date);
                     $endDate = Carbon::parse($makkah_hotel_end_date);
+
+                    //Get weekend days prices differently
+                    $weekends = Weekend::first();
+                    $weekends = $weekends['name'];
+                    $nameArray = json_decode($weekends);
+                    $weekenDaysCunt = 0;
+                    $day1 = $day2 = $day3 = $day4 = $day5 = $day6 = $day7 = null;
+
+                    foreach ($nameArray as $index => $day) {
+                        ${'day' . ($index + 1)} = $day;
+                    }
+
+                    for ($i = 1; $i <= 7; $i++) {
+                        $day = ${'day' . $i};
+                        if (!is_null($day)) {
+                            $numDays = $startDate->diffInDaysFiltered(function (Carbon $date) use ($day) {
+                                return $date->isDayOfWeek($day);
+                            }, $endDate);
+                            $weekenDaysCunt += $numDays;
+                        }
+                    }
                     $validityDate = Carbon::parse($hotelRooms->validity);
                     if ($validityDate->between($startDate, $endDate)) {
                         $daysDifference = $startDate->diffInDays($endDate);
-                        $makkah_hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
+                        $Weekdays = $daysDifference - $weekenDaysCunt;
+                        $WeekendDays = $weekenDaysCunt;
+                        $makkah_hotel_room_price_weekdays = $hotelRooms->weekdays_price * $Weekdays;
+                        $makkah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $WeekendDays;
+                        $makkah_hotel_room_price = $makkah_hotel_room_price_weekdays + $makkah_hotel_room_price_weekendDays;
                         $makkah_hotel_room_perday_price = $hotelRooms->weekdays_price;
                         $validityFound = 1;
                     }
@@ -87,11 +113,36 @@ class CostController extends Controller
                 $startDate = Carbon::parse($madinah_hotel_start_date);
                 $endDate = Carbon::parse($madinah_hotel_end_date);
                 $Madinah_validityFound = 0;
+                //Get weekend days prices differently
+                $weekends = Weekend::first();
+                $weekends = $weekends['name'];
+                $nameArray = json_decode($weekends);
+                $weekenDaysCunt = 0;
+                $day1 = $day2 = $day3 = $day4 = $day5 = $day6 = $day7 = null;
+
+                foreach ($nameArray as $index => $day) {
+                    ${'day' . ($index + 1)} = $day;
+                }
+
+                for ($i = 1; $i <= 7; $i++) {
+                    $day = ${'day' . $i};
+                    if (!is_null($day)) {
+                        $numDays = $startDate->diffInDaysFiltered(function (Carbon $date) use ($day) {
+                            return $date->isDayOfWeek($day);
+                        }, $endDate);
+                        $weekenDaysCunt += $numDays;
+                    }
+                }
+
                 foreach ($hotelRoom as $hotelRooms) {
                     $validityDate = Carbon::parse($hotelRooms->validity);
                     if ($validityDate->between($startDate, $endDate)) {
                         $daysDifference = $startDate->diffInDays($endDate);
-                        $madinah_hotel_room_price = $hotelRooms->weekdays_price * $daysDifference;
+                        $Weekdays = $daysDifference - $weekenDaysCunt;
+                        $WeekendDays = $weekenDaysCunt;
+                        $madinah_hotel_room_price_weekdays = $hotelRooms->weekdays_price * $Weekdays;
+                        $madinah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $WeekendDays;
+                        $madinah_hotel_room_price = $madinah_hotel_room_price_weekdays + $madinah_hotel_room_price_weekendDays;
                         $madinah_hotel_room_perday_price = $hotelRooms->weekdays_price;
                         $Madinah_validityFound = 1;
                     }
@@ -106,42 +157,42 @@ class CostController extends Controller
             }
 
             $routes = $request->input('route');
-            if($routes[0] != NULL){
-            $vehicles = $request->input('vehicle');
-            $travel_dates = $request->input('travel_date');
-            $transport_cost = 0;
-            foreach ($routes as $key => $route) {
-                $routeName = Route::where('id', $routes[$key])->pluck('name');
-                $routeName = $routeName[0];
-                $transports = Transport::where('route_id', $routes[$key])
-                    ->where('vehicle_id', $vehicles[$key])
-                    ->get();
+            if ($routes[0] != null) {
+                $vehicles = $request->input('vehicle');
+                $travel_dates = $request->input('travel_date');
+                $transport_cost = 0;
+                foreach ($routes as $key => $route) {
+                    $routeName = Route::where('id', $routes[$key])->pluck('name');
+                    $routeName = $routeName[0];
+                    $transports = Transport::where('route_id', $routes[$key])
+                        ->where('vehicle_id', $vehicles[$key])
+                        ->get();
 
-                if ($transports->isNotEmpty()) {
-                    foreach ($transports as $transport) {
-                        $cost = $transport->costs()
-                            ->where('validity', '>=', $travel_dates[$key])
-                            ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
-                            ->first();
-                        if ($cost != "") {
-                            // Assign the transport cost and break the loop
-                            $new_transport_cost = $cost->cost;
-                            $transport_cost = $transport_cost + $new_transport_cost;
-                            break;
+                    if ($transports->isNotEmpty()) {
+                        foreach ($transports as $transport) {
+                            $cost = $transport->costs()
+                                ->where('validity', '>=', $travel_dates[$key])
+                                ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
+                                ->first();
+                            if ($cost != "") {
+                                // Assign the transport cost and break the loop
+                                $new_transport_cost = $cost->cost;
+                                $transport_cost = $transport_cost + $new_transport_cost;
+                                break;
+                            }
                         }
-                    }
 
-                    if (!isset($transport_cost)) {
+                        if (!isset($transport_cost)) {
 
-                        $errorMessage = "Sorry, No Transport ( {{$routeName}} ) available between the given date.";
+                            $errorMessage = "Sorry, No Transport ( {{$routeName}} ) available between the given date.";
+                            return back()->withErrors([$errorMessage]);
+                        }
+                    } else {
+                        $errorMessage = "Sorry, No Transport ( {$routeName} ) available between the given date.";
                         return back()->withErrors([$errorMessage]);
                     }
-                } else {
-                    $errorMessage = "Sorry, No Transport ( {$routeName} ) available between the given date.";
-                    return back()->withErrors([$errorMessage]);
                 }
             }
-        }
             $visaCharges = Visa::where('id', '1')->get();
             foreach ($visaCharges as $visaCharge) {
                 $hajj_charges = $visaCharge->hajj_charges;
@@ -150,25 +201,29 @@ class CostController extends Controller
 
             $mealPrices = 0;
 
-            if( $makkah_id){
-            $mealIds = $request->input('makkah_meal');
-            foreach ($mealIds as $mealId) {
-                $meal = Meal::where('hotel_id', $makkah_id)->where('meal_type_id', $mealId)->first();
-                if ($meal) {
-                    $mealPrices += $meal->price;
+            if ($makkah_id) {
+                $mealIds = $request->input('makkah_meal');
+                if ($mealIds) {
+                    foreach ($mealIds as $mealId) {
+                        $meal = Meal::where('hotel_id', $makkah_id)->where('meal_type_id', $mealId)->first();
+                        if ($meal) {
+                            $mealPrices += $meal->price;
+                        }
+                    }
                 }
             }
-        }
-            
-            if( $madinah_id){
-            $madinahMealIds = $request->input('madinah_meal');
-            foreach ($madinahMealIds as $mealId) {
-                $meal = Meal::where('hotel_id', $madinah_id)->where('meal_type_id', $mealId)->first();
-                if ($meal) {
-                    $mealPrices += $meal->price;
+
+            if ($madinah_id) {
+                $madinahMealIds = $request->input('madinah_meal');
+                if ($madinahMealIds) {
+                    foreach ($madinahMealIds as $mealId) {
+                        $meal = Meal::where('hotel_id', $madinah_id)->where('meal_type_id', $mealId)->first();
+                        if ($meal) {
+                            $mealPrices += $meal->price;
+                        }
+                    }
                 }
             }
-        }
 
             $visa = ($visa == 'umrah') ? $umrah_charges : (($visa == 'hajj') ? $hajj_charges : null);
             $visa_per_person = $visa;
@@ -205,6 +260,18 @@ class CostController extends Controller
 
         // Return the response with the data
         return response()->json(['data' => $roomNames]);
+
+    }
+
+    public function hotel_note(Request $request)
+    {
+        $selectedValue = $request->input('selectedValue');
+
+        $hotel = Hotel::where('id', $selectedValue)->first();
+        $note = $hotel->note;
+
+        // Return the response with the data
+        return response()->json($note);
 
     }
 

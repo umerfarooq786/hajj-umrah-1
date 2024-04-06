@@ -109,6 +109,7 @@ Route::get('/about', function () {
 Route::get('/custom-package', [CostController::class, 'calculate_package']);
 Route::post('/calculate_package_result', [CostController::class, 'calculate'])->name('calculate.calculate_package_result');
 Route::post('/get-hotel-rooms', [CostController::class, 'hotel_room_type'])->name('calculate.hotel_room_type');
+Route::get('/get-hotel-note', [CostController::class, 'hotel_note'])->name('calculate.hotel_note');
 Route::post('/get-hotel-meals', [CostController::class, 'hotel_meal_type'])->name('calculate.hotel_meal_type');
 Route::get('/custom-package/result', [CostController::class, 'calculate_package_result']);
 

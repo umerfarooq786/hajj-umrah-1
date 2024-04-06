@@ -83,8 +83,10 @@
 
             {{-- This note field should be in a flash message, which will end after redirection --}}
             <div class="mb-5">
-                <p class="text-red-600"><b>Note from hotel name:</b> This is some message from makkah hotel</p>
-                <p class="text-red-600"><b>Note from hotel name:</b> This is some message from madinah hotel</p>
+                <p id="makkah_hotel_note"  style="display: none;" class="text-red-600"><b>Note from hotel name:</b> This is some message from makkah
+                    hotel</p>
+                <p id="madinah_hotel_note" style="display: none;" class="text-red-600"><b>Note from hotel name:</b> This is some message from
+                    madinah hotel</p>
             </div>
             <form method="POST" action="{{ route('calculate.calculate_package_result') }}" class="space-y-2"
                 id="custom-package-form" enctype="multipart/form-data">
@@ -185,16 +187,16 @@
                     </select>
 
                     <!-- <div class="relative inline-block">
-                                                        
-                                                        <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
-                                                        <div id="MakkahmealOptions"
-                                                            class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
-                                                            <ul>
+                                                                
+                                                                <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
+                                                                <div id="MakkahmealOptions"
+                                                                    class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
+                                                                    <ul>
 
-                                                            </ul>
-                                                            <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
-                                                        </div>
-                                                    </div> -->
+                                                                    </ul>
+                                                                    <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
+                                                                </div>
+                                                            </div> -->
                     <!-- test start -->
                     <div class="relative">
                         <div id="madinah_meal_button"
@@ -333,6 +335,24 @@
                 });
 
                 $.ajax({
+                    url: '{{ route('calculate.hotel_note') }}',
+                    method: 'GET',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        var note = response;
+                        $('#makkah_hotel_note').html('<b>Note Of Makkah Selected Hotel:</b> ' + note).show();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+                $.ajax({
                     url: '{{ route('calculate.hotel_meal_type') }}',
                     method: 'POST',
                     data: {
@@ -401,6 +421,25 @@
                         console.error(error);
                     }
                 });
+
+                $.ajax({
+                    url: '{{ route('calculate.hotel_note') }}',
+                    method: 'GET',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        var note = response;
+                        $('#makkah_hotel_note').html('<b>Note Of Madinah Selected Hotel:</b> ' + note).show();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
 
                 $.ajax({
                     url: '{{ route('calculate.hotel_meal_type') }}',

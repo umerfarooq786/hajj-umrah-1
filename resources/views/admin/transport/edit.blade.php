@@ -129,7 +129,6 @@
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 
     <script>
-
         flatpickr(".datepicker", {
             dateFormat: "Y-m-d",
             minDate: "today",
