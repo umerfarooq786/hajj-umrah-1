@@ -126,5 +126,8 @@ Route::get('/test', function () {
     return view("admin.package.index");
 });
 
-Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
-
+Route::post('/generate-pdf', [PDFController::class, 'generatePDF'])->name('download.pdf');
+Route::get('/pdfpdf', function () {
+    $data= [];
+    return view("pdf.pdfDocument", ['data' => $data]);
+});

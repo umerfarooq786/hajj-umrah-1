@@ -26,15 +26,17 @@
     </div>
 </div>
 <div class="bg-first text-white w-full h-[70px] hidden md:flex items-center justify-center gap-10 ">
-    <a href="/home_page" class="font-semibold hover:underline text-sm">HOME</a>
-    <a href="/about" class="font-semibold hover:underline text-sm">ABOUT</a>
+    <a href="{{ url('home_page') }}" class="font-semibold hover:underline text-sm">HOME</a>
+    <a href="{{ url('about') }}" class="font-semibold hover:underline text-sm">ABOUT</a>
     <!-- <a href="/custom-package" class="font-semibold hover:underline text-sm">CALCULATE</a>     -->
     <div href="#" class="relative font-semibold text-sm py-5 cursor-pointer group">
         UMRAH PACKAGE
         <div
             class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
-            <a href="/custom-package" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Customized</a>
-            <a href="/predefined-package/umrah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Pre
+            <a href="{{ url('custom-package') }}"
+                class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Customized</a>
+            <a href="{{ url('predefined-package/umrah') }}"
+                class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Pre
                 Defined</a>
         </div>
     </div>
@@ -42,7 +44,8 @@
         Hajj PACKAGE
         <div
             class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
-            <a href="/custom-package-hajj" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Customized</a>
+            <a href="{{ url('custom-package-hajj') }}"
+                class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Customized</a>
             <a href="/predefined-package/hajj" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Pre
                 Defined</a>
         </div>
@@ -51,16 +54,19 @@
         HOTELS
         <div
             class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
-            <a href="/hotel-city/makkah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In
+            <a href="{{ url('hotel-city/makkah') }}"
+                class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In
                 Makkah</a>
-            <a href="/hotel-city/madinah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In
+            <a href="{{ url('hotel-city/madinah') }}"
+                class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In
                 Madinah</a>
-            <a href="/hotel-city/jeddah" class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In
+            <a href="{{ url('hotel-city/jeddah') }}"
+                class="font-semibold hover:bg-first hover:text-white text-sm p-2 ">Hotels In
                 Jeddah</a>
         </div>
     </div>
-    <a href="/airlines" class="font-semibold hover:underline text-sm">AIRLINES</a>
-    <a href="/contact" class="font-semibold hover:underline text-sm">CONTACT US</a>
+    <a href="{{ url('airlines') }}" class="font-semibold hover:underline text-sm">AIRLINES</a>
+    <a href="{{ url('contact') }}" class="font-semibold hover:underline text-sm">CONTACT US</a>
 </div>
 
 <!-- Mobile Menu starts -->

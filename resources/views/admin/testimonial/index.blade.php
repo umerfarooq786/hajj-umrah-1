@@ -43,10 +43,11 @@
                                     <li><a data-action="close"><i class="ft-x"></i></a></li>
                                 </ul>
                             </div>
-                            {{-- @if(count($roles) == NULL) --}}
+                            {{-- @if (count($roles) == null) --}}
                             <div class="heading-elements">
                                 <div class="pull-right">
-                                        <a class="btn btn-success" href="{{ route('testimonials.create') }}"> Create New Testimonial</a>
+                                    <a class="btn btn-success" href="{{ route('testimonials.create') }}"> Create New
+                                        Testimonial</a>
                                 </div>
                             </div>
                             {{-- @endif --}}
@@ -71,15 +72,16 @@
                                                 <td>{{ $role->last_name }}</td>
                                                 <td>{{ $role->designation }}</td>
                                                 <td>{{ $role->content }}</td>
-                                                <td><img src="{{ asset('uploads/' . $role->image) }}"
-                                                    alt="" style="height:30px; width:30px"></td>
+                                                <td><img src="{{ asset('uploads/' . $role->image) }}" alt=""
+                                                        style="height:30px; width:30px"></td>
                                                 <td>
-                                                        <form method="POST" action="{{ route('testimonials.destroy', $role->id) }}"
-                                                            style="display:inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
+                                                    <form method="POST"
+                                                        action="{{ route('testimonials.destroy', $role->id) }}"
+                                                        style="display:inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -106,7 +108,7 @@
     @if (Session::get('success'))
         <script>
             $(document).ready(function() {
-                toastr.success('<?php echo Session::get('success'); ?>', 'Zindawork Says', {
+                toastr.success('<?php echo Session::get('success'); ?>', 'Fastline Says', {
                     timeOut: 2000
                 })
             });

@@ -130,7 +130,7 @@
     @if (Session::get('success'))
         <script>
             $(document).ready(function() {
-                toastr.success('<?php echo Session::get('success'); ?>', 'Zindawork Says', {
+                toastr.success('<?php echo Session::get('success'); ?>', 'Fastline Says', {
                     timeOut: 2000
                 })
             });

@@ -18,7 +18,11 @@
                 <option value="USD">USD</option>
                 <option value="PKR">PKR</option>
             </select>
-            <button class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
+            <form action="{{ route('download.pdf') }}" method="post">
+                @csrf
+                <button type="submit"
+                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
+            </form>
         </div>
 
 

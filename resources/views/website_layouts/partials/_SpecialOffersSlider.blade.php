@@ -3,8 +3,8 @@
     coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
     @foreach ($package as $packages)
         <swiper-slide>
-
-            <a href="{{ $packages->type === 'umrah' ? '/predefined-package/umrah' : '/predefined-package/hajj' }}">
+            <a
+                href="{{ $packages->type === 'umrah' ? url('predefined-package/umrah') : url('predefined-package/hajj') }}">
                 <img src="{{ asset('uploads/' . $packages->image) }}" />
             </a>
         </swiper-slide>

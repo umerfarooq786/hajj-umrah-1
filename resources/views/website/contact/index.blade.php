@@ -7,7 +7,8 @@
 
             <div class="space-y-2">
                 <h4 class="font-semibold">BUSINESS ADDRESS</h4>
-                <p class="text-sm text-gray-500 font-semibold">14-15 Ground Floor, Ashrafi Heights, Main Market Gulberg ll, Lahore, Pakistan</p>
+                <p class="text-sm text-gray-500 font-semibold">14-15 Ground Floor, Ashrafi Heights, Main Market Gulberg ll,
+                    Lahore, Pakistan</p>
             </div>
 
             <div class="space-y-2">
@@ -27,18 +28,18 @@
                         class="fa-brands fa-facebook-f text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
                 <!-- <a href="#"
-                    class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
-                    <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                </a> -->
+                        class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
+                        <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
+                    </a> -->
                 <a href="https://www.instagram.com/fastline.pk/" target="_blank"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i
                         class="fa-brands fa-instagram text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
                 <!-- <a href="#"
-                    class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
-                    <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                </a> -->
+                        class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
+                        <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
+                    </a> -->
             </div>
         </div>
         <div class="border border-gray-200 rounded-[4px] py-16 px-10 space-y-10">
@@ -49,13 +50,14 @@
                     <div class="space-y-2 w-full">
                         <label class="font-bold text-sm" for="first_name">First Name</label>
                         <input type="text" name="first_name" placeholder="First name"
-                            class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full" >
+                            class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full">
                     </div>
 
                     <div class="space-y-2 w-full">
                         <label class="font-bold text-sm" for="last_name">Last Name</label>
                         <input type="text" name="last_name" placeholder="Last name"
-                            class="w-full border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5" required>
+                            class="w-full border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5"
+                            required>
                     </div>
                 </div>
 
@@ -63,7 +65,8 @@
                     <div class="space-y-2 w-full">
                         <label class="font-bold text-sm" for="email">Email Address</label>
                         <input type="text" name="email" placeholder="Email"
-                            class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full" required>
+                            class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full"
+                            required>
                     </div>
 
                     <div class="space-y-2 w-full">
@@ -100,7 +103,7 @@
     @if (Session::get('success'))
         <script>
             $(document).ready(function() {
-                toastr.success('<?php echo Session::get('success'); ?>', 'Zindawork Says', {
+                toastr.success('<?php echo Session::get('success'); ?>', 'Fastline Says', {
                     timeOut: 2000
                 })
             });

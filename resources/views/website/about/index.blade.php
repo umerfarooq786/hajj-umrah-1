@@ -35,7 +35,7 @@
                 </div>
                 <div class="h-[70px]"></div>
                 <div class="pb-5 flex items-center justify-center absolute bottom-0 w-full">
-                    <a href="/contact"
+                    <a href="{{ url('contact') }}"
                         class="bg-first inline-block text-white py-4 px-10 rounded-full hover:bg-opacity-80 uppercase text-sm">Contact
                         Us</a>
                 </div>
@@ -54,7 +54,7 @@
                     </p>
                 </div>
                 <div class="pb-5 flex items-center justify-center absolute bottom-0 w-full">
-                    <a href="/contact"
+                    <a href="{{ url('contact') }}"
                         class="bg-first inline-block text-white py-4 px-10 rounded-full hover:bg-opacity-80 uppercase text-sm">Contact
                         Us</a>
                 </div>
@@ -72,7 +72,7 @@
                     </p>
                 </div>
                 <div class="pb-5 flex items-center justify-center absolute bottom-0 w-full">
-                    <a href="/contact"
+                    <a href="{{ url('contact') }}"
                         class="bg-first inline-block text-white py-4 px-10 rounded-full hover:bg-opacity-80 uppercase text-sm">Contact
                         Us</a>
                 </div>
