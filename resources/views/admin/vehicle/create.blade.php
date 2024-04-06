@@ -32,16 +32,16 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Name</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Name" name="name" >
+                                                <input type="text" class="form-control border-primary" placeholder="Name"
+                                                    name="name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="userinput1">Make</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Make" name="make" required>
+                                            <input type="text" class="form-control border-primary" placeholder="Make"
+                                                name="make" required>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Capacity</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
+                                                <input type="number" class="form-control border-primary"
                                                     placeholder="capacity" name="capacity" required>
                                             </div>
                                         </div>

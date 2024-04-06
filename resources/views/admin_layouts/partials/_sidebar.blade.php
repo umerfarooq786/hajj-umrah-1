@@ -49,6 +49,29 @@
                 </li>
             @endif
 
+            @if (auth()->user()->can('vehicles-create') || auth()->user()->can('vehicles-list'))
+                <li class="nav-item"><a href=""><i class="la la-car"></i><span class="menu-title"
+                            data-i18n="nav.dash.main">Vehicles</span></a>
+                    <ul class="menu-content">
+                        @can('vehicles-create')
+                            <li class="">
+                                <a class="menu-item" href="{{ route('vehicles.create') }}"
+                                    data-i18n="nav.dash.ecommerce">Add
+                                    Vehicle</a>
+                            </li>
+                        @endcan
+                        @can('vehicles-list')
+                            <li class="">
+                                <a class="menu-item" href="{{ route('vehicles.index') }}"
+                                    data-i18n="nav.dash.ecommerce">View
+                                    Vehicles</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endif
+
+
             @if (auth()->user()->can('transports-create') || auth()->user()->can('transports-list'))
                 <li class="nav-item"><a href="{{ request()->routeIs('transports.index') ? 'active' : '' }}"><i
                             class="la la-car"></i><span class="menu-title"
@@ -101,27 +124,6 @@
                 </li>
             @endif
 
-            @if (auth()->user()->can('vehicles-create') || auth()->user()->can('vehicles-list'))
-                <li class="nav-item"><a href=""><i class="la la-car"></i><span class="menu-title"
-                            data-i18n="nav.dash.main">Vehicles</span></a>
-                    <ul class="menu-content">
-                        @can('vehicles-create')
-                            <li class="">
-                                <a class="menu-item" href="{{ route('vehicles.create') }}"
-                                    data-i18n="nav.dash.ecommerce">Add
-                                    Vehicle</a>
-                            </li>
-                        @endcan
-                        @can('vehicles-list')
-                            <li class="">
-                                <a class="menu-item" href="{{ route('vehicles.index') }}"
-                                    data-i18n="nav.dash.ecommerce">View
-                                    Vehicles</a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
-            @endif
 
             @if (auth()->user()->can('packages-create') || auth()->user()->can('packages-list'))
                 <li class="nav-item"><a href=""><i class="la la-calendar-o"></i><span class="menu-title"
@@ -182,8 +184,8 @@
             @endcan
             @can('packages-calculation')
                 <!-- <li class="nav-item"><a href="{{ route('admin.custom_package') }}"><i class="la la-hotel"></i><span
-                                                                                                        class="menu-title" data-i18n="nav.dash.main">Package Calculation</span></a>
-                                                                                            </li> -->
+                                                                                                            class="menu-title" data-i18n="nav.dash.main">Package Calculation</span></a>
+                                                                                                </li> -->
             @endcan
             @can('currencys-conversion')
                 <li class="nav-item"><a href="{{ route('admin.currency_conversion') }}"><i
