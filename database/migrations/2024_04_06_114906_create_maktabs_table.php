@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('visas', function (Blueprint $table) {
+        Schema::create('maktabs', function (Blueprint $table) {
             $table->id();
-            $table->decimal('hajj_charges', 10, 2)->nullable();
-            $table->decimal('umrah_charges', 10, 2)->nullable();
-            $table->string('current_currency')->nullable();
-            $table->boolean('show_hajj')->default(false);
+            $table->string('name');
+            $table->decimal('cost', 10, 2);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visas');
+        Schema::dropIfExists('maktabs');
     }
 };

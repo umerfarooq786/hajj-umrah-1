@@ -47,6 +47,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-3 label-control" style="" for="show_hajj">Show Hajj</label>
+                                <div class="col-md-9">
+                                    <input type="checkbox" id="show_hajj" name="show_hajj" value="1" {{ $visa->show_hajj ? 'checked' : '' }}>
+                                    <label for="show_hajj">Show Hajj Calculation</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 	                    <div class="form-actions right">
 	                        <button type="submit" class="btn btn-primary">

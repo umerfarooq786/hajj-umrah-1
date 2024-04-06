@@ -12,15 +12,15 @@
         "bServerSide": true,
         "aaSorting": [[0, "desc"]],
         "sPaginationType": "full_numbers",
-        "sAjaxSource": "{{ url('/get_routes') }}",
+        "sAjaxSource": "{{ url('/get_maktabs') }}",
         "aLengthMenu": [[10, 50, 100, 500], [10, 50, 100, 500]]
     });  
   });
 
-  function deleteRoute(id) {
+  function deleteMaktab(id) {
     swal({
 		    title: "Are you sure？",
-		    text: "Do you want to delete this Route",
+		    text: "Do you want to delete this Maktab",
 		    icon: "warning",
 		    buttons: {
           cancel: {
@@ -48,12 +48,12 @@
           });
           $.ajax({
             method: "DELETE",
-            url: '{{ route("routes.destroy", ["route" => ":id"]) }}'.replace(':id', id),
+            url: '{{ route("maktab.destroy", ["maktab" => ":id"]) }}'.replace(':id', id),
             success: function(result) {
               console.log(result)
               if(result.status == "success") {
                   $("#row_" + id).hide();
-                  swal("Success！", "Route has been deleted", "success");
+                  swal("Success！", "Maktab has been deleted", "success");
               }
             }
           })
@@ -74,7 +74,7 @@
         <div class="card">
           <div class="card-header">
             <i class="la la-cars"></i>
-            <h4 class="card-title">Route</h4>
+            <h4 class="card-title">Maktab</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -91,8 +91,8 @@
               <table class="table table-striped table-bordered zero-configuration data-table" id="link_table">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
+                    <th>Cost</th>
                     <th>Action</th>
                   </tr>
                 </thead>

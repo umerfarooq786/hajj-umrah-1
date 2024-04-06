@@ -16,7 +16,7 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('routes.store') }}"
+                        <form class="form form-horizontal" method="POST" action="{{ route('maktab.store') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-body">
@@ -37,7 +37,7 @@
                                             <label class="col-md-3 label-control" for="cost">Cost</label>
                                             <div class="col-md-9">
                                                 <input type="number" id="cost" class="form-control border-primary"
-                                                    placeholder="Cost" name="name" required>
+                                                    placeholder="Cost" name="cost" required>
                                             </div>
                                         </div>
                                     </div>
