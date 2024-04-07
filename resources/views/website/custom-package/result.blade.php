@@ -55,6 +55,22 @@
                                 {{ $makkah_hotel_room_perday_price }} SAR
                             </td>
                         </tr>
+                        <tr class="bg-white border-b  ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Makkah Hotel Start Date
+                            </th>
+                            <td class="px-6 py-4 text-right" id="makkahHotelStartDate">
+                                {{ $makkah_hotel_start_date }}
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b  ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Makkah Hotel End Date
+                            </th>
+                            <td class="px-6 py-4 text-right" id="makkahHotelEndDate">
+                                {{ $makkah_hotel_end_date }}
+                            </td>
+                        </tr>
                     @endif
 
                     @if ($madinah_hotel_room_price != '0')
@@ -73,6 +89,22 @@
                             </th>
                             <td class="px-6 py-4 text-right" id="madinahHotelRoomPriceDay">
                                 {{ $madinah_hotel_room_perday_price }} SAR
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b  ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Madinah Hotel Start Date
+                            </th>
+                            <td class="px-6 py-4 text-right" id="madinahHotelStartDate">
+                                {{ $madinah_hotel_start_date }}
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b  ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Madinah Hotel End Date
+                            </th>
+                            <td class="px-6 py-4 text-right" id="madinahHotelEndDate">
+                                {{ $madinah_hotel_end_date }}
                             </td>
                         </tr>
                     @endif

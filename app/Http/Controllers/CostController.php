@@ -14,7 +14,6 @@ use App\Models\Vehicle;
 use App\Models\Visa;
 use App\Models\Weekend;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class CostController extends Controller
@@ -30,7 +29,7 @@ class CostController extends Controller
         $mealData = Meal::all();
         return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData'));
     }
-    
+
     public function calculate_package_hajj()
     {
         $rooms = Room::all();
@@ -74,6 +73,13 @@ class CostController extends Controller
         $makkah_hotel_room_perday_price = 0;
         $madinah_hotel_room_perday_price = 0;
         $transport_cost = 0;
+        $MakkahdaysDifference = 0;
+        $MadinahdaysDifference = 0;
+
+        if ($no_of_persons == "") {
+            $errorMessage = "Sorry, Please Select Number Of Persons First.";
+            return back()->withErrors([$errorMessage]);
+        }
 
         if ($makkah_id || $madinah_id || $route_id) {
             if ($makkah_id) {
@@ -83,7 +89,7 @@ class CostController extends Controller
                 foreach ($hotelRoom as $hotelRooms) {
                     $startDate = Carbon::parse($makkah_hotel_start_date);
                     $endDate = Carbon::parse($makkah_hotel_end_date);
-                    $endDate->addDay(); 
+                    $endDate->addDay();
 
                     //Get weekend days prices differently
                     $weekends = Weekend::first();
@@ -107,8 +113,8 @@ class CostController extends Controller
                     }
                     $validityDate = Carbon::parse($hotelRooms->validity);
                     if ($validityDate <= $endDate) {
-                        $daysDifference = $startDate->diffInDays($endDate);
-                        $Weekdays = $daysDifference - $weekenDaysCunt;
+                        $MakkahdaysDifference = $startDate->diffInDays($endDate);
+                        $Weekdays = $MakkahdaysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;
                         $makkah_hotel_room_price_weekdays = $hotelRooms->weekdays_price * $Weekdays;
                         $makkah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $WeekendDays;
@@ -128,7 +134,7 @@ class CostController extends Controller
 
                 $startDate = Carbon::parse($madinah_hotel_start_date);
                 $endDate = Carbon::parse($madinah_hotel_end_date);
-                $endDate->addDay(); 
+                $endDate->addDay();
                 $Madinah_validityFound = 0;
                 //Get weekend days prices differently
                 $weekends = Weekend::first();
@@ -154,8 +160,8 @@ class CostController extends Controller
                 foreach ($hotelRoom as $hotelRooms) {
                     $validityDate = Carbon::parse($hotelRooms->validity);
                     if ($validityDate <= $endDate) {
-                        $daysDifference = $startDate->diffInDays($endDate);
-                        $Weekdays = $daysDifference - $weekenDaysCunt;
+                        $MadinahdaysDifference = $startDate->diffInDays($endDate);
+                        $Weekdays = $MadinahdaysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;
                         $madinah_hotel_room_price_weekdays = $hotelRooms->weekdays_price * $Weekdays;
                         $madinah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $WeekendDays;
@@ -240,7 +246,7 @@ class CostController extends Controller
                     }
                 }
             }
-            if ($maktab != NULL) {
+            if ($maktab != null) {
                 $maktab = Maktab::findOrFail($maktab);
                 $visa = $maktab->cost;
             } else {
@@ -248,7 +254,9 @@ class CostController extends Controller
             }
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
-            $mealPrices = $mealPrices * $no_of_persons;
+            $daysCount = $MadinahdaysDifference + $MakkahdaysDifference;
+            $mealPricesPerPerson = $mealPrices * $daysCount;
+            $mealPrices = $mealPricesPerPerson * $no_of_persons;
 
             $total_cost = $madinah_hotel_room_price + $makkah_hotel_room_price + $transport_cost + $visa + $mealPrices;
             $CurrencyConversion = CurrencyConversion::all();
@@ -256,11 +264,12 @@ class CostController extends Controller
                 $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
                 $sar_to_usd = $CurrencyConversions->sar_to_usd;
             }
+            
         } else {
             $errorMessage = "Please select options to get calculated value.";
             return back()->withErrors([$errorMessage]);
         }
-        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price', 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'transport_cost', 'visa', 'mealPrices', 'visa_per_person'));
+        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price', 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'transport_cost', 'visa', 'mealPrices', 'visa_per_person','makkah_hotel_start_date','makkah_hotel_end_date','madinah_hotel_start_date','madinah_hotel_end_date'));
     }
 
     public function hotel_room_type(Request $request)
