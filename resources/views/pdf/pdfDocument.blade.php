@@ -22,7 +22,7 @@
                             </td>
 
                             <td>
-                                Created: {{ now() }} <br />
+                                Created: {{ now()->format('d-m-Y') }} <br />
                             </td>
                         </tr>
                     </table>
@@ -53,39 +53,49 @@
             </tr>
 
             <tr class="item">
-                <td>Makkah Hotel Room Price </td>
-                <td>300 SAR</td>
+                <td>Makkah Hotel Room Cost </td>
+                <td>{{ $makkah_hotel_room_price }} SAR</td>
             </tr>
 
             <tr class="item">
-                <td>Makkah Hotel Room Cost </td>
-                <td>300 SAR</td>
+                <td>Makkah Hotel Room Cost Per Day </td>
+                <td>{{ $makkah_hotel_room_perday_price }} SAR</td>
             </tr>
+
             <tr class="item">
-                <td>Makkah Hotel Room Per Day Cost </td>
-                <td>300 SAR</td>
+                <td>Madinah Hotel Room Cost </td>
+                <td>{{ $madinah_hotel_room_price }} SAR</td>
             </tr>
+
             <tr class="item">
-                <td>Meals Cost </td>
-                <td>300 SAR</td>
+                <td>Makkah Hotel Room Cost Per Day </td>
+                <td>{{ $madinah_hotel_room_perday_price }} SAR</td>
             </tr>
+
+            <tr class="item">
+                <td>Meal Cost </td>
+                <td>{{ $mealPrices }} SAR</td>
+            </tr>
+
             <tr class="item">
                 <td>Transport Cost </td>
-                <td>300 SAR</td>
+                <td>{{ $transport_cost }} SAR</td>
             </tr>
+
             <tr class="item">
-                <td>Visa Cost </td>
-                <td>300 SAR</td>
+                <td>Total Visa Cost </td>
+                <td>{{ $visa }} SAR</td>
             </tr>
+
             <tr class="item">
-                <td>Visa Cost Per Person </td>
-                <td>300 SAR</td>
+                <td>Visa Cost Per Person</td>
+                <td>{{ number_format($visa_per_person, 0, '.', '') }} SAR</td>
             </tr>
 
             <tr class="total">
                 <td></td>
 
-                <td>Total: $385.00</td>
+                <td>Total: {{ $total_cost }} SAR</td>
             </tr>
         </table>
     </div>

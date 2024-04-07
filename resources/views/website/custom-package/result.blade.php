@@ -7,7 +7,7 @@
 @section('content')
     <div class="w-[95%] md:w-[80%] lg:w-[60%] mx-auto py-10 flex flex-col items-center justify-start gap-5 ">
         <h2 class="text-green-600">Note: The rates may vary, kindly contact admin by clicking
-            <a href="/contact" class="text-red-600">this link</a>
+            <a href="{{ url('contact') }}" class="text-red-600">this link</a>
         </h2>
 
         <!-- Currency selection dropdown -->
@@ -20,6 +20,15 @@
             </select>
             <form action="{{ route('download.pdf') }}" method="post">
                 @csrf
+                <input type="hidden" name="total_cost" value="{{ $total_cost }}">
+                <input type="hidden" name="makkah_hotel_room_price" value="{{ $makkah_hotel_room_price }}">
+                <input type="hidden" name="makkah_hotel_room_perday_price" value="{{ $makkah_hotel_room_perday_price }}">
+                <input type="hidden" name="madinah_hotel_room_price" value="{{ $madinah_hotel_room_price }}">
+                <input type="hidden" name="madinah_hotel_room_perday_price" value="{{ $madinah_hotel_room_perday_price }}">
+                <input type="hidden" name="mealPrices" value="{{ $mealPrices }}">
+                <input type="hidden" name="transport_cost" value="{{ $transport_cost }}">
+                <input type="hidden" name="visa" value="{{ $visa }}">
+                <input type="hidden" name="visa_per_person" value="{{ $visa_per_person }}">
                 <button type="submit"
                     class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
             </form>
@@ -30,14 +39,6 @@
         <div class="relative overflow-x-auto w-full">
             <table class="w-full  text-sm text-left rtl:text-right text-gray-500  ">
                 <tbody>
-                    <tr class="bg-white border-b  ">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            Total Cost
-                        </th>
-                        <td class="px-6 py-4 text-right" id="totalCost">
-                            {{ $total_cost }} SAR
-                        </td>
-                    </tr>
                     @if ($makkah_hotel_room_price != '0')
                         <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
@@ -55,22 +56,22 @@
                                 {{ $makkah_hotel_room_perday_price }} SAR
                             </td>
                         </tr>
-                        <tr class="bg-white border-b  ">
+                        {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Makkah Hotel Start Date
                             </th>
                             <td class="px-6 py-4 text-right" id="makkahHotelStartDate">
                                 {{ $makkah_hotel_start_date }}
                             </td>
-                        </tr>
-                        <tr class="bg-white border-b  ">
+                        </tr> --}}
+                        {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Makkah Hotel End Date
                             </th>
                             <td class="px-6 py-4 text-right" id="makkahHotelEndDate">
                                 {{ $makkah_hotel_end_date }}
                             </td>
-                        </tr>
+                        </tr> --}}
                     @endif
 
                     @if ($madinah_hotel_room_price != '0')
@@ -91,22 +92,22 @@
                                 {{ $madinah_hotel_room_perday_price }} SAR
                             </td>
                         </tr>
-                        <tr class="bg-white border-b  ">
+                        {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Madinah Hotel Start Date
                             </th>
                             <td class="px-6 py-4 text-right" id="madinahHotelStartDate">
                                 {{ $madinah_hotel_start_date }}
                             </td>
-                        </tr>
-                        <tr class="bg-white border-b  ">
+                        </tr> --}}
+                        {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Madinah Hotel End Date
                             </th>
                             <td class="px-6 py-4 text-right" id="madinahHotelEndDate">
                                 {{ $madinah_hotel_end_date }}
                             </td>
-                        </tr>
+                        </tr> --}}
                     @endif
 
                     <tr class="bg-white border-b">
@@ -141,7 +142,15 @@
                             Visa Cost Per Person
                         </th>
                         <td class="px-6 py-4 text-right" id="visa_per_person">
-                            {{ $visa_per_person }} SAR
+                            {{ number_format($visa_per_person, 0, '.', '') }} SAR
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b  ">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                            Total Cost
+                        </th>
+                        <td class="px-6 py-4 text-right" id="totalCost">
+                            {{ $total_cost }} SAR
                         </td>
                     </tr>
                 </tbody>
