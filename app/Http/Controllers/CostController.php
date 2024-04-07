@@ -83,6 +83,7 @@ class CostController extends Controller
                 foreach ($hotelRoom as $hotelRooms) {
                     $startDate = Carbon::parse($makkah_hotel_start_date);
                     $endDate = Carbon::parse($makkah_hotel_end_date);
+                    $endDate->addDay(); 
 
                     //Get weekend days prices differently
                     $weekends = Weekend::first();
@@ -127,6 +128,7 @@ class CostController extends Controller
 
                 $startDate = Carbon::parse($madinah_hotel_start_date);
                 $endDate = Carbon::parse($madinah_hotel_end_date);
+                $endDate->addDay(); 
                 $Madinah_validityFound = 0;
                 //Get weekend days prices differently
                 $weekends = Weekend::first();
@@ -198,7 +200,6 @@ class CostController extends Controller
                         }
 
                         if (!isset($transport_cost)) {
-
                             $errorMessage = "Sorry, No Transport ( {{$routeName}} ) available between the given date.";
                             return back()->withErrors([$errorMessage]);
                         }
@@ -247,6 +248,7 @@ class CostController extends Controller
             }
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
+            $mealPrices = $mealPrices * $no_of_persons;
 
             $total_cost = $madinah_hotel_room_price + $makkah_hotel_room_price + $transport_cost + $visa + $mealPrices;
             $CurrencyConversion = CurrencyConversion::all();
