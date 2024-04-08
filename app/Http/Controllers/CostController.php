@@ -89,7 +89,7 @@ class CostController extends Controller
                 foreach ($hotelRoom as $hotelRooms) {
                     $startDate = Carbon::parse($makkah_hotel_start_date);
                     $endDate = Carbon::parse($makkah_hotel_end_date);
-                    $endDate->addDay();
+                    // $endDate->addDay();
 
                     //Get weekend days prices differently
                     $weekends = Weekend::first();
@@ -112,7 +112,7 @@ class CostController extends Controller
                         }
                     }
                     $validityDate = Carbon::parse($hotelRooms->validity);
-                    if ($validityDate <= $endDate) {
+                    if ($validityDate <= $startDate) {
                         $MakkahdaysDifference = $startDate->diffInDays($endDate);
                         $Weekdays = $MakkahdaysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;
@@ -134,7 +134,7 @@ class CostController extends Controller
 
                 $startDate = Carbon::parse($madinah_hotel_start_date);
                 $endDate = Carbon::parse($madinah_hotel_end_date);
-                $endDate->addDay();
+                // $endDate->addDay();
                 $Madinah_validityFound = 0;
                 //Get weekend days prices differently
                 $weekends = Weekend::first();
@@ -159,7 +159,7 @@ class CostController extends Controller
 
                 foreach ($hotelRoom as $hotelRooms) {
                     $validityDate = Carbon::parse($hotelRooms->validity);
-                    if ($validityDate <= $endDate) {
+                    if ($validityDate <= $startDate) {
                         $MadinahdaysDifference = $startDate->diffInDays($endDate);
                         $Weekdays = $MadinahdaysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;
@@ -194,7 +194,7 @@ class CostController extends Controller
                     if ($transports->isNotEmpty()) {
                         foreach ($transports as $transport) {
                             $cost = $transport->costs()
-                                ->where('validity', '>=', $travel_dates[$key])
+                                ->where('validity', '<=', $travel_dates[$key])
                                 ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
                                 ->first();
                             if ($cost != "") {

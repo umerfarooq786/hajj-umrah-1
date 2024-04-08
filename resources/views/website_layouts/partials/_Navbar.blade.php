@@ -30,7 +30,7 @@
     <a href="{{ url('about') }}" class="font-semibold hover:underline text-sm">ABOUT</a>
     <!-- <a href="/custom-package" class="font-semibold hover:underline text-sm">CALCULATE</a>     -->
     <div href="#" class="relative font-semibold text-sm py-5 cursor-pointer group">
-        UMRAH PACKAGE
+        UMRAH
         <div
             class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
             <a href="{{ url('custom-package') }}"
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div href="#" class="relative font-semibold text-sm py-5 cursor-pointer group">
-        Hajj PACKAGE
+        Hajj
         <div
             class="absolute bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
             <a href="{{ url('custom-package-hajj') }}"
@@ -83,7 +83,7 @@
             <a href="/about" class="text-lg hover:underline">ABOUT</a>
             <a href="#" class="text-lg hover:underline">CALCULATE</a>
             <div href="#" class="relative text-lg  cursor-pointer group">
-                UMRAH PACKAGE
+                UMRAH
                 <div
                     class="absolute z-10 bg-white w-[200px] text-black hidden group-hover:flex flex-col border border-r-gray-200 shadow-md top-[100%] left-0  ">
                     <a href="/custom-package"
