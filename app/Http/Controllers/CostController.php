@@ -255,8 +255,8 @@ class CostController extends Controller
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
             $daysCount = $MadinahdaysDifference + $MakkahdaysDifference;
-            $mealPricesPerPerson = $mealPrices * $daysCount;
-            $mealPrices = $mealPricesPerPerson * $no_of_persons;
+            $mealPrices = $mealPrices * $daysCount;
+            // $mealPrices = $mealPricesPerPerson * $no_of_persons;
 
             $total_cost = $madinah_hotel_room_price + $makkah_hotel_room_price + $transport_cost + $visa + $mealPrices;
             $CurrencyConversion = CurrencyConversion::all();
