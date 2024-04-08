@@ -37,8 +37,8 @@
             <h4 class="text-white mb-3">Useful Links</h4>
             <a href="{{ url('home_page') }}" class=" hover:text-first text-sm">Home</a>
             <a href="{{ url('about') }}" class=" hover:text-first text-sm">About</a>
-            <a href="{{ url('home_page#special-offers') }}" class=" hover:text-first text-sm">Packages</a>
-            <a href="{{ url('custom-package') }}" class=" hover:text-first text-sm">Calculate</a>
+            {{-- <a href="{{ url('home_page#special-offers') }}" class=" hover:text-first text-sm">Packages</a> --}}
+            {{-- <a href="{{ url('custom-package') }}" class=" hover:text-first text-sm">Calculate</a> --}}
             <a href="{{ url('hotel-city/makkah') }}" class=" hover:text-first text-sm">Hotels in Makkah</a>
             <a href="{{ url('hotel-city/madinah') }}" class=" hover:text-first text-sm">Hotels in Madinah</a>
             <a href="{{ url('hotel-city/jeddah') }}" class=" hover:text-first text-sm">Hotels in Jeddah</a>
