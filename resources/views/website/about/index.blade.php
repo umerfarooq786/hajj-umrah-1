@@ -19,66 +19,55 @@
         </div>
 
         {{-- Services section --}}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 my-10">
-            <div class=" rounded overflow-hidden shadow-lg relative">
-                <img class="w-full h-[250px] object-cover" src="{{ asset('images/about/makkahvector1.png') }}"
-                    alt="Umrah Services">
-                <div class="px-6 py-4">
-                    <div class="font-semibold text-[18px] mb-2 text-red-500">UMRAH SERVICES</div>
-                    <p class="text-gray-700 text-base">
-                        <b>At Fastline Travel & Tours</b>, we specialize in making your Umrah journey smooth and memorable.
-                        We
-                        understand the importance of this spiritual experience and provide all the support you need to make
-                        it fulfilling. From visa assistance to accommodation and guided tours, we take care of every aspect
-                        so you can focus on your prayers and devotion.
-                    </p>
-                </div>
-                <div class="h-[70px]"></div>
-                <div class="pb-5 flex items-center justify-center absolute bottom-0 w-full">
-                    <a href="{{ url('contact') }}"
-                        class="bg-first inline-block text-white py-4 px-10 rounded-full hover:bg-opacity-80 uppercase text-sm">Contact
-                        Us</a>
-                </div>
-            </div>
-            <div class="rounded overflow-hidden shadow-lg relative">
-                <img class="w-full h-[250px] object-cover" src="{{ asset('images/about/makkahvector2.jpg') }}"
-                    alt="Umrah Services">
-                <div class="px-6 py-4">
-                    <div class="font-semibold text-[18px] mb-2 text-red-500">TRANSPORT SERVICES</div>
-                    <p class="text-gray-700 text-base">
-                        <b>Need a ride?</b> We've got it sorted! Our reliable transport service ensures you get where you
-                        need to
-                        go comfortably and safely. Whether it's airport pickups, local transfers, or customized itineraries,
-                        our fleet of vehicles and experienced drivers are at your service, ensuring a hassle-free travel
-                        experience from start to finish.
-                    </p>
-                </div>
-                <div class="pb-5 flex items-center justify-center absolute bottom-0 w-full">
-                    <a href="{{ url('contact') }}"
-                        class="bg-first inline-block text-white py-4 px-10 rounded-full hover:bg-opacity-80 uppercase text-sm">Contact
-                        Us</a>
-                </div>
-            </div>
-            <div class="rounded overflow-hidden shadow-lg relative">
-                <img class="w-full h-[250px] object-contain" src="{{ asset('images/about/makkahvector3.avif') }}"
-                    alt="Umrah Services">
-                <div class="px-6 py-4">
-                    <div class="font-semibold text-[18px] mb-2 text-red-500">HOTEL BOOKING</div>
-                    <p class="text-gray-700 text-base">
-                        Finding the perfect place to stay is easy with Fastline Travel & Tours. We offer a wide range of
-                        hotel options to suit your budget and preferences, from cozy bed-and-breakfasts to luxurious
-                        resorts. Our dedicated team ensures that your accommodation meets your expectations, allowing you to
-                        relax and enjoy your trip worry-free.
-                    </p>
-                </div>
-                <div class="pb-5 flex items-center justify-center absolute bottom-0 w-full">
-                    <a href="{{ url('contact') }}"
-                        class="bg-first inline-block text-white py-4 px-10 rounded-full hover:bg-opacity-80 uppercase text-sm">Contact
-                        Us</a>
-                </div>
-            </div>
 
+        <div class="flex flex-col lg:flex-row items-center justify-center h-[350px]  w-full gap-5">
+            <div class="flex lg:w-[70%] h-full max-lg:mt-20">
+                <img src="{{ asset('images/about/1.jpg') }}" class="h-[100%] w-[50%] object-cover" alt="">
+                <img src="{{ asset('images/about/2.jpg') }}" class="h-[100%] w-[50%] object-cover" alt="">
+            </div>
+            <div class="h-full lg:w-[40%] flex flex-col  justify-center lg:gap-10 pr-5">
+                <h4 class="font-bold text-xl text-red-500">Hotel booking</h4>
+                <p class="text-justify text-[15px] text-[#7a7a7a]">Finding the perfect place to stay is easy with Fastline
+                    Travel & Tours.
+                    We offer a
+                    wide range of hotel
+                    options to suit your budget and preferences, from cozy bed-and-breakfasts to luxurious resorts. Our
+                    dedicated team ensures that your accommodation meets your expectations, allowing you to relax and enjoy
+                    your trip worry-free.</p>
+            </div>
         </div>
+
+        <div class="mt-20 flex flex-col-reverse lg:flex-row-reverse items-center justify-center h-[350px]  w-full gap-5">
+            <div class="flex lg:w-[70%] h-full max-lg:mt-20">
+                <img src="{{ asset('images/about/4.png') }}" class="h-[100%] w-[100%] object-cover" alt="">
+                {{-- <img src="{{ asset('images/about/4.png') }}" class="h-[100%] w-[50%] object-cover" alt=""> --}}
+            </div>
+            <div class="h-full lg:w-[40%] flex flex-col  justify-center lg:gap-10 pr-5">
+                <h4 class="font-bold text-xl text-red-500">Transportation Services</h4>
+                <p class="text-justify text-[15px] text-[#7a7a7a]">Need a ride? We've got it sorted! Our reliable transport
+                    service ensures you get where you need to go comfortably and safely. Whether it's airport pickups, local
+                    transfers, or customized itineraries, our fleet of vehicles and experienced drivers are at your service,
+                    ensuring a hassle-free travel experience from start to finish.</p>
+            </div>
+        </div>
+
+
+        <div class="my-20 flex flex-col lg:flex-row items-center justify-center h-[350px]  w-full gap-5">
+            <div class="flex lg:w-[70%] h-full max-lg:mt-20">
+                <img src="{{ asset('images/about/5.jpeg') }}" class="h-[100%] w-[100%] object-contain" alt="">
+                {{-- <img src="{{ asset('images/about/6.jpeg') }}" class="h-[100%] w-[50%] object-contain" alt=""> --}}
+            </div>
+            <div class="h-full lg:w-[40%] flex flex-col  justify-center lg:gap-10 pr-5">
+                <h4 class="font-bold text-xl text-red-500">Umrah Services</h4>
+                <p class="text-justify text-[15px] text-[#7a7a7a]">At Fastline Travel & Tours, we specialize in making your
+                    Umrah journey smooth and memorable. We
+                    understand the importance of this spiritual experience and provide all the support you need to make it
+                    fulfilling. From visa assistance to accommodation and guided tours, we take care of every aspect so you
+                    can focus on your prayers and devotion.</p>
+            </div>
+        </div>
+
+
 
         <!-- Slider1 -->
         @include('website_layouts.partials._AboutSlider1')
