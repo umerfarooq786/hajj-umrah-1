@@ -153,7 +153,7 @@
                                 <!-- view for repetitive validity starts -->
                                 <div class="validityContainer" style="margin-bottom:50px; position:relative">
                                     <?php $i = 0; ?>
-                                    @foreach ($hotel_rooms as $validity => $rooms)
+                                    @foreach ($hotel_rooms as $validity_start => $rooms)
                                         <h3 style="text-underline-position: below"><b>Validity # {{ $i + 1 }}</b>
                                         </h3>
                                         @foreach ($rooms as $room)
@@ -205,19 +205,40 @@
                                             <div class="col-md-6">
                                                 <div class="form-group row">
                                                     <label class="col-md-3 label-control"
-                                                        for="userinput2">Validity</label>
+                                                        for="userinput2">Validity - Start Date</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text"
                                                                 class="form-control border-primary datepicker"
-                                                                name="validity[]" value="{{ $validity }}"
-                                                                placeholder="Validity Date">
+                                                                name="validity_start[]" value="{{ $validity_start }}"
+                                                                placeholder="Validity Start Date">
+                                                            {{-- <div class="input-group-append">
+                                                                <button class="btn btn-danger delete-button"
+                                                                    data-date="{{ $validity_start }}">Delete</button>
+                                                            </div> --}}
+                                                            {{-- <script>
+                                                                window.lastValidity = {!! json_encode($validity_start) !!};
+                                                            </script> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput2">Validity - End Date</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text"
+                                                                class="form-control border-primary datepicker"
+                                                                name="validity_end[]" value="{{ $room->validity_end }}"
+                                                                placeholder="Validity End Date">
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-danger delete-button"
-                                                                    data-date="{{ $validity }}">Delete</button>
+                                                                    data-date="{{ $room->validity_end }}">Delete</button>
                                                             </div>
                                                             <script>
-                                                                window.lastValidity = {!! json_encode($validity) !!};
+                                                                window.lastValidity = {!! json_encode($room->validity_end) !!};
                                                             </script>
                                                         </div>
                                                     </div>
@@ -401,6 +422,12 @@
         var nextDayFormatted = nextDay.toISOString().split('T')[0];
         window.lastValidity = nextDayFormatted;
 
+        var lastValidityDateEnd = new Date(window.lastValidity);
+        var nextDayEnd = new Date(lastValidityDateEnd);
+        nextDayEnd.setDate(lastValidityDateEnd.getDate() + 1);
+        var nextEndDayFormatted = nextDayEnd.toISOString().split('T')[0];
+        window.lastValidityEnd = nextEndDayFormatted;
+
         flatpickr(".datepicker", {
             dateFormat: "Y-m-d",
             minDate: window.lastValidity,
@@ -413,7 +440,7 @@
             button.addEventListener('click', function() {
                 const date = this.getAttribute('data-date');
                 event.preventDefault()
-                if (confirm('Are you sure you want to delete the validity record for ' + date + '?')) {
+                if (confirm('Are you sure you want to delete the validity record ending on  ' + date + '?')) {
                     fetch("{{ route('delete.validity', '') }}/" + date, {
                             method: 'GET',
                             headers: {
@@ -641,7 +668,7 @@
 
 
         let add_validity =
-            `<div class="row1">
+            `<br><br><div class="row1">
                 <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -813,11 +840,22 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="userinput2">Validity</label>
+                                                <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
                                                 <div class="col-md-9 validity-container d-flex align-items-center">
                                                     <input type="date" class="form-control border-primary datepicker"
-                                                        name="validity[]" id="newValidity"
+                                                        name="validity_start[]" id="newValidity"
                                                         placeholder="Validity Date" min="` + window.lastValidity + `"
+                                                        required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput2">Validity - End Date</label>
+                                                <div class="col-md-9 validity-container d-flex align-items-center">
+                                                    <input type="date" class="form-control border-primary datepicker"
+                                                        name="validity_end[]" id="newValidity"
+                                                        placeholder="Validity Date" min="` + window.lastValidityEnd + `"
                                                         required>
                                                         <button id="" class="btn btn-danger removeValidity" style="margin-left:6px">X</button>
                                                 </div>

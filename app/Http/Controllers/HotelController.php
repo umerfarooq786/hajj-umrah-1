@@ -53,7 +53,8 @@ class HotelController extends Controller
             'weekend_price' => 'required|array|min:1',
             'weekdays_price' => 'required|array|min:1',
             'city' => 'required',
-            'validity' => 'required|date',
+            'validity_start' => 'required|date',
+            'validity_end' => 'required|date',
             'room_id' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
@@ -102,7 +103,8 @@ class HotelController extends Controller
                     'room_id' => $roomIds[$i],
                     'weekdays_price' => $weekdaysPrices[$i],
                     'weekend_price' => $weekendPrices[$i],
-                    'validity' => $request->validity,
+                    'validity_start' => $request->validity_start,
+                    'validity_end' => $request->validity_end,
                     'current_currency' => $current_currency->default_currency,
                 ];
             }
@@ -115,6 +117,8 @@ class HotelController extends Controller
         $displayMeal = $request->displayMeal;
         $mealData = [];
         for ($i = 0; $i < count($meal_type_id); $i++) {
+            if($displayMeal == NULL){$displayMeal[] = 0;};
+            // dd($displayMeal);
             $display = in_array($meal_type_id[$i], $displayMeal) ? 1 : 0;
             if ($meal_price[$i]) {
                 $mealData[] = [
@@ -318,10 +322,11 @@ class HotelController extends Controller
             ->join('rooms', 'rooms.id', '=', 'hotel_rooms.room_id')
             ->select('hotel_rooms.*', 'rooms.id as room_id', 'rooms.name as room_name')
             ->where('hotel_rooms.hotel_id', $hotel->id)
-            ->orderBy('hotel_rooms.validity') // Optional: You can order the results by validity
+            ->orderBy('hotel_rooms.validity_start')
             ->orderBy('rooms.id')
             ->get()
-            ->groupBy('validity');
+            ->groupBy('validity_start');
+            // dd($hotel_rooms);
         $meals = DB::table('meals')
             ->join('meal_types', 'meal_types.id', '=', 'meals.meal_type_id')
             ->select('meals.*', 'meal_types.id as meal_id', 'meal_types.name as name')
@@ -342,6 +347,7 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $rules = [
             'name' => 'required',
             'google_map' => 'required',
@@ -377,13 +383,15 @@ class HotelController extends Controller
         $weekdaysPrices = $request->weekdays_price;
         $weekendPrices = $request->weekend_price;
 
-        if ($request->validity != null) {
-            foreach ($request->validity as $i => $validity) {
+        if ($request->validity_start != null) {
+            foreach ($request->validity_start as $i => $validity_start) {
                 // Extract corresponding room IDs and details for the current validity date
                 $currentRoomIds = $roomIds[$i];
                 $currentIds = $ids[$i] ?? []; // Ensure the IDs array is set
                 $currentWeekdaysPrices = $weekdaysPrices[$i];
                 $currentWeekendPrices = $weekendPrices[$i];
+                $validity_end = $request->validity_end[$i]; // Get corresponding end dates
+
 
                 // Loop through the room IDs and update or create records for each room
                 foreach ($currentRoomIds as $index => $roomId) {
@@ -392,7 +400,7 @@ class HotelController extends Controller
                     $idss = $currentIds[$index] ?? null;
                     $weekdaysPrice = $currentWeekdaysPrices[$index];
                     $weekendPrice = $currentWeekendPrices[$index];
-
+                    // dd($currentValidityEnds);
                     // Update or create the hotel room record for the current room ID and validity date
 
                     if ($weekdaysPrice === null) {
@@ -411,7 +419,8 @@ class HotelController extends Controller
 
                             ],
                             [
-                                'validity' => $validity,
+                                'validity_start' => $validity_start,
+                                'validity_end' => $validity_end,
                                 'weekdays_price' => $weekdaysPrice,
                                 'weekend_price' => $weekendPrice,
                                 'current_currency' => $currency_conversion->default_currency,
@@ -535,7 +544,7 @@ class HotelController extends Controller
             $parsedDate = Carbon::parse($date);
 
             // Find all hotel rooms associated with the validity date
-            $rooms = HotelRoom::whereDate('validity', $parsedDate)->get();
+            $rooms = HotelRoom::whereDate('validity_end', $parsedDate)->get();
 
             // Delete all the found rooms
             foreach ($rooms as $room) {

@@ -163,9 +163,34 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <div class="row">
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
+                                            <div class="col-md-9">
+                                                <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
+                                                                        name="validity" required> -->
+                                                <input type="text" name="validity_start" required id="datepicker"
+                                                    class="form-control border-primary" placeholder="Validity Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - End Date</label>
+                                            <div class="col-md-9">
+                                                <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
+                                                                        name="validity" required> -->
+                                                <input type="text" name="validity_end" required id="datepicker"
+                                                    class="form-control border-primary" placeholder="Validity Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><br>
 
 
-                                <h3 style="text-underline-position: below"><b>Meal Pricing</b></h3>
+                                {{-- <h3 style="text-underline-position: below"><b>Meal Pricing</b></h3> --}}
                                 @foreach ($meal_types as $meal_type)
                                     <div class="row">
                                         <div class="col-md-6">
@@ -198,10 +223,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-
-
-
+                                
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -210,25 +232,12 @@
                                                 <select class="form-control border-primary" name="city" required>
                                                     <option selected disabled="">Select City</option>
                                                     <option value="makkah">Makkah</option>
-                                                    <option value="madinah">Madinah</option>
+                                                    <option value="madina">Madinah</option>
                                                     <option value="jeddah">Jeddah</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Validity</label>
-                                            <div class="col-md-9">
-                                                <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                                        name="validity" required> -->
-                                                <input type="text" name="validity" required id="datepicker"
-                                                    class="form-control border-primary" placeholder="Validity Date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="imageUpload" class="file-upload">

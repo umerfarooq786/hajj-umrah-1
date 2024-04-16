@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->double('weekdays_price', 8, 2);
             $table->double('weekend_price', 8, 2);
-            
+            $table->date('validity_start');
+            $table->date('validity_end');
+            $table->string('current_currency');
             $table->timestamps();
         });
     }

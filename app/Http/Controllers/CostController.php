@@ -111,8 +111,10 @@ class CostController extends Controller
                             $weekenDaysCunt += $numDays;
                         }
                     }
-                    $validityDate = Carbon::parse($hotelRooms->validity);
-                    if ($validityDate <= $startDate) {
+                    $validityStartDate = Carbon::parse($hotelRooms->validity_start);
+                    $validityEndDate = Carbon::parse($hotelRooms->validity_end);
+                    // dd($endDate);
+                    if ($validityStartDate <= $startDate || $validityEndDate >= $endDate) {
                         $MakkahdaysDifference = $startDate->diffInDays($endDate);
                         $Weekdays = $MakkahdaysDifference - $weekenDaysCunt;
                         $WeekendDays = $weekenDaysCunt;

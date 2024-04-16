@@ -21,5 +21,5 @@ class HotelRoom extends Model
     }
 
     
-    protected $fillable = ['room_id', 'hotel_id', 'validity', 'weekdays_price', 'weekend_price', 'current_currency'];
+    protected $fillable = ['room_id', 'hotel_id', 'validity_start', 'validity_end', 'weekdays_price', 'weekend_price', 'current_currency'];
 }
