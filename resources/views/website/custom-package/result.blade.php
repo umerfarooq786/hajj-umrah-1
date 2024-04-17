@@ -48,14 +48,14 @@
                                 {{ $makkah_hotel_room_price }} SAR
                             </td>
                         </tr>
-                        <tr class="bg-white border-b  ">
+                        {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Makkah Hotel Room Per Day Price
                             </th>
                             <td class="px-6 py-4 text-right" id="makkahHotelRoomPriceDay">
                                 {{ $makkah_hotel_room_perday_price }} SAR
                             </td>
-                        </tr>
+                        </tr> --}}
                         {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Makkah Hotel Start Date
@@ -84,14 +84,14 @@
                             </td>
 
                         </tr>
-                        <tr class="bg-white border-b">
+                        {{-- <tr class="bg-white border-b">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Madinah Hotel Room Per Day Price
                             </th>
                             <td class="px-6 py-4 text-right" id="madinahHotelRoomPriceDay">
                                 {{ $madinah_hotel_room_perday_price }} SAR
                             </td>
-                        </tr>
+                        </tr> --}}
                         {{-- <tr class="bg-white border-b  ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 Madinah Hotel Start Date

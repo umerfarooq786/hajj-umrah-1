@@ -457,7 +457,13 @@ class HotelController extends Controller
         $mealIdsWithNullPrice = [];
 
         foreach ($meal_type_id as $index => $type_id) {
+            if($displayMeal == NULL){
+                $displayMeal[] = 0;
+                $display = in_array($meal_type_id[$index], $displayMeal) ? 1 : 0;
+            }
+            else{
             $display = in_array($type_id, $displayMeal) ? 1 : 0;
+            }
             $price = $meal_price[$index];
 
             // If price is NULL, add meal ID to the array
