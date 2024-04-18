@@ -29,8 +29,8 @@
                 <input type="hidden" name="transport_cost" value="{{ $transport_cost }}">
                 <input type="hidden" name="visa" value="{{ $visa }}">
                 <input type="hidden" name="visa_per_person" value="{{ $visa_per_person }}">
-                <button type="submit"
-                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
+                {{-- <button type="submit"
+                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button> --}}
             </form>
         </div>
 
