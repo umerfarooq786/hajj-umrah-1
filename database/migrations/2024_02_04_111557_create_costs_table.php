@@ -17,7 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->string('item_type');
             $table->decimal('cost', 10, 2);
-            $table->date('validity');
+            $table->date('validity')->nullable();
+            $table->date('validity_start');
+            $table->date('validity_end');
             $table->timestamps();
 
             $table->index(['item_id', 'item_type']);

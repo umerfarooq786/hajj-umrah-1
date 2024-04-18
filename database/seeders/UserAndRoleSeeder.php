@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
 class UserAndRoleSeeder extends Seeder
@@ -20,11 +20,11 @@ class UserAndRoleSeeder extends Seeder
             'last_name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
-            'image' => ''
+            'image' => '',
         ]);
 
         $role = Role::create([
-            'name' => 'Admin'
+            'name' => 'Admin',
         ]);
 
         $permissions = [
@@ -44,6 +44,10 @@ class UserAndRoleSeeder extends Seeder
             'transports-create',
             'transports-edit',
             'transports-delete',
+            'vehicles-list',
+            'vehicles-create',
+            'vehicles-edit',
+            'vehicles-delete',
             'hotels-list',
             'hotels-create',
             'hotels-edit',
@@ -57,7 +61,7 @@ class UserAndRoleSeeder extends Seeder
             'currencys-conversion',
             'contacts-view',
             'contacts-delete',
-            'visa-charges'
+            'visa-charges',
         ];
         $role->syncPermissions($permissions);
         // Assign a role to the user

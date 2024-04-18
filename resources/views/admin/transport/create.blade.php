@@ -66,13 +66,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Validity</label>
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
                                                 name="validity" required> -->
-                                                <input type="text" name="validity" required id="datepicker"
+                                                <input type="text" name="validity_start" required id="datepicker"
+                                                    class="form-control border-primary" placeholder="Validity Date">
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">Cost
+                                                <b>({{ $current_currency->default_currency }})</b></label>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control border-primary" placeholder="Cost"
+                                                    name="cost" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
+                                            <div class="col-md-9">
+                                                <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
+                                                name="validity" required> -->
+                                                <input type="text" name="validity_start" required id="datepicker"
                                                     class="form-control border-primary" placeholder="Validity Date">
                                             </div>
                                         </div>

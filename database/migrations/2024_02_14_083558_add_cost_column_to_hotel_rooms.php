@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::table('hotel_rooms', function (Blueprint $table) {
 
-            $table->date('validity')->after('weekend_price');
-            $table->string('current_currency')->after('validity')->nullable();
+            $table->date('validity_start')->after('weekend_price');
+            $table->date('validity_end')->after('validity_start');
+            $table->string('current_currency')->after('validity_end')->nullable();
             
         });
     }
