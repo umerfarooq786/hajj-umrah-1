@@ -116,8 +116,8 @@ class CostController extends Controller
 
                         $validityStartDate = Carbon::parse($hotelRooms->validity_start);
                         $validityEndDate = Carbon::parse($hotelRooms->validity_end);
-                        $weekenDaysCunt = 0;
-                        if ($validityStartDate <= $endDate && $validityEndDate >= $startDate) {
+                        
+                        if ($validityStartDate < $endDate && $validityEndDate > $startDate) {
                             $intersectionStart = max($startDate, $validityStartDate);
                             $intersectionEnd = min($endDate, $validityEndDate);
                             if ($intersectionEnd < $endDate) {
@@ -125,7 +125,7 @@ class CostController extends Controller
                             } else {
                                 $intersectionDays = $intersectionStart->diffInDays($intersectionEnd);
                             }
-                            $MakkahdaysDifference += $intersectionDays;
+                            // $MakkahdaysDifference += $intersectionDays;
                             $weekends = Weekend::first();
                             $weekends = $weekends['name'];
                             $nameArray = json_decode($weekends);
@@ -134,9 +134,15 @@ class CostController extends Controller
                             foreach ($nameArray as $index => $day) {
                                 ${'day' . ($index + 1)} = $day;
                             }
+
+                            $weekenDaysCunt = 0;
+                            if($endDate != $validityEndDate){
+                                $intersectionEnd->addDay();
+                            }
                             for ($i = 1; $i <= 7; $i++) {
                                 $day = ${'day' . $i};
                                 if (!is_null($day)) {
+                                    $day = strtolower($day);
                                     $numDays = $intersectionStart->diffInDaysFiltered(function (Carbon $date) use ($day) {
                                         return $date->isDayOfWeek($day);
                                     }, $intersectionEnd);
@@ -145,12 +151,12 @@ class CostController extends Controller
                             }
                             $weekdays = $intersectionDays - $weekenDaysCunt;
                             $weekendDays = $weekenDaysCunt;
-                            // dd($intersectionDays);
                             $makkah_hotel_room_price_weekdays = $hotelRooms->weekdays_price * $weekdays;
                             $makkah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $weekendDays;
                             $makkah_hotel_room_price += $makkah_hotel_room_price_weekdays + $makkah_hotel_room_price_weekendDays;
                             $makkah_hotel_room_perday_price = $hotelRooms->weekdays_price;
                             $validityFound = 1;
+                            // dd($weekenDaysCunt);
                         }
                     }
                 } else {
