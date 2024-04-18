@@ -28,7 +28,7 @@
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la la-car"></i>Add Transport</h4>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Vehicle</label>
                                             <div class="col-md-9">
@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput4">Route</label>
                                             <div class="col-md-9">
@@ -54,9 +54,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control">Cost
                                                 <b>({{ $current_currency->default_currency }})</b></label>
@@ -66,38 +64,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
-                                            <div class="col-md-9">
-                                                <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                name="validity" required> -->
-                                                <input type="text" name="validity_start" required id="datepicker"
-                                                    class="form-control border-primary" placeholder="Validity Date">
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control">Cost
-                                                <b>({{ $current_currency->default_currency }})</b></label>
-                                            <div class="col-md-9">
-                                                <input type="number" class="form-control border-primary" placeholder="Cost"
-                                                    name="cost" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
                                                 name="validity" required> -->
                                                 <input type="text" name="validity_start" required id="datepicker"
-                                                    class="form-control border-primary" placeholder="Validity Date">
+                                                    class="form-control border-primary" placeholder="Validity Start Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - End Date</label>
+                                            <div class="col-md-9">
+                                                <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
+                                                name="validity" required> -->
+                                                <input type="text" name="validity_end" required id="datepickerEnd"
+                                                    class="form-control border-primary" placeholder="Validity End Date">
                                             </div>
                                         </div>
                                     </div>
@@ -121,6 +109,12 @@
         flatpickr("#datepicker", {
             dateFormat: "Y-m-d",
             minDate: "today",
+            enableTime: false, // set to true if you want to enable time selection
+        });
+        
+        flatpickr("#datepickerEnd", {
+            dateFormat: "Y-m-d",
+            minDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
             enableTime: false, // set to true if you want to enable time selection
         });
     </script>

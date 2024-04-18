@@ -32,7 +32,7 @@
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la-car"></i>Edit Transport</h4>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Type</label>
                                             <div class="col-md-9">
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput4">Route</label>
                                             <div class="col-md-9">
@@ -68,7 +68,7 @@
                                 @if ($costs && count($costs) > 0)
                                     @foreach ($costs as $cost)
                                         <div class="row validityContainer" id="" style="position:relative">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group row">
                                                     <label class="col-md-3 label-control">Cost </label>
                                                     <div class="col-md-9">
@@ -80,14 +80,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="userinput2">Validity</label>
+                                                    <label class="col-md-3 label-control" for="userinput2">Start</label>
                                                     <div class="col-md-9">
                                                         <!-- <input type="date" id="validity{{ $cost->id }}" class="form-control border-primary" placeholder="Validity" name="validity[]" value="{{ $cost->validity }}"> -->
                                                         <input type="text" id="validity{{ $cost->id }}"
-                                                            class="form-control border-primary datepicker" name="validity[]"
-                                                            value="{{ $cost->validity }}" placeholder="Validity Date"
+                                                            class="form-control border-primary datepicker" name="validity_start[]"
+                                                            value="{{ $cost->validity_start }}"
                                                             required>
                                                     </div>
                                                     <script>
@@ -95,7 +95,21 @@
                                                     </script>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput2">End</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="validity{{ $cost->id }}"
+                                                            class="form-control border-primary datepicker" name="validity_end[]"
+                                                            value="{{ $cost->validity_end }}"
+                                                            required>
+                                                    </div>
+                                                    <script>
+                                                        window.lastValidity = {!! json_encode($cost->validity_end) !!};
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <button type="button" class="btn btn-danger delete-button"
                                                     data-date="{{ $cost->id }}">Delete</button>
                                             </div>
@@ -189,7 +203,7 @@
             var removeButtonId = "removeValidity" + removeButtonCounter;
             let add_validity =
         ` <div class="row validityContainer">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group row">
                     <label class="col-md-3 label-control">Cost </label>
                     <div class="col-md-9">
@@ -199,16 +213,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group row">
-                    <label class="col-md-3 label-control" for="userinput2">Validity</label>
+                    <label class="col-md-3 label-control" for="userinput2">Start</label>
                     <div class="col-md-9">
                         <input type="date" class="form-control border-primary datepicker1"
-                         name="validity[]" min="${window.lastValidity}" placeholder="Validity Date" required>
+                         name="validity_start[]" min="${window.lastValidity}" placeholder="Validity Date" required>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="form-group row">
+                    <label class="col-md-3 label-control" for="userinput2">End</label>
+                    <div class="col-md-9">
+                        <input type="date" class="form-control border-primary datepicker1"
+                         name="validity_end[]" min="${window.lastValidity}" placeholder="Validity Date" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <button id="${removeButtonId}" class="btn btn-danger removeValidity" style="position:absolute; right:300px"> - </button>
             </div>
         </div>`;

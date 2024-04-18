@@ -39,12 +39,14 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $current_currency = CurrencyConversion::findOrFail(1);
         $rules = [
             'vehicle_id' => 'required',
             'route_id' => 'required',
             'cost' => 'required',
-            'validity' => 'required|date'
+            'validity_start' => 'required|date',
+            'validity_end' => 'required|date'
         ];
     
         $validator = Validator::make($request->all(), $rules);
@@ -62,7 +64,8 @@ class TransportController extends Controller
             'item_id' => $transport->id,
             'item_type' => 'transports', 
             'cost' => $request->cost,   
-            'validity' => $request->validity,
+            'validity_start' => $request->validity_start,
+            'validity_end' => $request->validity_end,
             'current_currency' =>  $current_currency->default_currency
         ]);
         return redirect()->route('transports.index')->with('success', 'Transport has been added successfully!');
@@ -212,7 +215,8 @@ class TransportController extends Controller
             $cost->item_id = $transport->id;
             $cost->item_type = 'transports';
             $cost->cost = $costData;
-            $cost->validity = $request->validity[$key];
+            $cost->validity_start = $request->validity_start[$key];
+            $cost->validity_end = $request->validity_end[$key];
             $cost->current_currency = $current_currency->default_currency;
             // Save the cost instance
             $cost->save();

@@ -257,18 +257,19 @@ class CostController extends Controller
                     if ($transports->isNotEmpty()) {
                         foreach ($transports as $transport) {
                             $cost = $transport->costs()
-                                ->where('validity', '<=', $travel_dates[$key])
-                                ->orderByRaw('ABS(DATEDIFF(validity, ?))', [$travel_dates[$key]])
+                                ->where('validity_start', '<=', $travel_dates[$key]) // Check if travel date is after or on validity start
+                                ->where('validity_end', '>=', $travel_dates[$key]) // Check if travel date is before or on validity end
+                                ->orderByRaw('ABS(DATEDIFF(validity_start, ?))', [$travel_dates[$key]]) // Order by the difference between travel date and validity start
                                 ->first();
-                            if ($cost != "") {
+
+                            if ($cost != null) {
                                 // Assign the transport cost and break the loop
                                 $new_transport_cost = $cost->cost;
-                                $transport_cost = $transport_cost + $new_transport_cost;
+                                $transport_cost += $new_transport_cost;
                                 break;
                             }
                         }
-
-                        if (!isset($transport_cost)) {
+                        if ($transport_cost == 0) {
                             $errorMessage = "Sorry, No Transport ( {{$routeName}} ) available between the given date.";
                             return back()->withErrors([$errorMessage]);
                         }
