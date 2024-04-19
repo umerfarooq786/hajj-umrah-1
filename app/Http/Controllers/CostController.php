@@ -136,9 +136,10 @@ class CostController extends Controller
                             }
 
                             $weekenDaysCunt = 0;
-                            // if($endDate != $validityEndDate){
-                            //     $intersectionEnd->addDay();
-                            // }
+                           
+                            if($endDate != $validityEndDate && $endDate >= $validityEndDate){
+                                $intersectionEnd->addDay();
+                            }
                             for ($i = 1; $i <= 7; $i++) {
                                 $day = ${'day' . $i};
                                 if (!is_null($day)) {
@@ -218,7 +219,11 @@ class CostController extends Controller
                             foreach ($nameArray as $index => $day) {
                                 ${'day' . ($index + 1)} = $day;
                             }
-
+                            $weekenDaysCunt = 0;
+                            // dd($intersectionEnd);
+                            if($endDate != $validityEndDate && $endDate >= $validityEndDate){
+                                $intersectionEnd->addDay();
+                            }
                             for ($i = 1; $i <= 7; $i++) {
                                 $day = ${'day' . $i};
                                 if (!is_null($day)) {
