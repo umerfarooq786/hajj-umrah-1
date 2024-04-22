@@ -34,6 +34,7 @@ class VehicleController extends Controller
             'name' => 'required',
             'make' => 'required',
             'capacity' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -46,6 +47,12 @@ class VehicleController extends Controller
         $vehicle->name = $request->name;
         $vehicle->make = $request->make;
         $vehicle->capacity = $request->capacity;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+            $vehicle->image = $imageName;
+        }
         $vehicle->save(); 
 
         return redirect()->route('vehicles.index')->with('success', 'Vehicle has been Added successfully!');
@@ -181,6 +188,7 @@ class VehicleController extends Controller
             'name' => 'required',
             'make' => 'required',
             'capacity' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -193,6 +201,12 @@ class VehicleController extends Controller
         $vehicle->name = $request->name;
         $vehicle->make = $request->make;
         $vehicle->capacity = $request->capacity;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+            $vehicle->image = $imageName;
+        }
         $vehicle->save(); 
         return redirect()->route('vehicles.index')->with('success', 'Vehicle has been Updated successfully!');
     }
@@ -204,7 +218,11 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::findOrFail($id);
         DB::table('transports')->where('vehicle_id', $id)->delete();
-        
+        $imagePath = public_path('uploads');
+        $imageFileName = $vehicle->image; // Assuming the image file name is stored in the 'image' column
+        if ($imageFileName && file_exists($imagePath . '/' . $imageFileName)) {
+            unlink($imagePath . '/' . $imageFileName);
+        }
         $vehicle->delete();
 
         return response()->json([
