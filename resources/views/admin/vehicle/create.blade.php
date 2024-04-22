@@ -45,6 +45,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput1">Capacity</label>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control border-primary"
+                                                    placeholder="capacity" name="capacity" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> --}}
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -55,7 +68,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-3 label-control" for="userinput1">Image</label>
+                                        <div class="col-md-9">
+                                            <input type="file" class="form-control border-primary" placeholder="Make"
+                                                name="image" required>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="form-actions center">
                                 <button type="submit" class="btn btn-primary col-md-3">

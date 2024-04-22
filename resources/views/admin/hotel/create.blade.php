@@ -164,13 +164,14 @@
                                     </div>
                                 @endforeach
                                 <div class="row">
-                                    
+
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Validity - Start Date</label>
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - Start
+                                                Date</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                                        name="validity" required> -->
+                                                                            name="validity" required> -->
                                                 <input type="text" name="validity_start" required id="datepicker"
                                                     class="form-control border-primary" placeholder="Validity Date">
                                             </div>
@@ -178,10 +179,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Validity - End Date</label>
+                                            <label class="col-md-3 label-control" for="userinput2">Validity - End
+                                                Date</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                                        name="validity" required> -->
+                                                                            name="validity" required> -->
                                                 <input type="text" name="validity_end" required id="datepicker"
                                                     class="form-control border-primary" placeholder="Validity Date">
                                             </div>
@@ -223,7 +225,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -245,6 +247,16 @@
                                                 <input type="file" id="imageUpload" name="images[]" multiple>
                                             </label>
                                             <div id="imagePreviews"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control">Commision
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control border-primary"
+                                                    placeholder="Commision" name="commission" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
