@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('google_map');
             $table->boolean('display')->default(false);
             $table->string('city');
+            $table->integer('commision')->default(0);
             $table->timestamps();
         });
     }

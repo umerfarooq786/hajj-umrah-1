@@ -57,9 +57,9 @@ class TransportController extends Controller
 
         $transport->vehicle_id = $request->vehicle_id;
         $transport->route_id = $request->route_id;
+        $transport->Commision = $request->commision;
     
         $transport->save();
-
         $transport->costs()->create([
             'item_id' => $transport->id,
             'item_type' => 'transports', 
@@ -191,7 +191,6 @@ class TransportController extends Controller
         $costs = Cost::where('item_id','=',$transport->id)->get();
         $routes= Route::all();
         $transport_types = Vehicle::all();
-        
         return view('admin.transport.edit',compact('routes','transport_types','transport','costs' ,'current_currency'));
     }
 
@@ -205,6 +204,7 @@ class TransportController extends Controller
 
         $transport->vehicle_id = $request->vehicle_id;
         $transport->route_id = $request->route_id;
+        $transport->Commision = $request->commision;
         foreach ($request->cost as $key => $costData) {
             $costId = $request->cost_id[$key] ?? null; // Existing cost ID
     

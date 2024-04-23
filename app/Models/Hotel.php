@@ -14,6 +14,7 @@ class Hotel extends Model
         'description',
         'display',
         'google_map',
+        'commision',
         'city'
     ];
     public function specialOffers()

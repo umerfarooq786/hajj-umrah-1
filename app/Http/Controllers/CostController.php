@@ -116,7 +116,7 @@ class CostController extends Controller
 
                         $validityStartDate = Carbon::parse($hotelRooms->validity_start);
                         $validityEndDate = Carbon::parse($hotelRooms->validity_end);
-                        
+
                         if ($validityStartDate < $endDate && $validityEndDate > $startDate) {
                             $intersectionStart = max($startDate, $validityStartDate);
                             $intersectionEnd = min($endDate, $validityEndDate);
@@ -136,8 +136,8 @@ class CostController extends Controller
                             }
 
                             $weekenDaysCunt = 0;
-                           
-                            if($endDate != $validityEndDate && $endDate >= $validityEndDate){
+
+                            if ($endDate != $validityEndDate && $endDate >= $validityEndDate) {
                                 $intersectionEnd->addDay();
                             }
                             for ($i = 1; $i <= 7; $i++) {
@@ -221,7 +221,7 @@ class CostController extends Controller
                             }
                             $weekenDaysCunt = 0;
                             // dd($intersectionEnd);
-                            if($endDate != $validityEndDate && $endDate >= $validityEndDate){
+                            if ($endDate != $validityEndDate && $endDate >= $validityEndDate) {
                                 $intersectionEnd->addDay();
                             }
                             for ($i = 1; $i <= 7; $i++) {
@@ -267,15 +267,18 @@ class CostController extends Controller
 
                     if ($transports->isNotEmpty()) {
                         foreach ($transports as $transport) {
+                            $commision = $transport->commision;
                             $cost = $transport->costs()
                                 ->where('validity_start', '<=', $travel_dates[$key]) // Check if travel date is after or on validity start
                                 ->where('validity_end', '>=', $travel_dates[$key]) // Check if travel date is before or on validity end
                                 ->orderByRaw('ABS(DATEDIFF(validity_start, ?))', [$travel_dates[$key]]) // Order by the difference between travel date and validity start
                                 ->first();
-
                             if ($cost != null) {
+                                $totalCost = $cost->cost; // Assuming 'amount' is the field where the cost is stored
+                                $commissionAmount = ($commision / 100) * $totalCost;
+                                $costWithCommission = $totalCost + $commissionAmount;
                                 // Assign the transport cost and break the loop
-                                $new_transport_cost = $cost->cost;
+                                $new_transport_cost = $costWithCommission;
                                 $transport_cost += $new_transport_cost;
                                 break;
                             }
@@ -293,11 +296,17 @@ class CostController extends Controller
             $visaCharges = Visa::where('id', '1')->get();
             foreach ($visaCharges as $visaCharge) {
                 $hajj_charges = $visaCharge->hajj_charges;
+                $commision = $visaCharge->hajj_commision;
+                $commissionAmount = ($commision / 100) * $hajj_charges;
+                $hajj_charges = $hajj_charges + $commissionAmount;
+                
                 $umrah_charges = $visaCharge->umrah_charges;
+                $commision = $visaCharge->umrah_commision;
+                $commissionAmount = ($commision / 100) * $umrah_charges;
+                $umrah_charges = $umrah_charges + $commissionAmount;
             }
-
             $mealPrices = 0;
-
+            
             if ($makkah_id) {
                 $mealIds = $request->input('makkah_meal');
                 if ($mealIds) {

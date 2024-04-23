@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->unsignedBigInteger('route_id');
+            $table->integer('commision')->default(0);
             $table->foreign('route_id')->references('id')->on('routes');
             $table->timestamps();
         });

@@ -8,7 +8,7 @@
 @section('content')
     <div class="content-header row">
         <script>
-            window.lastValidity = 0 ;
+            window.lastValidity = 0;
         </script>
     </div>
     <div class="row">
@@ -32,7 +32,7 @@
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la-car"></i>Edit Transport</h4>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Type</label>
                                             <div class="col-md-9">
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput4">Route</label>
                                             <div class="col-md-9">
@@ -62,6 +62,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput4">Commision</label>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control border-primary"
+                                                    placeholder="Commision" name="commision"
+                                                    value="{{ $transport->commision }}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <!-- row to repeat starts -->
 
@@ -86,8 +97,8 @@
                                                     <div class="col-md-9">
                                                         <!-- <input type="date" id="validity{{ $cost->id }}" class="form-control border-primary" placeholder="Validity" name="validity[]" value="{{ $cost->validity }}"> -->
                                                         <input type="text" id="validity{{ $cost->id }}"
-                                                            class="form-control border-primary datepicker" name="validity_start[]"
-                                                            value="{{ $cost->validity_start }}"
+                                                            class="form-control border-primary datepicker"
+                                                            name="validity_start[]" value="{{ $cost->validity_start }}"
                                                             required>
                                                     </div>
                                                     <script>
@@ -100,8 +111,8 @@
                                                     <label class="col-md-3 label-control" for="userinput2">End</label>
                                                     <div class="col-md-9">
                                                         <input type="text" id="validity{{ $cost->id }}"
-                                                            class="form-control border-primary datepicker" name="validity_end[]"
-                                                            value="{{ $cost->validity_end }}"
+                                                            class="form-control border-primary datepicker"
+                                                            name="validity_end[]" value="{{ $cost->validity_end }}"
                                                             required>
                                                     </div>
                                                     <script>
@@ -115,12 +126,13 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    @else
+                                @else
                                     <div class="row validityContainer" id="" style="position:relative">
                                     </div>
                                 @endif
                                 <div class="col-md-12 text-center" id="validity_button">
-                                    <button type="button" id="addValidity" class="btn btn-info mx-auto">Add Validity Date</button>
+                                    <button type="button" id="addValidity" class="btn btn-info mx-auto">Add Validity
+                                        Date</button>
                                 </div>
 
                                 <!-- tow to repeat ends -->
@@ -195,14 +207,14 @@
     <script type="text/javascript">
         // ****************** logic for adding validity again and again
         var addButtonCounter = 0; // Counter for generating unique add button ids
-        
+
         $("#addValidity").on("click", function(e) {
             e.preventDefault();
             var removeButtonCounter = 0; // Counter for generating unique remove button ids
             $("#validity_button").hide();
             var removeButtonId = "removeValidity" + removeButtonCounter;
             let add_validity =
-        ` <div class="row validityContainer">
+                ` <div class="row validityContainer">
             <div class="col-md-3">
                 <div class="form-group row">
                     <label class="col-md-3 label-control">Cost </label>
@@ -236,17 +248,17 @@
             </div>
         </div>`;
 
-    // Append the new validity row after the last one
-    $(".validityContainer:last").after(add_validity);
+            // Append the new validity row after the last one
+            $(".validityContainer:last").after(add_validity);
 
-    // Initialize date picker for the new row
-    flatpickr(".datepicker1", {
+            // Initialize date picker for the new row
+            flatpickr(".datepicker1", {
                 dateFormat: "Y-m-d",
                 minDate: window.lastValidity,
                 enableTime: false,
                 allowInput: true
             });
-    
+
 
         });
 

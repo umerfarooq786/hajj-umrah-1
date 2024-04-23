@@ -70,7 +70,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Commision" name="commission" required>
+                                                    placeholder="Commision" name="commision" required>
                                             </div>
                                         </div>
                                     </div>

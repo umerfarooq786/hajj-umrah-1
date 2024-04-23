@@ -105,6 +105,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput4">Commision</label>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control border-primary"
+                                                    placeholder="Commision" name="commision"
+                                                    value="{{ $hotel->commision }}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row ">
                                     <div class="col-md-6">
@@ -117,6 +129,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
                                     @if (count($hotel->images) > 0)
                                         @foreach ($hotel->images as $image)
@@ -137,6 +150,7 @@
                                         </div>
                                     @endif
                                 </div>
+                                
                                 <br>
 
                                 <div class="form-group row">

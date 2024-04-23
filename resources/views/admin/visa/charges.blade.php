@@ -58,7 +58,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Commision" name="commission" required>
+                                                    placeholder="Commision" name="hajj_commision"  value="{{ $visa->hajj_commision }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Commision" name="commission" required>
+                                                    placeholder="Commision" name="umrah_commision"  value="{{ $visa->umrah_commision }}" required>
                                             </div>
                                         </div>
                                     </div>
