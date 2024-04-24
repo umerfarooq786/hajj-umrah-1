@@ -94,7 +94,7 @@
                 id="custom-package-form" enctype="multipart/form-data">
                 @csrf
                 <!-- Select Stay in Makkah -->
-                <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
+                <h4 class="font-semibold text-sm ">Select Number Of Personsss.</h4>
                 {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
                 <select id="no_of_persons" name="no_of_persons"
                     class="place w-full lg:w-[300px] border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
