@@ -1,0 +1,9 @@
+/* #custom-package-form input,
+#custom-package-form select {
+    width: 250px !important;
+    margin-right: 10px;
+} */
+
+input[type="checkbox"] {
+    outline: none !important;
+}
