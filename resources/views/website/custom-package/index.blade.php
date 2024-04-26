@@ -187,18 +187,6 @@
                         <option value="3">Triple</option>
                         <option value="4">Quad</option>
                     </select>
-
-                    <!-- <div class="relative inline-block">
-                                                                        
-                                                                        <button id="selectMakkahMealButton" type="button" class="bg-red-500">Meal</button>
-                                                                        <div id="MakkahmealOptions"
-                                                                            class="absolute hidden bg-white border border-gray-400 mt-2 rounded-md shadow-lg">
-                                                                            <ul>
-
-                                                                            </ul>
-                                                                            <button id="applyButton" type="button" class="px-4 py-2 bg-gray-900 text-white">Select</button>
-                                                                        </div>
-                                                                    </div> -->
                     <!-- test start -->
                     <div class="relative">
                         <div id="madinah_meal_button"
@@ -222,6 +210,54 @@
                     <div class="flex items-center relative lg:w-[150px]">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
                         <input type="text" id="madinah_hotel_end_date" name="madinah_hotel_end_date"
+                            placeholder="End Date"
+                            class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>
+                </div>
+                
+                
+                <!-- Select Stay in Jeddah -->
+                <h4 class="font-semibold text-sm pt-3">Select Stay in Jeddah</h4>
+                <div class="flex flex-col lg:flex-row stay relative gap-3">
+                    <select id="jeddah_hotel" name="jeddah_hotel"
+                        class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                        <option value="">Select Hotel</option>
+                        @foreach ($jeddah_hotels as $hotel)
+                            <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <select id="jeddah_hotel_room_type" name="jeddah_hotel_room_type"
+                        class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                        <option value="">Select Room Type</option>
+                        <option value="1">Single</option>
+                        <option value="2">Double</option>
+                        <option value="3">Triple</option>
+                        <option value="4">Quad</option>
+                    </select>
+                    <!-- test start -->
+                    <div class="relative">
+                        <div id="jeddah_meal_button"
+                            class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">
+                            Meals</div>
+                        <div id="jeddah_meal_card"
+                            class="absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">
+                            <ul>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- test end -->
+                    <div class=" flex items-center relative lg:w-[150px]">
+                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
+                        <input type="text" id="jeddah_hotel_start_date" name="jeddah_hotel_start_date"
+                            placeholder="Start Date"
+                            class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>
+
+                    <div class="flex items-center relative lg:w-[150px]">
+                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
+                        <input type="text" id="jeddah_hotel_end_date" name="jeddah_hotel_end_date"
                             placeholder="End Date"
                             class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
@@ -306,11 +342,6 @@
                 $('#MadinahmealOptions input[type="checkbox"]:checked').each(function() {
                     selectedMeals.push($(this).val());
                 });
-
-                // Update the value of the hidden input field with selected meal options
-                // $('#selectedMadinahMealsInput').val(selectedMeals.join(','));
-
-                // Hide the meal options dropdown
                 $('#MadinahmealOptions').addClass('hidden');
             });
 
@@ -493,6 +524,101 @@
 
                 // Populate the ul with the generated list items
                 $('#madinah_meal_card ul').html(listItems);
+            }
+            
+            
+            
+            $('#jeddah_hotel').change(function() {
+                var selectedValue = $(this).val();
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route('calculate.hotel_room_type') }}',
+                    method: 'POST',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Extract data from the response
+                        var responseData = response.data;
+
+                        populate_jeddah_hotel_room_type(responseData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ route('calculate.hotel_note') }}',
+                    method: 'GET',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        var note = response;
+                        $('#makkah_hotel_note').html('<b>Note Of Jeddah Selected Hotel:</b> ' +
+                            note).show();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+
+                $.ajax({
+                    url: '{{ route('calculate.hotel_meal_type') }}',
+                    method: 'POST',
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Extract data from the response
+                        var responseData = response.data;
+                        populate_jeddah_hotel_meal_type(responseData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+
+            });
+
+            function populate_jeddah_hotel_room_type(data) {
+                var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                }
+
+                // Populate the second dropdown with options
+                $('#jeddah_hotel_room_type').html(options);
+            }
+
+            function populate_jeddah_hotel_meal_type(data) {
+                var listItems = '';
+
+                // Loop through the data and create list items with checkboxes
+                for (var i = 0; i < data.length; i++) {
+                    listItems += '<li class="flex items-center gap-3">';
+                    listItems += '<input type="checkbox" id="jeddah_meal' + data[i].id +
+                        '" name="jeddah_meal[]" value="' + data[i].id + '" class="outline-none ring-0">';
+                    listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name + '</label>';
+                    listItems += '</li>';
+                }
+
+                // Populate the ul with the generated list items
+                $('#jeddah_meal_card ul').html(listItems);
             }
 
 
@@ -679,6 +805,25 @@
         });
 
         madinahMealCard.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from propagating to the document body
+        });
+        
+        // Logic for jeddah meals
+        const jeddahMealButton = document.getElementById('jeddah_meal_button');
+        const jeddahMealCard = document.getElementById('jeddah_meal_card');
+
+        jeddahMealButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from propagating to the document body
+            jeddahMealCard.classList.toggle('hidden'); // Toggle the 'hidden' class on the meal card
+        });
+
+        document.body.addEventListener('click', function() {
+            if (!jeddahMealCard.classList.contains('hidden')) {
+                jeddahMealCard.classList.add('hidden');
+            }
+        });
+
+        jeddahMealCard.addEventListener('click', function(event) {
             event.stopPropagation(); // Prevent the click event from propagating to the document body
         });
     </script>

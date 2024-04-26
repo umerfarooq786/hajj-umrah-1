@@ -25,6 +25,8 @@
                 <input type="hidden" name="makkah_hotel_room_perday_price" value="{{ $makkah_hotel_room_perday_price }}">
                 <input type="hidden" name="madinah_hotel_room_price" value="{{ $madinah_hotel_room_price }}">
                 <input type="hidden" name="madinah_hotel_room_perday_price" value="{{ $madinah_hotel_room_perday_price }}">
+                <input type="hidden" name="jeddah_hotel_room_price" value="{{ $jeddah_hotel_room_price }}">
+                <input type="hidden" name="jeddah_hotel_room_perday_price" value="{{ $jeddah_hotel_room_perday_price }}">
                 <input type="hidden" name="mealPrices" value="{{ $mealPrices }}">
                 <input type="hidden" name="transport_cost" value="{{ $transport_cost }}">
                 <input type="hidden" name="visa" value="{{ $visa }}">
@@ -81,6 +83,41 @@
                             </th>
                             <td class="px-6 py-4 text-right" id="madinahHotelRoomPrice">
                                 {{ $madinah_hotel_room_price }} SAR
+                            </td>
+
+                        </tr>
+                        {{-- <tr class="bg-white border-b">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Madinah Hotel Room Per Day Price
+                            </th>
+                            <td class="px-6 py-4 text-right" id="madinahHotelRoomPriceDay">
+                                {{ $madinah_hotel_room_perday_price }} SAR
+                            </td>
+                        </tr> --}}
+                        {{-- <tr class="bg-white border-b  ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Madinah Hotel Start Date
+                            </th>
+                            <td class="px-6 py-4 text-right" id="madinahHotelStartDate">
+                                {{ $madinah_hotel_start_date }}
+                            </td>
+                        </tr> --}}
+                        {{-- <tr class="bg-white border-b  ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Madinah Hotel End Date
+                            </th>
+                            <td class="px-6 py-4 text-right" id="madinahHotelEndDate">
+                                {{ $madinah_hotel_end_date }}
+                            </td>
+                        </tr> --}}
+                    @endif
+                    @if ($jeddah_hotel_room_price != '0')
+                        <tr class="bg-white border-b">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                Jeddah Hotel Room Price
+                            </th>
+                            <td class="px-6 py-4 text-right" id="madinahHotelRoomPrice">
+                                {{ $jeddah_hotel_room_price }} SAR
                             </td>
 
                         </tr>
@@ -198,6 +235,8 @@
                     makkah_hotel_room_perday_price = {{ $makkah_hotel_room_perday_price }} * usd_price;
                     madinah_hotel_room_price = {{ $madinah_hotel_room_price }} * usd_price;
                     madinah_hotel_room_perday_price = {{ $madinah_hotel_room_perday_price }} * usd_price;
+                    jeddah_hotel_room_price = {{ $jeddah_hotel_room_price }} * usd_price;
+                    jeddah_hotel_room_perday_price = {{ $jeddah_hotel_room_perday_price }} * usd_price;
                     transport_cost = {{ $transport_cost }} * usd_price;
                     mealPrices = {{ $mealPrices }} * usd_price;
                     visa = {{ $visa }} * usd_price;
@@ -212,6 +251,8 @@
                     makkah_hotel_room_perday_price = {{ $makkah_hotel_room_perday_price }} * pkr_price;
                     madinah_hotel_room_price = {{ $madinah_hotel_room_price }} * pkr_price;
                     madinah_hotel_room_perday_price = {{ $madinah_hotel_room_perday_price }} * pkr_price;
+                    jeddah_hotel_room_price = {{ $jeddah_hotel_room_price }} * pkr_price;
+                    jeddah_hotel_room_perday_price = {{ $jeddah_hotel_room_perday_price }} * pkr_price;
                     mealPrices = {{ $mealPrices }} * pkr_price;
                     transport_cost = {{ $transport_cost }} * pkr_price;
                     visa = {{ $visa }} * pkr_price;
@@ -225,6 +266,8 @@
                     makkah_hotel_room_perday_price = {{ $makkah_hotel_room_perday_price }};
                     madinah_hotel_room_price = {{ $madinah_hotel_room_price }};
                     madinah_hotel_room_perday_price = {{ $madinah_hotel_room_perday_price }};
+                    jeddah_hotel_room_price = {{ $jeddah_hotel_room_price }};
+                    jeddah_hotel_room_perday_price = {{ $jeddah_hotel_room_perday_price }};
                     mealPrices = {{ $mealPrices }};
                     transport_cost = {{ $transport_cost }};
                     visa = {{ $visa }};
@@ -242,6 +285,8 @@
             let makkahHotelRoomPriceDayElement = document.getElementById('makkahHotelRoomPriceDay');
             let madinahHotelRoomPriceElement = document.getElementById('madinahHotelRoomPrice');
             let madinahHotelRoomPriceDayElement = document.getElementById('madinahHotelRoomPriceDay');
+            let jeddahHotelRoomPriceElement = document.getElementById('jeddahHotelRoomPrice');
+            let jeddahHotelRoomPriceDayElement = document.getElementById('jeddahHotelRoomPriceDay');
             let mealPricesElement = document.getElementById('mealPrices');
             let transportPriceElement = document.getElementById('transportPrice');
             let visaElement = document.getElementById('visa');
@@ -265,6 +310,14 @@
             }
             if (madinahHotelRoomPriceDayElement) {
                 madinahHotelRoomPriceDayElement.innerHTML = madinah_hotel_room_perday_price.toFixed(0) + ' ' +
+                    selectedCurrency;
+            }
+            if (jeddahHotelRoomPriceElement) {
+                jeddahHotelRoomPriceElement.innerHTML = jeddah_hotel_room_price.toFixed(0) + ' ' +
+                    selectedCurrency;
+            }
+            if (jeddahHotelRoomPriceDayElement) {
+                jeddahHotelRoomPriceDayElement.innerHTML = jeddah_hotel_room_perday_price.toFixed(0) + ' ' +
                     selectedCurrency;
             }
             if (mealPricesElement) {
