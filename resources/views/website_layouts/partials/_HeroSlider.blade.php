@@ -1,7 +1,7 @@
 <div id="controls-carousel" class="relative w-full" data-carousel="static">
     <!-- Carousel wrapper -->
     <div class="absolute top-0 z-50 w-full  flex items-center justify-center ">
-        <div class="w-full lg:w-[80%] ">
+        <div class="w-full lg:w-[90%] ">
             @include('website_layouts.partials._Navbar')
         </div>
     </div>

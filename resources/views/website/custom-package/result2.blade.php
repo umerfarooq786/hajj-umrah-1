@@ -36,8 +36,8 @@
 
 
         {{-- Accomodation table starts --}}
-        <h4 class="font-bold ">Accomodation Details</h4>
-        <div class="relative overflow-x-auto  border border-gray1 w-full">
+        <h4 class="font-bold self-start mt-5">Accomodation Details</h4>
+        <div class="relative overflow-x-auto  border border-gray1 w-full self-start">
             {{-- Accomodation Table --}}
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -237,7 +237,7 @@
         </div>
 
         {{-- Transportation table starts --}}
-        <h4 class="font-bold mt-10 self-start">Transportation Details</h4>
+        <h4 class="font-bold self-start mt-5">Transportation Details</h4>
         <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start">
             {{-- Accomodation Table --}}
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -320,7 +320,7 @@
         </div>
 
         {{-- Grand Total table starts --}}
-        <h4 class="font-bold mt-10 self-start">Total Charges</h4>
+        <h4 class="font-bold mt-5 self-start">Total Charges</h4>
         <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start ">
             {{-- Accomodation Table --}}
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

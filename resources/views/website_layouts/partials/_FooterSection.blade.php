@@ -42,6 +42,8 @@
             <a href="{{ url('hotel-city/makkah') }}" class=" hover:text-first text-sm">Hotels in Makkah</a>
             <a href="{{ url('hotel-city/madinah') }}" class=" hover:text-first text-sm">Hotels in Madinah</a>
             <a href="{{ url('hotel-city/jeddah') }}" class=" hover:text-first text-sm">Hotels in Jeddah</a>
+            <a href="{{ url('transportation') }}" class=" hover:text-first text-sm">Transportation</a>
+            <a href="{{ url('airlines') }}" class=" hover:text-first text-sm">Airlines</a>
             <a href="{{ url('contact') }}" class=" hover:text-first text-sm">Contact Us</a>
         </div>
         <div>
