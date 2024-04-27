@@ -120,6 +120,9 @@ Route::get('/custom-package/result2', [CostController::class, 'calculate_package
 Route::get('/hotel-city/{city}', [FrontHotelController::class, 'index'])->name('hotels.city');
 Route::get('/hotel-id/{id}', [FrontHotelController::class, 'singleHotel']);
 
+Route::get('/transportation', [FrontHotelController::class, 'transportation'])->name('transportation');
+Route::get('/transportation/{id}', [FrontHotelController::class, 'singleTransportation'])->name('singleTransportation');
+
 Route::get('/predefined-package/umrah', [FrontHotelController::class, 'predefinedUmrah']);
 Route::get('/predefined-package/hajj', [FrontHotelController::class, 'predefinedHajj']);
 

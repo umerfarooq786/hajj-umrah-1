@@ -25,6 +25,25 @@ class FrontHotelController extends Controller
         }
 
         // return $hotel_images;
+        return view('website.transportation.index');
+    }
+
+    public function transportation()
+    {
+        // $hotels = Hotel::where('city', $city)->paginate(10);        
+        return view('website.transportation.detail');
+    }
+
+    public function singleTransportation($id)
+    {
+        // return 'ali';
+        $hotel = Hotel::where('id', $id)->first();        
+        $hotel_images = [];
+        if($hotel){
+            $hotel_images = Image::where('hotel_id', $hotel->id)->get();
+        }
+
+        // return $hotel_images;
         return view('website.hotelDetail.index',['hotel'=> $hotel, 'hotel_images' => $hotel_images]);
     }
 
