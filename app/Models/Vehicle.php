@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'make', 'capacity'];
+    protected $fillable = ['name', 'make', 'capacity', 'image'];
 
     // Define the relationship with Transport
     public function transport()
     {
-        return $this->hasOne(Transport::class, 'vehicle_id');
+        return $this->hasMany(Transport::class, 'vehicle_id');
+        
     }
 
     

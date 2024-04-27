@@ -10,7 +10,8 @@ class Transport extends Model
     use HasFactory;
     protected $fillable = [
         'transport_type_id',
-        'route_id'
+        'route_id',
+        'commision'
     ];
 
     public function types()

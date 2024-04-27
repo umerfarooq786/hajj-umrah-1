@@ -101,6 +101,7 @@ Route::get('/home_page', [WebsiteController::class, 'homepage'])->name('home_pag
 //     return view('website.home.index');    
 // });
 Route::get('/contact', [WebsiteController::class, 'contact']);
+Route::get('/vehicle', [WebsiteController::class, 'vehicle']);
 Route::get('/airlines', [WebsiteController::class, 'airlines']);
 
 Route::get('/about', function () {

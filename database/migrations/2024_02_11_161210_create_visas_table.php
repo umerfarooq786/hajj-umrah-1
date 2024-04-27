@@ -17,6 +17,8 @@ return new class extends Migration
             $table->decimal('umrah_charges', 10, 2)->nullable();
             $table->string('current_currency')->nullable();
             $table->boolean('show_hajj')->default(false);
+            $table->integer('umrah_commision')->default(0);
+            $table->integer('hajj_commision')->default(0);
             $table->timestamps();
         });
     }

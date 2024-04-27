@@ -25,9 +25,10 @@ class CostController extends Controller
         $routes = Route::all();
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
         $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
+        $jeddah_hotels = Hotel::where('city', 'jeddah')->where('display', '1')->get();
         $transport_types = Vehicle::all();
         $mealData = Meal::all();
-        return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData'));
+        return view("website.custom-package.index", compact('rooms', 'madina_hotels', 'makkah_hotels', 'jeddah_hotels', 'routes', 'transport_types', 'mealData'));
     }
 
     public function calculate_package_hajj()
@@ -36,11 +37,12 @@ class CostController extends Controller
         $routes = Route::all();
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
         $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
+        $jeddah_hotels = Hotel::where('city', 'jeddah')->where('display', '1')->get();
         $transport_types = Vehicle::all();
         $maktabs = Maktab::all();
         $mealData = Meal::all();
         $showpage = Visa::all();
-        return view("website.custom-package.index1", compact('rooms', 'madina_hotels', 'makkah_hotels', 'routes', 'transport_types', 'mealData', 'showpage', 'maktabs'));
+        return view("website.custom-package.index1", compact('rooms', 'madina_hotels', 'makkah_hotels', 'jeddah_hotels', 'routes', 'transport_types', 'mealData', 'showpage', 'maktabs'));
     }
 
     public function calculate_package_result()
@@ -67,6 +69,11 @@ class CostController extends Controller
         $madinah_hotel_start_date = $request->madinah_hotel_start_date;
         $madinah_hotel_end_date = $request->madinah_hotel_end_date;
 
+        $jeddah_id = $request->jeddah_hotel;
+        $jeddah_hotel_room_type_id = $request->jeddah_hotel_room_type;
+        $jeddah_hotel_start_date = $request->jeddah_hotel_start_date;
+        $jeddah_hotel_end_date = $request->jeddah_hotel_end_date;
+
         $route_id = $request->route;
         $vehicle_id = $request->vehicle;
         $travel_date = $request->travel_date;
@@ -75,18 +82,22 @@ class CostController extends Controller
         $maktab = $request->maktab;
         $makkah_hotel_room_price = 0;
         $madinah_hotel_room_price = 0;
+        $jeddah_hotel_room_price = 0;
         $makkah_hotel_room_perday_price = 0;
         $madinah_hotel_room_perday_price = 0;
+        $jeddah_hotel_room_perday_price = 0;
         $transport_cost = 0;
         $MakkahdaysDifference = 0;
         $MadinahdaysDifference = 0;
+        $jeddahdaysDifference = 0;
+        $mealPrices = 0;
 
         if ($no_of_persons == "") {
             $errorMessage = "Sorry, Please Select Number Of Persons First.";
             return back()->withErrors([$errorMessage]);
         }
 
-        if ($makkah_id || $madinah_id || $route_id) {
+        if ($makkah_id || $madinah_id || $jeddah_id || $route_id) {
             if ($makkah_id) {
                 $hotelRoom = HotelRoom::where('hotel_id', $makkah_id)->where('room_id', $makkah_hotel_room_type_id)->get();
 
@@ -121,7 +132,7 @@ class CostController extends Controller
 
                         $validityStartDate = Carbon::parse($hotelRooms->validity_start);
                         $validityEndDate = Carbon::parse($hotelRooms->validity_end);
-                        
+
                         if ($validityStartDate < $endDate && $validityEndDate > $startDate) {
                             $intersectionStart = max($startDate, $validityStartDate);
                             $intersectionEnd = min($endDate, $validityEndDate);
@@ -141,8 +152,8 @@ class CostController extends Controller
                             }
 
                             $weekenDaysCunt = 0;
-                           
-                            if($endDate != $validityEndDate && $endDate >= $validityEndDate){
+
+                            if ($endDate != $validityEndDate && $endDate >= $validityEndDate) {
                                 $intersectionEnd->addDay();
                             }
                             for ($i = 1; $i <= 7; $i++) {
@@ -179,7 +190,7 @@ class CostController extends Controller
                 $uncoveredDates = [];
                 $startDate = Carbon::parse($madinah_hotel_start_date);
                 $endDate = Carbon::parse($madinah_hotel_end_date);
-// To find dates which is not applicable or comming in validities
+                // To find dates which is not applicable or comming in validities
                 for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
                     $dateString = $date->toDateString();
                     $dateIsCovered = false;
@@ -226,7 +237,7 @@ class CostController extends Controller
                             }
                             $weekenDaysCunt = 0;
                             // dd($intersectionEnd);
-                            if($endDate != $validityEndDate && $endDate >= $validityEndDate){
+                            if ($endDate != $validityEndDate && $endDate >= $validityEndDate) {
                                 $intersectionEnd->addDay();
                             }
                             for ($i = 1; $i <= 7; $i++) {
@@ -255,7 +266,101 @@ class CostController extends Controller
                     $errorMessage = "Sorry, No madinah hotel room available from $firstDate to $lastDate.";
                     return back()->withErrors([$errorMessage]);
                 }
+            }
 
+            if ($jeddah_id) {
+                $hotelRoom = HotelRoom::where('hotel_id', $jeddah_id)->where('room_id', $jeddah_hotel_room_type_id)->get();
+                $validityFound = 0;
+                $totalPrice = 0;
+                $uncoveredDates = [];
+                $startDate = Carbon::parse($jeddah_hotel_start_date);
+                $endDate = Carbon::parse($jeddah_hotel_end_date);
+                // To find dates which is not applicable or comming in validities
+                for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+                    $dateString = $date->toDateString();
+                    $dateIsCovered = false;
+                    // Check if the current date falls within any validity period
+                    foreach ($hotelRoom as $hotelRooms) {
+                        $validityStartDate = Carbon::parse($hotelRooms->validity_start);
+                        $validityEndDate = Carbon::parse($hotelRooms->validity_end);
+
+                        if ($date->between($validityStartDate, $validityEndDate)) {
+                            $dateIsCovered = true;
+                            break;
+                        }
+                    }
+                    // If the date is not covered by any validity period, add it to the uncovered dates array
+                    if (!$dateIsCovered) {
+                        $uncoveredDates[] = $dateString;
+                    }
+                }
+
+                if (count($uncoveredDates) == 0) {
+
+                    foreach ($hotelRoom as $hotelRooms) {
+                        // $endDate->addDay();
+
+                        $validityStartDate = Carbon::parse($hotelRooms->validity_start);
+                        $validityEndDate = Carbon::parse($hotelRooms->validity_end);
+                        $weekenDaysCunt = 0;
+                        if ($validityStartDate <= $endDate && $validityEndDate >= $startDate) {
+                            $intersectionStart = max($startDate, $validityStartDate);
+                            $intersectionEnd = min($endDate, $validityEndDate);
+                            if ($intersectionEnd < $endDate) {
+                                $intersectionDays = $intersectionStart->diffInDays($intersectionEnd) + 1;
+                            } else {
+                                $intersectionDays = $intersectionStart->diffInDays($intersectionEnd);
+                            }
+                            $jeddahdaysDifference += $intersectionDays;
+                            $weekends = Weekend::first();
+                            $weekends = $weekends['name'];
+                            $nameArray = json_decode($weekends);
+                            $day1 = $day2 = $day3 = $day4 = $day5 = $day6 = $day7 = null;
+
+                            foreach ($nameArray as $index => $day) {
+                                ${'day' . ($index + 1)} = $day;
+                            }
+                            $weekenDaysCunt = 0;
+                            // dd($intersectionEnd);
+                            if ($endDate != $validityEndDate && $endDate >= $validityEndDate) {
+                                $intersectionEnd->addDay();
+                            }
+                            for ($i = 1; $i <= 7; $i++) {
+                                $day = ${'day' . $i};
+                                if (!is_null($day)) {
+                                    $numDays = $intersectionStart->diffInDaysFiltered(function (Carbon $date) use ($day) {
+                                        return $date->isDayOfWeek($day);
+                                    }, $intersectionEnd);
+                                    $weekenDaysCunt += $numDays;
+                                }
+                            }
+                            $weekdays = $intersectionDays - $weekenDaysCunt;
+                            $weekendDays = $weekenDaysCunt;
+                            // dd($intersectionDays);
+
+                            $jeddah_hotel_room_price_weekdays = $hotelRooms->weekdays_price * $weekdays;
+                            $jeddah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $weekendDays;
+                            $jeddah_hotel_room_price += $jeddah_hotel_room_price_weekdays + $jeddah_hotel_room_price_weekendDays;
+                            $jeddah_hotel_room_perday_price = $hotelRooms->weekdays_price;
+                            $validityFound = 1;
+
+                            $jeddahMealIds = $request->input('jeddah_meal');
+                            if ($jeddahMealIds) {
+                                foreach ($jeddahMealIds as $mealId) {
+                                    $meal = Meal::where('hotel_id', $jeddah_id)->where('meal_type_id', $mealId)->first();
+                                    if ($meal) {
+                                        $mealPrices += $meal->price;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $firstDate = Carbon::createFromFormat('Y-m-d', reset($uncoveredDates))->format('d F Y');
+                    $lastDate = Carbon::createFromFormat('Y-m-d', end($uncoveredDates))->format('d F Y');
+                    $errorMessage = "Sorry, No jeddah hotel room available from $firstDate to $lastDate.";
+                    return back()->withErrors([$errorMessage]);
+                }
             }
 
             $routes = $request->input('route');
@@ -272,15 +377,18 @@ class CostController extends Controller
 
                     if ($transports->isNotEmpty()) {
                         foreach ($transports as $transport) {
+                            $commision = $transport->commision;
                             $cost = $transport->costs()
                                 ->where('validity_start', '<=', $travel_dates[$key]) // Check if travel date is after or on validity start
                                 ->where('validity_end', '>=', $travel_dates[$key]) // Check if travel date is before or on validity end
                                 ->orderByRaw('ABS(DATEDIFF(validity_start, ?))', [$travel_dates[$key]]) // Order by the difference between travel date and validity start
                                 ->first();
-
                             if ($cost != null) {
+                                $totalCost = $cost->cost; // Assuming 'amount' is the field where the cost is stored
+                                $commissionAmount = ($commision / 100) * $totalCost;
+                                $costWithCommission = $totalCost + $commissionAmount;
                                 // Assign the transport cost and break the loop
-                                $new_transport_cost = $cost->cost;
+                                $new_transport_cost = $costWithCommission;
                                 $transport_cost += $new_transport_cost;
                                 break;
                             }
@@ -298,10 +406,16 @@ class CostController extends Controller
             $visaCharges = Visa::where('id', '1')->get();
             foreach ($visaCharges as $visaCharge) {
                 $hajj_charges = $visaCharge->hajj_charges;
-                $umrah_charges = $visaCharge->umrah_charges;
-            }
+                $commision = $visaCharge->hajj_commision;
+                $commissionAmount = ($commision / 100) * $hajj_charges;
+                $hajj_charges = $hajj_charges + $commissionAmount;
 
-            $mealPrices = 0;
+                $umrah_charges = $visaCharge->umrah_charges;
+                $commision = $visaCharge->umrah_commision;
+                $commissionAmount = ($commision / 100) * $umrah_charges;
+                $umrah_charges = $umrah_charges + $commissionAmount;
+            }
+            
 
             if ($makkah_id) {
                 $mealIds = $request->input('makkah_meal');
@@ -326,6 +440,8 @@ class CostController extends Controller
                     }
                 }
             }
+
+
             if ($maktab != null) {
                 $maktab = Maktab::findOrFail($maktab);
                 $visa = $maktab->cost;
@@ -334,7 +450,7 @@ class CostController extends Controller
             }
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
-            $daysCount = $MadinahdaysDifference + $MakkahdaysDifference;
+            $daysCount = $MadinahdaysDifference + $MakkahdaysDifference + $jeddahdaysDifference;
             $mealPrices = $mealPrices * $daysCount;
             // $mealPrices = $mealPricesPerPerson * $no_of_persons;
 
@@ -344,12 +460,11 @@ class CostController extends Controller
                 $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
                 $sar_to_usd = $CurrencyConversions->sar_to_usd;
             }
-
         } else {
             $errorMessage = "Please select options to get calculated value.";
             return back()->withErrors([$errorMessage]);
         }
-        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price', 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'transport_cost', 'visa', 'mealPrices', 'visa_per_person', 'makkah_hotel_start_date', 'makkah_hotel_end_date', 'madinah_hotel_start_date', 'madinah_hotel_end_date'));
+        return view('website.custom-package.result', compact('total_cost', 'sar_to_pkr', 'sar_to_usd', 'makkah_hotel_room_perday_price', 'madinah_hotel_room_perday_price', 'jeddah_hotel_room_perday_price', 'makkah_hotel_room_price', 'madinah_hotel_room_price', 'jeddah_hotel_room_price', 'transport_cost', 'visa', 'mealPrices', 'visa_per_person', 'makkah_hotel_start_date', 'makkah_hotel_end_date', 'madinah_hotel_start_date', 'madinah_hotel_end_date', 'jeddah_hotel_start_date', 'jeddah_hotel_end_date'));
     }
 
     public function hotel_room_type(Request $request)
@@ -370,7 +485,6 @@ class CostController extends Controller
 
         // Return the response with the data
         return response()->json(['data' => $roomNames]);
-
     }
 
     public function hotel_note(Request $request)
@@ -382,7 +496,6 @@ class CostController extends Controller
 
         // Return the response with the data
         return response()->json($note);
-
     }
 
     public function hotel_meal_type(Request $request)
@@ -407,6 +520,5 @@ class CostController extends Controller
         }
 
         return response()->json(['data' => $mealNames]);
-
     }
 }

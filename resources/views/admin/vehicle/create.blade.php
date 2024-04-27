@@ -72,7 +72,7 @@
                                         <label class="col-md-3 label-control" for="userinput1">Image</label>
                                         <div class="col-md-9">
                                             <input type="file" class="form-control border-primary" placeholder="Make"
-                                                name="image" required>
+                                            name="image" required>
                                         </div>
                                     </div>
                                 </div>

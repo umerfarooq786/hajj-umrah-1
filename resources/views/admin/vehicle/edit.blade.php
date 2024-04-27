@@ -22,8 +22,8 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('vehicles.update', $vehicle->id) }}"
-                            enctype="multipart/form-data">
+                        <form class="form form-horizontal" method="POST"
+                            action="{{ route('vehicles.update', $vehicle->id) }}" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
                             <div class="form-body">
@@ -33,17 +33,16 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Name</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control border-primary"
-                                                    placeholder="Name" value="{{ $vehicle->name }}"
-                                                    name="name">
+                                                <input type="text" class="form-control border-primary" placeholder="Name"
+                                                    value="{{ $vehicle->name }}" name="name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="userinput1">Make</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border-primary"
-                                                placeholder="Make" value="{{ $vehicle->make }}" name="make">
+                                            <input type="text" class="form-control border-primary" placeholder="Make"
+                                                value="{{ $vehicle->make }}" name="make">
                                         </div>
                                     </div>
                                 </div>
@@ -58,6 +57,29 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6 row">
+                                            <label class="col-md-3 label-control" for="userinput1">Image</label>
+                                            <div
+                                                style="display: flex; align-items: center; justify-content: space-between; ">
+                                                @if ($vehicle->image != null)
+                                                    <img src="{{ asset('uploads/' . $vehicle->image) }} "
+                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
+                                                border-radius: 5px;
+                                                padding: 5px;">
+                                                @else
+                                                    <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }} "
+                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
+                                                border-radius: 5px; 
+                                                padding: 5px;">
+                                                @endif
+                                                <div class="col-md-9">
+                                                    <input type="file" class="form-control border-primary"
+                                                        name="image">
+                                                </div>
+                                            </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="form-actions center">
