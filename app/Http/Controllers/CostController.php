@@ -48,6 +48,11 @@ class CostController extends Controller
         return view("website.custom-package.result");
     }
 
+    public function calculate_package_result2()
+    {
+        return view("website.custom-package.result2");
+    }
+
     public function calculate(Request $request)
     {
         // dd($request->all());
