@@ -29,14 +29,11 @@ class FrontHotelController extends Controller
 
     public function transportation()
     {
-        // return "aliss";
-        // $hotels = Hotel::where('city', $city)->paginate(10);        
         return view('website.transportation.index');
     }
 
     public function singleTransportation($id)
     {
-        return "ahmed";
         return view('website.transportation.detail');
     }
 
