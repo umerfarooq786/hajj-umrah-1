@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('make');
             $table->integer('capacity')->unsigned();
+            $table->boolean('display')->default(false);
             $table->string('image')->nullable();
             $table->timestamps();
         });

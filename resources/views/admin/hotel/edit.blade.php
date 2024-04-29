@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     @if (count($hotel->images) > 0)
                                         @foreach ($hotel->images as $image)
@@ -150,17 +150,36 @@
                                         </div>
                                     @endif
                                 </div>
-                                
+
                                 <br>
 
-                                <div class="form-group row">
-                                    <label class="col-md-2 label-control">Display on Website</label>
-                                    <div class="col-md-9">
-                                        <div class="custom-control custom-switch custom-switch-lg">
-                                            <input type="checkbox" class="custom-control-input" id="displayOnWebsite"
-                                                name="display" value="1" {{ $hotel->display ? 'checked' : '' }}>
-                                            <label id="displayOnWebsiteLabel" class="custom-control-label"
-                                                for="displayOnWebsite">{{ $hotel->display ? 'Yes, display this hotel on the website' : 'No, do not display this hotel on the website' }}</label>
+                                <div class="row ">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-2 label-control">Display on Website Calculation</label>
+                                            <div class="col-md-6">
+                                                <div class="custom-control custom-switch custom-switch-lg">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="displayOnWebsite" name="display" value="1"
+                                                        {{ $hotel->display ? 'checked' : '' }}>
+                                                    <label id="displayOnWebsiteLabel" class="custom-control-label"
+                                                        for="displayOnWebsite">{{ $hotel->display ? 'Yes, display this hotel on the website calculation' : 'No, do not display this hotel on the website calculation' }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-2 label-control">Display Price on Website</label>
+                                            <div class="col-md-6">
+                                                <div class="custom-control custom-switch custom-switch-lg">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="displayPriceOnWebsite" name="displayPrice" value="1"
+                                                        {{ $hotel->displayPrice ? 'checked' : '' }}>
+                                                    <label id="displayPriceOnWebsiteLabel" class="custom-control-label"
+                                                        for="displayPriceOnWebsite">{{ $hotel->displayPrice ? 'Yes, display this hotel price on the website' : 'No, do not display this hotel price on the website' }}</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div> <br>
@@ -218,8 +237,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group row">
-                                                    <label class="col-md-3 label-control"
-                                                        for="userinput2">Validity - Start Date</label>
+                                                    <label class="col-md-3 label-control" for="userinput2">Validity -
+                                                        Start Date</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text"
@@ -239,8 +258,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row">
-                                                    <label class="col-md-3 label-control"
-                                                        for="userinput2">Validity - End Date</label>
+                                                    <label class="col-md-3 label-control" for="userinput2">Validity - End
+                                                        Date</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text"
@@ -454,7 +473,8 @@
             button.addEventListener('click', function() {
                 const date = this.getAttribute('data-date');
                 event.preventDefault()
-                if (confirm('Are you sure you want to delete the validity record ending on  ' + date + '?')) {
+                if (confirm('Are you sure you want to delete the validity record ending on  ' + date +
+                        '?')) {
                     fetch("{{ route('delete.validity', '') }}/" + date, {
                             method: 'GET',
                             headers: {
@@ -602,12 +622,29 @@
                 label.textContent = "No, do not display this hotel on the website calculation";
             }
         }
+        
+        function togglewebLabel() {
+            var checkbox = document.getElementById('displayPriceOnWebsite');
+            var label = document.getElementById('displayPriceOnWebsiteLabel');
+
+            if (checkbox.checked) {
+                label.textContent = "Yes, display this hotel price on the website";
+            } else {
+                label.textContent = "No, do not display this hotel price on the website";
+            }
+        }
 
         // Add event listener to the checkbox to trigger the function
         document.getElementById('displayOnWebsite').addEventListener('change', toggleLabel);
 
         // Initial call to set the label text based on the initial state of the checkbox
         toggleLabel();
+        
+        // Add event listener to the checkbox to trigger the function
+        document.getElementById('displayPriceOnWebsite').addEventListener('change', togglewebLabel);
+
+        // Initial call to set the label text based on the initial state of the checkbox
+        togglewebLabel();
 
 
 

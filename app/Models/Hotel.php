@@ -13,6 +13,7 @@ class Hotel extends Model
         'excerpt',
         'description',
         'display',
+        'displayPrice',
         'google_map',
         'commision',
         'city'

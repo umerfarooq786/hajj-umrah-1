@@ -6,7 +6,6 @@
         @foreach ($hotels as $hotel)
             <div class="bg-gray-100 shadow-lg w-full min-h-[250px] h-max flex flex-col lg:flex-row items-center  ">
                 @if (count($hotel->images) > 0)
-                    <!-- <img src="{{ asset('images/hotels/test-hotel.jpg') }}" alt="" class="lg:h-[250px]  lg:w-[30%]  object-cover"> -->
                     <img src="{{ asset($hotel->images[0]->path) }}" alt=""
                         class="lg:h-[250px]  lg:w-[30%]  object-cover">
                 @else

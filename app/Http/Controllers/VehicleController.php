@@ -194,12 +194,13 @@ class VehicleController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        $display = $request->display ?? 0;
         // $input = $request->all();
         // $input['password'] = Hash::make($input['password']);
         $vehicle = Vehicle::findOrFail($id);
         $vehicle->name = $request->name;
         $vehicle->make = $request->make;
+        $vehicle->display = $display;
         $vehicle->capacity = $request->capacity;
         if ($request->hasFile('image')) {
             $image = $request->file('image');

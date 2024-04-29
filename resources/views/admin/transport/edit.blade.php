@@ -32,7 +32,7 @@
                             <div class="form-body">
                                 <h4 class="form-section"><i class="la la-car"></i>Edit Transport</h4>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">Type</label>
                                             <div class="col-md-9">
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput4">Route</label>
                                             <div class="col-md-9">
@@ -62,7 +62,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput4">Commision</label>
                                             <div class="col-md-9">
@@ -72,7 +74,20 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-2 label-control">Display on Website</label>
+                                            <div class="col-md-6">
+                                                <div class="custom-control custom-switch custom-switch-lg">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="displayOnWebsite" name="display" value="1"
+                                                        {{ $transport->display ? 'checked' : '' }}>
+                                                    <label id="displayOnWebsiteLabel" class="custom-control-label"
+                                                        for="displayOnWebsite">{{ $transport->display ? 'Yes, display this hotel on the website' : 'No, do not display this hotel on the website' }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- row to repeat starts -->
 
@@ -155,6 +170,21 @@
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 
     <script>
+        function toggleLabel() {
+            var checkbox = document.getElementById('displayOnWebsite');
+            var label = document.getElementById('displayOnWebsiteLabel');
+
+            if (checkbox.checked) {
+                label.textContent = "Yes, display this hotel on the website";
+            } else {
+                label.textContent = "No, do not display this hotel on the website";
+            }
+        }
+
+        document.getElementById('displayOnWebsite').addEventListener('change', toggleLabel);
+        toggleLabel();
+
+
         flatpickr(".datepicker", {
             dateFormat: "Y-m-d",
             minDate: "today",

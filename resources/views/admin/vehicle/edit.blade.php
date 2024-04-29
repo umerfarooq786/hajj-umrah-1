@@ -59,27 +59,40 @@
                                     </div>
 
                                     <div class="col-md-6 row">
-                                            <label class="col-md-3 label-control" for="userinput1">Image</label>
-                                            <div
-                                                style="display: flex; align-items: center; justify-content: space-between; ">
-                                                @if ($vehicle->image != null)
-                                                    <img src="{{ asset('uploads/' . $vehicle->image) }} "
-                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
+                                        <label class="col-md-3 label-control" for="userinput1">Image</label>
+                                        <div style="display: flex; align-items: center; justify-content: space-between; ">
+                                            @if ($vehicle->image != null)
+                                                <img src="{{ asset('uploads/' . $vehicle->image) }} "
+                                                    style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
                                                 border-radius: 5px;
                                                 padding: 5px;">
-                                                @else
-                                                    <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }} "
-                                                        style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
+                                            @else
+                                                <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }} "
+                                                    style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
                                                 border-radius: 5px; 
                                                 padding: 5px;">
-                                                @endif
-                                                <div class="col-md-9">
-                                                    <input type="file" class="form-control border-primary"
-                                                        name="image">
+                                            @endif
+                                            <div class="col-md-9">
+                                                <input type="file" class="form-control border-primary" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-2 label-control">Display on Website</label>
+                                            <div class="col-md-6">
+                                                <div class="custom-control custom-switch custom-switch-lg">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="displayOnWebsite" name="display" value="1"
+                                                        {{ $vehicle->display ? 'checked' : '' }}>
+                                                    <label id="displayOnWebsiteLabel" class="custom-control-label"
+                                                        for="displayOnWebsite">{{ $vehicle->display ? 'Yes, display this hotel on the website' : 'No, do not display this hotel on the website' }}</label>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="form-actions center">
@@ -94,3 +107,35 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    <script src="{{ asset('app-assets/vendors/js/forms/select/selectize.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
+
+    <script>
+        function toggleLabel() {
+            var checkbox = document.getElementById('displayOnWebsite');
+            var label = document.getElementById('displayOnWebsiteLabel');
+
+            if (checkbox.checked) {
+                label.textContent = "Yes, display this hotel on the website";
+            } else {
+                label.textContent = "No, do not display this hotel on the website";
+            }
+        }
+
+        document.getElementById('displayOnWebsite').addEventListener('change', toggleLabel);
+        toggleLabel();
+    </script>
+    @if (Session::get('success'))
+        <script>
+            $(document).ready(function() {
+                toastr.success('<?php echo Session::get('success'); ?>', 'Fast Lines Says', {
+                    timeOut: 2000
+                })
+            });
+        </script>
+    @endif
+@endsection
+

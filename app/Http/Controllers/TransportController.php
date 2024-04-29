@@ -201,10 +201,11 @@ class TransportController extends Controller
     {
         $current_currency = CurrencyConversion::first();
         $transport = Transport::findOrFail($id);
-
         $transport->vehicle_id = $request->vehicle_id;
         $transport->route_id = $request->route_id;
         $transport->Commision = $request->commision;
+        $display = $request->display ?? 0;
+        $transport->display = $display;
         foreach ($request->cost as $key => $costData) {
             $costId = $request->cost_id[$key] ?? null; // Existing cost ID
     

@@ -19,6 +19,7 @@
         </div>
 
         {{-- Accomodation Pricing Section --}}
+        @if ($hotel_rooms->isNotEmpty())
         <div>
             <h4 class="font-semibold text-[20px]">Acomodation Pricing</h4>
             <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
@@ -35,117 +36,61 @@
                                 Weekend Days Rate
                             </th>
                         </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Single Room
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                100 (SAR)
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900  whitespace-nowrap dark:text-white font-medium">
-                                120 (SAR)
-                            </th>
-                        </tr>
-
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Double Room
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                100 (SAR)
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900  whitespace-nowrap dark:text-white font-medium">
-                                120 (SAR)
-                            </th>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Triple Room
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                100 (SAR)
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900  whitespace-nowrap dark:text-white font-medium">
-                                120 (SAR)
-                            </th>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Quad Room
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                100 (SAR)
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900  whitespace-nowrap dark:text-white font-medium">
-                                120 (SAR)
-                            </th>
-                        </tr>
+                        @foreach ($hotel_rooms as $room)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
+                                    {{ $room->room_name }}
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
+                                    {{ $room->weekdays_price }} (SAR)
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900  whitespace-nowrap dark:text-white font-medium">
+                                    {{ $room->weekend_price }} (SAR)
+                                </th>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
+        @endif
 
         {{-- Meals Pricing Section --}}
-        <div>
-            <h4 class="font-semibold text-[20px]">Meals Pricing</h4>
-            <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
-                                Type
-                            </th>
-                            <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
-                                Price
-                            </th>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Breakfast
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                10 (SAR)
-                            </th>
-                        </tr>
-
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Half Meal
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                10 (SAR)
-                            </th>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                Full Meal
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
-                                10 (SAR)
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+        @if ($meals->isNotEmpty())
+            <div>
+                <h4 class="font-semibold text-[20px]">Meals Pricing</h4>
+                <div class="relative overflow-x-auto w-[60%] border border-gray-200 self-start mt-3">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-gray-900 dark:text-white">
+                            <tr>
+                                <th class="px-6 py-4 font-bold whitespace-nowrap">
+                                    Type
+                                </th>
+                                <th class="px-6 py-4 font-bold whitespace-nowrap">
+                                    Price
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($meals as $meal)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap dark:text-white font-medium">
+                                        {{ $meal->name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap dark:text-white font-medium">
+                                        {{ $meal->price }} (SAR)
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endif
+
 
         <div class="bg-red-500 flex">
             {!! $hotel->google_map !!}

@@ -367,12 +367,14 @@ class HotelController extends Controller
         $currency_conversion = CurrencyConversion::first();
 
         $display = $request->display ?? 0;
+        $displayPrice = $request->displayPrice ?? 0;
         $hotel = Hotel::findOrFail($id);
 
         $hotel->name = $request->name;
         $hotel->excerpt = $request->excerpt;
         $hotel->description = $request->description;
         $hotel->display = $display;
+        $hotel->displayPrice = $displayPrice;
         $hotel->Commision = $request->commision;
         $hotel->google_map = $request->google_map;
         $hotel->note = $request->note;
