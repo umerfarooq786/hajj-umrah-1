@@ -171,7 +171,7 @@
                                                 Date</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                                            name="validity" required> -->
+                                                                                    name="validity" required> -->
                                                 <input type="text" name="validity_start" required id="datepicker"
                                                     class="form-control border-primary" placeholder="Validity Date">
                                             </div>
@@ -183,7 +183,7 @@
                                                 Date</label>
                                             <div class="col-md-9">
                                                 <!-- <input type="date" id="userinput1" class="form-control border-primary" placeholder="Validity"
-                                                                            name="validity" required> -->
+                                                                                    name="validity" required> -->
                                                 <input type="text" name="validity_end" required id="datepicker"
                                                     class="form-control border-primary" placeholder="Validity Date">
                                             </div>
@@ -242,20 +242,22 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="imageUpload" class="file-upload">
-                                                Select Images
-                                                <input type="file" id="imageUpload" name="images[]" multiple>
-                                            </label>
-                                            <div id="imagePreviews"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
                                             <label class="col-md-3 label-control">Commision
                                             </label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
                                                     placeholder="Commision" name="commision" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class=" label-control">Images Gallery</label>
+                                            <div class="col-md-9">
+                                                <input type="file" id="imageUpload" name="images[]" multiple>
+                                                <div id="imagePreview"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -296,6 +298,19 @@
     </script>
 
     <script type="text/javascript">
+        $('#imageUpload').on('change', function(e) {
+            var files = e.target.files;
+            $('#imagePreview').empty();
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').append('<img src="' + e.target.result + '" class="img-fluid">');
+                }
+                reader.readAsDataURL(files[i]);
+            }
+        });
+
+
         function toggleLabels() {
             toggleLabel('displayOnWebsite', 'displayOnWebsiteLabel', 'Yes, display this hotel on the website calculation',
                 'No, do not display this hotel on the website calculation');
