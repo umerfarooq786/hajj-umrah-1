@@ -57,7 +57,7 @@ class CostController extends Controller
 
     public function calculate(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $no_of_persons = $request->no_of_persons;
         $makkah_id = $request->makkah_hotel;
         $makkah_hotel_room_type_id = $request->makkah_hotel_room_type;
