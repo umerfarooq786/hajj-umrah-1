@@ -201,7 +201,7 @@
                 <h4 class="font-semibold text-sm pt-3">Select Stay in Madinah</h4>
                 <div id="madinahDiv">
                     <div class="flex flex-col lg:flex-row stay relative gap-3">
-                        <select id="madinah_hotel" name="madinah_hotel"
+                        <select id="madinah_hotel" name="madinah_hotel[]"
                             class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                             <option value="">Select Hotel</option>
                             @foreach ($madina_hotels as $hotel)
@@ -209,7 +209,7 @@
                             @endforeach
                         </select>
 
-                        <select id="madinah_hotel_room_type" name="madinah_hotel_room_type"
+                        <select id="madinah_hotel_room_type" name="madinah_hotel_room_type[]"
                             class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
                             <option value="">Select Room Type</option>
                             <option value="1">Single</option>
@@ -232,14 +232,14 @@
                         <!-- test end -->
                         <div class=" flex items-center relative lg:w-[150px]">
                             <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                            <input type="text" id="madinah_hotel_start_date" name="madinah_hotel_start_date"
+                            <input type="text" id="madinah_hotel_start_date" name="madinah_hotel_start_date[]"
                                 placeholder="Start Date"
                                 class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                         </div>
 
                         <div class="flex items-center relative lg:w-[150px]">
                             <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                            <input type="text" id="madinah_hotel_end_date" name="madinah_hotel_end_date"
+                            <input type="text" id="madinah_hotel_end_date" name="madinah_hotel_end_date[]"
                                 placeholder="End Date"
                                 class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                         </div>
@@ -252,7 +252,7 @@
                 <h4 class="font-semibold text-sm pt-3">Select Stay in Jeddah</h4>
                 <div id="JeddahDiv">
                     <div class="flex flex-col lg:flex-row stay relative gap-3">
-                        <select id="jeddah_hotel" name="jeddah_hotel"
+                        <select id="jeddah_hotel" name="jeddah_hotel[]"
                             class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                             <option value="">Select Hotel</option>
                             @foreach ($jeddah_hotels as $hotel)
@@ -260,7 +260,7 @@
                             @endforeach
                         </select>
 
-                        <select id="jeddah_hotel_room_type" name="jeddah_hotel_room_type"
+                        <select id="jeddah_hotel_room_type" name="jeddah_hotel_room_type[]"
                             class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
                             <option value="">Select Room Type</option>
                             <option value="1">Single</option>
@@ -283,14 +283,14 @@
                         <!-- test end -->
                         <div class=" flex items-center relative lg:w-[150px]">
                             <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                            <input type="text" id="jeddah_hotel_start_date" name="jeddah_hotel_start_date"
+                            <input type="text" id="jeddah_hotel_start_date" name="jeddah_hotel_start_date[]"
                                 placeholder="Start Date"
                                 class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                         </div>
 
                         <div class="flex items-center relative lg:w-[150px]">
                             <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                            <input type="text" id="jeddah_hotel_end_date" name="jeddah_hotel_end_date"
+                            <input type="text" id="jeddah_hotel_end_date" name="jeddah_hotel_end_date[]"
                                 placeholder="End Date"
                                 class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                         </div>
@@ -331,13 +331,22 @@
                         </div>
                     </div>
                 </div>
-                <button id="addMoreBtn" class="btn btn-primary">Add More</button>
+                <button id="addMoreBtn" class="btn btn-primary">Add More</button> <br>
 
-
+                <h4 class="font-semibold text-sm pt-3">Maktab </h4>
+                <select id="maktab" name="maktab"
+                    class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                    <option value="">Select Room Type</option>
+                    @foreach ($maktabs as $maktab)
+                        <option value="{{ $maktab->id }}">
+                            {{ $maktab->name }}
+                        </option>
+                    @endforeach
+                </select>
 
 
                 <div class="flex flex-col md:flex-row  relative">
-                    <input name="visa" value="hajj" hidden>
+                    <input name="visa" value="Hajj" hidden>
                 </div>
 
                 <div class="flex justify-center">
@@ -368,7 +377,6 @@
             });
 
             $(document).on('change', '#makkah_hotel', function() {
-                alert("maddyAgain");
                 var selectedValue = $(this).val();
                 $.ajax({
                     url: '{{ route('calculate.hotel_room_type') }}',
@@ -428,33 +436,35 @@
                     }
                 });
 
+                function populate_makkah_hotel_room_type(data) {
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the second dropdown
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+
+                    // Populate the second dropdown with options
+                    $('#makkah_hotel_room_type').html(options);
+                }
+
+                function populate_makkah_hotel_meal_type(data) {
+                    var listItems = '';
+
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += '<li class="flex items-center gap-3">';
+                        listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
+                            '" name="makkah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" class="outline-none ring-0">';
+                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>';
+                        listItems += '</li>';
+                    }
+
+                    $('#makkah_meal_card ul').html(listItems);
+                }
             });
 
-            function populate_makkah_hotel_room_type(data) {
-                var options = '<option value="">Select Room Type</option>'; // Add a default option
-
-                // Loop through the data and create options for the second dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-                }
-
-                // Populate the second dropdown with options
-                $('#makkah_hotel_room_type').html(options);
-            }
-
-            function populate_makkah_hotel_meal_type(data) {
-                var listItems = '';
-
-                for (var i = 0; i < data.length; i++) {
-                    listItems += '<li class="flex items-center gap-3">';
-                    listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
-                        '" name="makkah_meal[][]" value="' + data[i].id + '" class="outline-none ring-0">';
-                    listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name + '</label>';
-                    listItems += '</li>';
-                }
-
-                $('#makkah_meal_card ul').html(listItems);
-            }
 
             $(document).on('change', '#makkah_hotel1', function() {
                 var selectedValue = $(this).val();
@@ -517,35 +527,37 @@
                     }
                 });
 
+                function populate_makkah_hotel_room_type1(data, selectElement) {
+
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the dropdown
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+
+                    // Populate the corresponding dropdown with options
+                    $(selectElement).closest('div').find('.makkah_hotel_room_type1').html(options);
+                }
+
+
+                function populate_makkah_hotel_meal_type1(data, selectElement) {
+                    var listItems = '';
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += '<li class="flex items-center gap-3">';
+                        listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
+                            '" name="makkah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" class="outline-none ring-0">';
+                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>';
+                        listItems += '</li>';
+                    }
+
+                    // Find the closest .makkah_meal_card ul to the changed select element and update it
+                    $(selectElement).closest('div').find('.makkah_meal_card ul').html(listItems);
+                }
             });
 
-            function populate_makkah_hotel_room_type1(data, selectElement) {
-
-                var options = '<option value="">Select Room Type</option>'; // Add a default option
-
-                // Loop through the data and create options for the dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-                }
-
-                // Populate the corresponding dropdown with options
-                $(selectElement).closest('div').find('.makkah_hotel_room_type1').html(options);
-            }
-
-
-            function populate_makkah_hotel_meal_type1(data, selectElement) {
-                var listItems = '';
-                for (var i = 0; i < data.length; i++) {
-                    listItems += '<li class="flex items-center gap-3">';
-                    listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
-                        '" name="makkah_meal[][]" value="' + data[i].id + '" class="outline-none ring-0">';
-                    listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name + '</label>';
-                    listItems += '</li>';
-                }
-
-                // Find the closest .makkah_meal_card ul to the changed select element and update it
-                $(selectElement).closest('div').find('.makkah_meal_card ul').html(listItems);
-            }
 
 
             $('#madinah_hotel').change(function() {
@@ -611,35 +623,38 @@
                 });
 
 
+
+
+                function populate_madinah_hotel_room_type(data) {
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the second dropdown
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+
+                    // Populate the second dropdown with options
+                    $('#madinah_hotel_room_type').html(options);
+                }
+
+                function populate_madinah_hotel_meal_type(data) {
+                    var listItems = '';
+
+                    // Loop through the data and create list items with checkboxes
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += '<li class="flex items-center gap-3">';
+                        listItems += '<input type="checkbox" id="madinah_meal' + data[i].id +
+                            '" name="madinah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" class="outline-none ring-0">';
+                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>';
+                        listItems += '</li>';
+                    }
+
+                    // Populate the ul with the generated list items
+                    $('#madinah_meal_card ul').html(listItems);
+                }
             });
-
-            function populate_madinah_hotel_room_type(data) {
-                var options = '<option value="">Select Room Type</option>'; // Add a default option
-
-                // Loop through the data and create options for the second dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-                }
-
-                // Populate the second dropdown with options
-                $('#madinah_hotel_room_type').html(options);
-            }
-
-            function populate_madinah_hotel_meal_type(data) {
-                var listItems = '';
-
-                // Loop through the data and create list items with checkboxes
-                for (var i = 0; i < data.length; i++) {
-                    listItems += '<li class="flex items-center gap-3">';
-                    listItems += '<input type="checkbox" id="madinah_meal' + data[i].id +
-                        '" name="madinah_meal[][]" value="' + data[i].id + '" class="outline-none ring-0">';
-                    listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name + '</label>';
-                    listItems += '</li>';
-                }
-
-                // Populate the ul with the generated list items
-                $('#madinah_meal_card ul').html(listItems);
-            }
 
             $(document).on('change', '#madinah_hotel1', function() {
                 var selectedValue = $(this).val();
@@ -675,7 +690,8 @@
                     },
                     success: function(response) {
                         var note = response;
-                        $('#madinah_hotel_note').html('<b>Note Of Madinah Selected Hotel:</b> ' +
+                        $('#madinah_hotel_note').html(
+                            '<b>Note Of Madinah Selected Hotel:</b> ' +
                             note).show();
                     },
                     error: function(xhr, status, error) {
@@ -702,37 +718,39 @@
                     }
                 });
 
+
+
+                function populate_madinah_hotel_room_type1(data, selectElement) {
+
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the dropdown
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+
+                    // Populate the corresponding dropdown with options
+                    $(selectElement).closest('div').find('.madinah_hotel_room_type1').html(options);
+                }
+
+
+                function populate_madinah_hotel_meal_type1(data, selectElement) {
+                    var listItems = '';
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += '<li class="flex items-center gap-3">';
+                        listItems += '<input type="checkbox" id="madinah-meal-' + data[i].id +
+                            '" name="madinah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" class="outline-none ring-0">';
+                        listItems += '<label for="madinah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>';
+                        listItems += '</li>';
+                    }
+
+                    // Find the closest .makkah_meal_card ul to the changed select element and update it
+                    $(selectElement).closest('div').find('.madinah_meal_card ul').html(listItems);
+                }
+
             });
-
-            function populate_madinah_hotel_room_type1(data, selectElement) {
-
-                var options = '<option value="">Select Room Type</option>'; // Add a default option
-
-                // Loop through the data and create options for the dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-                }
-
-                // Populate the corresponding dropdown with options
-                $(selectElement).closest('div').find('.madinah_hotel_room_type1').html(options);
-            }
-
-
-            function populate_madinah_hotel_meal_type1(data, selectElement) {
-                var listItems = '';
-                for (var i = 0; i < data.length; i++) {
-                    listItems += '<li class="flex items-center gap-3">';
-                    listItems += '<input type="checkbox" id="madinah-meal-' + data[i].id +
-                        '" name="madinah_meal[][]" value="' + data[i].id + '" class="outline-none ring-0">';
-                    listItems += '<label for="madinah-meal-' + data[i].id + '">' + data[i].name + '</label>';
-                    listItems += '</li>';
-                }
-
-                // Find the closest .makkah_meal_card ul to the changed select element and update it
-                $(selectElement).closest('div').find('.madinah_meal_card ul').html(listItems);
-            }
-
-
             $('#jeddah_hotel').change(function() {
                 var selectedValue = $(this).val();
                 // Make AJAX request
@@ -796,35 +814,38 @@
                 });
 
 
+
+
+                function populate_jeddah_hotel_room_type(data) {
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the second dropdown
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+
+                    // Populate the second dropdown with options
+                    $('#jeddah_hotel_room_type').html(options);
+                }
+
+                function populate_jeddah_hotel_meal_type(data) {
+                    var listItems = '';
+
+                    // Loop through the data and create list items with checkboxes
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += '<li class="flex items-center gap-3">';
+                        listItems += '<input type="checkbox" id="jeddah_meal' + data[i].id +
+                            '" name="jeddah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" class="outline-none ring-0">';
+                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>';
+                        listItems += '</li>';
+                    }
+
+                    // Populate the ul with the generated list items
+                    $('#jeddah_meal_card ul').html(listItems);
+                }
             });
-
-            function populate_jeddah_hotel_room_type(data) {
-                var options = '<option value="">Select Room Type</option>'; // Add a default option
-
-                // Loop through the data and create options for the second dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-                }
-
-                // Populate the second dropdown with options
-                $('#jeddah_hotel_room_type').html(options);
-            }
-
-            function populate_jeddah_hotel_meal_type(data) {
-                var listItems = '';
-
-                // Loop through the data and create list items with checkboxes
-                for (var i = 0; i < data.length; i++) {
-                    listItems += '<li class="flex items-center gap-3">';
-                    listItems += '<input type="checkbox" id="jeddah_meal' + data[i].id +
-                        '" name="jeddah_meal[]" value="' + data[i].id + '" class="outline-none ring-0">';
-                    listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name + '</label>';
-                    listItems += '</li>';
-                }
-
-                // Populate the ul with the generated list items
-                $('#jeddah_meal_card ul').html(listItems);
-            }
 
             $(document).on('change', '#jeddah_hotel1', function() {
                 var selectedValue = $(this).val();
@@ -887,36 +908,38 @@
                     }
                 });
 
+
+
+                function populate_jaddah_hotel_room_type1(data, selectElement) {
+
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the dropdown
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+
+                    // Populate the corresponding dropdown with options
+                    $(selectElement).closest('div').find('.jeddah_hotel_room_type1').html(options);
+                }
+
+
+                function populate_jaddah_hotel_meal_type1(data, selectElement) {
+                    var listItems = '';
+                    for (var i = 0; i < data.length; i++) {
+                        listItems += '<li class="flex items-center gap-3">';
+                        listItems += '<input type="checkbox" id="jaddah-meal-' + data[i].id +
+                            '" name="jaddah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" class="outline-none ring-0">';
+                        listItems += '<label for="jaddah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>';
+                        listItems += '</li>';
+                    }
+
+                    // Find the closest .makkah_meal_card ul to the changed select element and update it
+                    $(selectElement).closest('div').find('.jeddah_meal_card ul').html(listItems);
+                }
             });
-
-            function populate_jaddah_hotel_room_type1(data, selectElement) {
-
-                var options = '<option value="">Select Room Type</option>'; // Add a default option
-
-                // Loop through the data and create options for the dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-                }
-
-                // Populate the corresponding dropdown with options
-                $(selectElement).closest('div').find('.jeddah_hotel_room_type1').html(options);
-            }
-
-
-            function populate_jaddah_hotel_meal_type1(data, selectElement) {
-                var listItems = '';
-                for (var i = 0; i < data.length; i++) {
-                    listItems += '<li class="flex items-center gap-3">';
-                    listItems += '<input type="checkbox" id="jaddah-meal-' + data[i].id +
-                        '" name="jaddah_meal[][]" value="' + data[i].id + '" class="outline-none ring-0">';
-                    listItems += '<label for="jaddah-meal-' + data[i].id + '">' + data[i].name + '</label>';
-                    listItems += '</li>';
-                }
-
-                // Find the closest .makkah_meal_card ul to the changed select element and update it
-                $(selectElement).closest('div').find('.jeddah_meal_card ul').html(listItems);
-            }
-
 
             $('#addMoreBtn').click(function(e) {
                 e.preventDefault();
@@ -993,7 +1016,7 @@
                     'class="endDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">' +
                     '</div>' +
                     '<button class="deleteMakkahHotelBtn">Delete</button>' +
-                    '</div>'); 
+                    '</div>');
 
                 // Append the new HTML structure to the container
                 $('#makkahDiv').append(newInputGroup);

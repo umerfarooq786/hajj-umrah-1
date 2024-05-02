@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Visa extends Model
 {
     use HasFactory;
-    protected $fillable = ['hajj_charges', 'umrah_charges','current_currency','hajj_commision','umrah_commision'];
+    protected $fillable = ['hajj_charges', 'umrah_charges','current_currency','show_detail','hajj_commision','umrah_commision'];
 }

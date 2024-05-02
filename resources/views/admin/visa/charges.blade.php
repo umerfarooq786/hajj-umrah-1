@@ -58,7 +58,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Commision" name="hajj_commision"  value="{{ $visa->hajj_commision }}" required>
+                                                    placeholder="Commision" name="hajj_commision"
+                                                    value="{{ $visa->hajj_commision }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -68,11 +69,14 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Commision" name="umrah_commision"  value="{{ $visa->umrah_commision }}" required>
+                                                    placeholder="Commision" name="umrah_commision"
+                                                    value="{{ $visa->umrah_commision }}" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-md-3 label-control" style="" for="show_hajj">Show
@@ -81,6 +85,17 @@
                                             <input type="checkbox" id="show_hajj" name="show_hajj" value="1"
                                                 {{ $visa->show_hajj ? 'checked' : '' }}>
                                             <label for="show_hajj">Show Hajj Calculation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" style="" for="show_hajj">Show
+                                            Calculation Detailed Result</label>
+                                        <div class="col-md-9">
+                                            <input type="checkbox" id="show_detail" name="show_detail" value="1"
+                                                {{ $visa->show_detail ? 'checked' : '' }}>
+                                            <label for="show_detail">Show Detailed Calculations</label>
                                         </div>
                                     </div>
                                 </div>
