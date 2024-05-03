@@ -101,14 +101,14 @@
             padding: 8px;
             text-align: left;
             border-bottom: 2px solid #ddd;
-            font-size: 16px;
+            font-size: 14px;
             /* Bottom border for header */
         }
 
         /* Style for table rows */
         td {
             padding: 8px;
-            font-size: 14px !important;
+            font-size: 12px !important;
             text-align: left !important;
             border-bottom: 1px solid #ddd;
             /* Bottom border for rows */
