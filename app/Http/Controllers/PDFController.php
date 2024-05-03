@@ -27,6 +27,7 @@ class PDFController extends Controller
         
         $data['unique_invoice'] = $invoice_number;
 
+        
 
         // return view('pdf.pdfDocument', $data);
         $pdf = PDF::loadView('pdf.pdfDocument', $data);
