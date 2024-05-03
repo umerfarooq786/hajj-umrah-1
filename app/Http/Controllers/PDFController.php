@@ -11,19 +11,16 @@ class PDFController extends Controller
     {   
         // return $request->all();
         $data = [
-            'total_cost'=>$request->total_cost, 
-            'makkah_hotel_room_price'=>$request->makkah_hotel_room_price, 
-            'makkah_hotel_room_perday_price'=>$request->makkah_hotel_room_perday_price, 
-            'madinah_hotel_room_price'=>$request->madinah_hotel_room_price, 
-            'madinah_hotel_room_perday_price'=>$request->madinah_hotel_room_perday_price, 
-            'mealPrices'=>$request->mealPrices, 
-            'transport_cost'=>$request->transport_cost, 
-            'visa'=>$request->visa, 
-            'visa_per_person'=>$request->visa_per_person,             
+            'show_detail'=> json_decode($request->show_detail), 
+            'hotelBookingResults'=>json_decode($request->hotelBookingResults), 
+            'MadinahhotelBookingResults'=>json_decode($request->MadinahhotelBookingResults), 
+            'JeddahhotelBookingResults'=>json_decode($request->JeddahhotelBookingResults), 
+            'RoutesData'=>json_decode($request->RoutesData), 
+            'grandtotal'=>json_decode($request->grandtotal),             
         ];
         
-        // return view('pdf.pdfDocument', $data);
-        $pdf = PDF::loadView('pdf.pdfDocument', $data);
-        return $pdf->download('document.pdf');
+        return view('pdf.pdfDocument', $data);
+        // $pdf = PDF::loadView('pdf.pdfDocument', $data);
+        // return $pdf->download('document.pdf');
     }
 }

@@ -30,17 +30,16 @@
 
             <form action="{{ route('download.pdf') }}" method="post">
                 @csrf
-                {{-- <input type="hidden" name="total_cost" value="{{ $total_cost }}">
-                <input type="hidden" name="makkah_hotel_room_price" value="{{ $makkah_hotel_room_price }}">
-                <input type="hidden" name="makkah_hotel_room_perday_price" value="{{ $makkah_hotel_room_perday_price }}">
-                <input type="hidden" name="madinah_hotel_room_price" value="{{ $madinah_hotel_room_price }}">
-                <input type="hidden" name="madinah_hotel_room_perday_price" value="{{ $madinah_hotel_room_perday_price }}">
-                <input type="hidden" name="mealPrices" value="{{ $mealPrices }}">
-                <input type="hidden" name="transport_cost" value="{{ $transport_cost }}">
-                <input type="hidden" name="visa" value="{{ $visa }}">
-                <input type="hidden" name="visa_per_person" value="{{ $visa_per_person }}"> --}}
-                {{-- <button type="submit"
-                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button> --}}
+                <input type="hidden" name="show_detail" value={{ json_encode($show_detail) }}>
+                <input type="hidden" name="hotelBookingResults" value={{ json_encode($hotelBookingResults) }}>
+                <input type="hidden" name="MadinahhotelBookingResults"
+                    value={{ json_encode($MadinahhotelBookingResults) }}>
+                <input type="hidden" name="JeddahhotelBookingResults" value={{ json_encode($JeddahhotelBookingResults) }}>
+                <input type="hidden" name="RoutesData" value={{ json_encode($RoutesData) }}>
+                <input type="hidden" name="grandtotal" value={{ json_encode($grandtotal) }}>
+
+                <button type="submit"
+                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
             </form>
         </div>
 

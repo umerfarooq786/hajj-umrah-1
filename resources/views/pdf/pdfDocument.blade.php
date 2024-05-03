@@ -142,59 +142,240 @@
                     </table>
                 </td>
             </tr>
-
-            <tr class="heading">
-                <td>Item</td>
-
-                <td>Price</td>
-            </tr>
-
-            <tr class="item">
-                <td>Makkah Hotel Room Cost </td>
-                <td>{{ $makkah_hotel_room_price }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Makkah Hotel Room Cost Per Day </td>
-                <td>{{ $makkah_hotel_room_perday_price }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Madinah Hotel Room Cost </td>
-                <td>{{ $madinah_hotel_room_price }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Makkah Hotel Room Cost Per Day </td>
-                <td>{{ $madinah_hotel_room_perday_price }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Meal Cost </td>
-                <td>{{ $mealPrices }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Transport Cost </td>
-                <td>{{ $transport_cost }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Total Visa Cost </td>
-                <td>{{ $visa }} SAR</td>
-            </tr>
-
-            <tr class="item">
-                <td>Visa Cost Per Person</td>
-                <td>{{ number_format($visa_per_person, 0, '.', '') }} SAR</td>
-            </tr>
-
-            <tr class="total">
-                <td></td>
-
-                <td>Total: {{ $total_cost }} SAR</td>
-            </tr>
         </table>
+
+        {{-- logic starts --}}
+        <div class="currency-content">
+            @if ($show_detail == '1')
+                <h4 class="font-bold self-start mt-5">Accomodation Details</h4>
+                <div class="relative overflow-x-auto  border border-gray1 w-full self-start">
+                    {{-- Accomodation Table --}}
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    City
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Hotel Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Room Type
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Meals
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Check In
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Check Out
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Rate
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    M.Rate
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($hotelBookingResults)
+                                @foreach ($hotelBookingResults as $result)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['city'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['hotel'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['room_type'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['meals'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['checkin'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['checkout'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id='makkah_rate'>
+                                            <b>SAR</b> {{ $result['rate'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id='makkah_m_rate'>
+                                            <b>SAR</b> {{ $result['meal_rate'] }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            @if ($hotelBookingResults)
+                                @foreach ($MadinahhotelBookingResults as $result)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['city'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['hotel'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['room_type'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['meals'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['checkin'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['checkout'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id='madinah_rate'>
+                                            <b>SAR</b> {{ $result['rate'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id='makdinah_m_rate'>
+                                            <b>SAR</b> {{ $result['meal_rate'] }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            @if ($hotelBookingResults)
+                                @foreach ($JeddahhotelBookingResults as $result)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['city'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['hotel'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['room_type'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['meals'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['checkin'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['checkout'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id='jaddah_rate'>
+                                            <b>SAR</b> {{ $result['rate'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id='jaddah_m_rate'>
+                                            <b>SAR</b> {{ $result['meal_rate'] }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Transportation table starts --}}
+                <h4 class="font-bold self-start mt-5">Transportation Details</h4>
+                <div class="relative overflow-x-auto w-auto border border-gray1 self-start">
+                    {{-- Accomodation Table --}}
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Route
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Vehicle
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Rate
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($RoutesData)
+                                @foreach ($RoutesData as $result)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['date'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['route'] }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                                            {{ $result['vehicle'] }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                            id="vehicle_rate">
+                                            <b>SAR</b> {{ $result['rate'] }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+            {{-- Grand Total table starts --}}
+            <h4 class="font-bold mt-5 self-start">Total Charges</h4>
+            <div class="relative overflow-x-auto w-auto border border-gray1 self-start ">
+                {{-- Accomodation Table --}}
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <tbody>
+                        @foreach ($grandtotal as $result)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Accommodation
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="accommodation">
+                                    {{-- <b>SAR</b> {{ $result['accommodation'] }} --}}
+                                    {{ $result->accommodation }}
+                                </th>
+
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Meals
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="meals">
+                                    {{-- <b>SAR</b> {{ $result['meals'] }} --}}
+                                    {{ $result->meals }}
+                                </th>
+
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Transportation
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="transportation">
+                                    {{-- <b>SAR</b> {{ $result['transportation'] }} --}}
+                                    {{ $result->transportation }}
+                                </th>
+
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Grand Total Payable
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="total">
+                                    {{-- <b>SAR</b> {{ $result['grandtotal'] }} --}}
+                                    {{ $result->grandtotal }}
+                                </th>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{-- logic ends --}}
     </div>
 </body>
 
