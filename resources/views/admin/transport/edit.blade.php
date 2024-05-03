@@ -83,7 +83,7 @@
                                                         id="displayOnWebsite" name="display" value="1"
                                                         {{ $transport->display ? 'checked' : '' }}>
                                                     <label id="displayOnWebsiteLabel" class="custom-control-label"
-                                                        for="displayOnWebsite">{{ $transport->display ? 'Yes, display this hotel on the website' : 'No, do not display this hotel on the website' }}</label>
+                                                        for="displayOnWebsite">{{ $transport->display ? 'Yes, display this transport on the website' : 'No, do not display this transport on the website' }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,9 +175,9 @@
             var label = document.getElementById('displayOnWebsiteLabel');
 
             if (checkbox.checked) {
-                label.textContent = "Yes, display this hotel on the website";
+                label.textContent = "Yes, display this transport on the website";
             } else {
-                label.textContent = "No, do not display this hotel on the website";
+                label.textContent = "No, do not display this transport on the website";
             }
         }
 

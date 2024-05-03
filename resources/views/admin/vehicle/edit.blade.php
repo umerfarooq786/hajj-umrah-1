@@ -88,7 +88,7 @@
                                                         id="displayOnWebsite" name="display" value="1"
                                                         {{ $vehicle->display ? 'checked' : '' }}>
                                                     <label id="displayOnWebsiteLabel" class="custom-control-label"
-                                                        for="displayOnWebsite">{{ $vehicle->display ? 'Yes, display this hotel on the website' : 'No, do not display this hotel on the website' }}</label>
+                                                        for="displayOnWebsite">{{ $vehicle->display ? 'Yes, display this vehicle on the website' : 'No, do not display this vehicle on the website' }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,9 +119,9 @@
             var label = document.getElementById('displayOnWebsiteLabel');
 
             if (checkbox.checked) {
-                label.textContent = "Yes, display this hotel on the website";
+                label.textContent = "Yes, display this vehicle on the website";
             } else {
-                label.textContent = "No, do not display this hotel on the website";
+                label.textContent = "No, do not display this vehicle on the website";
             }
         }
 
@@ -138,4 +138,3 @@
         </script>
     @endif
 @endsection
-
