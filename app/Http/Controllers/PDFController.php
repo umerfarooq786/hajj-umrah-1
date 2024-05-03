@@ -19,6 +19,15 @@ class PDFController extends Controller
             'RoutesData'=>json_decode($request->RoutesData), 
             'grandtotal'=>json_decode($request->grandtotal),             
         ];
+
+        // generating incoice id
+        $timestamp = now()->format('YmdHis');
+        $random = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+        $invoice_number = "INV-{$timestamp}-{$random}";
+        
+        $data['unique_invoice'] = $invoice_number;
+
+
         return view('pdf.pdfDocument', $data);
         // $pdf = PDF::loadView('pdf.pdfDocument', $data);
         // return $pdf->download('document.pdf');

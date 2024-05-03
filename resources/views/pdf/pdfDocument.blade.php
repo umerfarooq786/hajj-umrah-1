@@ -175,8 +175,9 @@
 
                             </td>
 
-                            <td>
+                            <td style="">
                                 Created: {{ now()->format('d-m-Y') }} <br />
+                                Invoice #: {{ $unique_invoice }}
                             </td>
                         </tr>
                     </table>
