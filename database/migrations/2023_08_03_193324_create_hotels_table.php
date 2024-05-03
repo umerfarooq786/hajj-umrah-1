@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('excerpt')->nullable();
-            $table->string('description')->nullable();
-            $table->string('note')->nullable();
+            // $table->string('excerpt')->nullable();
+            // $table->string('description')->nullable();
+            // $table->string('note')->nullable();
             $table->longText('google_map');
             $table->boolean('display')->default(false);
             $table->boolean('displayPrice')->default(false);
