@@ -10,7 +10,8 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/pdf.css') }}" type="text/css"> --}}
     <style>
         .invoice-box {
-            max-width: 1200px;
+            /* max-width: 1200px; */
+            width: 100%;
             margin: auto;
             padding: 30px;
             border: 1px solid #eee;
@@ -254,11 +255,11 @@
                                             {{ $result['checkout'] }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id='makkah_rate'>
-                                            <b>SAR</b> {{ $result['rate'] }}
+                                            <b></b> {{ $result['rate'] }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id='makkah_m_rate'>
-                                            <b>SAR</b> {{ $result['meal_rate'] }}
+                                            <b></b> {{ $result['meal_rate'] }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -282,11 +283,11 @@
                                             {{ $result['checkout'] }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id='madinah_rate'>
-                                            <b>SAR</b> {{ $result['rate'] }}
+                                            <b></b> {{ $result['rate'] }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id='makdinah_m_rate'>
-                                            <b>SAR</b> {{ $result['meal_rate'] }}
+                                            <b></b> {{ $result['meal_rate'] }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -310,11 +311,11 @@
                                             {{ $result['checkout'] }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id='jaddah_rate'>
-                                            <b>SAR</b> {{ $result['rate'] }}
+                                            <b></b> {{ $result['rate'] }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id='jaddah_m_rate'>
-                                            <b>SAR</b> {{ $result['meal_rate'] }}
+                                            <b></b> {{ $result['meal_rate'] }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -357,7 +358,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
                                             id="vehicle_rate">
-                                            <b>SAR</b> {{ $result['rate'] }}
+                                            <b></b> {{ $result['rate'] }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -380,7 +381,7 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="accommodation">
-                                    {{-- <b>SAR</b> {{ $result['accommodation'] }} --}}
+                                    {{-- <b></b> {{ $result['accommodation'] }} --}}
                                     {{ $result->accommodation }}
                                 </th>
 
@@ -393,7 +394,7 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="meals">
-                                    {{-- <b>SAR</b> {{ $result['meals'] }} --}}
+                                    {{-- <b></b> {{ $result['meals'] }} --}}
                                     {{ $result->meals }}
                                 </th>
 
@@ -406,7 +407,7 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="transportation">
-                                    {{-- <b>SAR</b> {{ $result['transportation'] }} --}}
+                                    {{-- <b></b> {{ $result['transportation'] }} --}}
                                     {{ $result->transportation }}
                                 </th>
 
@@ -419,7 +420,7 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="total">
-                                    {{-- <b>SAR</b> {{ $result['grandtotal'] }} --}}
+                                    {{-- <b></b> {{ $result['grandtotal'] }} --}}
                                     {{ $result->grandtotal }}
                                 </th>
                             </tr>

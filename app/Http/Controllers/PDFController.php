@@ -19,12 +19,8 @@ class PDFController extends Controller
             'RoutesData'=>json_decode($request->RoutesData), 
             'grandtotal'=>json_decode($request->grandtotal),             
         ];
-        // dd("ali");
-        // dd($data['hotelBookingResults']);
-        // print_r($data["hotelBookingResults"]);
-        // exit;
-        return view('pdf.pdfDocument', $data);
-        // $pdf = PDF::loadView('pdf.pdfDocument', $data);
-        // return $pdf->download('document.pdf');
+        // return view('pdf.pdfDocument', $data);
+        $pdf = PDF::loadView('pdf.pdfDocument', $data);
+        return $pdf->download('document.pdf');
     }
 }
