@@ -27,11 +27,12 @@
                 <option value="USD">USD</option>
                 <option value="PKR">PKR</option>
             </select>
-
+            {{-- {{ dd($hotelBookingResults) }} --}}
             <form action="{{ route('download.pdf') }}" method="post">
                 @csrf
                 <input type="hidden" name="show_detail" value={{ json_encode($show_detail) }}>
-                <input type="hidden" name="hotelBookingResults" value={{ json_encode($hotelBookingResults) }}>
+                <input type="hidden" name="hotelBookingResults" value={{ encrypt(json_encode($hotelBookingResults)) }}>
+
                 <input type="hidden" name="MadinahhotelBookingResults"
                     value={{ json_encode($MadinahhotelBookingResults) }}>
                 <input type="hidden" name="JeddahhotelBookingResults" value={{ json_encode($JeddahhotelBookingResults) }}>
@@ -43,7 +44,7 @@
             </form>
         </div>
 
-
+        {{-- {{ dd($hotelBookingResults) }} --}}
         <div id="contentSAR" class="currency-content">
             @if ($show_detail == '1')
                 <h4 class="font-bold self-start mt-5">Accomodation Details</h4>

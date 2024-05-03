@@ -10,7 +10,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/pdf.css') }}" type="text/css"> --}}
     <style>
         .invoice-box {
-            max-width: 800px;
+            max-width: 1200px;
             margin: auto;
             padding: 30px;
             border: 1px solid #eee;
@@ -73,6 +73,59 @@
             font-weight: bold;
         }
 
+        /* tables start */
+        .accomodation-table {
+            width: 100%;
+        }
+
+        .transportation-table {
+            width: 60% !important;
+        }
+
+        .total-table {
+            width: 60% !important;
+        }
+
+        .accomodation-table,
+        .transportation-table,
+        .total-table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        /* Style for table headers */
+        th {
+            background-color: #f2f2f2;
+            padding: 8px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            /* Bottom border for header */
+        }
+
+        /* Style for table rows */
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            /* Bottom border for rows */
+        }
+
+        /* Alternate row color */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Hover effect */
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Style for first column */
+        td:first-child {
+            font-weight: bold;
+        }
+
+        /* tables end */
         @media only screen and (max-width: 600px) {
             .invoice-box table tr.top table td {
                 width: 100%;
@@ -145,13 +198,13 @@
         </table>
 
         {{-- logic starts --}}
-        <div class="currency-content">
+        <div class="report">
             @if ($show_detail == '1')
-                <h4 class="font-bold self-start mt-5">Accomodation Details</h4>
-                <div class="relative overflow-x-auto  border border-gray1 w-full self-start">
+                <h4 class="">Accomodation Details</h4>
+                <div class="">
                     {{-- Accomodation Table --}}
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="accomodation-table">
+                        <thead class="">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     City
@@ -182,6 +235,7 @@
                         </thead>
                         <tbody>
                             @if ($hotelBookingResults)
+
                                 @foreach ($hotelBookingResults as $result)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
@@ -270,11 +324,11 @@
                 </div>
 
                 {{-- Transportation table starts --}}
-                <h4 class="font-bold self-start mt-5">Transportation Details</h4>
-                <div class="relative overflow-x-auto w-auto border border-gray1 self-start">
+                <h4 class="">Transportation Details</h4>
+                <div class="">
                     {{-- Accomodation Table --}}
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="transportation-table">
+                        <thead class="">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     Date
@@ -313,15 +367,14 @@
                 </div>
             @endif
             {{-- Grand Total table starts --}}
-            <h4 class="font-bold mt-5 self-start">Total Charges</h4>
-            <div class="relative overflow-x-auto w-auto border border-gray1 self-start ">
+            <h4 class="">Total Charges</h4>
+            <div class="">
                 {{-- Accomodation Table --}}
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table class="total-table">
                     <tbody>
                         @foreach ($grandtotal as $result)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                            <tr class="">
+                                <th scope="row" class="">
                                     Accommodation
                                 </th>
                                 <th scope="row"
