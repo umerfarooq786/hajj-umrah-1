@@ -274,7 +274,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="${removeButtonId}" class="btn btn-danger removeValidity" style="position:absolute; right:300px"> - </button>
+                <button id="${removeButtonId}" class="btn btn-danger removeValidity" style="position:absolute; right:200px"> - </button>
             </div>
         </div>`;
 

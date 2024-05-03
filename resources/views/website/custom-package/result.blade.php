@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="w-[95%] md:w-[80%] lg:w-[60%] mx-auto py-10 flex flex-col items-center justify-start gap-5 ">
+    <div class="w-[95%] md:w-[90%] lg:w-[80%] mx-auto py-10 flex flex-col items-center justify-start gap-5 ">
         <h2 class="text-green-600">Note: The rates may vary, kindly contact admin by clicking
             <a href="{{ url('contact') }}" class="text-red-600">this link</a>
         </h2>
