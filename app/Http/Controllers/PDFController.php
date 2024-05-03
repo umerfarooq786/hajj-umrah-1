@@ -19,8 +19,8 @@ class PDFController extends Controller
             'RoutesData'=>json_decode($request->RoutesData), 
             'grandtotal'=>json_decode($request->grandtotal),             
         ];
-        // return view('pdf.pdfDocument', $data);
-        $pdf = PDF::loadView('pdf.pdfDocument', $data);
-        return $pdf->download('document.pdf');
+        return view('pdf.pdfDocument', $data);
+        // $pdf = PDF::loadView('pdf.pdfDocument', $data);
+        // return $pdf->download('document.pdf');
     }
 }

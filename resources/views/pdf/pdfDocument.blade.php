@@ -10,8 +10,8 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/pdf.css') }}" type="text/css"> --}}
     <style>
         .invoice-box {
-            /* max-width: 1200px; */
-            width: 100%;
+            max-width: 1300px;
+            /* width: 100%; */
             margin: auto;
             padding: 30px;
             border: 1px solid #eee;
@@ -21,6 +21,7 @@
             font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
             color: #555;
         }
+
 
         .invoice-box table {
             width: 100%;
@@ -100,13 +101,15 @@
             padding: 8px;
             text-align: left;
             border-bottom: 2px solid #ddd;
+            font-size: 16px;
             /* Bottom border for header */
         }
 
         /* Style for table rows */
         td {
             padding: 8px;
-            text-align: left;
+            font-size: 14px !important;
+            text-align: left !important;
             border-bottom: 1px solid #ddd;
             /* Bottom border for rows */
         }
