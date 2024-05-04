@@ -367,6 +367,10 @@
                 $('#MadinahmealOptions').addClass('hidden');
             });
 
+            $Makkahbtn_i = 1;
+            $Madinahbtn_i = 1;
+            $Jadahbtn_i = 1;
+
             $(document).on('change', '#makkah_hotel', function() {
                 var selectedValue = $(this).val();
                 $.ajax({
@@ -441,11 +445,11 @@
 
                 function populate_makkah_hotel_meal_type(data) {
                     var listItems = '';
-
+                    var makkahbtn = $Makkahbtn_i;
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
                         listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
-                            '" name="makkah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" name="makkah_meal[' + makkahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
                         listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
                             '</label>';
@@ -456,10 +460,12 @@
                 }
             });
 
+            
 
             $(document).on('change', '#makkah_hotel1', function() {
                 var selectedValue = $(this).val();
                 var selectElement = this;
+
                 $.ajax({
                     url: '{{ route('calculate.hotel_room_type') }}',
                     method: 'POST',
@@ -533,13 +539,14 @@
 
 
                 function populate_makkah_hotel_meal_type1(data, selectElement) {
+                    var makkahbtn = $Makkahbtn_i;
                     var listItems = '';
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
                         listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
-                            '" name="makkah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" name="makkah_meal[' + makkahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
-                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
+                        listItems += '<label for="makkah-meal-' + makkahbtn + '">' + data[i].name +
                             '</label>';
                         listItems += '</li>';
                     }
@@ -630,12 +637,12 @@
 
                 function populate_madinah_hotel_meal_type(data) {
                     var listItems = '';
-
+                    var madinahbtn = $Madinahbtn_i;
                     // Loop through the data and create list items with checkboxes
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
                         listItems += '<input type="checkbox" id="madinah_meal' + data[i].id +
-                            '" name="madinah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" name="madinah_meal[' + madinahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
                         listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
                             '</label>';
@@ -727,10 +734,11 @@
 
                 function populate_madinah_hotel_meal_type1(data, selectElement) {
                     var listItems = '';
+                    var madinahbtn = $Madinahbtn_i;
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
                         listItems += '<input type="checkbox" id="madinah-meal-' + data[i].id +
-                            '" name="madinah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" name="madinah_meal[' + madinahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
                         listItems += '<label for="madinah-meal-' + data[i].id + '">' + data[i].name +
                             '</label>';
@@ -821,12 +829,12 @@
 
                 function populate_jeddah_hotel_meal_type(data) {
                     var listItems = '';
-
+                    var jaddahbtn = $Jadahbtn_i;
                     // Loop through the data and create list items with checkboxes
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
                         listItems += '<input type="checkbox" id="jeddah_meal' + data[i].id +
-                            '" name="jeddah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" name="jeddah_meal[' + jaddahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
                         listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
                             '</label>';
@@ -917,10 +925,11 @@
 
                 function populate_jaddah_hotel_meal_type1(data, selectElement) {
                     var listItems = '';
+                    var jaddahbtn = $Jadahbtn_i;
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
                         listItems += '<input type="checkbox" id="jaddah-meal-' + data[i].id +
-                            '" name="jaddah_meal[' + selectedValue + '][]" value="' + data[i].id +
+                            '" name="jeddah_meal[' + jaddahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
                         listItems += '<label for="jaddah-meal-' + data[i].id + '">' + data[i].name +
                             '</label>';
@@ -1008,14 +1017,15 @@
                     '</div>' +
                     '<button class="deleteMakkahHotelBtn">Delete</button>' +
                     '</div>');
-
                 // Append the new HTML structure to the container
                 $('#makkahDiv').append(newInputGroup);
                 initFlatpickr(newInputGroup[0]);
+                $Makkahbtn_i++;
             });
             // Add click event listener to dynamically added delete buttons using event delegation
             $('#makkahDiv').on('click', '.deleteMakkahHotelBtn', function(e) {
                 e.preventDefault();
+                $Makkahbtn_i--;
                 $(this).closest('.stay').remove(); // Adjusted the selector here
             });
             // Madinah Add More Button
@@ -1060,7 +1070,7 @@
                     '</div>' +
                     '<button class="deleteMadinahHotelBtn">Delete</button>' +
                     '</div>');
-
+                    $Madinahbtn_i++;
                 // Append the new HTML structure to the container
                 $('#madinahDiv').append(newInputGroup);
                 initFlatpickr(newInputGroup[0]);
@@ -1068,6 +1078,7 @@
             // Add click event listener to dynamically added delete buttons using event delegation
             $('#madinahDiv').on('click', '.deleteMadinahHotelBtn', function(e) {
                 e.preventDefault();
+                $Madinahbtn_i--;
                 $(this).closest('.stay').remove(); // Adjusted the selector here
             });
             // JeddahAdd More Button
@@ -1112,7 +1123,7 @@
                     '</div>' +
                     '<button class="deleteJeddahHotelBtn">Delete</button>' +
                     '</div>');
-
+                    $Jadahbtn_i++;
                 // Append the new HTML structure to the container
                 $('#JeddahDiv').append(newInputGroup);
                 initFlatpickr(newInputGroup[0]);
@@ -1120,6 +1131,7 @@
             // Add click event listener to dynamically added delete buttons using event delegation
             $('#JeddahDiv').on('click', '.deleteJeddahHotelBtn', function(e) {
                 e.preventDefault();
+                $Jadahbtn_i--;
                 $(this).closest('.stay').remove(); // Adjusted the selector here
             });
         });

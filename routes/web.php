@@ -19,6 +19,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\PDFController;
+use Barryvdh\DomPDF\Facade\Pdf;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -134,4 +135,8 @@ Route::post('/generate-pdf', [PDFController::class, 'generatePDF'])->name('downl
 Route::get('/pdfpdf', function () {
     $data= [];
     return view("pdf.pdfDocument", ['data' => $data]);
+});
+Route::get('test-pdf', function() {
+    $pdf = PDF::loadView('welcome'); // Ensure the 'welcome' view exists
+    return $pdf->stream('test.pdf');
 });

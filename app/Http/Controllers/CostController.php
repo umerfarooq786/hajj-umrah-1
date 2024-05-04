@@ -102,6 +102,7 @@ class CostController extends Controller
 
             $hotelBookingResults = array();
             if ($makkah_id[0] != NULL) {
+                $MealCounter = 1;
                 foreach ($request->makkah_hotel as $index => $makkah_id) {
                     $makkah_hotel_room_type_id = $request->makkah_hotel_room_type[$index];
                     $makkah_hotel_start_date = $request->makkah_hotel_start_date[$index];
@@ -188,24 +189,25 @@ class CostController extends Controller
                                     $makkah_hotel_room_price = $makkah_hotel_room_price_weekdays + $makkah_hotel_room_price_weekendDays;
                                     $commissionAmount = ($commision / 100) * $makkah_hotel_room_price;
                                     $total_hotel_cost += $makkah_hotel_room_price + $commissionAmount;
+                                    $makkah_hotel_room_price = $makkah_hotel_room_price + $commissionAmount;
                                     $makkah_hotel_room_perday_price = $hotelRooms->weekdays_price;
 
-                                    if ($request->makkah_meal) {
-                                        $mealIds = $request->makkah_meal[$makkah_id];
-                                        if ($mealIds) {
-                                            foreach ($mealIds as $mealId) {
-                                                $meal = Meal::with('mealType')
-                                                    ->where('hotel_id', $makkah_id)
-                                                    ->where('meal_type_id', $mealId)->first();
-                                                if ($meal) {
-                                                    $mealsName .= ($mealsName ? ', ' : '') . $meal->mealType->name;
-                                                    $mealPrices += $meal->price * $intersectionDays;
-                                                }
+                                    $mealIds = $request->makkah_meal[$MealCounter] ?? [];
+                                    if ($mealIds) {
+                                        foreach ($mealIds as $mealId) {
+                                            $meal = Meal::with('mealType')
+                                                ->where('hotel_id', $makkah_id)
+                                                ->where('meal_type_id', $mealId)->first();
+                                            if ($meal) {
+                                                $mealsName .= ($mealsName ? ', ' : '') . $meal->mealType->name;
+                                                $mealPrices += $meal->price * $intersectionDays; // Add your logic to handle days if needed
+                                                $commissionAmount = ($commision / 100) * $mealPrices;
+                                                $mealPrices = $mealPrices + $commissionAmount;
                                             }
-                                            $commissionAmount = ($commision / 100) * $mealPrices;
-                                            $total_meal_cost += $mealPrices + $commissionAmount;
                                         }
+                                        $total_meal_cost += $mealPrices;
                                     }
+                                    $MealCounter++;
 
                                     $hotelBookingResults[] = [
                                         'city' => 'Makkah',
@@ -235,6 +237,7 @@ class CostController extends Controller
 
             $MadinahhotelBookingResults = array();
             if ($madinah_id[0] != NULL) {
+                $MealCounter = 1;
                 foreach ($request->madinah_hotel as $index => $madinah_id) {
                     $madinah_hotel_room_type_id = $request->madinah_hotel_room_type[$index];
                     $madinah_hotel_start_date = $request->madinah_hotel_start_date[$index];
@@ -324,7 +327,7 @@ class CostController extends Controller
                                 $total_hotel_cost += $madinah_hotel_room_price + $commissionAmount;
 
                                 if ($request->madinah_meal) {
-                                    $mealIds = $request->madinah_meal[$madinah_id];
+                                    $mealIds = $request->madinah_meal[$MealCounter];
                                     if ($mealIds) {
                                         foreach ($mealIds as $mealId) {
                                             $meal = Meal::with('mealType')
@@ -333,10 +336,11 @@ class CostController extends Controller
                                             if ($meal) {
                                                 $mealsName .= ($mealsName ? ', ' : '') . $meal->mealType->name;
                                                 $mealPrices += $meal->price * $intersectionDays;
+                                                $commissionAmount = ($commision / 100) * $mealPrices;
+                                                $mealPrices = $mealPrices + $commissionAmount;
                                             }
                                         }
-                                        $commissionAmount = ($commision / 100) * $mealPrices;
-                                        $total_meal_cost += $mealPrices + $commissionAmount;
+                                        $total_meal_cost += $mealPrices;
                                     }
                                 }
 
@@ -350,6 +354,7 @@ class CostController extends Controller
                                     'rate' => $madinah_hotel_room_price,
                                     'meal_rate' => $mealPrices
                                 ];
+                                $MealCounter++;
 
                                 $validityFound = 1;
                             }
@@ -366,6 +371,7 @@ class CostController extends Controller
 
             $JeddahhotelBookingResults = array();
             if ($jeddah_id[0] != NULL) {
+                $MealCounter = 1;
                 foreach ($request->jeddah_hotel as $index => $jeddah_id) {
                     $jeddah_hotel_room_type_id = $request->jeddah_hotel_room_type[$index];
                     $jeddah_hotel_start_date = $request->jeddah_hotel_start_date[$index];
@@ -455,7 +461,7 @@ class CostController extends Controller
                                 $total_hotel_cost += $jeddah_hotel_room_price + $commissionAmount;
 
                                 if ($request->jeddah_meal) {
-                                    $mealIds = $request->jeddah_meal[$jeddah_id];
+                                    $mealIds = $request->jeddah_meal[$MealCounter];
                                     if ($mealIds) {
                                         foreach ($mealIds as $mealId) {
                                             $meal = Meal::with('mealType')
@@ -464,10 +470,11 @@ class CostController extends Controller
                                             if ($meal) {
                                                 $mealsName .= ($mealsName ? ', ' : '') . $meal->mealType->name;
                                                 $mealPrices += $meal->price * $intersectionDays;
+                                                $commissionAmount = ($commision / 100) * $mealPrices;
+                                                $mealPrices = $mealPrices + $commissionAmount;
                                             }
                                         }
-                                        $commissionAmount = ($commision / 100) * $mealPrices;
-                                        $total_meal_cost += $mealPrices + $commissionAmount;
+                                        $total_meal_cost += $mealPrices;
                                     }
                                 }
 
@@ -481,6 +488,7 @@ class CostController extends Controller
                                     'rate' => $jeddah_hotel_room_price,
                                     'meal_rate' => $mealPrices
                                 ];
+                                $MealCounter++;
                                 $validityFound = 1;
                             }
                         }
@@ -545,7 +553,7 @@ class CostController extends Controller
                             'date' => $travel_date,
                             'route' => $routeName,
                             'vehicle' => $vehicle,
-                            'rate' => $totalCost,
+                            'rate' => $transport_cost,
                         ];
                     } else {
                         $errorMessage = "Sorry, No Transport ( {$routeName} ) available between the given date.";

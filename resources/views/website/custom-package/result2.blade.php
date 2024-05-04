@@ -27,6 +27,7 @@
                 <option value="USD">USD</option>
                 <option value="PKR">PKR</option>
             </select>
+            
             {{-- {{ dd($hotelBookingResults) }} --}}
             <form action="{{ route('download.pdf') }}" method="post">
                 @csrf

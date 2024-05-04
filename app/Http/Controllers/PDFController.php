@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Log;
 
 class PDFController extends Controller
 {
@@ -30,7 +31,12 @@ class PDFController extends Controller
         
 
         // return view('pdf.pdfDocument', $data);
-        $pdf = PDF::loadView('pdf.pdfDocument', $data);
-        return $pdf->download('document.pdf');
+        try {
+            $pdf = \PDF::loadView('pdf.pdfDocument', $data);
+            return $pdf->download('document.pdf');
+        } catch (\Exception $e) {
+            \Log::error("Error generating PDF: " . $e->getMessage());
+            return back()->withErrors('Error generating PDF: ' . $e->getMessage());
+        }
     }
 }
