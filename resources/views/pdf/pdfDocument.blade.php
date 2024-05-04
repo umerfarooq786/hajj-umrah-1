@@ -385,8 +385,8 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="accommodation">
-                                    {{-- <b></b> {{ $result['accommodation'] }} --}}
-                                    {{ $result->accommodation }}
+                                    <b></b> {{ $result['accommodation'] }}
+                                    {{-- {{ $result->accommodation }} --}}
                                 </th>
 
                             </tr>
@@ -398,8 +398,8 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="meals">
-                                    {{-- <b></b> {{ $result['meals'] }} --}}
-                                    {{ $result->meals }}
+                                    <b></b> {{ $result['meals'] }}
+                                    {{-- {{ $result->meals }} --}}
                                 </th>
 
                             </tr>
@@ -411,8 +411,8 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="transportation">
-                                    {{-- <b></b> {{ $result['transportation'] }} --}}
-                                    {{ $result->transportation }}
+                                    <b></b> {{ $result['transportation'] }}
+                                    {{-- {{ $result->transportation }} --}}
                                 </th>
 
                             </tr>
@@ -424,8 +424,8 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="total">
-                                    {{-- <b></b> {{ $result['grandtotal'] }} --}}
-                                    {{ $result->grandtotal }}
+                                    <b></b> {{ $result['grandtotal'] }}
+                                    {{-- {{ $result->grandtotal }} --}}
                                 </th>
                             </tr>
                         @endforeach

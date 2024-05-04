@@ -12,13 +12,13 @@ class PDFController extends Controller
     {   
         // return $request->all();
         $data = [
-            'show_detail'=> json_decode($request->show_detail), 
+            'show_detail'=> json_decode(decrypt($request->show_detail), true), 
             'hotelBookingResults'=>json_decode(decrypt($request->hotelBookingResults), true),
 
-            'MadinahhotelBookingResults'=>json_decode($request->MadinahhotelBookingResults), 
-            'JeddahhotelBookingResults'=>json_decode($request->JeddahhotelBookingResults), 
-            'RoutesData'=>json_decode($request->RoutesData), 
-            'grandtotal'=>json_decode($request->grandtotal),             
+            'MadinahhotelBookingResults'=>json_decode(decrypt($request->MadinahhotelBookingResults), true), 
+            'JeddahhotelBookingResults'=>json_decode(decrypt($request->JeddahhotelBookingResults), true), 
+            'RoutesData'=>json_decode(decrypt($request->RoutesData), true), 
+            'grandtotal'=>json_decode(decrypt($request->grandtotal), true),             
         ];
 
         // generating incoice id

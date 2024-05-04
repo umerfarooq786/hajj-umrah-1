@@ -27,18 +27,19 @@
                 <option value="USD">USD</option>
                 <option value="PKR">PKR</option>
             </select>
-            
+
             {{-- {{ dd($hotelBookingResults) }} --}}
             <form action="{{ route('download.pdf') }}" method="post">
                 @csrf
-                <input type="hidden" name="show_detail" value={{ json_encode($show_detail) }}>
+                <input type="hidden" name="show_detail" value={{ encrypt(json_encode($show_detail)) }}>
                 <input type="hidden" name="hotelBookingResults" value={{ encrypt(json_encode($hotelBookingResults)) }}>
 
                 <input type="hidden" name="MadinahhotelBookingResults"
-                    value={{ json_encode($MadinahhotelBookingResults) }}>
-                <input type="hidden" name="JeddahhotelBookingResults" value={{ json_encode($JeddahhotelBookingResults) }}>
-                <input type="hidden" name="RoutesData" value={{ json_encode($RoutesData) }}>
-                <input type="hidden" name="grandtotal" value={{ json_encode($grandtotal) }}>
+                    value={{ encrypt(json_encode($MadinahhotelBookingResults)) }}>
+                <input type="hidden" name="JeddahhotelBookingResults"
+                    value={{ encrypt(json_encode($JeddahhotelBookingResults)) }}>
+                <input type="hidden" name="RoutesData" value={{ encrypt(json_encode($RoutesData)) }}>
+                <input type="hidden" name="grandtotal" value={{ encrypt(json_encode($grandtotal)) }}>
 
                 <button type="submit"
                     class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
