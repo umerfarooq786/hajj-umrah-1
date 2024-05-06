@@ -546,8 +546,8 @@
                         listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
                             '" name="makkah_meal[' + makkahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
-                        listItems += '<label for="makkah-meal-' + makkahbtn + '">' + data[i].name +
-                            '</label>';
+                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
+                            '</label>'; // Ensure this matches the checkbox ID
                         listItems += '</li>';
                     }
 
@@ -641,7 +641,7 @@
                     // Loop through the data and create list items with checkboxes
                     for (var i = 0; i < data.length; i++) {
                         listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="madinah_meal-' + data[i].id +
+                        listItems += '<input type="checkbox" id="madinah_meal' + data[i].id +
                             '" name="madinah_meal[' + madinahbtn + '][]" value="' + data[i].id +
                             '" class="outline-none ring-0">';
                         listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +

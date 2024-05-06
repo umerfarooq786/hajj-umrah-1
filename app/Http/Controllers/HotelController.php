@@ -318,6 +318,7 @@ class HotelController extends Controller
     public function edit($id)
     {
         $hotel = Hotel::findOrFail($id);
+        // dd($hotel->images);
         $rooms = Room::all();
         $hotel_rooms = DB::table('hotel_rooms')
             ->join('rooms', 'rooms.id', '=', 'hotel_rooms.room_id')

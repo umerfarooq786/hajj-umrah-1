@@ -57,27 +57,43 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Image</label>
-                                        <div style="display: flex; align-items: center; justify-content: space-between; ">
-                                            @if ($vehicle->image != null)
-                                                <img src="{{ asset('uploads/' . $vehicle->image) }} "
-                                                    style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
-                                                border-radius: 5px;
-                                                padding: 5px;">
-                                            @else
-                                                <img src="{{ asset('app-assets/images/profile/profile_picture.jpeg') }} "
-                                                    style="width:70px; height:70px; border: 1px solid #ccc; /* Add border */
-                                                border-radius: 5px; 
-                                                padding: 5px;">
-                                            @endif
+                                <div class="row ">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class=" label-control">Images Gallery</label>
                                             <div class="col-md-9">
-                                                <input type="file" class="form-control border-primary" name="image">
+                                                <input type="file" id="imageUpload" name="images[]" multiple>
+                                                <div id="imagePreview"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    @if (count($vehicle->images) > 0)
+                                        @foreach ($vehicle->images as $image)
+                                            <div class="col-md-2 mb-2">
+                                                <div class="card">
+                                                    <img src="{{ asset($image->path) }}" alt="{{ $image->name }}"
+                                                        class="card-img-top image_galery"
+                                                        style="max-width: 140px;height:140px;object-fit: cover">
+                                                    <a href="#" style="max-width: 70px"
+                                                        class="btn btn-danger delete-image"
+                                                        data-id="{{ $image->id }}">Delete</a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="col-12">
+                                            <p>No images found.</p>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <br>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -114,6 +130,34 @@
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-selectize.js') }}" type="text/javascript"></script>
 
     <script>
+        $(document).ready(function() {
+            $('.delete-image').click(function(e) {
+                e.preventDefault();
+                var imageId = $(this).data('id');
+                var imageElement = $(this).closest('.col-md-4');
+                if (confirm("Are you sure you want to delete this image?")) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/images/' + imageId, // Assuming your delete route is /images/{id}
+                        success: function(response) {
+                            // Refresh or update the view as needed
+                            imageElement.remove();
+                            window.location.reload();
+                            console.log('Image deleted successfully');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+
         function toggleLabel() {
             var checkbox = document.getElementById('displayOnWebsite');
             var label = document.getElementById('displayOnWebsiteLabel');
@@ -127,6 +171,18 @@
 
         document.getElementById('displayOnWebsite').addEventListener('change', toggleLabel);
         toggleLabel();
+
+        $('#imageUpload').on('change', function(e) {
+            var files = e.target.files;
+            $('#imagePreview').empty();
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').append('<img src="' + e.target.result + '" class="img-fluid">');
+                }
+                reader.readAsDataURL(files[i]);
+            }
+        });
     </script>
     @if (Session::get('success'))
         <script>

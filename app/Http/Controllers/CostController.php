@@ -510,6 +510,7 @@ class CostController extends Controller
 
             $RoutesData = array();
             $routes = $request->input('route');
+            // dd($routes);
             if ($routes[0] != null) {
                 $vehicles = $request->input('vehicle');
                 $travel_dates = $request->input('travel_date');
@@ -553,7 +554,7 @@ class CostController extends Controller
                             'date' => $travel_date,
                             'route' => $routeName,
                             'vehicle' => $vehicle,
-                            'rate' => $transport_cost,
+                            'rate' => $new_transport_cost,
                         ];
                     } else {
                         $errorMessage = "Sorry, No Transport ( {$routeName} ) available between the given date.";
