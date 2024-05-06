@@ -6,9 +6,14 @@
         @if ($vehicles->isNotEmpty())
             @foreach ($vehicles as $vehicle)
                 @if ($vehicle->display == '1')
+                    <span class="text-xl font-semibold text-gray-800">
+                        {{ $vehicle->name }}
+                    </span>
                     <div class="bg-gray-100 shadow-lg w-full min-h-[250px] h-max flex flex-col lg:flex-row items-center  ">
-                        <img src="{{ asset('uploads/' . $vehicle->image) }}" alt=""
-                            class="lg:h-[250px]  lg:w-[30%]  object-cover">
+                        @foreach ($vehicle->images as $image)
+                            <img src="{{ asset('uploads/' . $image->name) }}" alt=""
+                                class="lg:h-[250px]  lg:w-[30%]  object-cover">
+                        @endforeach
                         <div class="space-y-10 px-10 py-5 w-full">
                             @php $displayCount = 0; @endphp
                             @foreach ($vehicle->transport as $transport)
@@ -31,6 +36,11 @@
                                     </div>
                                 @endif
                             @endforeach
+                            <div class="space-y-1">
+                                <div class="w-full flex items-center justify-between">
+                                    <span>No Routes Available For This Transport Yet.</span>
+                                </div>
+                            </div>
                             <a href="transportation/1"
                                 class="bg-[#9a1d21]  inline-block cursor-pointer text-white py-2 px-7 rounded-md hover:bg-opacity-90">View
                                 Details</a>

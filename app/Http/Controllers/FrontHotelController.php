@@ -53,14 +53,14 @@ class FrontHotelController extends Controller
 
     public function transportation()
     {
-        $vehicles = Vehicle::with('transport.route','transport.costs')->get();
+        $vehicles = Vehicle::with('images', 'transport.route','transport.costs')->get();
         // dd($vehicles);
         return view('website.transportation.index', ['vehicles' => $vehicles]);
     }
 
     public function singleTransportation($id)
     {
-        $vehicle = Vehicle::with(['transport.route', 'transport.costs'])
+        $vehicle = Vehicle::with(['images', 'transport.route', 'transport.costs'])
         ->where('id', $id)
         ->firstOrFail();
         // dd($vehicles);
