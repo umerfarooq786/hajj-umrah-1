@@ -131,12 +131,9 @@ Route::get('/test', function () {
     return view("admin.package.index");
 });
 
-Route::post('/generate-pdf', [PDFController::class, 'generatePDF'])->name('download.pdf');
+Route::any('/generate-pdf', [PDFController::class, 'generatePDF'])->name('download.pdf');
 Route::get('/pdfpdf', function () {
     $data= [];
     return view("pdf.pdfDocument", ['data' => $data]);
 });
-Route::get('test-pdf', function() {
-    $pdf = PDF::loadView('welcome'); // Ensure the 'welcome' view exists
-    return $pdf->stream('test.pdf');
-});
+

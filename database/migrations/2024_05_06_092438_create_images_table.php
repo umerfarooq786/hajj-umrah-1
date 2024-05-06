@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->timestamps();
+            
         });
     }
 
