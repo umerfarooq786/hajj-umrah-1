@@ -12,6 +12,7 @@ class PDFController extends Controller
 {
     public function generatePDF(Request $request)
     {
+        // return "ali";
         // return $request->all();
         $data = [
             'show_detail' => json_decode(decrypt($request->show_detail), true),
@@ -32,7 +33,7 @@ class PDFController extends Controller
         // dd($data);
         try {
             // Generate the PDF
-            $pdf = \PDF::loadView('pdf.pdfDocument', $data);
+            $pdf = PDF::loadView('pdf.pdfDocument', $data);
             $pdfPath = public_path('calculations/' . $invoice_number . '.pdf');
             $pdf->save($pdfPath);
 
