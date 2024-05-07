@@ -41,8 +41,9 @@
                 <input type="hidden" name="RoutesData" value={{ encrypt(json_encode($RoutesData)) }}>
                 <input type="hidden" name="grandtotal" value={{ encrypt(json_encode($grandtotal)) }}>
 
-                <button type="submit"
-                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80">Download</button>
+                <button type="submit" id="downloadButton"
+                    class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80"
+                    onclick="hideButton()">Download</button>
             </form>
         </div>
 
@@ -193,7 +194,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
                                         {{ $result['vehicle'] }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white" id="vehicle_rate">
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                        id="vehicle_rate">
                                         <b>SAR</b> {{ $result['rate'] }}
                                     </td>
                                 </tr>
@@ -719,5 +721,17 @@
             var selectedCurrency = this.value;
             document.getElementById('content' + selectedCurrency).style.display = 'block';
         });
+
+
+        // for hiding download button on clicking 
+        function hideButton() {
+            var button = document.getElementById('downloadButton');
+            button.style.display = 'none';
+        }
     </script>
+
+
+
+
+
 @endsection
