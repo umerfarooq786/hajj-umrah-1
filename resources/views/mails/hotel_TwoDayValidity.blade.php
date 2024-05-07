@@ -9,7 +9,7 @@
     <p>Hotel Name: {{ $formData->hotel['name'] }}</p>
     <p>Note: {{ $formData->hotel['note'] }} </p>
     <p>City: {{ $formData->hotel['city'] }}</p>
-    <p>Validity: {{ $formData['validity'] }}</p>
+    <p>Validity: {{ $formData['validity_end'] }}</p>
     <p>Price: {{ $formData['weekdays_price'] }}</p>
 </body>
 </html>

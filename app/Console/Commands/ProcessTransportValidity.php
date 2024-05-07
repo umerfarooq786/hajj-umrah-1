@@ -28,7 +28,7 @@ class ProcessTransportValidity extends Command
      */
     public function handle()
     {
-        $transport = Transport::with(['costs', 'route'])->get();
+        $transport = Transport::with(['costs', 'vehicles', 'route'])->get();
         
         Log::info($transport);
         foreach ($transport as $transports) {

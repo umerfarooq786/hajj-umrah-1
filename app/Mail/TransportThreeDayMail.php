@@ -21,7 +21,7 @@ class TransportThreeDayMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Transpot date is about to expire')
+        return $this->subject('Transpot Validity is about to expire')
                     ->view('mails.TransportThreeDayValidity');
     }
 }

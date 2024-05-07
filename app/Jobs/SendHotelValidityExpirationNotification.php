@@ -39,7 +39,7 @@ class SendHotelValidityExpirationNotification implements ShouldQueue
      */
     public function handle()
     {
-        $validity = Carbon::parse($this->Hotel_room->validity);
+        $validity = Carbon::parse($this->Hotel_room->validity_end);
         $sevenDaysBeforeValidity = $validity->copy()->subDays(7);
         $threeDaysBeforeValidity = $validity->copy()->subDays(3);
         $twoDaysBeforeValidity = $validity->copy()->subDays(2);

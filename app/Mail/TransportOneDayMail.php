@@ -24,7 +24,7 @@ class TransportOneDayMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Validity is about to expire')
+        return $this->subject('Transport Validity is about to expire')
                     ->view('mails.TransportOneDayValidity');
     }
 }

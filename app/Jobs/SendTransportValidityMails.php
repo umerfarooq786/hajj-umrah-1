@@ -43,7 +43,7 @@ class SendTransportValidityMails implements ShouldQueue
     {
         Log::info($this->transports);
         foreach ($this->transports->costs as $cost) {
-            $validity = $cost->validity;
+            $validity = $cost->validity_end;
             Log::info("Validity: $validity");
             $validity = Carbon::parse($validity);
             $sevenDaysBeforeValidity = $validity->copy()->subDays(7);
@@ -51,6 +51,7 @@ class SendTransportValidityMails implements ShouldQueue
             $twoDaysBeforeValidity = $validity->copy()->subDays(2);
             $oneDaysBeforeValidity = $validity->copy()->subDays(1);
             $currentDate = now();
+            Log::info("SevenDaysValidity: $sevenDaysBeforeValidity");
 
             if ($currentDate->isSameDay($sevenDaysBeforeValidity)) {
                 Log::info('Transport expiration is within 7 days.');
