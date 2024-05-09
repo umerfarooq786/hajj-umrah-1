@@ -15,6 +15,7 @@ use App\Models\Visa;
 use App\Models\Weekend;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 
 class CostController extends Controller
@@ -94,10 +95,18 @@ class CostController extends Controller
         $total_transport_cost = 0;
 
 
-        if ($no_of_persons == "") {
-            $errorMessage = "Sorry, Please Select Number Of Persons First.";
-            return back()->withErrors([$errorMessage]);
+        $validator = Validator::make($request->all(), [
+            'no_of_persons' => 'required|numeric|min:1'
+        ], [
+            'no_of_persons.required' => 'Sorry, please select the number of persons first.',
+            'no_of_persons.numeric' => 'The number of persons must be a number.',
+            'no_of_persons.min' => 'The number of persons must be at least 1.',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+        
         if ($makkah_id || $madinah_id || $jeddah_id || $route_id) {
 
             $hotelBookingResults = array();
@@ -228,7 +237,7 @@ class CostController extends Controller
                             $firstDate = Carbon::createFromFormat('Y-m-d', reset($uncoveredDates))->format('d F Y');
                             $lastDate = Carbon::createFromFormat('Y-m-d', end($uncoveredDates))->format('d F Y');
                             $errorMessage = "Sorry, No makkah hotel room available from $firstDate to $lastDate.";
-                            return back()->withErrors([$errorMessage]);
+                            return back()->withErrors([$errorMessage])->withInput();
                         }
                     }
                 }

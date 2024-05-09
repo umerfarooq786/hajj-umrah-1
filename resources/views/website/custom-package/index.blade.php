@@ -94,6 +94,7 @@
         </video>
 
         <div class="bg-white/80 p-10  pb-20 rounded-xl  lg:w-[80%] max-w-[1000px] ">
+
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -120,32 +121,16 @@
                 @csrf
                 <!-- Select Stay in Makkah -->
                 <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
-                {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
+                <div class="flex flex-col md:flex-row stay relative">
                 <select id="no_of_persons" name="no_of_persons"
-                    class="place w-full lg:w-[300px] border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
                     <option value="">Select Persons</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
+                    @for ($i = 1; $i <= 20; $i++)
+                        <option value="{{ $i }}" {{ old('no_of_persons') == $i ? 'selected' : '' }}>
+                            {{ $i }}</option>
+                    @endfor
                 </select>
-                {{-- </div> --}}
+                </div>
 
                 <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
                 <div id="makkahDiv">
@@ -154,7 +139,7 @@
                             class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                             <option value="">Select Hotel</option>
                             @foreach ($makkah_hotels as $hotel)
-                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                <option value="{{ $hotel->id }}"> {{ $hotel->name }}</option>
                             @endforeach
                         </select>
 
