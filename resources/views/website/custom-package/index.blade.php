@@ -121,7 +121,7 @@
                 @csrf
                 <!-- Select Stay in Makkah -->
                 <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
-                <div class="flex flex-col md:flex-row stay relative">
+                {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
                 <select id="no_of_persons" name="no_of_persons"
                     class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
                     <option value="">Select Persons</option>
@@ -130,7 +130,7 @@
                             {{ $i }}</option>
                     @endfor
                 </select>
-                </div>
+                {{-- </div> --}}
 
                 <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
                 <div id="makkahDiv">
