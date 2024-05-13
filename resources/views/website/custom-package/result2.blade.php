@@ -722,16 +722,10 @@
             document.getElementById('content' + selectedCurrency).style.display = 'block';
         });
 
-
         // for hiding download button on clicking 
         function hideButton() {
             var button = document.getElementById('downloadButton');
             button.style.display = 'none';
         }
     </script>
-
-
-
-
-
 @endsection
