@@ -250,6 +250,18 @@
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Total Visa Charges
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="visacharges">
+                                    <b>SAR</b> {{ $result['visa'] }}
+                                </th>
+
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
                                     Grand Total Payable
                                 </th>
                                 <th scope="row"
@@ -470,6 +482,18 @@
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Total Visa Charges
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="visacharges">
+                                    <b>SAR</b> {{ $result['visa'] * $sar_to_usd }}
+                                </th>
+
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
                                     Grand Total Payable
                                 </th>
                                 <th scope="row"
@@ -684,6 +708,18 @@
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="transportation">
                                     <b>PKR</b> {{ $result['transportation'] * $sar_to_pkr }}
+                                </th>
+
+                            </tr>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                    Total Visa Charges
+                                </th>
+                                <th scope="row"
+                                    class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
+                                    id="visacharges">
+                                    <b>SAR</b> {{ $result['visa']* $sar_to_pkr }}
                                 </th>
 
                             </tr>
