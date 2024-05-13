@@ -102,11 +102,11 @@ class CostController extends Controller
             'no_of_persons.numeric' => 'The number of persons must be a number.',
             'no_of_persons.min' => 'The number of persons must be at least 1.',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
+
         if ($makkah_id || $madinah_id || $jeddah_id || $route_id) {
 
             $hotelBookingResults = array();
@@ -197,8 +197,8 @@ class CostController extends Controller
                                     $makkah_hotel_room_price_weekendDays = $hotelRooms->weekend_price * $weekendDays;
                                     $makkah_hotel_room_price = $makkah_hotel_room_price_weekdays + $makkah_hotel_room_price_weekendDays;
                                     $commissionAmount = ($commision / 100) * $makkah_hotel_room_price;
-                                    $total_hotel_cost += $makkah_hotel_room_price + $commissionAmount;
                                     $makkah_hotel_room_price = $makkah_hotel_room_price + $commissionAmount;
+                                    $total_hotel_cost += $makkah_hotel_room_price;
                                     $makkah_hotel_room_perday_price = $hotelRooms->weekdays_price;
 
                                     $mealIds = $request->makkah_meal[$MealCounter] ?? [];
@@ -333,7 +333,8 @@ class CostController extends Controller
                                 $madinah_hotel_room_price += $madinah_hotel_room_price_weekdays + $madinah_hotel_room_price_weekendDays;
                                 $madinah_hotel_room_perday_price = $hotelRooms->weekdays_price;
                                 $commissionAmount = ($commision / 100) * $madinah_hotel_room_price;
-                                $total_hotel_cost += $madinah_hotel_room_price + $commissionAmount;
+                                $madinah_hotel_room_price = $madinah_hotel_room_price + $commissionAmount;
+                                $total_hotel_cost += $madinah_hotel_room_price;
 
                                 if ($request->madinah_meal) {
                                     $mealIds = $request->madinah_meal[$MealCounter];
@@ -467,7 +468,8 @@ class CostController extends Controller
                                 $jeddah_hotel_room_price += $jeddah_hotel_room_price_weekdays + $jeddah_hotel_room_price_weekendDays;
                                 $jeddah_hotel_room_perday_price = $hotelRooms->weekdays_price;
                                 $commissionAmount = ($commision / 100) * $jeddah_hotel_room_price;
-                                $total_hotel_cost += $jeddah_hotel_room_price + $commissionAmount;
+                                $jeddah_hotel_room_price += $jeddah_hotel_room_price + $commissionAmount;
+                                $total_hotel_cost += $jeddah_hotel_room_price;
 
                                 if ($request->jeddah_meal) {
                                     $mealIds = $request->jeddah_meal[$MealCounter];
@@ -573,21 +575,6 @@ class CostController extends Controller
                 $total_transport_cost += $transport_cost;
             }
 
-            $grandtotal = array();
-            $grandtotalPayable = $total_hotel_cost + $total_meal_cost + $total_transport_cost;
-            $grandtotal[] = [
-                'accommodation' => $total_hotel_cost,
-                'meals' => $total_meal_cost,
-                'transportation' => $total_transport_cost,
-                'grandtotal' => $grandtotalPayable,
-            ];
-
-            $CurrencyConversion = CurrencyConversion::all();
-            foreach ($CurrencyConversion as $CurrencyConversions) {
-                $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
-                $sar_to_usd = $CurrencyConversions->sar_to_usd;
-            }
-
             $visaCharges = Visa::where('id', '1')->get();
             foreach ($visaCharges as $visaCharge) {
                 $show_detail = $visaCharge->show_detail;
@@ -611,6 +598,25 @@ class CostController extends Controller
             }
             $visa_per_person = $visa;
             $visa = $visa * $no_of_persons;
+
+            $grandtotal = array();
+            $grandtotalPayable = $total_hotel_cost + $total_meal_cost + $total_transport_cost + $visa;
+            $grandtotal[] = [
+                'accommodation' => $total_hotel_cost,
+                'meals' => $total_meal_cost,
+                'transportation' => $total_transport_cost,
+                'grandtotal' => $grandtotalPayable,
+                'visaperhead' => $visa_per_person,
+                'visa' => $visa,
+            ];
+
+            $CurrencyConversion = CurrencyConversion::all();
+            foreach ($CurrencyConversion as $CurrencyConversions) {
+                $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
+                $sar_to_usd = $CurrencyConversions->sar_to_usd;
+            }
+
+
 
             return view('website.custom-package.result2', [
                 'hotelBookingResults' => $hotelBookingResults,
