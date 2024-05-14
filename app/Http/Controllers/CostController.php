@@ -589,7 +589,6 @@ class CostController extends Controller
                 $umrah_charges = $umrah_charges + $commissionAmount;
             }
 
-
             if ($maktab != null) {
                 $maktab = Maktab::findOrFail($maktab);
                 $visa = $maktab->cost;

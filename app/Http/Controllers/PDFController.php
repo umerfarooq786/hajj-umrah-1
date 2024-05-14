@@ -12,14 +12,17 @@ class PDFController extends Controller
 {
     public function generatePDF(Request $request)
     {
+        
         // return "ali";
         // return $request->all();
         $data = [
+            'currency' => json_decode(decrypt($request->currency), true),
             'show_detail' => json_decode(decrypt($request->show_detail), true),
             'hotelBookingResults' => json_decode(decrypt($request->hotelBookingResults), true),
-
             'MadinahhotelBookingResults' => json_decode(decrypt($request->MadinahhotelBookingResults), true),
             'JeddahhotelBookingResults' => json_decode(decrypt($request->JeddahhotelBookingResults), true),
+            'sar_to_pkr' => json_decode(decrypt($request->sar_to_pkr), true),
+            'sar_to_usd' => json_decode(decrypt($request->sar_to_usd), true),
             'RoutesData' => json_decode(decrypt($request->RoutesData), true),
             'grandtotal' => json_decode(decrypt($request->grandtotal), true),
         ];
