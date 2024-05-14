@@ -11,9 +11,17 @@
             @include('website_layouts.partials._HotelDetailSlider2')
         </div>
 
+        <select id="currencySelect"
+            class="appearance-none w-[120px] cursor-pointer bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 leading-5 focus:outline-none focus:ring-0 focus:border-gray-300 sm:text-sm">
+            <option value="SAR">SAR</option>
+            <option value="USD">USD</option>
+            <option value="PKR">PKR</option>
+        </select>
+
         {{-- Routes Pricing Section --}}
         <div>
             <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
+
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <tbody>
                         @if ($vehicle->transport)
@@ -53,6 +61,8 @@
                         @endif
                     </tbody>
                 </table>
+
+
             </div>
         </div>
     </div>
