@@ -29,7 +29,7 @@
             </select>
 
             {{-- {{ dd($hotelBookingResults) }} --}}
-            <form action="{{ route('download.pdf') }}" method="post">
+            {{-- <form action="{{ route('download.pdf') }}" method="post">
                 @csrf
                 <input type="hidden" name="show_detail" value={{ encrypt(json_encode($show_detail)) }}>
                 <input type="hidden" name="hotelBookingResults" value={{ encrypt(json_encode($hotelBookingResults)) }}>
@@ -44,7 +44,52 @@
                 <button type="submit" id="downloadButton"
                     class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80"
                     onclick="hideButton()">Download</button>
+            </form> --}}
+
+            <form action="{{ route('download.pdf') }}" method="post">
+                @csrf
+                <input type="hidden" name="show_detail" value="{{ encrypt(json_encode($show_detail)) }}">
+                <input type="hidden" name="hotelBookingResults" value="{{ encrypt(json_encode($hotelBookingResults)) }}">
+                <input type="hidden" name="MadinahhotelBookingResults"
+                    value="{{ encrypt(json_encode($MadinahhotelBookingResults)) }}">
+                <input type="hidden" name="JeddahhotelBookingResults"
+                    value="{{ encrypt(json_encode($JeddahhotelBookingResults)) }}">
+                <input type="hidden" name="RoutesData" value="{{ encrypt(json_encode($RoutesData)) }}">
+                <input type="hidden" name="grandtotal" value="{{ encrypt(json_encode($grandtotal)) }}">
+
+                <div class="relative inline-block text-left">
+                    <div>
+                        <button type="button" id="downloadButton"
+                            class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80"
+                            onclick="toggleDropdown()" aria-haspopup="true" aria-expanded="false">
+                            Download
+                            <svg class="h-5 w-5 inline-block ml-2 -mr-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="dropdownMenu"
+                        class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                        style="display: none;">
+                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                role="menuitem" name="currency" value="USD">Download in USD</button>
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                role="menuitem" name="currency" value="SAR">Download in SAR</button>
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                role="menuitem" name="currency" value="PKR">Download in PKR</button>
+                        </div>
+                    </div>
+                </div>
             </form>
+
+
+
         </div>
 
         {{-- {{ dd($hotelBookingResults) }} --}}
@@ -125,7 +170,8 @@
                                         {{ $result['checkin'] }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
                                         {{ $result['checkout'] }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white" id='madinah_rate'>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                        id='madinah_rate'>
                                         <b>SAR</b> {{ $result['rate'] }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
@@ -150,7 +196,8 @@
                                         {{ $result['checkin'] }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
                                         {{ $result['checkout'] }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white" id='jaddah_rate'>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
+                                        id='jaddah_rate'>
                                         <b>SAR</b> {{ $result['rate'] }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white"
@@ -719,7 +766,7 @@
                                 <th scope="row"
                                     class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium"
                                     id="visacharges">
-                                    <b>SAR</b> {{ $result['visa']* $sar_to_pkr }}
+                                    <b>SAR</b> {{ $result['visa'] * $sar_to_pkr }}
                                 </th>
 
                             </tr>
@@ -757,6 +804,16 @@
             var selectedCurrency = this.value;
             document.getElementById('content' + selectedCurrency).style.display = 'block';
         });
+    </script>
+
+
+    {{-- login for download button --}}
+    <script>
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+        }
+
 
         // for hiding download button on clicking 
         function hideButton() {
