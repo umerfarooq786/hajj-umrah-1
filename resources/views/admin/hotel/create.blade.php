@@ -234,7 +234,7 @@
                                                 <select class="form-control border-primary" name="city" required>
                                                     <option selected disabled="">Select City</option>
                                                     <option value="makkah">Makkah</option>
-                                                    <option value="madina">Madinah</option>
+                                                    <option value="madinah">Madinah</option>
                                                     <option value="jeddah">Jeddah</option>
                                                 </select>
                                             </div>

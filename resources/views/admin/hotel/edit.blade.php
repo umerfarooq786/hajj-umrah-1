@@ -88,8 +88,8 @@
                                                     <option value="makkah"
                                                         {{ $hotel->city == 'makkah' ? 'selected' : '' }}>
                                                         Makkah</option>
-                                                    <option value="madina"
-                                                        {{ $hotel->city == 'madina' ? 'selected' : '' }}>Madina</option>
+                                                    <option value="madinah"
+                                                        {{ $hotel->city == 'madinah' ? 'selected' : '' }}>Madinah</option>
                                                     <option value="jeddah"
                                                         {{ $hotel->city == 'jeddah' ? 'selected' : '' }}>Jeddah</option>
                                                 </select>

@@ -2,6 +2,15 @@
 
 @section('custom_styles')
     <link rel="stylesheet" href="{{ asset('css/hotelDetailSlider.css') }}">
+    <style>
+        .currency-content {
+            display: none;
+        }
+
+        #contentSAR {
+            display: block;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -19,9 +28,8 @@
         </select>
 
         {{-- Routes Pricing Section --}}
-        <div>
+        <div id="contentSAR" class="currency-content">
             <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
-
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <tbody>
                         @if ($vehicle->transport)
@@ -61,9 +69,108 @@
                         @endif
                     </tbody>
                 </table>
-
-
             </div>
         </div>
+        <div id="contentUSD" class="currency-content">
+            <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <tbody>
+                        @if ($vehicle->transport)
+                            @foreach ($vehicle->transport as $transport)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                        Route
+                                    </th>
+                                    <th scope="row"
+                                        class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                        Rate
+                                    </th>
+                                </tr>
+                                @if ($transport->display == '1')
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <th scope="row"
+                                            class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
+                                            {{ $transport->route->name }}
+                                        </th>
+                                        @php
+                                            $lastCost = $transport->costs->last();
+                                        @endphp
+                                        <th scope="row"
+                                            class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
+                                            {{ $lastCost->cost * $sar_to_usd}} (USD)
+                                        </th>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @else
+                            <div class="space-y-1">
+                                <div class="w-full flex items-center justify-between">
+                                    <span>No Routes Available For This Transport Yet.</span>
+                                </div>
+                            </div>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="contentPKR" class="currency-content">
+            <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <tbody>
+                        @if ($vehicle->transport)
+                            @foreach ($vehicle->transport as $transport)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                        Route
+                                    </th>
+                                    <th scope="row"
+                                        class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-bold">
+                                        Rate
+                                    </th>
+                                </tr>
+                                @if ($transport->display == '1')
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <th scope="row"
+                                            class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-medium">
+                                            {{ $transport->route->name }}
+                                        </th>
+                                        @php
+                                            $lastCost = $transport->costs->last();
+                                        @endphp
+                                        <th scope="row"
+                                            class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white font-medium">
+                                            {{ $lastCost->cost * $sar_to_pkr}} (PKR)
+                                        </th>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @else
+                            <div class="space-y-1">
+                                <div class="w-full flex items-center justify-between">
+                                    <span>No Routes Available For This Transport Yet.</span>
+                                </div>
+                            </div>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
+
+    <script>
+        document.getElementById('currencySelect').addEventListener('change', function() {
+            // Hide all divs first
+            document.querySelectorAll('.currency-content').forEach(function(div) {
+                div.style.display = 'none';
+            });
+
+            // Show the div corresponding to the selected currency
+            var selectedCurrency = this.value;
+            document.getElementById('content' + selectedCurrency).style.display = 'block';
+        });
+    </script>
 @endsection

@@ -26,7 +26,7 @@ class CostController extends Controller
         $rooms = Room::all();
         $routes = Route::all();
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
-        $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
+        $madina_hotels = Hotel::where('city', 'madinah')->where('display', '1')->get();
         $jeddah_hotels = Hotel::where('city', 'jeddah')->where('display', '1')->get();
         $transport_types = Vehicle::all();
         $mealData = Meal::all();
@@ -38,7 +38,7 @@ class CostController extends Controller
         $rooms = Room::all();
         $routes = Route::all();
         $makkah_hotels = Hotel::where('city', 'makkah')->where('display', '1')->get();
-        $madina_hotels = Hotel::where('city', 'madina')->where('display', '1')->get();
+        $madina_hotels = Hotel::where('city', 'madinah')->where('display', '1')->get();
         $jeddah_hotels = Hotel::where('city', 'jeddah')->where('display', '1')->get();
         $transport_types = Vehicle::all();
         $maktabs = Maktab::all();
@@ -153,6 +153,7 @@ class CostController extends Controller
                         }
 
                         if (count($uncoveredDates) == 0) {
+                            $makkah_hotel_room_price_final = 0;
                             foreach ($hotelRoom as $hotelRooms) {
 
                                 $validityStartDate = Carbon::parse($hotelRooms->validity_start);
@@ -198,6 +199,7 @@ class CostController extends Controller
                                     $makkah_hotel_room_price = $makkah_hotel_room_price_weekdays + $makkah_hotel_room_price_weekendDays;
                                     $commissionAmount = ($commision / 100) * $makkah_hotel_room_price;
                                     $makkah_hotel_room_price = $makkah_hotel_room_price + $commissionAmount;
+                                    $makkah_hotel_room_price_final += $makkah_hotel_room_price; 
                                     $total_hotel_cost += $makkah_hotel_room_price;
                                     $makkah_hotel_room_perday_price = $hotelRooms->weekdays_price;
 
@@ -218,21 +220,21 @@ class CostController extends Controller
                                     }
                                     $MealCounter++;
 
-                                    $hotelBookingResults[] = [
-                                        'city' => 'Makkah',
-                                        'hotel' => $hotelName,
-                                        'room_type' => $makkahRoom,
-                                        'meals' => $mealsName,
-                                        'checkin' => $makkah_hotel_start_date,
-                                        'checkout' => $makkah_hotel_end_date,
-                                        'rate' => $makkah_hotel_room_price,
-                                        'meal_rate' => $mealPrices
-                                    ];
 
                                     $validityFound = 1;
                                     // dd($weekenDaysCunt);
                                 }
                             }
+                            $hotelBookingResults[] = [
+                                'city' => 'Makkah',
+                                'hotel' => $hotelName,
+                                'room_type' => $makkahRoom,
+                                'meals' => $mealsName,
+                                'checkin' => $makkah_hotel_start_date,
+                                'checkout' => $makkah_hotel_end_date,
+                                'rate' => $makkah_hotel_room_price_final,
+                                'meal_rate' => $mealPrices
+                            ];
                         } else {
                             $firstDate = Carbon::createFromFormat('Y-m-d', reset($uncoveredDates))->format('d F Y');
                             $lastDate = Carbon::createFromFormat('Y-m-d', end($uncoveredDates))->format('d F Y');
