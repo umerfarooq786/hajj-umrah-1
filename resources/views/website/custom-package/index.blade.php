@@ -942,9 +942,6 @@
                     '</select>' +
                     '<select id="vehicle1" name="vehicle[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
                     '<option value="">Select Vehicle</option>' +
-                    '@foreach ($transport_types as $trantransport_type)' +
-                    '<option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }} <span class="text-xs text-gray-500">( {{ $trantransport_type->capacity }}-Person )</span></option>' +
-                    '@endforeach' +
                     '</select>' +
                     '<div class="flex items-center relative h-[40px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
