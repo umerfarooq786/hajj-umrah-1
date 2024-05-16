@@ -57,6 +57,8 @@
                 <input type="hidden" name="RoutesData" value="{{ encrypt(json_encode($RoutesData)) }}">
                 <input type="hidden" name="sar_to_pkr" value="{{ encrypt(json_encode($sar_to_pkr)) }}">
                 <input type="hidden" name="sar_to_usd" value="{{ encrypt(json_encode($sar_to_usd)) }}">
+                <input type="hidden" name="email" value="{{ encrypt(json_encode($email)) }}">
+                <input type="hidden" name="contact" value="{{ encrypt(json_encode($contact)) }}">
                 <input type="hidden" name="grandtotal" value="{{ encrypt(json_encode($grandtotal)) }}">
 
                 <div class="relative inline-block text-left">

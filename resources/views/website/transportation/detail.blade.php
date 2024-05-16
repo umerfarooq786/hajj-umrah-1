@@ -10,12 +10,28 @@
         #contentSAR {
             display: block;
         }
+
+        .failure-section {
+            display: none;
+        }
+
+        .success-section-sar {
+            display: none;
+        }
+
+        .success-section-usd {
+            display: none;
+        }
+
+        .success-section-pkr {
+            display: none;
+        }
     </style>
 @endsection
 
 @section('content')
     <div class="w-[95%] md:w-[80%] mx-auto space-y-10 my-20">
-        <h2 class="font-semibold text-2xl">{{ $vehicle->name }}</h2>
+        <h2 class="font-semibold text-2xl">{{ $vehicle->name }} ({{$vehicle->capacity}}-person)</h2>
         <div class="w-full h-[600px]">
             @include('website_layouts.partials._HotelDetailSlider2')
         </div>
@@ -161,22 +177,26 @@
         <div>
             <div>
                 <h4 class="font-semibold text-[20px]">Transport Pricing</h4>
-                <form action="{{ route('search.makkahhotels') }}" class="flex gap-5 mt-5 ">
+                <form action="{{ route('search.route_price') }}" class="flex gap-5 mt-5 ">
                     @csrf
                     <div class=" flex items-center relative lg:w-[150px]">
-                        <input type="hidden" id="hotelId" value="test">
+                        <input type="hidden" id="vehicle_id" value="{{ $vehicle->id }}">
                         <input type="hidden" id="searched" value="0">
                         <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                        <input type="text" id="start_date" name="makkah_hotel_start_date" placeholder="Start Date"
+                        <input type="text" id="start_date" name="start_date" placeholder="Start Date"
                             class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                     </div>
 
-                    <select id="makkah_hotel_room_type" name="makkah_hotel_room_type"
+                    <select id="route" name="route"
                         class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
                         <option value="">Select Route</option>
-                        <option value="1">A-B</option>
-                        <option value="2">B-C</option>
-                        <option value="3">C-D</option>
+                        @if ($vehicle->transport)
+                            @foreach ($vehicle->transport as $transport)
+                                @if ($transport->display == '1')
+                                <option value="{{ $transport->route->id}}">{{ $transport->route->name }}</option>
+                                @endif
+                            @endforeach
+                        @endif
                     </select>
                     <button class="bg-[#c2242a] text-white py-2 px-5 rounded-md hover:bg-opacity-85">Search</button>
                 </form>
@@ -203,7 +223,75 @@
     </div>
 
     <script>
-        document.getElementById('currencySelect').addEventListener('change', function() {
+        flatpickr("#start_date", {
+            dateFormat: "Y-m-d",
+            disable: [new Date()],
+        });
+
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+                $('.success-section-sar').hide();
+                $('.success-section-pkr').hide();
+                $('.success-section-usd').hide();
+                $('.failure-section').hide();
+                var formData = $(this).serialize(); // Serialize form data
+                var vehicle_id = $('#vehicle_id').val(); // Get the value of the hidden input field
+
+                // Append the hotelId to the formData
+                formData += '&vehicle_id=' + vehicle_id; // Make AJAX request
+                $.ajax({
+                    url: '{{ route('search.route_price') }}',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response) {
+                            if (response.error) {
+                                $('.failure-section').html(response.error);
+                                $('.failure-section').show();
+                                $('.success-section-sar').hide();
+                                $('.begin-section').hide();
+                                $('#searched').val('0');
+                            }
+                            console.log(response);
+                            if (response.cost && response.cost != '0') {
+                                var formattedSAR = response.cost.toFixed(1);
+                                var pkr = response.sar_to_pkr * response.cost;
+                                var formattedPKR = pkr.toFixed(1);
+                                var usd = response.sar_to_usd * response.cost;
+                                var formattedUSD = usd.toFixed(1);
+                                $('.success-section-sar').html(
+                                    'Transport price of the selected route is <b>' +
+                                    formattedSAR + ' (SAR)</b>');
+                                $('.success-section-pkr').html(
+                                    'Transport price of the selected route is <b>' +
+                                    formattedPKR + ' (PKR)</b>');
+                                $('.success-section-usd').html(
+                                    'Transport price of the selected route is <b>' +
+                                    formattedUSD + ' (USD)</b>');
+                                $('.success-section-sar').show(); // Hide failure section
+                                $('.failure-section').hide(); // Hide failure section
+                                $('.begin-section').hide();
+                                $('#searched').val('1');
+                            }
+                            
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        console.error(xhr.responseText);
+                        // Display error message
+                        $('.failure-section').html(
+                            'An error occurred while processing the request');
+                        $('.success-section').hide(); // Hide success section
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+         document.getElementById('currencySelect').addEventListener('change', function() {
             // Hide all divs first
             document.querySelectorAll('.currency-content').forEach(function(div) {
                 div.style.display = 'none';
@@ -211,6 +299,24 @@
 
             // Show the div corresponding to the selected currency
             var selectedCurrency = this.value;
+            var sarText = $('#searched').val();
+            if (sarText == "1") {
+                if (selectedCurrency == 'SAR') {
+                    $('.success-section-sar').show();
+                    $('.success-section-pkr').hide();
+                    $('.success-section-usd').hide();
+                }
+                if (selectedCurrency == 'USD') {
+                    $('.success-section-sar').hide();
+                    $('.success-section-pkr').hide();
+                    $('.success-section-usd').show();
+                }
+                if (selectedCurrency == 'PKR') {
+                    $('.success-section-sar').hide();
+                    $('.success-section-pkr').show();
+                    $('.success-section-usd').hide();
+                }
+            }
             document.getElementById('content' + selectedCurrency).style.display = 'block';
         });
     </script>

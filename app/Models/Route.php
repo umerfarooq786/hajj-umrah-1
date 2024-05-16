@@ -17,4 +17,9 @@ class Route extends Model
         return $this->morphTo();
         // return $this->hasMany(Transport::class, 'route_id');
     }
+
+    public function transports()
+    {
+        return $this->belongsToMany(Vehicle::class, 'transports', 'route_id', 'vehicle_id');
+    }
 }

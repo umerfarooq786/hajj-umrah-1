@@ -23,6 +23,8 @@ class PDFController extends Controller
             'JeddahhotelBookingResults' => json_decode(decrypt($request->JeddahhotelBookingResults), true),
             'sar_to_pkr' => json_decode(decrypt($request->sar_to_pkr), true),
             'sar_to_usd' => json_decode(decrypt($request->sar_to_usd), true),
+            'email' => json_decode(decrypt($request->email), true),
+            'contact' => json_decode(decrypt($request->contact), true),
             'RoutesData' => json_decode(decrypt($request->RoutesData), true),
             'grandtotal' => json_decode(decrypt($request->grandtotal), true),
         ];

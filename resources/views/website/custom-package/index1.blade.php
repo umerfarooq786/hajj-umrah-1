@@ -94,17 +94,19 @@
         </video>
 
         <div class="bg-white/80 p-10  pb-20 rounded-xl  lg:w-[80%] max-w-[1000px] ">
+           
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Fast Lines!</b>
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>{!! $error !!}</li>
                         @endforeach
                     </ul>
                 </div><br><br>
             @endif
+            
             @foreach ($showpage as $visa)
                 @if ($visa->show_hajj)
                     {{-- This note field should be in a flash message, which will end after redirection --}}
@@ -121,17 +123,29 @@
                     <form method="POST" action="{{ route('calculate.calculate_package_result') }}" class="space-y-2"
                         id="custom-package-form" enctype="multipart/form-data">
                         @csrf
-                        <!-- Select Stay in Makkah -->
-                        <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
-                        {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
-                        <select id="no_of_persons" name="no_of_persons"
-                            class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
-                            <option value="">Select Persons</option>
-                            @for ($i = 1; $i <= 20; $i++)
-                                <option value="{{ $i }}" {{ old('no_of_persons') == $i ? 'selected' : '' }}>
-                                    {{ $i }}</option>
-                            @endfor
-                        </select>
+                        <div class="flex max-lg:flex-col max-lg:gap-5 lg:gap-10">
+                            <div>
+                                <h4 class="font-semibold text-sm ">Select Number Of Persons</h4>
+                                {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
+                                <select id="no_of_persons" name="no_of_persons"
+                                    class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
+                                    <option value="">Select Persons</option>
+                                    @for ($i = 1; $i <= 20; $i++)
+                                        <option value="{{ $i }}" {{ old('no_of_persons') == $i ? 'selected' : '' }}>
+                                            {{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-sm ">Email</h4>
+                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-sm ">Contact No.</h4>
+                                <input type="number" name="contact" value="{{ old('contact') }}" placeholder="Contact No." required>
+                            </div>
+                        </div>
+                        
                         {{-- </div> --}}
 
                         <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
