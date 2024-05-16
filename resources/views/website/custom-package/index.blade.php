@@ -120,16 +120,28 @@
                 id="custom-package-form" enctype="multipart/form-data">
                 @csrf
                 <!-- Select Stay in Makkah -->
-                <h4 class="font-semibold text-sm ">Select Number Of Persons.</h4>
-                {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
-                <select id="no_of_persons" name="no_of_persons"
-                    class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
-                    <option value="">Select Persons</option>
-                    @for ($i = 1; $i <= 20; $i++)
-                        <option value="{{ $i }}" {{ old('no_of_persons') == $i ? 'selected' : '' }}>
-                            {{ $i }}</option>
-                    @endfor
-                </select>
+                <div class="flex max-lg:flex-col max-lg:gap-5 lg:gap-10">
+                    <div>
+                        <h4 class="font-semibold text-sm ">Select Number Of Persons</h4>
+                        {{-- <div class="flex flex-col md:flex-row stay relative"> --}}
+                        <select id="no_of_persons" name="no_of_persons"
+                            class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
+                            <option value="">Select Persons</option>
+                            @for ($i = 1; $i <= 20; $i++)
+                                <option value="{{ $i }}" {{ old('no_of_persons') == $i ? 'selected' : '' }}>
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm ">Email</h4>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm ">Contact No.</h4>
+                        <input type="number" name="contact" placeholder="Contact No." required>
+                    </div>
+                </div>
                 {{-- </div> --}}
 
                 <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>

@@ -28,7 +28,7 @@
         </select>
 
         {{-- Routes Pricing Section --}}
-        <div id="contentSAR" class="currency-content">
+        {{-- <div id="contentSAR" class="currency-content">
             <div class="relative overflow-x-auto w-[60%] border border-gray1 self-start mt-3">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <tbody>
@@ -156,8 +156,49 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> --}}
 
+        <div>
+            <div>
+                <h4 class="font-semibold text-[20px]">Transport Pricing</h4>
+                <form action="{{ route('search.makkahhotels') }}" class="flex gap-5 mt-5 ">
+                    @csrf
+                    <div class=" flex items-center relative lg:w-[150px]">
+                        <input type="hidden" id="hotelId" value="test">
+                        <input type="hidden" id="searched" value="0">
+                        <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
+                        <input type="text" id="start_date" name="makkah_hotel_start_date" placeholder="Start Date"
+                            class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                    </div>
+
+                    <select id="makkah_hotel_room_type" name="makkah_hotel_room_type"
+                        class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                        <option value="">Select Route</option>
+                        <option value="1">A-B</option>
+                        <option value="2">B-C</option>
+                        <option value="3">C-D</option>
+                    </select>
+                    <button class="bg-[#c2242a] text-white py-2 px-5 rounded-md hover:bg-opacity-85">Search</button>
+                </form>
+            </div>
+            <br>
+            {{-- Accomodation Result Success section --}}
+            <div class="success-section-sar p-5 rounded-2xl w-[60%] border border-gray-200 text-center">
+            </div>
+
+            <div class="success-section-usd p-5 rounded-2xl w-[60%] border border-gray-200 text-center">
+            </div>
+
+            <div class="success-section-pkr p-5 rounded-2xl w-[60%] border border-gray-200 text-center">
+            </div>
+            {{-- Accommodation Result Failure section --}}
+            <div class="failure-section p-5 rounded-2xl w-[60%] border border-gray-200 text-center">
+            </div>
+
+            <div class="begin-section p-5 rounded-2xl w-[60%] border border-gray-200 text-center">
+                Accommodation Price Will Appear Here After Search. . .
+            </div>
+        </div>
 
     </div>
 
