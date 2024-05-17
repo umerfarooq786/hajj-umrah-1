@@ -177,24 +177,9 @@
 
                             <td style="">
                                 Created: {{ now()->format('d-m-Y') }} <br />
-                                Invoice #: <span style="font-size: 10px !important">{{ $unique_invoice }}</span>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
-            <tr class="information">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>
-
-                            </td>
-
-                            <td>
-                                To:
-                                Guest User<br />
+                                Invoice #: <span style="font-size: 10px !important">{{ $unique_invoice }}</span> <br>
+                                Email: <span style="font-size: 10px !important">{{ $email }}</span><br>
+                                Contact #: <span style="font-size: 10px !important">{{ $contact }}</span>
                             </td>
                         </tr>
                     </table>

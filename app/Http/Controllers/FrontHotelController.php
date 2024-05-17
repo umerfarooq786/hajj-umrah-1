@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\HotelRoom;
 use App\Models\Image;
+use App\Models\Route;
+use App\Models\Transport;
 use App\Models\Vehicle;
 use App\Models\Weekend;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +65,8 @@ class FrontHotelController extends Controller
         ]);
     }
 
+
+
     public function searchMakkahRoom(Request $request)
     {
         // Process form data and perform search
@@ -106,7 +110,6 @@ class FrontHotelController extends Controller
                     $uncoveredDates[] = $dateString;
                 }
             }
-
             if (count($uncoveredDates) == 0) {
                 foreach ($hotelRoom as $hotelRooms) {
 
@@ -163,9 +166,46 @@ class FrontHotelController extends Controller
                     }
                 }
             } else {
+                $textDateRanges = '';
+                $startDate = null;
+                $endDate = '';
+
+                // Iterate through the dates
+                foreach ($uncoveredDates as $date) {
+                    // Parse the date
+                    $formattedDate = date('j F Y', strtotime($date));
+
+                    // If startDate is not set, set it
+                    if ($startDate === null) {
+                        $startDate = $formattedDate;
+                        $endDate = $formattedDate;
+                        continue; // Skip the rest of the loop iteration
+                    }
+
+                    // Check if the current date is consecutive to the previous date
+                    $currentDate = date('Y-m-d', strtotime($date));
+                    $previousDate = date('Y-m-d', strtotime($endDate));
+                    $diff = date_diff(date_create($currentDate), date_create($previousDate));
+
+                    if ($diff->days === 1) {
+                        // If consecutive, update endDate
+                        $endDate = $formattedDate;
+                    } else {
+                        // If not consecutive, add the range to textDateRanges
+                        $textDateRanges .= ($startDate == $endDate) ? $startDate : $startDate . ' to ' . $endDate;
+                        $textDateRanges .= ' <br> ';
+                        $startDate = $formattedDate;
+                        $endDate = $formattedDate;
+                    }
+                }
+
+                // Add the last range to textDateRanges
+                $textDateRanges .= ($startDate == $endDate) ? $startDate : $startDate . ' to ' . $endDate;
+
+
                 $firstDate = Carbon::createFromFormat('Y-m-d', reset($uncoveredDates))->format('d F Y');
                 $lastDate = Carbon::createFromFormat('Y-m-d', end($uncoveredDates))->format('d F Y');
-                $errorMessage = "Sorry, No makkah hotel room available from $firstDate to $lastDate.";
+                $errorMessage = "Sorry, According to your given dates we have not availabilty of this room in given dates bellow: <br> $textDateRanges";
                 return response()->json(['result' => $errorMessage]);
             }
         }
@@ -176,7 +216,7 @@ class FrontHotelController extends Controller
             'sar_to_usd' => $sar_to_usd
         ]);
     }
-    
+
     public function searchMadinahRoom(Request $request)
     {
         // Process form data and perform search
@@ -277,9 +317,42 @@ class FrontHotelController extends Controller
                     }
                 }
             } else {
-                $firstDate = Carbon::createFromFormat('Y-m-d', reset($uncoveredDates))->format('d F Y');
-                $lastDate = Carbon::createFromFormat('Y-m-d', end($uncoveredDates))->format('d F Y');
-                $errorMessage = "Sorry, No Madinah hotel room available from $firstDate to $lastDate.";
+                $textDateRanges = '';
+                $startDate = null;
+                $endDate = '';
+
+                // Iterate through the dates
+                foreach ($uncoveredDates as $date) {
+                    // Parse the date
+                    $formattedDate = date('j F Y', strtotime($date));
+
+                    // If startDate is not set, set it
+                    if ($startDate === null) {
+                        $startDate = $formattedDate;
+                        $endDate = $formattedDate;
+                        continue; // Skip the rest of the loop iteration
+                    }
+
+                    // Check if the current date is consecutive to the previous date
+                    $currentDate = date('Y-m-d', strtotime($date));
+                    $previousDate = date('Y-m-d', strtotime($endDate));
+                    $diff = date_diff(date_create($currentDate), date_create($previousDate));
+
+                    if ($diff->days === 1) {
+                        // If consecutive, update endDate
+                        $endDate = $formattedDate;
+                    } else {
+                        // If not consecutive, add the range to textDateRanges
+                        $textDateRanges .= ($startDate == $endDate) ? $startDate : $startDate . ' to ' . $endDate;
+                        $textDateRanges .= ' <br> ';
+                        $startDate = $formattedDate;
+                        $endDate = $formattedDate;
+                    }
+                }
+
+                // Add the last range to textDateRanges
+                $textDateRanges .= ($startDate == $endDate) ? $startDate : $startDate . ' to ' . $endDate;
+                $errorMessage = "Sorry, According to your given dates we have not availabilty of this room in given dates bellow: <br> $textDateRanges";
                 return response()->json(['result' => $errorMessage]);
             }
         }
@@ -290,7 +363,7 @@ class FrontHotelController extends Controller
             'sar_to_usd' => $sar_to_usd
         ]);
     }
-    
+
     public function searchJeddahRoom(Request $request)
     {
         // Process form data and perform search
@@ -391,15 +464,113 @@ class FrontHotelController extends Controller
                     }
                 }
             } else {
-                $firstDate = Carbon::createFromFormat('Y-m-d', reset($uncoveredDates))->format('d F Y');
-                $lastDate = Carbon::createFromFormat('Y-m-d', end($uncoveredDates))->format('d F Y');
-                $errorMessage = "Sorry, No Jeddah hotel room available from $firstDate to $lastDate.";
+                $textDateRanges = '';
+                $startDate = null;
+                $endDate = '';
+
+                // Iterate through the dates
+                foreach ($uncoveredDates as $date) {
+                    // Parse the date
+                    $formattedDate = date('j F Y', strtotime($date));
+
+                    // If startDate is not set, set it
+                    if ($startDate === null) {
+                        $startDate = $formattedDate;
+                        $endDate = $formattedDate;
+                        continue; // Skip the rest of the loop iteration
+                    }
+
+                    // Check if the current date is consecutive to the previous date
+                    $currentDate = date('Y-m-d', strtotime($date));
+                    $previousDate = date('Y-m-d', strtotime($endDate));
+                    $diff = date_diff(date_create($currentDate), date_create($previousDate));
+
+                    if ($diff->days === 1) {
+                        // If consecutive, update endDate
+                        $endDate = $formattedDate;
+                    } else {
+                        // If not consecutive, add the range to textDateRanges
+                        $textDateRanges .= ($startDate == $endDate) ? $startDate : $startDate . ' to ' . $endDate;
+                        $textDateRanges .= ' <br> ';
+                        $startDate = $formattedDate;
+                        $endDate = $formattedDate;
+                    }
+                }
+
+                // Add the last range to textDateRanges
+                $textDateRanges .= ($startDate == $endDate) ? $startDate : $startDate . ' to ' . $endDate;
+                $errorMessage = "Sorry, According to your given dates we have not availabilty of this room in given dates bellow: <br> $textDateRanges";
                 return response()->json(['result' => $errorMessage]);
             }
         }
 
         return response()->json([
             'price' => $total_hotel_cost,
+            'sar_to_pkr' => $sar_to_pkr,
+            'sar_to_usd' => $sar_to_usd
+        ]);
+    }
+
+    public function searchRoutePrice(Request $request)
+    {
+        // Process form data and perform search
+        // For example, you can retrieve input values like this:
+        $vehicle_id = $request->input('vehicle_id');
+        $start_date = $request->input('start_date');
+        $route_id = $request->input('route');
+        $transport_cost = 0;
+        $new_transport_cost = 0;
+        $errorMessage = '';
+
+        $routeName = Route::where('id', $route_id)->pluck('name');
+        $transports = Transport::with('vehicles')
+            ->where('route_id', $route_id)
+            ->where('vehicle_id', $vehicle_id)
+            ->get();
+
+        if ($transports->isNotEmpty()) {
+            foreach ($transports as $transport) {
+
+
+                $vehicle = $transport->vehicles->name;
+                $travel_date = $start_date;
+
+                $commision = $transport->commision;
+                $cost = $transport->costs()
+                    ->where('validity_start', '<=', $start_date) // Check if travel date is after or on validity start
+                    ->where('validity_end', '>=', $start_date) // Check if travel date is before or on validity end
+                    ->orderByRaw('ABS(DATEDIFF(validity_start, ?))', [$start_date]) // Order by the difference between travel date and validity start
+                    ->first();
+
+
+                if ($cost != null) {
+                    $totalCost = $cost->cost; // Assuming 'amount' is the field where the cost is stored
+                    $commissionAmount = ($commision / 100) * $totalCost;
+                    $costWithCommission = $totalCost + $commissionAmount;
+                    // Assign the transport cost and break the loop
+                    $new_transport_cost = $costWithCommission;
+                    $transport_cost += $new_transport_cost;
+                    break;
+                }
+            }
+            if ($transport_cost == 0) {
+                $errorMessage = "Sorry, No Transport available between the given date.";
+                return response()->json(['error' => $errorMessage]);
+            }
+        } else {
+            $errorMessage = "Sorry, No Transport available between the given date";
+            return response()->json(['error' => $errorMessage]);
+        }
+        $CurrencyConversion = CurrencyConversion::all();
+        foreach ($CurrencyConversion as $CurrencyConversions) {
+            $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
+            $sar_to_usd = $CurrencyConversions->sar_to_usd;
+        }
+        return response()->json([
+            'error' => $errorMessage,
+            'vehicle_id' => $vehicle_id,
+            'cost' => $transport_cost,
+            'route_id' => $route_id,
             'sar_to_pkr' => $sar_to_pkr,
             'sar_to_usd' => $sar_to_usd
         ]);
@@ -414,6 +585,11 @@ class FrontHotelController extends Controller
 
     public function singleTransportation($id)
     {
+        $selectedValue = 1 ;
+
+        // Find the route with the given ID
+  
+
         $vehicle = Vehicle::with(['images', 'transport.route', 'transport.costs'])
             ->where('id', $id)
             ->firstOrFail();

@@ -7,11 +7,15 @@
             @foreach ($vehicles as $vehicle)
                 @if ($vehicle->display == '1')
                     <div class="bg-gray-100 shadow-lg w-full min-h-[250px] h-max flex flex-col lg:flex-row items-center  ">
-                        <img src="{{ asset('uploads/' . $vehicle->images[0]->name) }}" alt=""
-                            class="lg:h-[250px]  lg:w-[30%]  object-cover">
+                        @if (isset($vehicle->images) && count($vehicle->images) > 0)
+                            <img src="{{ asset('uploads/' . $vehicle->images[0]->name) }}" alt=""
+                                class="lg:h-[250px]  lg:w-[30%]  object-cover">
+                        @else
+                            <p>No images available</p>
+                        @endif
                         <div class="space-y-10 px-10 py-5 w-full flex flex-col items-start">
                             <span class="text-xl font-semibold text-gray-800">
-                                {{ $vehicle->name }}
+                                {{ $vehicle->name }} ({{$vehicle->capacity}}-person)
                             </span>
                             {{-- @php $displayCount = 0; @endphp
                             @if ($vehicle->transport)
@@ -42,8 +46,8 @@
                                 </div>
                             </div>
                             @endif --}}
-                            <a href="transportation/1"
-                                class="bg-[#9a1d21]  inline-block cursor-pointer text-white py-2 px-7 rounded-md hover:bg-opacity-90">View
+                            <a href="transportation/{{ $vehicle->id }}"
+                                class="startDate bg-[#9a1d21]  inline-block cursor-pointer text-white py-2 px-7 rounded-md hover:bg-opacity-90">View
                                 Details</a>
 
                         </div>

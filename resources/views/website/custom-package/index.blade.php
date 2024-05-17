@@ -101,7 +101,7 @@
                     <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Fast Lines!</b>
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>{!! $error !!}</li>
                         @endforeach
                     </ul>
                 </div><br><br>
@@ -135,11 +135,12 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-sm ">Email</h4>
-                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
                     </div>
                     <div>
                         <h4 class="font-semibold text-sm ">Contact No.</h4>
-                        <input type="number" name="contact" placeholder="Contact No." required>
+                        <input type="number" name="contact" value="{{ old('contact') }}" placeholder="Contact No."
+                            required>
                     </div>
                 </div>
                 {{-- </div> --}}
@@ -311,14 +312,6 @@
                         <select id="vehicle" name="vehicle[]"
                             class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
                             <option value="">Select Vehicle</option>
-                            @foreach ($transport_types as $transport)
-                                <option value="{{ $transport->id }}">
-                                    {{ $transport->name }}
-                                    @if ($transport->capacity)
-                                        <span class="text-xs text-gray-500">( {{ $transport->capacity }}-Person )</span>
-                                    @endif
-                                </option>
-                            @endforeach
                         </select>
 
                         <div class=" flex items-center relative h-[40px]">
@@ -941,17 +934,14 @@
             $('#addMoreBtn').click(function(e) {
                 e.preventDefault();
                 var newInputGroup = $('<div class="flex flex-col md:flex-row stay relative">' +
-                    '<select name="route[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                    '<select id="route1" name="route[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
                     '<option value="">Select Route</option>' +
                     '@foreach ($routes as $route)' +
                     '<option value="{{ $route->id }}">{{ $route->name }}</option>' +
                     '@endforeach' +
                     '</select>' +
-                    '<select name="vehicle[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                    '<select id="vehicle1" name="vehicle[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
                     '<option value="">Select Vehicle</option>' +
-                    '@foreach ($transport_types as $trantransport_type)' +
-                    '<option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }} <span class="text-xs text-gray-500">( {{ $trantransport_type->capacity }}-Person )</span></option>' +
-                    '@endforeach' +
                     '</select>' +
                     '<div class="flex items-center relative h-[40px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
@@ -1132,6 +1122,91 @@
                 $(this).closest('.stay').remove(); // Adjusted the selector here
             });
         });
+
+
+        $(document).on('change', '#route', function() {
+            var selectedValue = $(this).val();
+            $.ajax({
+                url: '{{ route('calculate.route_vehicle') }}',
+                method: 'POST',
+                data: {
+                    selectedValue: selectedValue
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Extract data from the response
+                    var responseData = response.data;
+                    if (responseData == 'nothing') {
+                        options = '<option value="">No Vehicle Found</option>';
+                        $('#vehicle').html(options);
+                    } else {
+                        populate_route_type(responseData);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+
+
+            function populate_route_type(data) {
+                var options = '<option value="">Select Route</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].name + ' (' + data[i].capacity +
+                        '-person)</option>';
+                }
+
+                // Populate the second dropdown with options
+                $('#vehicle').html(options);
+            }
+        });
+        $(document).on('change', '#route1', function() {
+            var selectedValue = $(this).val();
+            $.ajax({
+                url: '{{ route('calculate.route_vehicle') }}',
+                method: 'POST',
+                data: {
+                    selectedValue: selectedValue
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Extract data from the response
+                    var responseData = response.data;
+                    if (responseData == 'nothing') {
+                        options = '<option value="">No Vehicle Found</option>';
+                        $('#vehicle1').html(options);
+                    } else {
+                        populate_route_type(responseData);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+
+
+            function populate_route_type(data) {
+                var options = '<option value="">Select Route</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].name + ' (' + data[i].capacity +
+                        '-person)</option>';
+                }
+
+                // Populate the second dropdown with options
+                $('#vehicle1').html(options);
+            }
+        });
+
 
         const initialFields = document.querySelectorAll('.stay'); // Select all initial fields
 

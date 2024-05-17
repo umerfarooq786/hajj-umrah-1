@@ -115,6 +115,7 @@ Route::post('/calculate_package_result', [CostController::class, 'calculate'])->
 Route::post('/get-hotel-rooms', [CostController::class, 'hotel_room_type'])->name('calculate.hotel_room_type');
 Route::get('/get-hotel-note', [CostController::class, 'hotel_note'])->name('calculate.hotel_note');
 Route::post('/get-hotel-meals', [CostController::class, 'hotel_meal_type'])->name('calculate.hotel_meal_type');
+Route::post('/get-route-vehicle', [CostController::class, 'route_vehicle'])->name('calculate.route_vehicle');
 Route::get('/custom-package/result', [CostController::class, 'calculate_package_result']);
 Route::get('/custom-package/result2', [CostController::class, 'calculate_package_result2']);
 
@@ -123,6 +124,7 @@ Route::get('/hotel-id/{id}', [FrontHotelController::class, 'singleHotel']);
 Route::post('/search-makkah-hotels', [FrontHotelController::class, 'searchMakkahRoom'])->name('search.makkahhotels');
 Route::post('/search-madinah-hotels', [FrontHotelController::class, 'searchMadinahRoom'])->name('search.madinahhotels');
 Route::post('/search-jeddah-hotels', [FrontHotelController::class, 'searchJeddahRoom'])->name('search.jeddahhotels');
+Route::post('/search-route-price', [FrontHotelController::class, 'searchRoutePrice'])->name('search.route_price');
 
 Route::get('/transportation', [FrontHotelController::class, 'transportation'])->name('transportation');
 Route::get('/transportation/{id}', [FrontHotelController::class, 'singleTransportation'])->name('singleTransportation');
