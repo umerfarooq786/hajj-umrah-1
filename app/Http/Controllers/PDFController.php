@@ -31,8 +31,8 @@ class PDFController extends Controller
 
         // generating incoice id
         $timestamp = now()->format('YmdHis');
-        $random = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
-        $invoice_number = "INV-{$timestamp}-{$random}";
+        $random = substr(str_shuffle('0123456789'), 0, 8); 
+        $invoice_number = "{$timestamp}{$random}";
 
         $data['unique_invoice'] = $invoice_number;
         // dd($data);
