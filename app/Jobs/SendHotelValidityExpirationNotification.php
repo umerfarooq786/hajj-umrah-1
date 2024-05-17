@@ -52,25 +52,25 @@ class SendHotelValidityExpirationNotification implements ShouldQueue
             // Uncomment and implement email sending logic if necessary
             $mail = new ValidityNotificationMail($this->Hotel_room);
             $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
         } 
         
         elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
             $mail = new ValidityThreeDaysNotificationMail($this->Hotel_room);
             $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
         } 
         
         elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
             $mail = new ValidityTwoDaysNotificationMail($this->Hotel_room);
             $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
         }
         
         elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
             $mail = new ValidityOneDayNotificationMail($this->Hotel_room);
             $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
         }
     }
 }

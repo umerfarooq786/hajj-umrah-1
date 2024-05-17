@@ -140,11 +140,11 @@ class ContactsController extends Controller
         $contact->subject = $request->subject;
         $contact->comments = $request->comments;
         $contact->save();
-        $toEmail = 'mudasirasfi420@gmail.com'; // Specify the recipient email address
+        $toEmail = 'fastlinetraveltours.pk@gmail.com'; // Specify the recipient email address
         $formData = $request->all(); // Assuming $formData contains the form data
         $mail = new ContactUsMail($formData);
         $mail->from('example@gmail.com', 'Hajj & Ummrah');
-        Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+        Mail::to('fastlinetourss.pk@gmail.com')->send($mail);
         // Mail::to($toEmail)->send(new ContactUsMail($formData));
         return redirect()->route('home_page')->with('success', 'contact info sent successfully.');
     }

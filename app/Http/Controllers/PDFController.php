@@ -53,7 +53,7 @@ class PDFController extends Controller
             ]);
 
             // Send the email
-            Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+            Mail::to('fastlinetourss.pk@gmail.com')->send($mail);
             \File::delete($pdfPath);
 
             

@@ -58,19 +58,19 @@ class SendTransportValidityMails implements ShouldQueue
                 // Uncomment and implement email sending logic if necessary
                 $mail = new TransportSevenDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             } elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
                 $mail = new TransportThreeDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             } elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
                 $mail = new TransportTwoDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             } elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
                 $mail = new TransportOneDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('Mudasirasfi420@gmail.com')->send($mail);
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             }
         }
     }
