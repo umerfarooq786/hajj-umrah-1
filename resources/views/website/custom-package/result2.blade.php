@@ -61,7 +61,7 @@
                 <input type="hidden" name="contact" value="{{ encrypt(json_encode($contact)) }}">
                 <input type="hidden" name="grandtotal" value="{{ encrypt(json_encode($grandtotal)) }}">
 
-                <div class="relative inline-block text-left">
+                <div class="relative inline-block text-left z-10">
                     <div>
                         <button type="button" id="downloadButton"
                             class="bg-[#c02428] text-white py-2 px-5 rounded-md hover:bg-opacity-80"
