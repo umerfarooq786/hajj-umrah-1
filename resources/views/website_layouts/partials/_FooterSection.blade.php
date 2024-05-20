@@ -28,10 +28,23 @@
                 <img src="{{ asset('images/footer-icon3.png') }}" alt="logo" class="h-[25px]">
                 <span>fastlinetourss.pk@gmail.com</span>
             </a>
-            <!-- <a  class="mt-5 flex items-center gap-3 text-sm hover:text-first">
-                <img src="{{ asset('images/footer-icon4.png') }}" alt="logo" class="h-[25px]">
-                <span>yourwebsite.com</span>
-            </a> -->
+            <div class="flex items-center justify-center gap-5 mt-5">
+                <a href="https://www.facebook.com/profile.php?id=61558157542228" target="_blank"> <img
+                        src="{{ asset('images/footer-fb.png') }}" alt="" height="40" width="40"> </a>
+                <a href="https://www.instagram.com/fastline.pk/" target="_blank"> <img
+                        src="{{ asset('images/footer-instagram.png') }}" alt="" height="40" width="40">
+                </a>
+                <a href="https://wa.me/923218430304?text=Hello%2C%20I%20am%20contacting%20you%20from%20the%20website!"
+                    target="_blank"> <img src="{{ asset('images/footer-whatsapp.png') }}" alt="" height="40"
+                        width="40"> </a>
+
+            </div>
+            {{-- <a href="https://www.facebook.com/profile.php?id=61558157542228" target="_blank"><img
+                    src="{{ asset('images/home/facebook-f.svg') }}" class="text-white bg-white" alt=""
+                    class="hover:scale-90 transition-all"></a>
+            <a href="https://www.instagram.com/fastline.pk/" target="_blank"><img
+                    src="{{ asset('images/home/instagram.svg') }}" alt=""
+                    class="hover:scale-90 transition-all"></a> --}}
         </div>
         <div class="flex flex-col gap-3">
             <h4 class="text-white mb-3">Useful Links</h4>
@@ -39,11 +52,11 @@
             <a href="{{ url('about') }}" class=" hover:text-first text-sm">About</a>
             {{-- <a href="{{ url('home_page#special-offers') }}" class=" hover:text-first text-sm">Packages</a> --}}
             {{-- <a href="{{ url('custom-package') }}" class=" hover:text-first text-sm">Calculate</a> --}}
-            <a href="{{ url('hotel-city/makkah') }}" class=" hover:text-first text-sm">Hotels in Makkah</a>
-            <a href="{{ url('hotel-city/madinah') }}" class=" hover:text-first text-sm">Hotels in Madinah</a>
-            <a href="{{ url('hotel-city/jeddah') }}" class=" hover:text-first text-sm">Hotels in Jeddah</a>
-            <a href="{{ url('transportation') }}" class=" hover:text-first text-sm">Transportation</a>
-            <a href="{{ url('airlines') }}" class=" hover:text-first text-sm">Airlines</a>
+            {{-- <a href="{{ url('hotel-city/makkah') }}" class=" hover:text-first text-sm">Hotels in Makkah</a> --}}
+            {{-- <a href="{{ url('hotel-city/madinah') }}" class=" hover:text-first text-sm">Hotels in Madinah</a> --}}
+            {{-- <a href="{{ url('hotel-city/jeddah') }}" class=" hover:text-first text-sm">Hotels in Jeddah</a> --}}
+            {{-- <a href="{{ url('transportation') }}" class=" hover:text-first text-sm">Transportation</a> --}}
+            {{-- <a href="{{ url('airlines') }}" class=" hover:text-first text-sm">Airlines</a> --}}
             <a href="{{ url('contact') }}" class=" hover:text-first text-sm">Contact Us</a>
         </div>
         <div>

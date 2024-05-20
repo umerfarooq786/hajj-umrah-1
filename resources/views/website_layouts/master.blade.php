@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @include('admin_layouts.partials._script_admin')
     @yield('custom_styles')
+
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
