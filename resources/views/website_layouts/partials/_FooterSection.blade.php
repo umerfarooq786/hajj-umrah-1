@@ -8,7 +8,7 @@
         </div>
     </div> -->
     <div
-        class="bg-[#1f1f1f] text-gray2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full px-10 py-10  lg:px-40 lg:py-20 gap-10">
+        class="bg-[#1f1f1f] text-gray2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full px-10 py-10  lg:px-40 lg:py-10 gap-10">
         <div>
             <img src="{{ asset('images/logo.png') }}" alt="logo" class="h-[60px]">
             <p class="mt-5"><b>Fastline Travels & Tours:</b> We handle the travel, so you can focus on the experience
