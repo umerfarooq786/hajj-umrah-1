@@ -49,7 +49,7 @@
         </div>
         <a href="{{ url('transportation') }}" class="font-semibold hover:underline text-sm">TRANSPORTATION</a>
         <a href="{{ url('airlines') }}" class="font-semibold hover:underline text-sm">AIRLINES</a>
-        <a href="{{ url('contact') }}" class="font-semibold hover:underline text-sm">CONTACT US</a>
+        <a href="{{ url('contact/#contactForm') }}" class="font-semibold hover:underline text-sm">CONTACT US</a>
     </div>
     <div class="hidden lg:flex items-center justify-end gap-5y gap-3 lg:gap-7 ">
         <a href="https://www.facebook.com/profile.php?id=61558157542228" target="_blank"><img
@@ -155,7 +155,7 @@
             </div>
             <a href="{{ url('transportation') }}" class="text-lg hover:underline">TRANSPORTATION</a>
             <a href="{{ url('airlines') }}" class="text-lg hover:underline">AIRLINES</a>
-            <a href="{{ url('contact') }}" class="text-lg hover:underline">CONTACT US</a>
+            <a href="{{ url('contact/#contactForm') }}" class="text-lg hover:underline">CONTACT US</a>
         </div>
 
         <div class="flex items-center gap-5 ">

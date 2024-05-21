@@ -16,15 +16,18 @@
         </div>
         <div>
             <h4 class="text-white">Contact Us</h4>
-            <a class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a href="https://maps.app.goo.gl/TFG3fDbW3aKDdyks6" target="_blank"
+                class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{ asset('images/footer-icon1.png') }}" alt="logo" class="h-[25px]">
                 <span>14-15 Ground Floor, Ashrafi Heights, Main Market Gulberg ll, Lahore, Pakistan</span>
             </a>
-            <a class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a href="https://wa.me/923218430304?text=Hello%2C%20I%20am%20contacting%20you%20from%20the%20website!"
+                target="_blank" class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{ asset('images/footer-icon2.png') }}" alt="logo" class="h-[25px]">
                 <span>+92 321-8430304</span>
             </a>
-            <a class="mt-5 flex items-center gap-3 text-sm hover:text-first">
+            <a href="mailto:fastlinetourss.pk@gmail.com" target="_blank"
+                class="mt-5 flex items-center gap-3 text-sm hover:text-first">
                 <img src="{{ asset('images/footer-icon3.png') }}" alt="logo" class="h-[25px]">
                 <span>fastlinetourss.pk@gmail.com</span>
             </a>
@@ -57,12 +60,22 @@
             {{-- <a href="{{ url('hotel-city/jeddah') }}" class=" hover:text-first text-sm">Hotels in Jeddah</a> --}}
             {{-- <a href="{{ url('transportation') }}" class=" hover:text-first text-sm">Transportation</a> --}}
             {{-- <a href="{{ url('airlines') }}" class=" hover:text-first text-sm">Airlines</a> --}}
-            <a href="{{ url('contact') }}" class=" hover:text-first text-sm">Contact Us</a>
+            <a href="{{ url('contact/#contactForm') }}" class=" hover:text-first text-sm">Contact Us</a>
         </div>
         <div>
             <!-- <h4 class="text-white mb-5">Gallery</h4> -->
             <img src="{{ asset('images/footer-gallery.png') }}" alt="logo" class="h-[200px]">
         </div>
+    </div>
+    <div class="bg-[#1f1f1f] text-gray2 flex items-center justify-center w-full px-10 py-10  lg:px-40 lg:py-10 gap-10">
+        <img src="{{ asset('images/certifications/certification1.png') }}" class="h-[70px] w-[100px] object-contain"
+            alt="">
+        <img src="{{ asset('images/certifications/certification2.png') }}" class="h-[70px] w-[100px] object-contain"
+            alt="">
+
+        <img src="{{ asset('images/certifications/certification3.png') }}" class="h-[70px] w-[100px] object-contain"
+            alt="">
+
     </div>
     <div class="bg-first text-white w-full p-5 text-center font-semibold text-xs">
         <p>COPYRIGHT © 2024, FASTLINE TRAVEL & TOURS - ALL RIGHTS RESERVED</p>
