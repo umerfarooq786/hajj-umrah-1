@@ -51,15 +51,18 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="userinput1">First Name</label>
+                                                <label class="col-md-3 label-control" for="userinput1">First Name<span
+                                                        class="text-danger"> *</span></label>
+
                                                 <div class="col-md-9">
                                                     <input type="text" class="form-control border-primary"
-                                                        placeholder="First Name" name="first_name">
+                                                        placeholder="First Name" name="first_name" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 row">
-                                            <label class="col-md-3 label-control" for="userinput1">Last Name</label>
+                                            <label class="col-md-3 label-control" for="userinput1" required>Last
+                                                Name<span class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
                                                     placeholder="Last Name" name="last_name" required>
@@ -69,15 +72,17 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="userinput1">Image</label>
+                                                <label class="col-md-3 label-control" for="userinput1" required>Image<span
+                                                        class="text-danger"> *</span></label>
                                                 <div class="col-md-9">
-                                                    <input type="file" class="form-control border-primary"
-                                                        name="image">
+                                                    <input type="file" class="form-control border-primary" name="image"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 row">
-                                            <label class="col-md-3 label-control" for="userinput1">Designation</label>
+                                            <label class="col-md-3 label-control" for="userinput1" required>Designation<span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
                                                     placeholder="Designation" name="designation">
@@ -87,8 +92,8 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>Content:</strong>
-                                                <textarea type="text" name="content" placeholder="Content" class="form-control"></textarea>
+                                                <strong>Content<span class="text-danger"> *</span></strong>
+                                                <textarea type="text" name="content" placeholder="Content" class="form-control" required maxlength="200"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
