@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('process:hotel-validity-notifications')->everyTenMinutes();
-        $schedule->command('process:transport-validity')->everyTenMinutes();
+        $schedule->command('process:transport-validity')->everyMinute();
     }
 
     /**
