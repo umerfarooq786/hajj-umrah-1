@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="w-fit flex flex-col items-center justify-center gap-10 mt-[140px] md:mt-[180px] lg:mt-[70px] ">
-        <h2 class="text-white text-center text-6xl font-semibold ">Solution for <br /> The Hajj and Umrah</h2>
+        <h2 class="text-white text-center text-6xl font-semibold ">Specialized <br /> Umrah services</h2>
         <button class="bg-first py-4 px-10 rounded-xl hover:bg-opacity-80 uppercase text-sm">Calculate</button>
     </div>
 

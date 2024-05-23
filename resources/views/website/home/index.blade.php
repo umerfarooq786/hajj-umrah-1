@@ -32,39 +32,40 @@
                 Us</a>
             <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="flex space-x-4">
-                    <img src="{{ asset('images/home/luggage.png') }}" alt="logo"
-                        class="object-contain h-[40px] w-[50px]">
+                    <img src="{{ asset('images/home/kaaba.png') }}" alt="logo" class="object-contain h-[40px] w-[50px]">
                     <div>
-                        <h4 class="text-[18px] font-semibold">Free Luggage</h4>
-                        <p class="text-[14px] text-gray-500 ">Enjoy the added convenience of free luggage allowances, easing
-                            your travel burdens as you embark on your sacred pilgrimage.</p>
+                        <h4 class="text-[18px] font-semibold">Umrah services</h4>
+                        <p class="text-[14px] text-gray-500 ">Embark on enlightening journey to sacred sites, enhancing your
+                            spiritual journey with insightful guidance, all supported by attentive customer assistance.</p>
                     </div>
                 </div>
                 <div class="flex space-x-4">
-                    <img src="{{ asset('images/home/customer-care.png') }}" alt="logo"
+                    <img src="{{ asset('images/home/hotel-icon.png') }}" alt="logo"
                         class="object-contain h-[40px] w-[50px]">
                     <div>
-                        <h4 class="text-[18px] font-semibold">Customer Support</h4>
-                        <p class="text-[14px] text-gray-500">Receive unparalleled customer support, ensuring all your
-                            inquiries and needs are promptly addressed throughout your pilgrimage journey.</p>
-                    </div>
-                </div>
-                <div class="flex space-x-4">
-                    <img src="{{ asset('images/home/reception-bell.png') }}" alt="logo"
-                        class="object-contain h-[40px] w-[50px]">
-                    <div>
-                        <h4 class="text-[18px] font-semibold">Hotels</h4>
+                        <h4 class="text-[18px] font-semibold">Hotel</h4>
                         <p class="text-[14px] text-gray-500">Discover handpicked accommodations meticulously selected to
                             provide comfort and convenience, enhancing your pilgrimage experience with memorable stays at
                             top-rated hotels.</p>
                     </div>
                 </div>
                 <div class="flex space-x-4">
-                    <img src="{{ asset('images/home/kaaba.png') }}" alt="logo" class="object-contain h-[40px] w-[50px]">
+                    <img src="{{ asset('images/home/transport-icon.png') }}" alt="logo"
+                        class="object-contain h-[50px] w-[60px]">
                     <div>
-                        <h4 class="text-[18px] font-semibold">Tours</h4>
-                        <p class="text-[14px] text-gray-500">Embark on enlightening tours to sacred sites, enhancing your
-                            spiritual journey with insightful guidance, all supported by attentive customer assistance.</p>
+                        <h4 class="text-[18px] font-semibold">Transport</h4>
+                        <p class="text-[14px] text-gray-500">Enjoy the added convenience of reliable transport services,
+                            easing your travel burdens as you embark on your sacred pilgrimage</p>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <img src="{{ asset('images/home/customer-care.png') }}" alt="logo"
+                        class="object-contain h-[40px] w-[50px]">
+
+                    <div>
+                        <h4 class="text-[18px] font-semibold">Customer service</h4>
+                        <p class="text-[14px] text-gray-500">Receive unparalleled customer support, ensuring all your
+                            inquiries and needs are promptly addressed throughout your pilgrimage journey.</p>
                     </div>
                 </div>
             </div>
@@ -163,9 +164,9 @@
                         reflection throughout the journey. </p>
                 </div>
 
-                <a href="{{ url('contact') }}"
+                {{-- <a href="{{ url('contact') }}"
                     class="inline-block mt-8 py-3 px-5 rounded-full uppercase bg-red-500 hover:bg-opacity-80 text-xs text-white">Contact
-                    Us</a>
+                    Us</a> --}}
             </div>
         </div>
     </div>
@@ -187,158 +188,158 @@
     @endif
     <!-- section 4 -->
     <!-- <div class=" bg-white pb-20 text-center">
-                                                        <h4 class="text-red-500 text-[16px] font-semibold pb-3">UMRAH</h4>
-                                                        <h2 class="text-[27px] font-semibold">Umrah and Hajj Package</h2>
+                                                                                    <h4 class="text-red-500 text-[16px] font-semibold pb-3">UMRAH</h4>
+                                                                                    <h2 class="text-[27px] font-semibold">Umrah and Hajj Package</h2>
 
-                                                        <div class="w-[80%] mx-auto mt-10 text-left">
-                                                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                                                <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
-                                                                    <div class="bg-[#2a2a2a] text-white p-8 relative h-[150px]">
-                                                                        <h4 class="text-[22px] font-bold">Umrah</h4>
-                                                                        <p class="text-red-500 mt-[-5px]">$2000 USD / Person</p>
-                                                                        <a href="#"
-                                                                            class="py-4 px-7 rounded-sm bg-[#e2efff] inline-block text-xs font-semibold text-black absolute bottom-[-20px]">GET
-                                                                            STARTED</a>
-                                                                    </div>
-                                                                    <div class="px-5">
-                                                                        <div class="flex gap-3 mt-14 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Private Airport Transfers</p>
-                                                                        </div>
+                                                                                    <div class="w-[80%] mx-auto mt-10 text-left">
+                                                                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                                                            <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
+                                                                                                <div class="bg-[#2a2a2a] text-white p-8 relative h-[150px]">
+                                                                                                    <h4 class="text-[22px] font-bold">Umrah</h4>
+                                                                                                    <p class="text-red-500 mt-[-5px]">$2000 USD / Person</p>
+                                                                                                    <a href="#"
+                                                                                                        class="py-4 px-7 rounded-sm bg-[#e2efff] inline-block text-xs font-semibold text-black absolute bottom-[-20px]">GET
+                                                                                                        STARTED</a>
+                                                                                                </div>
+                                                                                                <div class="px-5">
+                                                                                                    <div class="flex gap-3 mt-14 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Private Airport Transfers</p>
+                                                                                                    </div>
 
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">International Airfare</p>
-                                                                        </div>
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">International Airfare</p>
+                                                                                                    </div>
 
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Umrah Visa</p>
-                                                                        </div>
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Umrah Visa</p>
+                                                                                                    </div>
 
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Land Transportation</p>
-                                                                        </div>
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Land Transportation</p>
+                                                                                                    </div>
 
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Accodomation</p>
-                                                                        </div>
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Accodomation</p>
+                                                                                                    </div>
 
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Lunch</p>
-                                                                        </div>
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Lunch</p>
+                                                                                                    </div>
 
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Dinner</p>
-                                                                        </div>
-
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
-                                                                    <div class="bg-red-500 text-white p-8 relative h-[150px]">
-                                                                        <h4 class="text-black text-[22px]  font-bold">Hajj</h4>
-                                                                        <p class="text-white mt-[-5px] ">$8000 USD / Person</p>
-                                                                        <a href="#"
-                                                                            class="py-4 px-7 rounded-sm bg-[#2a2a2a] inline-block text-xs font-semibold text-white absolute bottom-[-20px]">GET
-                                                                            STARTED</a>
-                                                                    </div>
-                                                                    <div class="px-5">
-                                                                        <div class="flex gap-3 mt-14 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Private Airport Transfers</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">International Airfare</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Umrah Visa</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Land Transportation</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Accodomation</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Lunch</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Dinner</p>
-                                                                        </div>
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Dinner</p>
+                                                                                                    </div>
 
 
-                                                                    </div>
-                                                                </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
+                                                                                                <div class="bg-red-500 text-white p-8 relative h-[150px]">
+                                                                                                    <h4 class="text-black text-[22px]  font-bold">Hajj</h4>
+                                                                                                    <p class="text-white mt-[-5px] ">$8000 USD / Person</p>
+                                                                                                    <a href="#"
+                                                                                                        class="py-4 px-7 rounded-sm bg-[#2a2a2a] inline-block text-xs font-semibold text-white absolute bottom-[-20px]">GET
+                                                                                                        STARTED</a>
+                                                                                                </div>
+                                                                                                <div class="px-5">
+                                                                                                    <div class="flex gap-3 mt-14 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Private Airport Transfers</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">International Airfare</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Umrah Visa</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Land Transportation</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Accodomation</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Lunch</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Dinner</p>
+                                                                                                    </div>
 
 
-                                                                <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
-                                                                    <div class="bg-[#e2efff] text-white p-8 relative h-[150px]">
-                                                                        <h4 class="text-[22px] text-black font-bold">Umrah</h4>
-                                                                        <p class="text-red-500 mt-[-5px]">$2000 USD / Person</p>
-                                                                        <a href="#"
-                                                                            class="py-4 px-7 rounded-sm bg-red-500 inline-block text-xs font-semibold text-white absolute bottom-[-20px]">GET
-                                                                            STARTED</a>
-                                                                    </div>
-                                                                    <div class="px-5">
-                                                                        <div class="flex gap-3 mt-14 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Private Airport Transfers</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">International Airfare</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Umrah Visa</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Land Transportation</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Accodomation</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Lunch</p>
-                                                                        </div>
-
-                                                                        <div class="flex gap-3 mt-5 items-center">
-                                                                            <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
-                                                                            <p class="text-[14px] text-gray-500">Dinner</p>
-                                                                        </div>
+                                                                                                </div>
+                                                                                            </div>
 
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
+                                                                                            <div class="rounded-md overflow-hidden border border-gray-200 pb-7 shadow-sm">
+                                                                                                <div class="bg-[#e2efff] text-white p-8 relative h-[150px]">
+                                                                                                    <h4 class="text-[22px] text-black font-bold">Umrah</h4>
+                                                                                                    <p class="text-red-500 mt-[-5px]">$2000 USD / Person</p>
+                                                                                                    <a href="#"
+                                                                                                        class="py-4 px-7 rounded-sm bg-red-500 inline-block text-xs font-semibold text-white absolute bottom-[-20px]">GET
+                                                                                                        STARTED</a>
+                                                                                                </div>
+                                                                                                <div class="px-5">
+                                                                                                    <div class="flex gap-3 mt-14 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Private Airport Transfers</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">International Airfare</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Umrah Visa</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Land Transportation</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/tick2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Accodomation</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Lunch</p>
+                                                                                                    </div>
+
+                                                                                                    <div class="flex gap-3 mt-5 items-center">
+                                                                                                        <img src="{{ asset('images/home/cross2.png') }}" class='h-[25px] w-[25px]'>
+                                                                                                        <p class="text-[14px] text-gray-500">Dinner</p>
+                                                                                                    </div>
+
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div> -->
 @endsection
 @section('script')
     <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert.min.js') }}" type="text/javascript"></script>

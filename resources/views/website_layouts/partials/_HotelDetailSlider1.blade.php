@@ -2,7 +2,7 @@
     thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
     @foreach ($hotel_images as $image)
         <swiper-slide>
-            <img src="{{ asset('uploads/' . $image->name) }}">
+            <img src="{{ asset('uploads/' . $image->name) }}" class="object-contain">
         </swiper-slide>
     @endforeach
 </swiper-container>

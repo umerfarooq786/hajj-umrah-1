@@ -22,27 +22,27 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <a href="https://www.facebook.com/profile.php?id=61557448243394" target="_blank"
+                <a href="https://www.facebook.com/profile.php?id=61558157542228" target="_blank"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i
                         class="fa-brands fa-facebook-f text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
                 <!-- <a href="#"
-                                                                            class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
-                                                                            <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                                                                        </a> -->
+                                                                                            class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
+                                                                                            <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
+                                                                                        </a> -->
                 <a href="https://www.instagram.com/fastline.pk/" target="_blank"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i
                         class="fa-brands fa-instagram text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
                 <!-- <a href="#"
-                                                                            class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
-                                                                            <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                                                                        </a> -->
+                                                                                            class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
+                                                                                            <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
+                                                                                        </a> -->
             </div>
         </div>
-        <div class="border border-gray-200 rounded-[4px] py-16 px-10 space-y-10">
+        <div class="border border-gray-200 rounded-[4px] py-16 px-10 space-y-10" id="contactForm">
 
             <form method="POST" action="{{ route('contacts.store') }}" enctype="multipart/form-data">
                 @csrf

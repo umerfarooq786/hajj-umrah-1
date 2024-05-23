@@ -4,6 +4,7 @@
         <div class="text-white">
             {{-- <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4> --}}
             <h5 class="text-[15px] font-semibold ">CEO</h5>
+            <p class="text-sm">fastlinetourspk@gmail.com</p>
             <div class=" text-[12px] space-x-10 mt-10">
                 {{-- <a href="#"><i
                         class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]"></i></a>
@@ -21,6 +22,7 @@
         <div class="text-white">
             {{-- <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4> --}}
             <h5 class="text-[15px] font-semibold ">Manager</h5>
+            <p class="text-sm">fastlinetourspk@gmail.com</p>
             <div class=" text-[12px] space-x-10 mt-10">
                 {{-- <a href="#"><i
                         class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]"></i></a>
@@ -38,6 +40,7 @@
         <div class="text-white">
             {{-- <h4 class="text-[23px] font-semibold mt-5">Aqeel Sb</h4> --}}
             <h5 class="text-[15px] font-semibold ">Sale Executive</h5>
+            <p class="text-sm">fastlinetourspk@gmail.com</p>
             <div class=" text-[12px] space-x-10 mt-10">
                 {{-- <a href="#"><i
                         class="fa-brands fa-facebook-f hover:-translate-y-1 transition duration-300 w-[20px] h-[20px]"></i></a>

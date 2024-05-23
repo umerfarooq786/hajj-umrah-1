@@ -6,7 +6,11 @@
         @foreach ($packages as $package)
             <div class="h-[500px] w-full">
                 <h2 class="font-semibold">{{ $package->name }}</h2>
-                <img src="{{ asset('uploads/' . $package->image) }}" class="h-full w-full object-contain" alt="">
+                {{-- <img src="{{ asset('uploads/' . $package->image) }}" class="h-full w-full object-contain" alt=""> --}}
+                <a href="{{ asset('uploads/' . $package->image) }}" data-lightbox="gallery">
+                    {{-- <img src="{{ asset('storage/' . $image->path) }}" alt="Image" class="w-32 h-32 object-cover cursor-pointer"> --}}
+                    <img src="{{ asset('uploads/' . $package->image) }}" class="h-full w-full object-contain" alt="">
+                </a>
             </div>
         @endforeach
     </div>
