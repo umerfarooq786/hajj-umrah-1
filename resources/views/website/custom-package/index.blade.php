@@ -139,7 +139,7 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-sm ">Contact No.</h4>
-                        <input type="number" name="contact" value="{{ old('contact') }}" placeholder="Contact No."
+                        <input type="number" name="contact" value="{{ old('contact') }}" min="0" placeholder="Contact No."
                             required>
                     </div>
                 </div>

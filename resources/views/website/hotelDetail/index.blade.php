@@ -206,7 +206,7 @@
             <br>
             @if ($meals->isNotEmpty())
                 <div>
-                    <h4 class="font-semibold text-[20px]">Meals Pricing</h4>
+                    <h4 class="font-semibold text-[20px]">Meals Pricing (Single Person)</h4>
                     <div class="relative overflow-x-auto w-[60%] border border-gray-200 self-start mt-3">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-gray-900 dark:text-white">
@@ -242,7 +242,7 @@
             <br>
             @if ($meals->isNotEmpty())
                 <div>
-                    <h4 class="font-semibold text-[20px]">Meals Pricing</h4>
+                    <h4 class="font-semibold text-[20px]">Meals Pricing (Single Person)</h4>
                     <div class="relative overflow-x-auto w-[60%] border border-gray-200 self-start mt-3">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-gray-900 dark:text-white">
@@ -277,7 +277,7 @@
             <br>
             @if ($meals->isNotEmpty())
                 <div>
-                    <h4 class="font-semibold text-[20px]">Meals Pricing</h4>
+                    <h4 class="font-semibold text-[20px]">Meals Pricing (Single Person)</h4>
                     <div class="relative overflow-x-auto w-[60%] border border-gray-200 self-start mt-3">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-gray-900 dark:text-white">

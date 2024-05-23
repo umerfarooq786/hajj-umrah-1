@@ -160,8 +160,10 @@
                                             <div class="col-md-6">
                                                 <select name="roles" class="form-control" style="width: 500px">
                                                     @foreach ($roles as $roleName)
-                                                        <option value="{{ $roleName }}">{{ $roleName }}</option>
-                                                    @endforeach
+                                                    <option value="{{ $roleName }}"
+                                                    {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                    {{ $roleName }}
+                                                </option>                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
