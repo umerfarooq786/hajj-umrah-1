@@ -68,14 +68,13 @@
         </div>
     </div>
     <div class="bg-[#1f1f1f] text-gray2 flex items-center justify-center w-full px-10 py-10  lg:px-40 lg:py-10 gap-10">
-        <img src="{{ asset('images/certifications/certification1.png') }}" class="h-[70px] w-[100px] object-contain"
+        <img src="{{ asset('images/certifications/certification1.jpeg') }}" class="h-[70px] w-[100px] object-contain"
             alt="">
-        <img src="{{ asset('images/certifications/certification2.png') }}" class="h-[70px] w-[100px] object-contain"
-            alt="">
-
-        <img src="{{ asset('images/certifications/certification3.png') }}" class="h-[70px] w-[100px] object-contain"
+        <img src="{{ asset('images/certifications/certification2.jpeg') }}" class="h-[70px] w-[100px] object-contain"
             alt="">
 
+        <img src="{{ asset('images/certifications/certification3.jpeg') }}" class="h-[70px] w-[100px] object-contain"
+            alt="">
     </div>
     <div class="bg-first text-white w-full p-5 text-center font-semibold text-xs">
         <p>COPYRIGHT © 2024, FASTLINE TRAVEL & TOURS - ALL RIGHTS RESERVED</p>
