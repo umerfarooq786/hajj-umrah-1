@@ -48,6 +48,33 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Package Category </label>
+                                            <div class="col-md-9">
+                                                <select id="" class="form-control border-primary" name="">
+                                                    <option value="">5 Star Package</option>
+                                                    <option value="">4 Star Package</option>
+                                                    <option value="">3 Star Package</option>
+                                                    <option value="">Standard Package</option>
+                                                    <option value="">Economy Package</option>
+                                                    <option value="">Special Offer Package</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Note</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="" class="form-control border-primary"
+                                                    placeholder="Note" name="note" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Package Image </label>
@@ -59,6 +86,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>

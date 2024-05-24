@@ -69,6 +69,16 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 label-control" for="userinput2">Note</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="" class="form-control border-primary"
+                                                    placeholder="Note" name="note" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
