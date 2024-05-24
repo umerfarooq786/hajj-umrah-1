@@ -14,8 +14,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('process:hotel-validity-notifications')->everyFiveMinutes();
-        $schedule->command('process:transport-validity')->everyFiveMinutes();
+        $schedule->command('process:hotel-validity-notifications')->everyFiveMinutes()->withoutOverlapping();
+        $schedule->command('process:transport-validity')->everyFiveMinutes()->withoutOverlapping();
     }
 
     /**
