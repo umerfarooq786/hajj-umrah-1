@@ -139,8 +139,8 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-sm ">Contact No.</h4>
-                        <input type="number" name="contact" value="{{ old('contact') }}" min="0" placeholder="Contact No."
-                            required>
+                        <input type="number" name="contact" value="{{ old('contact') }}" min="0"
+                            placeholder="Contact No." required>
                     </div>
                 </div>
                 {{-- </div> --}}
@@ -300,24 +300,27 @@
                 <!-- Transport in Makah -->
                 <h4 class="font-semibold text-sm pt-3">Select Transport </h4>
                 <div id="RoutesDiv">
-                    <div class="flex flex-col md:flex-row stay relative gap-3">
-                        <select id="route" name="route[]"
-                            class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                    <div class="flex flex-col md:flex-row stay relative gap-3 route-group">
+                        <select
+                            class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
+                            name="route[]">
                             <option value="">Select Route</option>
                             @foreach ($routes as $route)
                                 <option value="{{ $route->id }}">{{ $route->name }}</option>
                             @endforeach
                         </select>
 
-                        <select id="vehicle" name="vehicle[]"
-                            class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                        <select
+                            class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
+                            name="vehicle[]">
                             <option value="">Select Vehicle</option>
                         </select>
 
-                        <div class=" flex items-center relative h-[40px]">
+                        <div class="flex items-center relative h-[40px]">
                             <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                            <input type="date" id="travel_date" name="travel_date[]" placeholder="Date"
+                            <input type="date" name="travel_date[]" placeholder="Date"
                                 class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                            <button class="deleteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -933,26 +936,33 @@
 
             $('#addMoreBtn').click(function(e) {
                 e.preventDefault();
-                var newInputGroup = $('<div class="flex flex-col md:flex-row stay relative">' +
-                    '<select id="route1" name="route[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                var newInputGroup = $(
+                    '<div class="flex flex-col md:flex-row stay relative gap-3 route-group">' +
+                    '<select class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="route[]">' +
                     '<option value="">Select Route</option>' +
                     '@foreach ($routes as $route)' +
                     '<option value="{{ $route->id }}">{{ $route->name }}</option>' +
                     '@endforeach' +
                     '</select>' +
-                    '<select id="vehicle1" name="vehicle[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                    '<select class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="vehicle[]">' +
                     '<option value="">Select Vehicle</option>' +
                     '</select>' +
                     '<div class="flex items-center relative h-[40px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="date" name="travel_date[]" placeholder="Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">' +
-                    '<button class="deleteBtn">Delete</button>' +
+                    '<button class="deleteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>' +
                     '</div>' +
                     '</div>');
 
                 // Append the new HTML structure to the container
                 $('#RoutesDiv').append(newInputGroup);
-                initFlatpickr(newInputGroup[0]);
+
+                // Reinitialize Flatpickr for the new start date input if needed
+                flatpickr(newInputGroup.find(".startDate"), {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    disable: [new Date()],
+                });
             });
 
             // Add click event listener to dynamically added delete buttons using event delegation
@@ -1124,8 +1134,10 @@
         });
 
 
-        $(document).on('change', '#route', function() {
+        $(document).on('change', '.route-select', function() {
             var selectedValue = $(this).val();
+            var $vehicleSelect = $(this).closest('.route-group').find('.vehicle-select');
+
             $.ajax({
                 url: '{{ route('calculate.route_vehicle') }}',
                 method: 'POST',
@@ -1136,33 +1148,30 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    // Extract data from the response
                     var responseData = response.data;
+                    var options = '<option value="">Select Vehicle</option>'; // Default option
+
                     if (responseData == 'nothing') {
                         options = '<option value="">No Vehicle Found</option>';
-                        $('#vehicle').html(options);
                     } else {
-                        populate_route_type(responseData);
+                        for (var i = 0; i < responseData.length; i++) {
+                            options += '<option value="' + responseData[i].id + '">' + responseData[i]
+                                .name + ' (' + responseData[i].capacity + '-person)</option>';
+                        }
                     }
+
+                    $vehicleSelect.html(options);
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
                 }
             });
-
-
-
-            function populate_route_type(data) {
-                var options = '<option value="">Select Route</option>'; // Add a default option
-
-                // Loop through the data and create options for the second dropdown
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].name + ' (' + data[i].capacity +
-                        '-person)</option>';
-                }
-
-                // Populate the second dropdown with options
-                $('#vehicle').html(options);
+        });
+        $(document).on('click', '.deleteBtn', function() {
+            if ($('.route-group').length > 1) {
+                $(this).closest('.route-group').remove();
+            } else {
+                alert('At least one route is required.');
             }
         });
         $(document).on('change', '#route1', function() {

@@ -645,7 +645,7 @@ class CostController extends Controller
 
             $RoutesData = array();
             $routes = $request->input('route');
-            // dd($routes);
+            // 
             if ($routes[0] != null) {
                 $vehicles = $request->input('vehicle');
                 $travel_dates = $request->input('travel_date');
@@ -655,20 +655,25 @@ class CostController extends Controller
                     $routeName = $routeName[0];
                     $vehicle = '';
                     $travel_date = '';
-                    
+
                     $transports = Transport::with('vehicles')
                         ->where('route_id', $routes[$key])
                         ->where('vehicle_id', $vehicles[$key])
                         ->get();
-                        $vehicle = $vehicles[$key];
-                        $travel_date = $travel_dates[$key];
-                        if ($vehicle == NULL && $travel_date == NULL) {
-                            $errorMessage = "</b> Please select all dropdown values of slected Transport for the calculated result.<br>";
-                            return back()->withErrors([$errorMessage])->withInput();
-                        }
+                    $vehicle = $vehicles[$key];
+                    // dd($transports->vehicles->name);
+                    foreach ($transports as $transport) {
+                        $vehicleName = $transport->vehicles->name;
+                    }
+                    $travel_date = $travel_dates[$key];
+                    if ($vehicle == NULL && $travel_date == NULL) {
+                        $errorMessage = "</b> Please select all dropdown values of slected Transport for the calculated result.<br>";
+                        return back()->withErrors([$errorMessage])->withInput();
+                    }
                     if ($transports->isNotEmpty()) {
                         foreach ($transports as $transport) {
 
+                            // dd($travel_date);
                             $commision = $transport->commision;
                             $cost = $transport->costs()
                                 ->where('validity_start', '<=', $travel_dates[$key]) // Check if travel date is after or on validity start
@@ -683,6 +688,9 @@ class CostController extends Controller
                                 $new_transport_cost = $costWithCommission;
                                 $transport_cost += $new_transport_cost;
                                 break;
+                            } else {
+                                $errorMessage = "</b> Sorry, No transport Available from <b>".$routeName."</b> on <b>".$travel_dates[$key]."</b>.<br>";
+                                return back()->withErrors([$errorMessage])->withInput();
                             }
                         }
                         if ($transport_cost == 0) {
@@ -692,7 +700,7 @@ class CostController extends Controller
                         $RoutesData[] = [
                             'date' => $travel_date,
                             'route' => $routeName,
-                            'vehicle' => $vehicle,
+                            'vehicle' => $vehicleName,
                             'rate' => $new_transport_cost,
                         ];
                     } else {

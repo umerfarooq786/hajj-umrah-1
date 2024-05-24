@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('type');
             // $table->bigInteger('price');
             $table->string('image');
+            $table->string('category');
+            $table->string('note');
             $table->timestamps();
         });
     }

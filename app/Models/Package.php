@@ -12,7 +12,9 @@ class Package extends Model
         'name',
         // 'price',
         'type',
-        'image'
+        'image',
+        'category',
+        'note'
     ];
 
     // public function hotels()

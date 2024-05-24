@@ -44,6 +44,8 @@ class PackageController extends Controller
 
         $package->name = $request->name;
         $package->type = $request->type;
+        $package->category = $request->category;
+        $package->note = $request->note;
         // $package->price = $request->price;
         // Set other fields as needed
         $package->save();

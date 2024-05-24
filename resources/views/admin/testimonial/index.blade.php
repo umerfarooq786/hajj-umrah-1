@@ -75,6 +75,7 @@
                                                 <td><img src="{{ asset('uploads/' . $role->image) }}" alt=""
                                                         style="height:30px; width:30px"></td>
                                                 <td>
+                                                    <a href="{{ route('testimonials.edit', $role->id) }}" class="btn btn-warning">Edit</a>
                                                     <form method="POST"
                                                         action="{{ route('testimonials.destroy', $role->id) }}"
                                                         style="display:inline">

@@ -86,7 +86,7 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-3 label-control" for="userinput1">Gender</label>
                                         <div class="col-md-9">
-                                            <select class="form-control border-primary" name="gender" >
+                                            <select class="form-control border-primary" name="gender" required>
                                                 <option selected disabled="">Select Gender</option>
                                                 <option value="M">Male</option>
                                                 <option value="F">Female</option>
@@ -100,7 +100,7 @@
                                             <label class="col-md-3 label-control" for="userinput1">ID Card</label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Card Number" name="id_card" >
+                                                    placeholder="Card Number" name="id_card" required>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                                         <label class="col-md-3 label-control" for="userinput1">Designation</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
-                                                placeholder="Designation" name="designation" >
+                                                placeholder="Designation" name="designation" required>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                             <label class="col-md-3 label-control" for="userinput1">Phone</label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Phone" name="phone" >
+                                                    placeholder="Phone" name="phone" required>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                         <label class="col-md-3 label-control" for="userinput1">Address</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
-                                                placeholder="Address" name="address" >
+                                                placeholder="Address" name="address" required>
                                         </div>
                                     </div>
                                 </div>

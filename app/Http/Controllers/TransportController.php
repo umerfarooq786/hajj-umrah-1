@@ -29,9 +29,9 @@ class TransportController extends Controller
     public function create()
     {
         $current_currency = CurrencyConversion::findOrFail(1);
-        $routes= Route::all();
+        $routes = Route::all();
         $transport_types = Vehicle::all();
-        return view('admin.transport.create', compact('routes','transport_types','current_currency'));
+        return view('admin.transport.create', compact('routes', 'transport_types', 'current_currency'));
     }
 
     /**
@@ -48,7 +48,7 @@ class TransportController extends Controller
             'validity_start' => 'required|date',
             'validity_end' => 'required|date'
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -58,12 +58,12 @@ class TransportController extends Controller
         $transport->vehicle_id = $request->vehicle_id;
         $transport->route_id = $request->route_id;
         $transport->Commision = $request->commision;
-    
+
         $transport->save();
         $transport->costs()->create([
             'item_id' => $transport->id,
-            'item_type' => 'transports', 
-            'cost' => $request->cost,   
+            'item_type' => 'transports',
+            'cost' => $request->cost,
             'validity_start' => $request->validity_start,
             'validity_end' => $request->validity_end,
             'current_currency' =>  $current_currency->default_currency
@@ -75,7 +75,7 @@ class TransportController extends Controller
     {
         $result = Transport::orderBy('created_at', 'DESC');
 
-        $aColumns = ['id','vehicle_id', 'route_id','cost','validity','created_at'];
+        $aColumns = ['id', 'vehicle_id', 'route_id', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -83,8 +83,8 @@ class TransportController extends Controller
         $order = 'created_at';
         $sort = ' DESC';
 
-        if ($request->get('iSortCol_0')) { 
-      
+        if ($request->get('iSortCol_0')) {
+
             $sOrder = "ORDER BY  ";
 
             for ($i = 0; $i < intval($request->get('iSortingCols')); $i++) {
@@ -95,29 +95,33 @@ class TransportController extends Controller
 
             $sOrder = substr_replace($sOrder, "", -2);
             if ($sOrder == "ORDER BY") {
-                 $sOrder = " id ASC";
+                $sOrder = " id ASC";
             }
 
             $OrderArray = explode(' ', $sOrder);
             $order = trim($OrderArray[3]);
             $sort = trim($OrderArray[4]);
-
         }
 
         $sKeywords = $request->get('sSearch');
-        if ($sKeywords != "") {
-
-            $result->Where(function($query) use ($sKeywords) {
-                $query->orWhere('vehicle_id', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('route_id', 'LIKE', "%{$sKeywords}%");
-
+        if ($sKeywords) {
+            $result->where(function ($query) use ($sKeywords) {
+                $query->where('vehicle_id', 'LIKE', "%{$sKeywords}%")
+                    ->orWhereHas('types', function ($q) use ($sKeywords) {
+                        $q->where('name', 'LIKE', "%{$sKeywords}%");
+                    })
+                    ->orWhere('route_id', 'LIKE', "%{$sKeywords}%")
+                    ->orWhereHas('route', function ($q) use ($sKeywords) {
+                        $q->where('name', 'LIKE', "%{$sKeywords}%");
+                    });
             });
         }
+
 
         for ($i = 0; $i < count($aColumns); $i++) {
             $request->get('sSearch_' . $i);
             if ($request->get('bSearchable_' . $i) == "true" && $request->get('sSearch_' . $i) != '') {
-                 $result->orWhere($aColumns[$i], 'LIKE', "%" . $request->orWhere('sSearch_' . $i) . "%");
+                $result->orWhere($aColumns[$i], 'LIKE', "%" . $request->orWhere('sSearch_' . $i) . "%");
             }
         }
 
@@ -133,10 +137,10 @@ class TransportController extends Controller
 
         $iTotal = $iFilteredTotal;
         $output = array(
-             "sEcho" => intval($request->get('sEcho')),
-             "iTotalRecords" => $iTotal,
-             "iTotalDisplayRecords" => $iFilteredTotal,
-             "aaData" => array()
+            "sEcho" => intval($request->get('sEcho')),
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => array()
         );
         $i = 0;
 
@@ -145,7 +149,7 @@ class TransportController extends Controller
             $checkbox = "<label class=\"mt-checkbox mt-checkbox-single mt-checkbox-outline\">
                              <input type=\"checkbox\" class=\"checkbox-index\" value=\"{$aRow->id}\">
                              <span></span>
-                          </label>"; 
+                          </label>";
 
             $vehicle_id = $aRow->types->name;
             $route_id = $aRow->route->name;
@@ -159,18 +163,18 @@ class TransportController extends Controller
                           </span>
                         </span>
                         ";
- 
+
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
                 @$aRow->id,
                 @$vehicle_id,
                 @$route_id,
                 @$action
-            );  
+            );
 
             $i++;
         }
-        echo json_encode($output);           
+        echo json_encode($output);
     }
     /**
      * Display the specified resource.
@@ -185,13 +189,13 @@ class TransportController extends Controller
      */
     public function edit($id)
     {
-        
+
         $current_currency = CurrencyConversion::first();
         $transport = Transport::findOrFail($id);
-        $costs = Cost::where('item_id','=',$transport->id)->get();
-        $routes= Route::all();
+        $costs = Cost::where('item_id', '=', $transport->id)->get();
+        $routes = Route::all();
         $transport_types = Vehicle::all();
-        return view('admin.transport.edit',compact('routes','transport_types','transport','costs' ,'current_currency'));
+        return view('admin.transport.edit', compact('routes', 'transport_types', 'transport', 'costs', 'current_currency'));
     }
 
     /**
@@ -208,10 +212,10 @@ class TransportController extends Controller
         $transport->display = $display;
         foreach ($request->cost as $key => $costData) {
             $costId = $request->cost_id[$key] ?? null; // Existing cost ID
-    
+
             // Find the existing cost or create a new one
             $cost = Cost::findOrNew($costId);
-    
+
             // Update the cost attributes
             $cost->item_id = $transport->id;
             $cost->item_type = 'transports';
@@ -246,18 +250,17 @@ class TransportController extends Controller
         $validity = Cost::where('id', $id)->get();
         return redirect()->route('transports.index')->with('success', 'Record deleted successfully!');
     }
-    
+
     public function destroy($id)
     {
-       $transport = Transport::findOrFail($id);
-       DB::table('costs')->where('item_id', $transport->id)->delete();
+        $transport = Transport::findOrFail($id);
+        DB::table('costs')->where('item_id', $transport->id)->delete();
 
-       $transport->delete();
+        $transport->delete();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Welldone! Item deleted successfully.'
         ], 200);
     }
-
 }

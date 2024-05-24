@@ -513,68 +513,89 @@ class FrontHotelController extends Controller
 
     public function searchRoutePrice(Request $request)
     {
-        // Process form data and perform search
-        // For example, you can retrieve input values like this:
-        $vehicle_id = $request->input('vehicle_id');
-        $start_date = $request->input('start_date');
-        $route_id = $request->input('route');
-        $transport_cost = 0;
-        $new_transport_cost = 0;
+        $vehicle_ids = $request->input('vehicle_id');
+        $vehicle_ids = $vehicle_ids[0];
+        $start_dates = $request->input('start_date');
+        $route_ids = $request->input('route');
+
+        $results = [];
+        $total_transport_cost = 0;
         $errorMessage = '';
 
-        $routeName = Route::where('id', $route_id)->pluck('name');
-        $transports = Transport::with('vehicles')
-            ->where('route_id', $route_id)
-            ->where('vehicle_id', $vehicle_id)
-            ->get();
+        foreach ($route_ids as $index => $route_id) {
+            $vehicle_id = $vehicle_ids;
+            $start_date = $start_dates[$index];
 
-        if ($transports->isNotEmpty()) {
-            foreach ($transports as $transport) {
+            $transports = Transport::with('vehicles')
+                ->where('route_id', $route_id)
+                ->where('vehicle_id', $vehicle_id)
+                ->get();
 
+            if ($transports->isNotEmpty() && $start_date != '') {
+                $transportFound = false;
 
-                $vehicle = $transport->vehicles->name;
-                $travel_date = $start_date;
+                foreach ($transports as $transport) {
+                    $commision = $transport->commision;
+                    $cost = $transport->costs()
+                        ->where('validity_start', '<=', $start_date)
+                        ->where('validity_end', '>=', $start_date)
+                        ->orderByRaw('ABS(DATEDIFF(validity_start, ?))', [$start_date])
+                        ->first();
 
-                $commision = $transport->commision;
-                $cost = $transport->costs()
-                    ->where('validity_start', '<=', $start_date) // Check if travel date is after or on validity start
-                    ->where('validity_end', '>=', $start_date) // Check if travel date is before or on validity end
-                    ->orderByRaw('ABS(DATEDIFF(validity_start, ?))', [$start_date]) // Order by the difference between travel date and validity start
-                    ->first();
+                    if ($cost != null) {
+                        $totalCost = $cost->cost;
+                        $commissionAmount = ($commision / 100) * $totalCost;
+                        $costWithCommission = $totalCost + $commissionAmount;
+                        $total_transport_cost += $costWithCommission;
 
+                        $results[] = [
+                            'route_name' => $transport->route->name,
+                            'date' => $start_date,
+                            'cost' => $costWithCommission
+                        ];
 
-                if ($cost != null) {
-                    $totalCost = $cost->cost; // Assuming 'amount' is the field where the cost is stored
-                    $commissionAmount = ($commision / 100) * $totalCost;
-                    $costWithCommission = $totalCost + $commissionAmount;
-                    // Assign the transport cost and break the loop
-                    $new_transport_cost = $costWithCommission;
-                    $transport_cost += $new_transport_cost;
-                    break;
+                        $transportFound = true;
+                        break;
+                    }
                 }
+
+                if (!$transportFound) {
+                    $results[] = [
+                        'route_name' => Route::where('id', $route_id)->pluck('name')->first(),
+                        'date' => $start_date,
+                        'cost' => 0,
+                        'message' => 'No transport available for this route on this date.'
+                    ];
+                }
+            } else {
+                $results[] = [
+                    'route_name' => Route::where('id', $route_id)->pluck('name')->first(),
+                    'date' => $start_date,
+                    'cost' => 0,
+                    'message' => 'Please select transport route and date for calculated price.'
+                ];
             }
-            if ($transport_cost == 0) {
-                $errorMessage = "Sorry, No Transport available between the given date.";
-                return response()->json(['error' => $errorMessage]);
-            }
-        } else {
-            $errorMessage = "Sorry, No Transport available between the given date";
+        }
+
+        if ($total_transport_cost == 0 && empty($results)) {
+            $errorMessage = "Sorry, No Transport available between the given date.";
             return response()->json(['error' => $errorMessage]);
         }
-        $CurrencyConversion = CurrencyConversion::all();
-        foreach ($CurrencyConversion as $CurrencyConversions) {
-            $sar_to_pkr = $CurrencyConversions->sar_to_pkr;
-            $sar_to_usd = $CurrencyConversions->sar_to_usd;
-        }
+
+        $CurrencyConversion = CurrencyConversion::first();
+        $sar_to_pkr = $CurrencyConversion->sar_to_pkr;
+        $sar_to_usd = $CurrencyConversion->sar_to_usd;
+
         return response()->json([
             'error' => $errorMessage,
-            'vehicle_id' => $vehicle_id,
-            'cost' => $transport_cost,
-            'route_id' => $route_id,
+            'results' => $results,
             'sar_to_pkr' => $sar_to_pkr,
             'sar_to_usd' => $sar_to_usd
         ]);
     }
+
+
+
 
     public function transportation()
     {
@@ -585,10 +606,10 @@ class FrontHotelController extends Controller
 
     public function singleTransportation($id)
     {
-        $selectedValue = 1 ;
+        $selectedValue = 1;
 
         // Find the route with the given ID
-  
+
 
         $vehicle = Vehicle::with(['images', 'transport.route', 'transport.costs'])
             ->where('id', $id)

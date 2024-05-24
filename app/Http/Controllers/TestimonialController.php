@@ -90,7 +90,8 @@ class TestimonialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $testimonial = Testimonial::findOrFail($id);
+        return view('admin.testimonial.edit', compact('testimonial'));
     }
 
     /**
@@ -98,7 +99,35 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $rules = [
+            'content' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'designation' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3000',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $Testimonial = Testimonial::findOrFail($id);
+    
+        $Testimonial->content = $request->input('content');
+        $Testimonial->first_name = $request->input('first_name');
+        $Testimonial->last_name = $request->input('last_name');
+        $Testimonial->designation = $request->input('designation');
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+            $Testimonial->image = $imageName;
+        }
+    
+        $Testimonial->save();
+    
+        return redirect()->route('testimonials.index')->with('success', 'Testimonial updated successfully.');    
     }
 
     public function get_testimonial_result(Request $request)

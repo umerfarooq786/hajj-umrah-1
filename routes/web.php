@@ -52,7 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('testimonials', TestimonialController::class);
     Route::get('/get_testimonial_result', [TestimonialController::class, 'get_testimonial_result'])->name('get_testimonial_result');
-    // Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
+    // Route::get('/testimonials/{id}/edit', [TestimonialController::class, 'edit'])->name('testimonials.edit');
+// Route::get('/roles', [RoleController::class , 'index'])->name('roles.index')->middleware('check.permission:roles-list');
 
     Route::resource('routes', RouteController::class);
     Route::get('/routes', [RouteController::class, 'index'])->name('routes.index')->middleware('check.permission:routes-list');
@@ -124,10 +125,10 @@ Route::get('/hotel-id/{id}', [FrontHotelController::class, 'singleHotel']);
 Route::post('/search-makkah-hotels', [FrontHotelController::class, 'searchMakkahRoom'])->name('search.makkahhotels');
 Route::post('/search-madinah-hotels', [FrontHotelController::class, 'searchMadinahRoom'])->name('search.madinahhotels');
 Route::post('/search-jeddah-hotels', [FrontHotelController::class, 'searchJeddahRoom'])->name('search.jeddahhotels');
-Route::post('/search-route-price', [FrontHotelController::class, 'searchRoutePrice'])->name('search.route_price');
 
 Route::get('/transportation', [FrontHotelController::class, 'transportation'])->name('transportation');
 Route::get('/transportation/{id}', [FrontHotelController::class, 'singleTransportation'])->name('singleTransportation');
+Route::post('/search-route-price', [FrontHotelController::class, 'searchRoutePrice'])->name('search.route_price');
 
 Route::get('/predefined-package/umrah', [FrontHotelController::class, 'predefinedUmrah']);
 Route::get('/predefined-package/hajj', [FrontHotelController::class, 'predefinedHajj']);

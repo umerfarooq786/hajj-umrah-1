@@ -45,32 +45,40 @@ class SendHotelValidityExpirationNotification implements ShouldQueue
         $twoDaysBeforeValidity = $validity->copy()->subDays(2);
         $oneDaysBeforeValidity = $validity->copy()->subDays(1);
         $currentDate = now();
+        $alreadySentNotification = false;
         Log::info($this->Hotel_room);
 
         if ($currentDate->isSameDay($sevenDaysBeforeValidity)) {
-            Log::info('Hotel room expiration is within 7 days.');
-            // Uncomment and implement email sending logic if necessary
-            $mail = new ValidityNotificationMail($this->Hotel_room);
-            $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-        } 
-        
-        elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
-            $mail = new ValidityThreeDaysNotificationMail($this->Hotel_room);
-            $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-        } 
-        
-        elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
-            $mail = new ValidityTwoDaysNotificationMail($this->Hotel_room);
-            $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-        }
-        
-        elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
-            $mail = new ValidityOneDayNotificationMail($this->Hotel_room);
-            $mail->from('example@gmail.com', 'Hajj & Ummrah');
-            Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+            if (!$alreadySentNotification) {
+                Log::info('Hotel room expiration is within 7 days.');
+                // Uncomment and implement email sending logic if necessary
+                $mail = new ValidityNotificationMail($this->Hotel_room);
+                $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                // Set the flag to true to prevent sending multiple notifications
+                $alreadySentNotification = true;
+            }
+        } elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
+            if (!$alreadySentNotification) {
+                $mail = new ValidityThreeDaysNotificationMail($this->Hotel_room);
+                $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                $alreadySentNotification = true;
+            }
+        } elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
+            if (!$alreadySentNotification) {
+                $mail = new ValidityTwoDaysNotificationMail($this->Hotel_room);
+                $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                $alreadySentNotification = true;
+            }
+        } elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
+            if (!$alreadySentNotification) {
+                $mail = new ValidityOneDayNotificationMail($this->Hotel_room);
+                $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                $alreadySentNotification = true;
+            }
         }
     }
 }

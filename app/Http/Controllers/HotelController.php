@@ -205,7 +205,7 @@ class HotelController extends Controller
     {
         $result = Hotel::orderBy('created_at', 'DESC');
 
-        $aColumns = ['id', 'name', 'google_map', 'city', 'excerpt', 'created_at'];
+        $aColumns = ['id', 'name', 'city', 'excerpt', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -239,7 +239,7 @@ class HotelController extends Controller
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('name', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('city', 'LIKE', "%{$sKeywords}%");
-                $query->orWhere('validity', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('excerpt', 'LIKE', "%{$sKeywords}%");
             });
         }
 
