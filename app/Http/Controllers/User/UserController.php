@@ -183,10 +183,10 @@ class UserController extends Controller
         $route = User::findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
         $currentRole = $route->roles->first()->name ?? null;
-        return view('admin.user.edit', compact('user', 'roles', 'currentRole'));
+        return view('admin.user.edit', compact('route', 'roles', 'currentRole'));
 
 
-        return view('admin.user.edit', compact('route'), compact('roles'));
+        // return view('admin.user.edit', compact('route'), compact('roles'));
     }
 
     public function update(Request $request, string $id)
