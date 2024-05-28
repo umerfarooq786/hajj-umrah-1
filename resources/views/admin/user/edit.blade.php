@@ -141,7 +141,8 @@
                                             <label class="col-md-3 label-control" for="userinput1">Email</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
-                                                    placeholder="Email" value="{{ $route->email }}" name="email">
+                                                    placeholder="Email" disabled value="{{ $route->email }}"
+                                                    name="email">
                                             </div>
                                         </div>
                                     </div>
@@ -160,10 +161,11 @@
                                             <div class="col-md-6">
                                                 <select name="roles" class="form-control" style="width: 500px">
                                                     @foreach ($roles as $roleName)
-                                                    <option value="{{ $roleName }}"
-                                                    {{ $roleName == $currentRole ? 'selected' : '' }}>
-                                                    {{ $roleName }}
-                                                </option>                                                    @endforeach
+                                                        <option value="{{ $roleName }}"
+                                                            {{ $roleName == $currentRole ? 'selected' : '' }}>
+                                                            {{ $roleName }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
