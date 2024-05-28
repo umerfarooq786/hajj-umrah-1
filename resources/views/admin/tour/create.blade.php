@@ -16,16 +16,16 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('packages.store') }}"
+                        <form class="form form-horizontal" method="POST" action="{{ route('tours.store') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-body">
-                                <h4 class="form-section"><i class="la la la-car"></i>Add Package</h4>
+                                <h4 class="form-section"><i class="la la la-car"></i>Add Tour</h4>
                                 <div class="row">
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Name</label>
+                                            <label class="col-md-3 label-control" for="userinput2">Tour Name</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="userinput2" class="form-control border-primary"
                                                     placeholder="Package" name="name" required>
@@ -34,11 +34,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Type </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Tour Type </label>
                                             <div class="col-md-9">
                                                 <select id="userinput2" class="form-control border-primary" name="type">
-                                                    <option value="umrah">Umrah</option>
-                                                    <option value="hajj">Hajj</option>
+                                                    <option value="international">International Tours</option>
+                                                    <option value="domestic">Domestic Tours</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -46,7 +46,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Image </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Tour Image </label>
                                             <div class="col-md-9">
                                                 <input type="file" id="userinput2" class="form-control border-primary"
                                                     name="image" required>
@@ -56,20 +56,14 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Category </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Description</label>
                                             <div class="col-md-9">
-                                                <select id="" class="form-control border-primary" name="category">
-                                                    <option value="5 Star Package">5 Star Package</option>
-                                                    <option value="4 Star Package">4 Star Package</option>
-                                                    <option value="3 Star Package">3 Star Package</option>
-                                                    <option value="Standard Package">Standard Package</option>
-                                                    <option value="Economy Package">Economy Package</option>
-                                                    <option value="Special Offer Package">Special Offer Package</option>
-                                                </select>
+                                                <input type="text" id="" class="form-control border-primary"
+                                                    placeholder="Description" name="description" required>
                                             </div>
                                         </div>
                                     </div>
-
+                                   
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Note</label>

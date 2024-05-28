@@ -76,12 +76,15 @@
                                                             href="{{ route('roles.edit', $role->id) }}">Edit</a>
                                                     @endcan
                                                     @can('roles-delete')
-                                                        <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
-                                                            style="display:inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
+                                                        @if ($role->name != 'Admin')
+                                                            <form method="POST"
+                                                                action="{{ route('roles.destroy', $role->id) }}"
+                                                                style="display:inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        @endif
                                                     @endcan
                                                 </td>
                                             </tr>

@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hotel;
-use App\Models\Package;
+use App\Models\Tour;
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class TourController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.package.index');
+        return view('admin.tour.index');
     }
 
     /**
@@ -21,7 +20,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.package.create');
+        return view('admin.tour.create');
     }
 
     /**
@@ -34,7 +33,7 @@ class PackageController extends Controller
             // Add validation rules for other fields
         ]);
 
-        $package = new Package();
+        $package = new Tour();
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
@@ -44,15 +43,11 @@ class PackageController extends Controller
 
         $package->name = $request->name;
         $package->type = $request->type;
-        $package->category = $request->category;
+        $package->description = $request->description;
         $package->note = $request->note;
-        // $package->price = $request->price;
-        // Set other fields as needed
         $package->save();
-        // Attach selected hotels to the package
-        // $package->hotels()->attach($request->input('hotels'));
 
-        return redirect()->route('packages.index')->with('success', 'Package created successfully.');
+        return redirect()->route('tours.index')->with('success', 'Tour created successfully.');
     }
 
     /**
@@ -68,8 +63,8 @@ class PackageController extends Controller
      */
     public function edit(string $id)
     {
-        $package = Package::findOrFail($id);
-        return view('admin.package.edit', compact('package'));
+        $tour = Tour::findOrFail($id);
+        return view('admin.tour.edit', compact('tour'));
     }
 
     /**
@@ -84,7 +79,7 @@ class PackageController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:4048',
         ]);
 
-        $package = Package::findOrFail($id);
+        $package = Tour::findOrFail($id);
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
@@ -96,6 +91,7 @@ class PackageController extends Controller
 
         $package->name = $request->name;
         $package->type = $request->type;
+        $package->desciption = $request->desciption;
         $package->note = $request->note;
         // $package->price = $request->price;
         // Set other fields as needed
@@ -103,14 +99,15 @@ class PackageController extends Controller
         // Attach selected hotels to the package
         // $package->hotels()->attach($request->input('hotels'));
 
-        return redirect()->route('packages.index')->with('success', 'Package Updated successfully.');
+        return redirect()->route('tour.index')->with('success', 'Tour Updated successfully.');
     }
 
-    public function get_packages(Request $request)
+
+    public function get_tours(Request $request)
     {
-        $result = Package::orderBy('created_at', 'DESC');
+        $result = Tour::orderBy('created_at', 'DESC');
         
-        $aColumns = ['id', 'name','type','image', 'created_at'];
+        $aColumns = ['id', 'name','type','note','image', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -143,6 +140,8 @@ class PackageController extends Controller
 
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('name', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('type', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('note', 'LIKE', "%{$sKeywords}%");
             });
         }
 
@@ -181,6 +180,7 @@ class PackageController extends Controller
             $name = $aRow->name;
             // $price = $aRow->price;
             $type = $aRow->type;
+            $note = $aRow->note;
             $imageName = $aRow->image;
             $imageUrl = asset('uploads/' . $imageName);
             $image = "<img style='height:60px; width:60px' src='{$imageUrl}'>";
@@ -190,8 +190,8 @@ class PackageController extends Controller
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
                           aria-expanded=\"false\" class=\"btn btn-info btn-sm dropdown-toggle\"><i class=\"la la-cog font-medium-1\"></i></button>
                           <span aria-labelledby=\"btnSearchDrop2\" class=\"dropdown-menu mt-1 dropdown-menu-right\">
-                            <a href=\"packages/{$aRow->id}/edit\" class=\"dropdown-item font-small-3\"><i class=\"la la-barcode font-small-3\"></i> edit</a>
-                            <a href=\"#\" onClick=\"deletePackage({$aRow->id})\"  class=\"dropdown-item font-small-3\"><i class=\"la la-repeat font-small-3\"></i> delete</a>
+                            <a href=\"tours/{$aRow->id}/edit\" class=\"dropdown-item font-small-3\"><i class=\"la la-barcode font-small-3\"></i> edit</a>
+                            <a href=\"#\" onClick=\"deleteTour({$aRow->id})\"  class=\"dropdown-item font-small-3\"><i class=\"la la-repeat font-small-3\"></i> delete</a>
                           </span>
                         </span>
                         ";
@@ -201,6 +201,7 @@ class PackageController extends Controller
                 @$aRow->id,
                 @$name,
                 @$type,
+                @$note,
                 @$image,
                 @$action
             );
@@ -215,7 +216,7 @@ class PackageController extends Controller
      */
     public function destroy(string $id)
     {
-        $package = Package::findOrFail($id);
+        $package = Tour::findOrFail($id);
         $imagePath = public_path('uploads');
         $imageFileName = $package->image; // Assuming the image file name is stored in the 'image' column
         if ($imageFileName && file_exists($imagePath . '/' . $imageFileName)) {
@@ -225,7 +226,7 @@ class PackageController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Welldone! Item deleted successfully.'
+            'message' => 'Welldone! Event deleted successfully.'
         ], 200);
     }
 }

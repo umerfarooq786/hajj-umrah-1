@@ -17,69 +17,62 @@
                     @endif
                     <div class="card-body">
                         <form class="form form-horizontal" method="POST"
-                            action="{{ route('packages.update', $package->id) }}" enctype="multipart/form-data">
+                            action="{{ route('tours.update', $tour->id) }}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="form-body">
-                                <h4 class="form-section"><i class="la la la-car"></i>Edit Package Info</h4>
+                                <h4 class="form-section"><i class="la la la-car"></i>Edit Tour Info</h4>
                                 <div class="row">
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Name</label>
+                                            <label class="col-md-3 label-control" for="userinput2">Tour Name</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="userinput2" class="form-control border-primary"
-                                                    name="name" value="{{ $package->name }}">
+                                                    name="name" value="{{ $tour->name }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Type </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Tour Type </label>
                                             <div class="col-md-9">
                                                 <select id="userinput2" class="form-control border-primary" name="type">
                                                     <option value="umrah"
-                                                        {{ $package->type === 'umrah' ? 'selected' : '' }}>Umrah</option>
+                                                        {{ $tour->type === 'international' ? 'selected' : '' }}>International Tours</option>
                                                     <option value="hajj"
-                                                        {{ $package->type === 'hajj' ? 'selected' : '' }}>Hajj</option>
+                                                        {{ $tour->type === 'domestic' ? 'selected' : '' }}>Domestic Tours</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Category </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Description</label>
                                             <div class="col-md-9">
-                                                <select id="" class="form-control border-primary" name="category">
-                                                    <option value="5 Star Package"{{ $package->category === '5 Star Package' ? 'selected' : '' }}>5 Star Package</option>
-                                                    <option value="4 Star Package"{{ $package->category === '4 Star Package' ? 'selected' : '' }}>4 Star Package</option>
-                                                    <option value="3 Star Package"{{ $package->category === '3 Star Package' ? 'selected' : '' }}>3 Star Package</option>
-                                                    <option value="Standard Package"{{ $package->category === 'Standard Package' ? 'selected' : '' }}>Standard Package</option>
-                                                    <option value="Economy Package"{{ $package->category === 'Economy Package' ? 'selected' : '' }}>Economy Package</option>
-                                                    <option value="Special Offer Package"{{ $package->category === 'Special Offer Package' ? 'selected' : '' }}>Special Offer Package</option>
-                                                </select>
+                                                <input type="text" id="" class="form-control border-primary"
+                                                    placeholder="Description" value="{{ $tour->description }}" name="description" required>
                                             </div>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Note</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="" class="form-control border-primary"
-                                                    placeholder="Note" name="note" required>
+                                                    placeholder="Note" value="{{ $tour->note }}" name="note" required>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput2">Package Image </label>
+                                            <label class="col-md-3 label-control" for="userinput2">Tour Image </label>
                                             <div class="col-md-9">
                                                 <img style='height:60px; width:60px'
-                                                    src="{{ asset('uploads/' . $package->image) }}" alt="">
+                                                    src="{{ asset('uploads/' . $tour->image) }}" alt="">
                                                 <input type="file" id="userinput2" class="form-control border-primary"
                                                     name="image">
                                             </div>

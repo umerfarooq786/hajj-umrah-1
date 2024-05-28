@@ -13,6 +13,7 @@ use App\Http\Controllers\VisaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\FrontHotelController;
 use App\Http\Controllers\ContactsController;
@@ -46,6 +47,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('packages', PackageController::class);
     Route::get('/packages', [PackageController::class, 'index'])->name('packages.index')->middleware('check.permission:packages-list');
     Route::get('/get_packages', [PackageController::class, 'get_packages']);
+    
+    
+    Route::resource('tours', TourController::class);
+    Route::get('/tours', [TourController::class, 'index'])->name('tours.index')->middleware('check.permission:tours-list');
+    Route::get('/get_tours', [TourController::class, 'get_tours']);
 
     Route::resource('roles', RoleController::class);
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index')->middleware('check.permission:roles-list');

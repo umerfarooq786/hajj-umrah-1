@@ -69,7 +69,7 @@
                                             <label class="col-md-3 label-control" for="userinput2">Note</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="" class="form-control border-primary"
-                                                    placeholder="Note" name="note" required>
+                                                    placeholder="Note" name="note" value="{{ $package->note }}" required>
                                             </div>
                                         </div>
                                     </div>

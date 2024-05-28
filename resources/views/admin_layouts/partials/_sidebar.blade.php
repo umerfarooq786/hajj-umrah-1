@@ -146,6 +146,28 @@
                     </ul>
                 </li>
             @endif
+            
+            @if (auth()->user()->can('tours-create') || auth()->user()->can('tours-list'))
+                <li class="nav-item"><a href=""><i class="la la-calendar-o"></i><span class="menu-title"
+                            data-i18n="nav.dash.main">Tours</span></a>
+                    <ul class="menu-content">
+                        @can('tours-create')
+                            <li class="">
+                                <a class="menu-item" href="{{ route('tours.create') }}"
+                                    data-i18n="nav.dash.ecommerce">Add
+                                    Tours</a>
+                            </li>
+                        @endcan
+                        @can('tours-list')
+                            <li class="">
+                                <a class="menu-item" href="{{ route('tours.index') }}"
+                                    data-i18n="nav.dash.ecommerce">View
+                                   Tours</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endif
 
             @can('contacts-view')
                 <li class="nav-item"><a href="{{ route('contacts.index') }}"><i class="la la-phone"></i><span

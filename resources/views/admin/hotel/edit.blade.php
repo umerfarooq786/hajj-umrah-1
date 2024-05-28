@@ -519,6 +519,12 @@
 
             // Append add_validity to the last .validityContainer
             var validityRow = $(".validityContainer:last").append(add_validity);
+            flatpickr(".datepicker", {
+            dateFormat: "Y-m-d",
+            minDate: window.lastValidity,
+            enableTime: false,
+            allowInput: true
+        });
 
         });
 
@@ -895,7 +901,7 @@
                                                 <div class="col-md-9 validity-container d-flex align-items-center">
                                                     <input type="date" class="form-control border-primary datepicker"
                                                         name="validity_start[]" id="newValidity"
-                                                        placeholder="Validity Date" min="` + window.lastValidity + `"
+                                                        placeholder="Validity Date"
                                                         required>
                                                 </div>
                                             </div>
@@ -906,7 +912,7 @@
                                                 <div class="col-md-9 validity-container d-flex align-items-center">
                                                     <input type="date" class="form-control border-primary datepicker"
                                                         name="validity_end[]" id="newValidity"
-                                                        placeholder="Validity Date" min="` + window.lastValidityEnd + `"
+                                                        placeholder="Validity Date" 
                                                         required>
                                                         <button id="" class="btn btn-danger removeValidity" style="margin-left:6px">X</button>
                                                 </div>

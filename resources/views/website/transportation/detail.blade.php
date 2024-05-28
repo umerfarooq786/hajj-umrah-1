@@ -309,6 +309,23 @@
                     $('.failure-section').hide();
 
                     var formData = $(this).serializeArray(); // Serialize form data as an array
+                    // Check if any start_date[] field is empty
+                    var startDateEmpty = false;
+
+                    formData.forEach(function(item) {
+                        if (item.name === 'start_date[]' && item.value === '') {
+                            startDateEmpty = true;
+                        }
+                    });
+
+                    if (startDateEmpty) {
+                        $('.failure-section').append(
+                            'You must select the date and route both to get calculated result.'
+                        );
+                        $('.begin-section').hide();
+                        $('.failure-section').show();
+                        return false; // Prevent form submission
+                    }
                     var vehicle_id = $('#vehicle_id').val(); // Get the value of the hidden input field
                     // formData += '&vehicle_id=' + vehicle_id;
 

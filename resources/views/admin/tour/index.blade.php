@@ -18,7 +18,7 @@
                     [0, "desc"]
                 ],
                 "sPaginationType": "full_numbers",
-                "sAjaxSource": "{{ url('/get_packages') }}",
+                "sAjaxSource": "{{ url('/get_tours') }}",
                 "aLengthMenu": [
                     [10, 50, 100, 500],
                     [10, 50, 100, 500]
@@ -26,10 +26,10 @@
             });
         });
 
-        function deletePackage(id) {
+        function deleteTour(id) {
             swal({
                     title: "Are you sure？",
-                    text: "Do you want to delete this Package",
+                    text: "Do you want to delete this Tour",
                     icon: "warning",
                     buttons: {
                         cancel: {
@@ -57,12 +57,11 @@
                         });
                         $.ajax({
                             method: "DELETE",
-                            url: '{{ route('packages.destroy', ['package' => ':id']) }}'.replace(':id', id),
+                            url: '{{ route('tours.destroy', ['tour' => ':id']) }}'.replace(':id', id),
                             success: function(result) {
-                                console.log(result)
                                 if (result.status == "success") {
                                     $("#row_" + id).hide();
-                                    swal("Success！", "Package has been deleted", "success");
+                                    swal("Success！", "Tour has been deleted", "success");
                                 }
                             }
                         })
@@ -83,7 +82,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="la la-cars"></i>
-                            <h4 class="card-title">Predefined Packages</h4>
+                            <h4 class="card-title">Tour</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -104,6 +103,7 @@
                                             <th>ID</th>
                                             <th style="width:110px">Name</th>
                                             <th style="width:70px">Type</th>
+                                            <th style="width:70px">note</th>
                                             <th style="width:110px">Image</th>
                                             <th>Action</th>
                                         </tr>
