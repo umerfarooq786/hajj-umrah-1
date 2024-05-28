@@ -194,7 +194,7 @@
 
                                 <select id="route" name="route[]"
                                     class="place lg:w-[180px] border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400"
-                                    required>
+                                    >
                                     <option value="">Select Route</option>
                                     @if ($vehicle->transport)
                                         @foreach ($vehicle->transport as $transport)
@@ -283,7 +283,12 @@
                         if (document.querySelectorAll('.transport-form').length > 1) {
                             this.parentElement.remove();
                         } else {
-                            alert('At least one search criteria is required.');
+                            $('.failure-section').empty();
+                            $('.failure-section').append(
+                            'At least one search criteria is required.'
+                        );
+                        $('.begin-section').hide();
+                        $('.failure-section').show();
                         }
                     });
                 });
@@ -294,7 +299,12 @@
                         if (document.querySelectorAll('.transport-form').length > 1) {
                             this.parentElement.remove();
                         } else {
-                            alert('At least one search criteria is required.');
+                            $('.failure-section').empty();
+                            $('.failure-section').append(
+                            'At least one search criteria is required.'
+                        );
+                        $('.begin-section').hide();
+                        $('.failure-section').show();
                         }
                     });
                 });
@@ -311,14 +321,21 @@
                     var formData = $(this).serializeArray(); // Serialize form data as an array
                     // Check if any start_date[] field is empty
                     var startDateEmpty = false;
+                    var routeEmpty = false;
 
                     formData.forEach(function(item) {
                         if (item.name === 'start_date[]' && item.value === '') {
                             startDateEmpty = true;
                         }
                     });
+                    formData.forEach(function(item) {
+                        if (item.name === 'route[]' && item.value === '') {
+                            routeEmpty = true;
+                        }
+                    });
 
-                    if (startDateEmpty) {
+                    if (startDateEmpty || routeEmpty) {
+                        $('.failure-section').empty();
                         $('.failure-section').append(
                             'You must select the date and route both to get calculated result.'
                         );

@@ -77,6 +77,7 @@ class RouteController extends Controller
     public function destroy($id)
     {
        $route = Route::findOrFail($id);
+       $route->transports()->detach(); // Detach any related transports
        $route->delete();
 
         return response()->json([
