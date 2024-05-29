@@ -16,8 +16,8 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST"
-                            action="{{ route('tours.update', $tour->id) }}" enctype="multipart/form-data">
+                        <form class="form form-horizontal" method="POST" action="{{ route('tours.update', $tour->id) }}"
+                            enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="form-body">
@@ -39,9 +39,11 @@
                                             <div class="col-md-9">
                                                 <select id="userinput2" class="form-control border-primary" name="type">
                                                     <option value="umrah"
-                                                        {{ $tour->type === 'international' ? 'selected' : '' }}>International Tours</option>
+                                                        {{ $tour->type === 'international' ? 'selected' : '' }}>
+                                                        International Tours</option>
                                                     <option value="hajj"
-                                                        {{ $tour->type === 'domestic' ? 'selected' : '' }}>Domestic Tours</option>
+                                                        {{ $tour->type === 'domestic' ? 'selected' : '' }}>Domestic Tours
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -52,12 +54,13 @@
                                             <label class="col-md-3 label-control" for="userinput2">Description</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="" class="form-control border-primary"
-                                                    placeholder="Description" value="{{ $tour->description }}" name="description" required>
+                                                    placeholder="Description" value="{{ $tour->description }}"
+                                                    name="description" required>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div class="col-md-6">
+
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Note</label>
                                             <div class="col-md-9">
@@ -65,7 +68,7 @@
                                                     placeholder="Note" value="{{ $tour->note }}" name="note" required>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-6">
                                         <div class="form-group row">

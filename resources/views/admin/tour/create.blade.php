@@ -28,7 +28,7 @@
                                             <label class="col-md-3 label-control" for="userinput2">Tour Name</label>
                                             <div class="col-md-9">
                                                 <input type="text" id="userinput2" class="form-control border-primary"
-                                                    placeholder="Package" name="name" required>
+                                                    placeholder="Tour" name="name" required>
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Note</label>
                                             <div class="col-md-9">
@@ -72,7 +72,7 @@
                                                     placeholder="Note" name="note" required>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                             </div>
