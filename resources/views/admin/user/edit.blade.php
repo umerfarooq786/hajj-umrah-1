@@ -58,19 +58,22 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">First Name</label>
+                                            <label class="col-md-3 label-control" for="userinput1">First Name <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
                                                     placeholder="First Name" value="{{ $route->first_name }}"
-                                                    name="first_name">
+                                                    name="first_name" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Last Name</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Last Name <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
-                                                placeholder="Last Name" value="{{ $route->last_name }}" name="last_name">
+                                                placeholder="Last Name" value="{{ $route->last_name }}" name="last_name"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
@@ -86,10 +89,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Gender</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Gender <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <select class="form-control border-primary" value="{{ $route->gender }}"
-                                                name="gender">
+                                                name="gender" required>
                                                 <option selected>Select Gender</option>
                                                 <option value="M"selected>Male</option>
                                                 <option value="F">Female</option>
@@ -109,40 +113,46 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Designation</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Designation <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
                                                 placeholder="Designation" value="{{ $route->designation }}"
-                                                name="designation">
+                                                name="designation" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Phone</label>
+                                            <label class="col-md-3 label-control" for="userinput1">Phone <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
-                                                    placeholder="Phone" value="{{ $route->phone }}" name="phone">
+                                                    placeholder="Phone" value="{{ $route->phone }}" name="phone"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Address</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Address <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
-                                                placeholder="Address" name="address" value="{{ $route->address }}">
+                                                placeholder="Address" name="address" value="{{ $route->address }}"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Email</label>
+                                            <label class="col-md-3 label-control" for="userinput1">Email <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
                                                     placeholder="Email" disabled value="{{ $route->email }}"
-                                                    name="email">
+                                                    name="email" required>
                                             </div>
                                         </div>
                                     </div>

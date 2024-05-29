@@ -137,7 +137,13 @@ Route::get('/transportation/{id}', [FrontHotelController::class, 'singleTranspor
 Route::post('/search-route-price', [FrontHotelController::class, 'searchRoutePrice'])->name('search.route_price');
 
 Route::get('/predefined-package/umrah', [FrontHotelController::class, 'predefinedUmrah']);
+Route::get('/predefined-package/umrah/{category}', [FrontHotelController::class, 'predefinedUmrahWithCategory']);
 Route::get('/predefined-package/hajj', [FrontHotelController::class, 'predefinedHajj']);
+Route::get('/predefined-package/hajj/{category}', [FrontHotelController::class, 'predefinedHajjWithCategory']);
+
+Route::get('/tourPackage/{type}', [FrontHotelController::class, 'showTours']);
+// Route::get('/predefined-package/hajj/{category}', [FrontHotelController::class, 'predefinedHajjWithCategory']);
+
 
 Route::get('/test', function () {
     return view("admin.package.index");

@@ -30,15 +30,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Name</label>
+                                            <label class="col-md-3 label-control" for="userinput1">Name <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary" placeholder="Name"
-                                                    name="name">
+                                                    name="name" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Make</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Make <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary" placeholder="Make"
                                                 name="make" required>
@@ -61,7 +63,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Capacity</label>
+                                            <label class="col-md-3 label-control" for="userinput1">Capacity <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
                                                     placeholder="capacity" name="capacity" required>
@@ -69,10 +72,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Image</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Image <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="file" class="form-control border-primary" placeholder="Make"
-                                            name="images[]" multiple>
+                                                name="images[]" multiple required>
                                         </div>
                                     </div>
                                 </div>
