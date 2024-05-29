@@ -53,18 +53,30 @@
                                             <label class="col-md-3 label-control" for="userinput2">Package Category </label>
                                             <div class="col-md-9">
                                                 <select id="" class="form-control border-primary" name="category">
-                                                    <option value="5 Star Package"{{ $package->category === '5 Star Package' ? 'selected' : '' }}>5 Star Package</option>
-                                                    <option value="4 Star Package"{{ $package->category === '4 Star Package' ? 'selected' : '' }}>4 Star Package</option>
-                                                    <option value="3 Star Package"{{ $package->category === '3 Star Package' ? 'selected' : '' }}>3 Star Package</option>
-                                                    <option value="Standard Package"{{ $package->category === 'Standard Package' ? 'selected' : '' }}>Standard Package</option>
-                                                    <option value="Economy Package"{{ $package->category === 'Economy Package' ? 'selected' : '' }}>Economy Package</option>
-                                                    <option value="Special Offer Package"{{ $package->category === 'Special Offer Package' ? 'selected' : '' }}>Special Offer Package</option>
+                                                    <option
+                                                        value="5 Star Package"{{ $package->category === '5 Star Package' ? 'selected' : '' }}>
+                                                        5 Star Package</option>
+                                                    <option
+                                                        value="4 Star Package"{{ $package->category === '4 Star Package' ? 'selected' : '' }}>
+                                                        4 Star Package</option>
+                                                    <option
+                                                        value="3 Star Package"{{ $package->category === '3 Star Package' ? 'selected' : '' }}>
+                                                        3 Star Package</option>
+                                                    <option
+                                                        value="Standard Package"{{ $package->category === 'Standard Package' ? 'selected' : '' }}>
+                                                        Standard Package</option>
+                                                    <option
+                                                        value="Economy Package"{{ $package->category === 'Economy Package' ? 'selected' : '' }}>
+                                                        Economy Package</option>
+                                                    <option
+                                                        value="Special Offer Package"{{ $package->category === 'Special Offer Package' ? 'selected' : '' }}>
+                                                        Special Offer Package</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput2">Note</label>
                                             <div class="col-md-9">
@@ -72,7 +84,7 @@
                                                     placeholder="Note" name="note" value="{{ $package->note }}" required>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-6">
                                         <div class="form-group row">
