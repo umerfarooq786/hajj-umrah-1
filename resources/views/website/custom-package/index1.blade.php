@@ -340,7 +340,7 @@
                         <h4 class="font-semibold text-sm pt-3">Maktab </h4>
                         <select id="maktab" name="maktab"
                             class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
-                            <option value="">Select Room Type</option>
+                            <option value="">Select Maktab Type</option>
                             @foreach ($maktabs as $maktab)
                                 <option value="{{ $maktab->id }}">
                                     {{ $maktab->name }}
