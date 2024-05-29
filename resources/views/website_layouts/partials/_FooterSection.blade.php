@@ -13,6 +13,15 @@
             <img src="{{ asset('images/logo.png') }}" alt="logo" class="h-[60px]">
             <p class="mt-5"><b>Fastline Travels & Tours:</b> We handle the travel, so you can focus on the experience
             </p>
+            <div class="flex justify-between pt-8 gap-3">
+                <img src="{{ asset('images/certifications/certification1.jpeg') }}"
+                    class="h-[70px] w-[100px] object-contain" alt="">
+                <img src="{{ asset('images/certifications/certification2.jpeg') }}"
+                    class="h-[70px] w-[100px] object-contain" alt="">
+
+                <img src="{{ asset('images/certifications/certification3.jpeg') }}"
+                    class="h-[70px] w-[100px] object-contain" alt="">
+            </div>
         </div>
         <div>
             <h4 class="text-white">Contact Us</h4>
@@ -67,15 +76,7 @@
             <img src="{{ asset('images/footer-gallery.png') }}" alt="logo" class="h-[200px]">
         </div>
     </div>
-    <div class="bg-[#1f1f1f] text-gray2 flex items-center justify-center w-full px-10 py-10  lg:px-40 lg:py-10 gap-10">
-        <img src="{{ asset('images/certifications/certification1.jpeg') }}" class="h-[70px] w-[100px] object-contain"
-            alt="">
-        <img src="{{ asset('images/certifications/certification2.jpeg') }}" class="h-[70px] w-[100px] object-contain"
-            alt="">
 
-        <img src="{{ asset('images/certifications/certification3.jpeg') }}" class="h-[70px] w-[100px] object-contain"
-            alt="">
-    </div>
     <div class="bg-first text-white w-full p-5 text-center font-semibold text-xs">
         <p>COPYRIGHT © 2024, FASTLINE TRAVEL & TOURS - ALL RIGHTS RESERVED</p>
     </div>

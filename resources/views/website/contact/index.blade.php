@@ -28,18 +28,18 @@
                         class="fa-brands fa-facebook-f text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
                 <!-- <a href="#"
-                                                                                            class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
-                                                                                            <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                                                                                        </a> -->
+                                                                                                class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
+                                                                                                <i class="fa-brands fa-twitter text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
+                                                                                            </a> -->
                 <a href="https://www.instagram.com/fastline.pk/" target="_blank"
                     class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
                     <i
                         class="fa-brands fa-instagram text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
                 </a>
                 <!-- <a href="#"
-                                                                                            class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
-                                                                                            <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
-                                                                                        </a> -->
+                                                                                                class="bg-[#1f1f1f] h-[35px] w-[35px]  flex items-center justify-center rounded-full hover:bg-red-500 group transition-all duration-300">
+                                                                                                <i class="fa-brands fa-whatsapp text-red-500 text-[12px] group-hover:text-[#1f1f1f] transition-all"></i>
+                                                                                            </a> -->
             </div>
         </div>
         <div class="border border-gray-200 rounded-[4px] py-16 px-10 space-y-10" id="contactForm">
@@ -85,7 +85,8 @@
                     <div class="space-y-2 w-full">
                         <label class="font-bold text-sm" for="email">Contact Number</label>
                         <span class="text-red-500"> *</span>
-                        <input type="number" name="contact" placeholder="Contact Number" pattern="\d{10,}" required
+                        <input type="text" name="contact" placeholder="Contact Number" pattern="^[0-9]{10,}$"
+                            title="Number is not correct" required
                             class=" border border-gray-200 focus:border-gray-300 rounded-md bg-[#f6f7fa] focus:bg-white transition-all py-3 px-5  w-full">
                     </div>
                 </div>

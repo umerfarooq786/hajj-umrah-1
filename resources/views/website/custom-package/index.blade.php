@@ -139,8 +139,8 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-sm ">Contact No.</h4>
-                        <input type="number" name="contact" value="{{ old('contact') }}" min="0"
-                            placeholder="Contact No." required>
+                        <input type="text" pattern="^[0-9]{10,}$" title="Number is not correct" name="contact"
+                            value="{{ old('contact') }}" min="0" placeholder="Contact No." required>
                     </div>
                 </div>
                 {{-- </div> --}}
