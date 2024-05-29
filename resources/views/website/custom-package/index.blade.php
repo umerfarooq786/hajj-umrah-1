@@ -282,7 +282,7 @@
                     <div class="flex flex-col md:flex-row stay relative gap-3 route-group">
                         <select
                             class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                            name="route[]">
+                            name="route[]" style="width:250px">
                             <option value="">Select Route</option>
                             @foreach ($routes as $route)
                                 <option value="{{ $route->id }}">{{ $route->name }}</option>
@@ -291,7 +291,7 @@
 
                         <select
                             class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                            name="vehicle[]">
+                            name="vehicle[]" style="width: 300px">
                             <option value="">Select Vehicle</option>
                         </select>
 
@@ -885,14 +885,14 @@
             $('#addMoreBtn').click(function(e) {
                 e.preventDefault();
                 var newInputGroup = $(
-                    '<div class="flex flex-col md:flex-row stay relative gap-3 route-group">' +
-                    '<select class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="route[]">' +
+                    '<div class="flex flex-col md:flex-row stay relative gap-3 mt-2 route-group">' +
+                    '<select class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="route[]" style="width:250px;">' +
                     '<option value="">Select Route</option>' +
                     '@foreach ($routes as $route)' +
                     '<option value="{{ $route->id }}">{{ $route->name }}</option>' +
                     '@endforeach' +
                     '</select>' +
-                    '<select class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="vehicle[]">' +
+                    '<select class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="vehicle[]" style="width:300px;" >' +
                     '<option value="">Select Vehicle</option>' +
                     '</select>' +
                     '<div class="flex items-center relative h-[40px]">' +
