@@ -94,7 +94,7 @@
         </video>
 
         <div class="bg-white/80 p-10  pb-20 rounded-xl  lg:w-[80%] max-w-[1000px] ">
-           
+
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -106,7 +106,7 @@
                     </ul>
                 </div><br><br>
             @endif
-            
+
             @foreach ($showpage as $visa)
                 @if ($visa->show_hajj)
                     {{-- This note field should be in a flash message, which will end after redirection --}}
@@ -123,6 +123,7 @@
                     <form method="POST" action="{{ route('calculate.calculate_package_result') }}" class="space-y-2"
                         id="custom-package-form" enctype="multipart/form-data">
                         @csrf
+                        <!-- Select Stay in Makkah -->
                         <div class="flex max-lg:flex-col max-lg:gap-5 lg:gap-10">
                             <div>
                                 <h4 class="font-semibold text-sm ">Select Number Of Persons</h4>
@@ -131,21 +132,23 @@
                                     class="form-control {{ $errors->has('no_of_persons') ? 'is-invalid' : '' }}" required>
                                     <option value="">Select Persons</option>
                                     @for ($i = 1; $i <= 20; $i++)
-                                        <option value="{{ $i }}" {{ old('no_of_persons') == $i ? 'selected' : '' }}>
+                                        <option value="{{ $i }}"
+                                            {{ old('no_of_persons') == $i ? 'selected' : '' }}>
                                             {{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-sm ">Email</h4>
-                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email"
+                                    required>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-sm ">Contact No.</h4>
-                                <input type="number" name="contact" value="{{ old('contact') }}" placeholder="Contact No." min="0" required>
+                                <input type="number" name="contact" value="{{ old('contact') }}" min="0"
+                                    placeholder="Contact No." required>
                             </div>
                         </div>
-                        
                         {{-- </div> --}}
 
                         <h4 class="font-semibold text-sm ">Select Stay in Makkah</h4>
@@ -155,7 +158,7 @@
                                     class="place w-full lg:w-[150px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                                     <option value="">Select Hotel</option>
                                     @foreach ($makkah_hotels as $hotel)
-                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                        <option value="{{ $hotel->id }}"> {{ $hotel->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -169,17 +172,10 @@
                                 </select>
 
 
-                                <div class="relative">
-                                    <div id="makkah_meal_button"
-                                        class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">
-                                        Meals</div>
-                                    <div id="makkah_meal_card"
-                                        class="absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">
-                                        <ul>
-
-                                        </ul>
-                                    </div>
-                                </div>
+                                <select id="makkah_hotel_meal_type" name="makkah_hotel_meal_type[]"
+                                    class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                                    <option value="">Select Meal Type</option>
+                                </select>
                                 <!-- test end -->
                                 <div class=" flex items-center relative lg:w-[150px]">
                                     <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
@@ -220,17 +216,10 @@
                                     <option value="4">Quad</option>
                                 </select>
                                 <!-- test start -->
-                                <div class="relative">
-                                    <div id="madinah_meal_button"
-                                        class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">
-                                        Meals</div>
-                                    <div id="madinah_meal_card"
-                                        class="absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">
-                                        <ul>
-
-                                        </ul>
-                                    </div>
-                                </div>
+                                <select id="madinah_hotel_meal_type" name="madinah_hotel_meal_type[]"
+                                    class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                                    <option value="">Select Meal Type</option>
+                                </select>
                                 <!-- test end -->
                                 <div class=" flex items-center relative lg:w-[150px]">
                                     <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
@@ -271,17 +260,10 @@
                                     <option value="4">Quad</option>
                                 </select>
                                 <!-- test start -->
-                                <div class="relative">
-                                    <div id="jeddah_meal_button"
-                                        class="border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">
-                                        Meals</div>
-                                    <div id="jeddah_meal_card"
-                                        class="absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">
-                                        <ul>
-
-                                        </ul>
-                                    </div>
-                                </div>
+                                <select id="jeddah_hotel_meal_type" name="jeddah_hotel_meal_type[]"
+                                    class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
+                                    <option value="">Select Meal Type</option>
+                                </select>
                                 <!-- test end -->
                                 <div class=" flex items-center relative lg:w-[150px]">
                                     <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
@@ -304,33 +286,28 @@
                         <!-- Transport in Makah -->
                         <h4 class="font-semibold text-sm pt-3">Select Transport </h4>
                         <div id="RoutesDiv">
-                            <div class="flex flex-col md:flex-row stay relative gap-3">
-                                <select id="route" name="route[]"
-                                    class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                            <div class="flex flex-col md:flex-row stay relative gap-3 route-group">
+                                <select
+                                    class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
+                                    name="route[]">
                                     <option value="">Select Route</option>
                                     @foreach ($routes as $route)
                                         <option value="{{ $route->id }}">{{ $route->name }}</option>
                                     @endforeach
                                 </select>
 
-                                <select id="vehicle" name="vehicle[]"
-                                    class="place  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">
+                                <select
+                                    class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
+                                    name="vehicle[]">
                                     <option value="">Select Vehicle</option>
-                                    @foreach ($transport_types as $transport)
-                                        <option value="{{ $transport->id }}">
-                                            {{ $transport->name }}
-                                            @if ($transport->capacity)
-                                                <span class="text-xs text-gray-500">( {{ $transport->capacity }}-Person
-                                                    )</span>
-                                            @endif
-                                        </option>
-                                    @endforeach
                                 </select>
 
-                                <div class=" flex items-center relative h-[40px]">
+                                <div class="flex items-center relative h-[40px]">
                                     <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
-                                    <input type="date" id="travel_date" name="travel_date[]" placeholder="Date"
+                                    <input type="date" name="travel_date[]" placeholder="Date"
                                         class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
+                                    <button
+                                        class="deleteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -348,9 +325,8 @@
                             @endforeach
                         </select>
 
-
                         <div class="flex flex-col md:flex-row  relative">
-                            <input name="visa" value="Hajj" hidden>
+                            <input name="visa" value="hajj" hidden>
                         </div>
 
                         <div class="flex justify-center">
@@ -369,9 +345,6 @@
 
                             <p class="font-semibold text-gray-700 dark:text-gray-400 ">Hajj Calculations are comming soon.
                             </p>
-                            <div class="flex flex-col md:flex-row  relative">
-                                <input name="visa" value="hajj" hidden>
-                            </div>
                         </div>
                 @endif
             @endforeach
@@ -472,19 +445,15 @@
                 }
 
                 function populate_makkah_hotel_meal_type(data) {
-                    var listItems = '';
-                    var makkahbtn = $Makkahbtn_i;
+                    var options = '<option value="">Select Meal Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the second dropdown
                     for (var i = 0; i < data.length; i++) {
-                        listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
-                            '" name="makkah_meal[' + makkahbtn + '][]" value="' + data[i].id +
-                            '" class="outline-none ring-0">';
-                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
-                            '</label>';
-                        listItems += '</li>';
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
                     }
 
-                    $('#makkah_meal_card ul').html(listItems);
+                    // Populate the second dropdown with options
+                    $('#makkah_hotel_meal_type').html(options);
                 }
             });
 
@@ -567,20 +536,15 @@
 
 
                 function populate_makkah_hotel_meal_type1(data, selectElement) {
-                    var makkahbtn = $Makkahbtn_i;
-                    var listItems = '';
+                    var options = '<option value="">Select Meal Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the dropdown
                     for (var i = 0; i < data.length; i++) {
-                        listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="makkah-meal-' + data[i].id +
-                            '" name="makkah_meal[' + makkahbtn + '][]" value="' + data[i].id +
-                            '" class="outline-none ring-0">';
-                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
-                            '</label>'; // Ensure this matches the checkbox ID
-                        listItems += '</li>';
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
                     }
 
-                    // Find the closest .makkah_meal_card ul to the changed select element and update it
-                    $(selectElement).closest('div').find('.makkah_meal_card ul').html(listItems);
+                    // Populate the corresponding dropdown with options
+                    $(selectElement).closest('div').find('.makkah_hotel_meal_type1').html(options);
                 }
             });
 
@@ -664,21 +628,15 @@
                 }
 
                 function populate_madinah_hotel_meal_type(data) {
-                    var listItems = '';
-                    var madinahbtn = $Madinahbtn_i;
-                    // Loop through the data and create list items with checkboxes
+                    var options = '<option value="">Select Meal Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the second dropdown
                     for (var i = 0; i < data.length; i++) {
-                        listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="madinah_meal' + data[i].id +
-                            '" name="madinah_meal[' + madinahbtn + '][]" value="' + data[i].id +
-                            '" class="outline-none ring-0">';
-                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
-                            '</label>';
-                        listItems += '</li>';
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
                     }
 
-                    // Populate the ul with the generated list items
-                    $('#madinah_meal_card ul').html(listItems);
+                    // Populate the second dropdown with options
+                    $('#madinah_hotel_meal_type').html(options);
                 }
             });
 
@@ -761,20 +719,15 @@
 
 
                 function populate_madinah_hotel_meal_type1(data, selectElement) {
-                    var listItems = '';
-                    var madinahbtn = $Madinahbtn_i;
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the dropdown
                     for (var i = 0; i < data.length; i++) {
-                        listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="madinah-meal-' + data[i].id +
-                            '" name="madinah_meal[' + madinahbtn + '][]" value="' + data[i].id +
-                            '" class="outline-none ring-0">';
-                        listItems += '<label for="madinah-meal-' + data[i].id + '">' + data[i].name +
-                            '</label>';
-                        listItems += '</li>';
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
                     }
 
-                    // Find the closest .makkah_meal_card ul to the changed select element and update it
-                    $(selectElement).closest('div').find('.madinah_meal_card ul').html(listItems);
+                    // Populate the corresponding dropdown with options
+                    $(selectElement).closest('div').find('.madinah_hotel_meal_type1').html(options);
                 }
 
             });
@@ -856,21 +809,15 @@
                 }
 
                 function populate_jeddah_hotel_meal_type(data) {
-                    var listItems = '';
-                    var jaddahbtn = $Jadahbtn_i;
-                    // Loop through the data and create list items with checkboxes
+                    var options = '<option value="">Select Meal Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the second dropdown
                     for (var i = 0; i < data.length; i++) {
-                        listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="jeddah_meal' + data[i].id +
-                            '" name="jeddah_meal[' + jaddahbtn + '][]" value="' + data[i].id +
-                            '" class="outline-none ring-0">';
-                        listItems += '<label for="makkah-meal-' + data[i].id + '">' + data[i].name +
-                            '</label>';
-                        listItems += '</li>';
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
                     }
 
-                    // Populate the ul with the generated list items
-                    $('#jeddah_meal_card ul').html(listItems);
+                    // Populate the second dropdown with options
+                    $('#jeddah_hotel_meal_type').html(options);
                 }
             });
 
@@ -908,7 +855,7 @@
                     },
                     success: function(response) {
                         var note = response;
-                        $('#jeddah_hotel_note').html('<b>Note Of Jaddah Selected Hotel:</b> ' +
+                        $('#makkah_hotel_note').html('<b>Note Of Jeddah Selected Hotel:</b> ' +
                             note).show();
                     },
                     error: function(xhr, status, error) {
@@ -952,48 +899,47 @@
 
 
                 function populate_jaddah_hotel_meal_type1(data, selectElement) {
-                    var listItems = '';
-                    var jaddahbtn = $Jadahbtn_i;
+                    var options = '<option value="">Select Room Type</option>'; // Add a default option
+
+                    // Loop through the data and create options for the dropdown
                     for (var i = 0; i < data.length; i++) {
-                        listItems += '<li class="flex items-center gap-3">';
-                        listItems += '<input type="checkbox" id="jaddah-meal-' + data[i].id +
-                            '" name="jeddah_meal[' + jaddahbtn + '][]" value="' + data[i].id +
-                            '" class="outline-none ring-0">';
-                        listItems += '<label for="jaddah-meal-' + data[i].id + '">' + data[i].name +
-                            '</label>';
-                        listItems += '</li>';
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
                     }
 
-                    // Find the closest .makkah_meal_card ul to the changed select element and update it
-                    $(selectElement).closest('div').find('.jeddah_meal_card ul').html(listItems);
+                    // Populate the corresponding dropdown with options
+                    $(selectElement).closest('div').find('.jeddah_hotel_meal_type1').html(options);
                 }
             });
 
             $('#addMoreBtn').click(function(e) {
                 e.preventDefault();
-                var newInputGroup = $('<div class="flex flex-col md:flex-row stay relative">' +
-                    '<select name="route[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                var newInputGroup = $(
+                    '<div class="flex flex-col md:flex-row stay relative gap-3 route-group">' +
+                    '<select class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="route[]">' +
                     '<option value="">Select Route</option>' +
                     '@foreach ($routes as $route)' +
                     '<option value="{{ $route->id }}">{{ $route->name }}</option>' +
                     '@endforeach' +
                     '</select>' +
-                    '<select name="vehicle[]" class="place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]">' +
+                    '<select class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="vehicle[]">' +
                     '<option value="">Select Vehicle</option>' +
-                    '@foreach ($transport_types as $trantransport_type)' +
-                    '<option value="{{ $trantransport_type->id }}">{{ $trantransport_type->name }} <span class="text-xs text-gray-500">( {{ $trantransport_type->capacity }}-Person )</span></option>' +
-                    '@endforeach' +
                     '</select>' +
                     '<div class="flex items-center relative h-[40px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="date" name="travel_date[]" placeholder="Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">' +
-                    '<button class="deleteBtn">Delete</button>' +
+                    '<button class="deleteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>' +
                     '</div>' +
                     '</div>');
 
                 // Append the new HTML structure to the container
                 $('#RoutesDiv').append(newInputGroup);
-                initFlatpickr(newInputGroup[0]);
+
+                // Reinitialize Flatpickr for the new start date input if needed
+                flatpickr(newInputGroup.find(".startDate"), {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    disable: [new Date()],
+                });
             });
 
             // Add click event listener to dynamically added delete buttons using event delegation
@@ -1020,17 +966,9 @@
                     '<option value="3">Triple</option>' +
                     '<option value="4">Quad</option>' +
                     '</select>' +
-                    '<div class="relative">' +
-                    '<div id="makkah_meal_button1"' +
-                    'class=" makkah_meal_button border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">' +
-                    'Meals</div>' +
-                    '<div id="makkah_meal_card1"' +
-                    'class="makkah_meal_card absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">' +
-                    '<ul>' +
-
-                    '</ul>' +
-                    '</div>' +
-                    '</div>' +
+                    '<select class="makkah_hotel_meal_type1 place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 " name="makkah_hotel_meal_type[]">' +
+                    '<option value="">Select Meal Type</option>' +
+                    '</select>' +
                     '<div class=" flex items-center relative lg:w-[150px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="text" id="makkah_hotel_start_date" name="makkah_hotel_start_date[]"' +
@@ -1073,17 +1011,9 @@
                     '<option value="3">Triple</option>' +
                     '<option value="4">Quad</option>' +
                     '</select>' +
-                    '<div class="relative">' +
-                    '<div id="madinah_meal_button1"' +
-                    'class=" madinah_meal_button border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">' +
-                    'Meals</div>' +
-                    '<div id="madinah_meal_card1"' +
-                    'class="madinah_meal_card absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">' +
-                    '<ul>' +
-
-                    '</ul>' +
-                    '</div>' +
-                    '</div>' +
+                    '<select class="madinah_hotel_meal_type1 place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 " name="madinah_hotel_meal_type[]">' +
+                    '<option value="">Select Meal Type</option>' +
+                    '</select>' +
                     '<div class=" flex items-center relative lg:w-[150px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="text" id="madinah_hotel_start_date" name="madinah_hotel_start_date[]"' +
@@ -1126,17 +1056,9 @@
                     '<option value="3">Triple</option>' +
                     '<option value="4">Quad</option>' +
                     '</select>' +
-                    '<div class="relative">' +
-                    '<div id="jeddah_meal_button1"' +
-                    'class=" jeddah_meal_button border px-2 w-[150px] h-[38px]  flex items-center justify-center text-gray-600 border-gray-400 bg-white rounded-md  text-sm focus:border-gray-400">' +
-                    'Meals</div>' +
-                    '<div id="jeddah_meal_card1"' +
-                    'class="jeddah_meal_card absolute hidden top-[100%] left-0 bg-white w-[200px] p-3 z-10 border border-gray-300">' +
-                    '<ul>' +
-
-                    '</ul>' +
-                    '</div>' +
-                    '</div>' +
+                    '<select class="jeddah_hotel_meal_type1 place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 " name="jeddah_hotel_meal_type[]">' +
+                    '<option value="">Select Meal Type</option>' +
+                    '</select>' +
                     '<div class=" flex items-center relative lg:w-[150px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="text" id="jeddah_hotel_start_date" name="jeddah_hotel_start_date[]"' +
@@ -1163,6 +1085,90 @@
                 $(this).closest('.stay').remove(); // Adjusted the selector here
             });
         });
+
+
+        $(document).on('change', '.route-select', function() {
+            var selectedValue = $(this).val();
+            var $vehicleSelect = $(this).closest('.route-group').find('.vehicle-select');
+
+            $.ajax({
+                url: '{{ route('calculate.route_vehicle') }}',
+                method: 'POST',
+                data: {
+                    selectedValue: selectedValue
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    var responseData = response.data;
+                    var options = '<option value="">Select Vehicle</option>'; // Default option
+
+                    if (responseData == 'nothing') {
+                        options = '<option value="">No Vehicle Found</option>';
+                    } else {
+                        for (var i = 0; i < responseData.length; i++) {
+                            options += '<option value="' + responseData[i].id + '">' + responseData[i]
+                                .name + ' (' + responseData[i].capacity + '-person)</option>';
+                        }
+                    }
+
+                    $vehicleSelect.html(options);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+        $(document).on('click', '.deleteBtn', function() {
+            if ($('.route-group').length > 1) {
+                $(this).closest('.route-group').remove();
+            } else {
+                alert('At least one route is required.');
+            }
+        });
+        $(document).on('change', '#route1', function() {
+            var selectedValue = $(this).val();
+            $.ajax({
+                url: '{{ route('calculate.route_vehicle') }}',
+                method: 'POST',
+                data: {
+                    selectedValue: selectedValue
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Extract data from the response
+                    var responseData = response.data;
+                    if (responseData == 'nothing') {
+                        options = '<option value="">No Vehicle Found</option>';
+                        $('#vehicle1').html(options);
+                    } else {
+                        populate_route_type(responseData);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+
+
+            function populate_route_type(data) {
+                var options = '<option value="">Select Route</option>'; // Add a default option
+
+                // Loop through the data and create options for the second dropdown
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].name + ' (' + data[i].capacity +
+                        '-person)</option>';
+                }
+
+                // Populate the second dropdown with options
+                $('#vehicle1').html(options);
+            }
+        });
+
 
         const initialFields = document.querySelectorAll('.stay'); // Select all initial fields
 
@@ -1377,4 +1383,6 @@
             event.stopPropagation(); // Prevent the click event from propagating to the document body
         });
     </script>
+
+
 @endsection
