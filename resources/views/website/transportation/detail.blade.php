@@ -242,16 +242,13 @@
                 // Initialize Flatpickr for the initial start date input
                 flatpickr(".startDate", {
                     dateFormat: "Y-m-d",
-                    disable: [new Date()],
-                    required: true
-
+                    minDate: "today",
                 });
 
                 function initializeFlatpickr(input) {
                     flatpickr(input, {
                         dateFormat: "Y-m-d",
-                        disable: [new Date()],
-                        required: true // Ensure each newly added input has the required attribute
+                    minDate: "today",
                     });
                 }
 
