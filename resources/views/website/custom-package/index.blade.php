@@ -826,7 +826,7 @@
                     },
                     success: function(response) {
                         var note = response;
-                        $('#jeddah_hotel_note').html('<b>Note Of Jaddah Selected Hotel:</b> ' +
+                        $('#makkah_hotel_note').html('<b>Note Of Jeddah Selected Hotel:</b> ' +
                             note).show();
                     },
                     error: function(xhr, status, error) {

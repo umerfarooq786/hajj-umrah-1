@@ -313,7 +313,7 @@
                         </div>
                         <button id="addMoreBtn" class="btn btn-primary">Add More</button>
 
-
+                        
                         <h4 class="font-semibold text-sm pt-3">Maktab </h4>
                         <select id="maktab" name="maktab"
                             class="place lg:w-[180px]  border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 ">
@@ -324,7 +324,7 @@
                                 </option>
                             @endforeach
                         </select>
-
+                        
                         <div class="flex flex-col md:flex-row  relative">
                             <input name="visa" value="hajj" hidden>
                         </div>
