@@ -6,6 +6,7 @@ use App\Models\Transport;
 use App\Jobs\SendTransportValidityMails;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class ProcessTransportValidity extends Command
 {
@@ -21,20 +22,27 @@ class ProcessTransportValidity extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Process transport validity and dispatch notifications.';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $transport = Transport::with(['costs', 'vehicles', 'route'])->get();
-        
-        Log::info($transport);
+        $today = Carbon::today()->toDateString();
+
+        $transport = Transport::with(['costs', 'vehicles', 'route'])
+            ->whereHas('costs', function($query) use ($today) {
+                $query->where('validity_end', '>=', $today);
+            })
+            ->get();
+
+        Log::info('Filtered Transports: ', $transport->toArray());
+
         foreach ($transport as $transports) {
             SendTransportValidityMails::dispatch($transports);
         }
-    
-        $this->info('Hotel validity expiration notifications dispatched successfully.');
+
+        $this->info('Transport validity expiration notifications dispatched successfully.');
     }
 }
