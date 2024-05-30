@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class WebsiteController extends Controller
 {
     public function homepage(){
-        $package = Package::all();
+        // $package = Package::all();
+        // return $package;
+        $package = Package::where('category', 'Special Offer Package')->orderBy('created_at', 'desc')->get();
+
         $testimonial = Testimonial::all();
         return view('website.home.index' , compact('package', 'testimonial'));
     }

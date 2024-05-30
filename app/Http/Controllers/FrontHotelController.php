@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CurrencyConversion;
 use App\Models\Package;
+use App\Models\Tour;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\HotelRoom;
@@ -633,9 +634,115 @@ class FrontHotelController extends Controller
         return view('website.predefined-package.index', ['packages' => $packages]);
     }
 
+    public function predefinedUmrahWithCategory(Request $request, $category)
+    {   $packages = [];
+        if($category == "special-offer-packages"){
+            $packages = Package::where('category', 'Special Offer Package')
+                    ->where('type', 'umrah')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "5-star-packages"){
+            $packages = Package::where('category', '5 Star Package')
+                    ->where('type', 'umrah')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "4-star-packages"){
+            $packages = Package::where('category', '4 Star Package')
+                    ->where('type', 'umrah')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "3-star-packages"){
+            $packages = Package::where('category', '3 Star Package')
+                    ->where('type', 'umrah')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "standard-packages"){
+            $packages = Package::where('category', 'Standard Package')
+                    ->where('type', 'umrah')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "economy-packages"){
+            $packages = Package::where('category', 'Economy Package')
+                    ->where('type', 'umrah')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        // $packages = Package::where('type', 'umrah')->get();
+        return view('website.predefined-package.index', ['packages' => $packages]);
+    }
+
     public function predefinedHajj(Request $request)
     {
         $packages = Package::where('type', 'hajj')->get();
         return view('website.predefined-package.index', ['packages' => $packages]);
     }
+
+    public function predefinedHajjWithCategory(Request $request, $category)
+    {   
+        $packages = [];
+        if($category == "special-offer-packages"){
+            $packages = Package::where('category', 'Special Offer Package')
+                    ->where('type', 'hajj')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "5-star-packages"){
+            $packages = Package::where('category', '5 Star Package')
+                    ->where('type', 'hajj')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "4-star-packages"){
+            $packages = Package::where('category', '4 Star Package')
+                    ->where('type', 'hajj')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "3-star-packages"){
+            $packages = Package::where('category', '3 Star Package')
+                    ->where('type', 'hajj')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "standard-packages"){
+            $packages = Package::where('category', 'Standard Package')
+                    ->where('type', 'hajj')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($category == "economy-packages"){
+            $packages = Package::where('category', 'Economy Package')
+                    ->where('type', 'hajj')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        // $packages = Package::where('type', 'umrah')->get();
+        return view('website.predefined-package.index', ['packages' => $packages]);
+    }
+
+    public function showTours(Request $request, $type)
+    {
+        // $tours = Tour::all();        
+        // return $tours;
+        $tours = [];
+        if($type == "international-tours"){
+            $tours = Tour::where('type', 'international')                    
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else if($type == "domestic-tours"){
+            $tours = Tour::where('type', 'domestic')                    
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        
+        // $packages = Package::where('type', 'hajj')->get();
+        return view('website.tours.index', ['tours' => $tours]);
+    }
+    
 }

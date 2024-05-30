@@ -139,8 +139,8 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-sm ">Contact No.</h4>
-                        <input type="number" name="contact" value="{{ old('contact') }}" min="0"
-                            placeholder="Contact No." required>
+                        <input type="text" pattern="^[0-9]{10,}$" title="Number is not correct" name="contact"
+                            value="{{ old('contact') }}" min="0" placeholder="Contact No." required>
                     </div>
                 </div>
                 {{-- </div> --}}
@@ -282,7 +282,7 @@
                     <div class="flex flex-col md:flex-row stay relative gap-3 route-group">
                         <select
                             class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                            name="route[]">
+                            name="route[]" style="width:250px">
                             <option value="">Select Route</option>
                             @foreach ($routes as $route)
                                 <option value="{{ $route->id }}">{{ $route->name }}</option>
@@ -291,7 +291,7 @@
 
                         <select
                             class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]"
-                            name="vehicle[]">
+                            name="vehicle[]" style="width: 300px">
                             <option value="">Select Vehicle</option>
                         </select>
 
@@ -826,7 +826,7 @@
                     },
                     success: function(response) {
                         var note = response;
-                        $('#jeddah_hotel_note').html('<b>Note Of Jaddah Selected Hotel:</b> ' +
+                        $('#makkah_hotel_note').html('<b>Note Of Jeddah Selected Hotel:</b> ' +
                             note).show();
                     },
                     error: function(xhr, status, error) {
@@ -885,14 +885,14 @@
             $('#addMoreBtn').click(function(e) {
                 e.preventDefault();
                 var newInputGroup = $(
-                    '<div class="flex flex-col md:flex-row stay relative gap-3 route-group">' +
-                    '<select class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="route[]">' +
+                    '<div class="flex flex-col md:flex-row stay relative gap-3 mt-2 route-group">' +
+                    '<select class="route-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="route[]" style="width:250px;">' +
                     '<option value="">Select Route</option>' +
                     '@foreach ($routes as $route)' +
                     '<option value="{{ $route->id }}">{{ $route->name }}</option>' +
                     '@endforeach' +
                     '</select>' +
-                    '<select class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="vehicle[]">' +
+                    '<select class="vehicle-select place border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400 h-[40px]" name="vehicle[]" style="width:300px;" >' +
                     '<option value="">Select Vehicle</option>' +
                     '</select>' +
                     '<div class="flex items-center relative h-[40px]">' +

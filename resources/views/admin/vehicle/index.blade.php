@@ -46,25 +46,26 @@
                         }
                     }
                 })
-                .then((isConfirm) => {
-                    if (isConfirm) {
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            method: "DELETE",
-                            url: '{{ route('vehicles.destroy', ['vehicle' => ':id']) }}'.replace(':id',
-                                id),
-                            success: function(result) {
-                                swal(result);
-                                if (result.status == "success") {
-                                    $("#row_" + id).hide();
-                                    swal("Success！", "Vehicle has been deleted", "success");
+                    .then((isConfirm) => {
+                        if (isConfirm) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 }
-                            }
-                        })
+                            });
+                            $.ajax({
+                                method: "DELETE",
+                                url: '{{ route('vehicles.destroy', ['vehicle' => ':id']) }}'.replace(':id', id),
+                                //  url: '/transports/' + id,
+                                success: function(result) {
+                                    console.log(result);
+                                    swal(result);
+                                    if (result.status == "success") {
+                                        $("#row_" + id).hide();
+                                        swal("Success！", "Vehicle has been deleted", "success");
+                                    }
+                                }
+                            })
 
                     } else {
                         swal("Error", "You are safe", "error");

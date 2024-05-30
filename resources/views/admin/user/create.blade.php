@@ -40,15 +40,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">First Name</label>
+                                            <label class="col-md-3 label-control" for="userinput1">First Name
+                                                <span class="text-danger"> *</span> </label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
-                                                    placeholder="First Name" name="first_name" >
+                                                    placeholder="First Name" name="first_name" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Last Name</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Last Name <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
                                                 placeholder="Last Name" name="last_name" required>
@@ -58,7 +60,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Email</label>
+                                            <label class="col-md-3 label-control" for="userinput1">Email <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control border-primary"
                                                     placeholder="Email" name="email" required>
@@ -66,10 +69,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Password</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Password <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
-                                            <input type="password" class="form-control border-primary" placeholder="Password"
-                                                name="password" required>
+                                            <input type="password" class="form-control border-primary"
+                                                placeholder="Password" name="password" required>
                                         </div>
                                     </div>
                                 </div>
@@ -78,13 +82,13 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 label-control" for="userinput1">DOB</label>
                                             <div class="col-md-9">
-                                                <input type="date" class="form-control border-primary" name="dob"
-                                                    >
+                                                <input type="date" class="form-control border-primary" name="dob">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Gender</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Gender <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <select class="form-control border-primary" name="gender" required>
                                                 <option selected disabled="">Select Gender</option>
@@ -97,7 +101,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">ID Card</label>
+                                            <label class="col-md-3 label-control" for="userinput1">ID Card <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
                                                     placeholder="Card Number" name="id_card" required>
@@ -105,7 +110,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Designation</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Designation <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
                                                 placeholder="Designation" name="designation" required>
@@ -115,7 +121,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-md-3 label-control" for="userinput1">Phone</label>
+                                            <label class="col-md-3 label-control" for="userinput1">Phone <span
+                                                    class="text-danger"> *</span></label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control border-primary"
                                                     placeholder="Phone" name="phone" required>
@@ -123,7 +130,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-3 label-control" for="userinput1">Address</label>
+                                        <label class="col-md-3 label-control" for="userinput1">Address <span
+                                                class="text-danger"> *</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control border-primary"
                                                 placeholder="Address" name="address" required>

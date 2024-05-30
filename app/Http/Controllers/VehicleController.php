@@ -245,11 +245,10 @@ class VehicleController extends Controller
     public function destroy(string $id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        DB::table('transports')->where('vehicle_id', $id)->delete();
-        $vehicle->delete();
-
+        $vehicle->transports()->detach();
+        
         $images = Image::where('vehicle_id', $id)->get();
-
+        
         foreach ($images as $image) {
             $imageFileName = $image->name;
             $imagePath = public_path('uploads') . '/' . $imageFileName;
@@ -258,6 +257,7 @@ class VehicleController extends Controller
             }
             $image->delete();
         }
+        $vehicle->delete();
 
         return response()->json([
             'status' => 'success',
