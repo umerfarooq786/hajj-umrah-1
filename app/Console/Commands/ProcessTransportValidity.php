@@ -31,6 +31,7 @@ class ProcessTransportValidity extends Command
         $transport = Transport::with(['costs', 'vehicles', 'route'])->get();
         
         foreach ($transport as $transports) {
+            Log::info('Transport sending data.');
             SendTransportValidityMails::dispatch($transports);
         }
     
