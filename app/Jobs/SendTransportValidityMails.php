@@ -41,10 +41,8 @@ class SendTransportValidityMails implements ShouldQueue
      */
     public function handle()
     {
-        Log::info($this->transports);
         foreach ($this->transports->costs as $cost) {
             $validity = $cost->validity_end;
-            Log::info("Validity: $validity");
             $validity = Carbon::parse($validity);
             $sevenDaysBeforeValidity = $validity->copy()->subDays(7);
             $threeDaysBeforeValidity = $validity->copy()->subDays(3);
