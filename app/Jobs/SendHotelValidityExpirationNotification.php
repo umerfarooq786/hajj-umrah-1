@@ -46,11 +46,9 @@ class SendHotelValidityExpirationNotification implements ShouldQueue
         $oneDaysBeforeValidity = $validity->copy()->subDays(1);
         $currentDate = now();
         $alreadySentNotification = false;
-        Log::info($this->Hotel_room);
 
         if ($currentDate->isSameDay($sevenDaysBeforeValidity)) {
             if (!$alreadySentNotification) {
-                Log::info('Hotel room expiration is within 7 days.');
                 // Uncomment and implement email sending logic if necessary
                 $mail = new ValidityNotificationMail($this->Hotel_room);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');

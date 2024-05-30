@@ -51,7 +51,7 @@ class SendTransportValidityMails implements ShouldQueue
             $twoDaysBeforeValidity = $validity->copy()->subDays(2);
             $oneDaysBeforeValidity = $validity->copy()->subDays(1);
             $currentDate = now();
-            Log::info("SevenDaysValidity: $sevenDaysBeforeValidity");
+            
 
             if ($currentDate->isSameDay($sevenDaysBeforeValidity)) {
                 Log::info('Transport expiration is within 7 days.');
@@ -60,14 +60,17 @@ class SendTransportValidityMails implements ShouldQueue
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
                 Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             } elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
+                Log::info('Transport expiration is within 3 days.');
                 $mail = new TransportThreeDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
                 Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             } elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
+                Log::info('Transport expiration is within 2 days.');
                 $mail = new TransportTwoDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
                 Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
             } elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
+                Log::info('Transport expiration is within 1 days.');
                 $mail = new TransportOneDayMail($this->transports);
                 $mail->from('example@gmail.com', 'Hajj & Ummrah');
                 Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
