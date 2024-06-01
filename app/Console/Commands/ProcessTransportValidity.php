@@ -7,6 +7,7 @@ use App\Jobs\SendTransportValidityMails;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class ProcessTransportValidity extends Command
 {
@@ -29,18 +30,16 @@ class ProcessTransportValidity extends Command
      */
     public function handle()
     {
-        $today = Carbon::today()->toDateString();
+        $transports = Transport::with(['costs', 'vehicles', 'route'])->get();
 
-        $transport = Transport::with(['costs', 'vehicles', 'route'])
-            ->whereHas('costs', function($query) use ($today) {
-                $query->where('validity_end', '>=', $today);
-            })
-            ->get();
-
-        Log::info('Filtered Transports: ', $transport->toArray());
-
-        foreach ($transport as $transports) {
-            SendTransportValidityMails::dispatch($transports);
+        Log::info('Filtered Transports: ' . count($transports));
+        foreach ($transports as $transport) {
+            try {
+                // Pass the id of the transport
+                SendTransportValidityMails::dispatch($transport->id);
+            } catch (\Exception $e) {
+                Log::error('Failed to dispatch job: ' . $e->getMessage());
+            }
         }
 
         $this->info('Transport validity expiration notifications dispatched successfully.');

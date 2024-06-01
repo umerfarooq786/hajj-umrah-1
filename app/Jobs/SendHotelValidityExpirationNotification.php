@@ -20,16 +20,16 @@ class SendHotelValidityExpirationNotification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $Hotel_room;
+    protected $hotelId;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(HotelRoom $Hotel_room)
+    public function __construct($hotelId)
     {
-        $this->Hotel_room = $Hotel_room;
+        $this->hotelId = $hotelId;
     }
 
     /**
@@ -39,44 +39,54 @@ class SendHotelValidityExpirationNotification implements ShouldQueue
      */
     public function handle()
     {
-        $validity = Carbon::parse($this->Hotel_room->validity_end);
-        $sevenDaysBeforeValidity = $validity->copy()->subDays(7);
-        $threeDaysBeforeValidity = $validity->copy()->subDays(3);
-        $twoDaysBeforeValidity = $validity->copy()->subDays(2);
-        $oneDaysBeforeValidity = $validity->copy()->subDays(1);
-        $currentDate = now();
-        $alreadySentNotification = false;
-
-        if ($currentDate->isSameDay($sevenDaysBeforeValidity)) {
-            if (!$alreadySentNotification) {
-                // Uncomment and implement email sending logic if necessary
-                $mail = new ValidityNotificationMail($this->Hotel_room);
-                $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-                // Set the flag to true to prevent sending multiple notifications
-                $alreadySentNotification = true;
+        try {
+            $hotelRoom = HotelRoom::with('hotel')->find($this->hotelId);
+            
+            if ($hotelRoom && !empty($hotelRoom->hotel)) {
+                $validity = Carbon::parse($hotelRoom->validity_end);
+                Log::info('Hotel validity: ' . $validity);
+                $sevenDaysBeforeValidity = $validity->copy()->subDays(7);
+                $threeDaysBeforeValidity = $validity->copy()->subDays(3);
+                $twoDaysBeforeValidity = $validity->copy()->subDays(2);
+                $oneDaysBeforeValidity = $validity->copy()->subDays(1);
+                $currentDate = now();
+        
+                if ($currentDate->isSameDay($sevenDaysBeforeValidity)) {
+        
+                    // Uncomment and implement email sending logic if necessary
+                    $mail = new ValidityNotificationMail($hotelRoom);
+                    $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                    Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                    // Set the flag to true to prevent sending multiple notifications
+        
+        
+                } elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
+        
+                    $mail = new ValidityThreeDaysNotificationMail($hotelRoom);
+                    $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                    Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                } elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
+        
+                    $mail = new ValidityTwoDaysNotificationMail($hotelRoom);
+                    $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                    Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                } elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
+        
+                    $mail = new ValidityOneDayNotificationMail($hotelRoom);
+                    $mail->from('example@gmail.com', 'Hajj & Ummrah');
+                    Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
+                }
+            } else {
+                Log::info('No valid costs found for Transport ID: ') ;
             }
-        } elseif ($currentDate->isSameDay($threeDaysBeforeValidity)) {
-            if (!$alreadySentNotification) {
-                $mail = new ValidityThreeDaysNotificationMail($this->Hotel_room);
-                $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-                $alreadySentNotification = true;
-            }
-        } elseif ($currentDate->isSameDay($twoDaysBeforeValidity)) {
-            if (!$alreadySentNotification) {
-                $mail = new ValidityTwoDaysNotificationMail($this->Hotel_room);
-                $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-                $alreadySentNotification = true;
-            }
-        } elseif ($currentDate->isSameDay($oneDaysBeforeValidity)) {
-            if (!$alreadySentNotification) {
-                $mail = new ValidityOneDayNotificationMail($this->Hotel_room);
-                $mail->from('example@gmail.com', 'Hajj & Ummrah');
-                Mail::to('fastlinetraveltours.pk@gmail.com')->send($mail);
-                $alreadySentNotification = true;
-            }
+        } catch (\Exception $e) {
+            Log::error('Failed to send emails for Transport ID: ' . $this->hotelId . '. Error: ' . $e->getMessage(), [
+                'transportId' => $this->hotelId
+            ]);
+            throw $e; // Re-throw the exception to ensure the job can be retried
         }
     }
 }
+
+  
+
