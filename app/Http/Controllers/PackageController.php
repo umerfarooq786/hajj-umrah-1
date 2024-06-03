@@ -77,6 +77,7 @@ class PackageController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             // 'price' => 'required|numeric',
@@ -96,6 +97,7 @@ class PackageController extends Controller
 
         $package->name = $request->name;
         $package->type = $request->type;
+        $package->category = $request->category;
         $package->note = $request->note;
         // $package->price = $request->price;
         // Set other fields as needed

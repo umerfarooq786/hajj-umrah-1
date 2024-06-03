@@ -299,7 +299,7 @@
                             <i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>
                             <input type="date" name="travel_date[]" placeholder="Date"
                                 class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
-                            <button class="deleteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>
+                            <button class="deleteRouteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -898,7 +898,7 @@
                     '<div class="flex items-center relative h-[40px]">' +
                     '<i class="fa-regular fa-calendar absolute left-3 text-gray-400"></i>' +
                     '<input type="date" name="travel_date[]" placeholder="Date" class="startDate pl-10 h-full w-full border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">' +
-                    '<button class="deleteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>' +
+                    '<button class="deleteRouteBtn bg-red-500 text-white py-2 px-3 rounded-md ml-2">Delete</button>' +
                     '</div>' +
                     '</div>');
 
@@ -914,9 +914,14 @@
             });
 
             // Add click event listener to dynamically added delete buttons using event delegation
-            $('#RoutesDiv').on('click', '.deleteBtn', function(e) {
+            $('#RoutesDiv').on('click', '.deleteRouteBtn', function(e) {
                 e.preventDefault();
-                $(this).closest('.stay').remove(); // Adjusted the selector here
+                if ($('.route-group').length > 1) {
+                    $(this).closest('.route-group').remove();
+                } else {
+                    alert('At least one route is required.');
+                }
+                // Adjusted the selector here
             });
 
 
@@ -1090,13 +1095,6 @@
                     console.error(error);
                 }
             });
-        });
-        $(document).on('click', '.deleteBtn', function() {
-            if ($('.route-group').length > 1) {
-                $(this).closest('.route-group').remove();
-            } else {
-                alert('At least one route is required.');
-            }
         });
         $(document).on('change', '#route1', function() {
             var selectedValue = $(this).val();
