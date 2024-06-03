@@ -10,6 +10,7 @@
     <p>Last Name: {{ $formData['last_name'] }}</p>
     <p>Email: {{ $formData['email'] }}</p>
     <p>Subject: {{ $formData['subject'] }}</p>
+    <p>Contact: {{ $formData['contact'] }}</p>
     <p>Comments/Questions: {{ $formData['comments'] }}</p>
 </body>
 </html>

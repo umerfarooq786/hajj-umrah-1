@@ -21,7 +21,7 @@ class ContactsController extends Controller
 
         $result = Contacts::orderBy('created_at', 'DESC');
 
-        $aColumns = ['first_name', 'last_name', 'email', 'subject', 'comments'];
+        $aColumns = ['first_name', 'last_name', 'contact', 'email', 'subject', 'comments'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -54,7 +54,8 @@ class ContactsController extends Controller
 
             $result->Where(function ($query) use ($sKeywords) {
                 $query->orWhere('first_name', 'LIKE', "%{$sKeywords}%");;
-                $query->orWhere('last_name', 'LIKE', "%{$sKeywords}%");;
+                $query->orWhere('last_name', 'LIKE', "%{$sKeywords}%");
+                $query->orWhere('contact', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('email', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('subject', 'LIKE', "%{$sKeywords}%");
                 $query->orWhere('comments', 'LIKE', "%{$sKeywords}%");
@@ -96,6 +97,7 @@ class ContactsController extends Controller
 
             $first_name = $aRow->first_name;
             $last_name = $aRow->last_name;
+            $contact = $aRow->contact;
             $email = $aRow->email;
             $subject = $aRow->subject;
             $comments = $aRow->comments;
@@ -113,6 +115,7 @@ class ContactsController extends Controller
                 "DT_RowId" => "row_{$aRow->id}",
                 @$first_name,
                 @$last_name,
+                @$contact,
                 @$email,
                 @$subject,
                 @$comments,
@@ -129,6 +132,7 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -139,6 +143,7 @@ class ContactsController extends Controller
         $contact->email = $request->email;
         $contact->subject = $request->subject;
         $contact->comments = $request->comments;
+        $contact->contact = $request->contact;
         $contact->save();
         $toEmail = 'fastlinetraveltours.pk@gmail.com'; // Specify the recipient email address
         $formData = $request->all(); // Assuming $formData contains the form data

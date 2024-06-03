@@ -101,6 +101,7 @@
                                         <tr>
                                             <th>First Name</th>
                                             <th>Last Name</th>
+                                            <th>Contact</th>
                                             <th style="width:50px">Email Address</th>
                                             <th>Subject</th>
                                             <th>Comments</th>

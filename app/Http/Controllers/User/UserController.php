@@ -153,7 +153,17 @@ class UserController extends Controller
             $phone = $aRow->phone;
             $address = $aRow->address;
 
-            $action = "<span class=\"dropdown\">
+            if ($email == 'admin@gmail.com') {
+                $action = "<span class=\"dropdown\">
+                          <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
+                          aria-expanded=\"false\" class=\"btn btn-info btn-sm dropdown-toggle\"><i class=\"la la-cog font-medium-1\"></i></button>
+                          <span aria-labelledby=\"btnSearchDrop2\" class=\"dropdown-menu mt-1 dropdown-menu-right\">
+                            <a href=\"users/{$aRow->id}/edit\" class=\"dropdown-item font-small-3\"><i class=\"la la-barcode font-small-3\"></i> edit</a>
+                          </span>
+                        </span>
+                        ";
+            } else {
+                $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
                           aria-expanded=\"false\" class=\"btn btn-info btn-sm dropdown-toggle\"><i class=\"la la-cog font-medium-1\"></i></button>
                           <span aria-labelledby=\"btnSearchDrop2\" class=\"dropdown-menu mt-1 dropdown-menu-right\">
@@ -162,7 +172,7 @@ class UserController extends Controller
                           </span>
                         </span>
                         ";
-
+            }
             $output['aaData'][] = array(
                 "DT_RowId" => "row_{$aRow->id}",
                 @$last_name,
@@ -317,7 +327,6 @@ class UserController extends Controller
             $destinationPath = public_path('/storage/user_image');
             $image->move($destinationPath, $user_image);
             $user->image = $user_image;
-
         }
 
         $user->save();
@@ -369,6 +378,5 @@ class UserController extends Controller
         } else {
             return false;
         }
-
     }
 }

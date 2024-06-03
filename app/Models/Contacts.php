@@ -13,6 +13,7 @@ class Contacts extends Model
         'last_name',
         'email',
         'subject',
+        'contact',
         'comments'
     ];
 }
