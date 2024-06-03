@@ -99,7 +99,7 @@ class TourController extends Controller
         // Attach selected hotels to the package
         // $package->hotels()->attach($request->input('hotels'));
 
-        return redirect()->route('tour.index')->with('success', 'Tour Updated successfully.');
+        return redirect()->route('tours.index')->with('success', 'Tour Updated successfully.');
     }
 
 
