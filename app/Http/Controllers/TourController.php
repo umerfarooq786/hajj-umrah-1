@@ -91,7 +91,7 @@ class TourController extends Controller
 
         $package->name = $request->name;
         $package->type = $request->type;
-        $package->desciption = $request->desciption;
+        $package->description = $request->description;
         $package->note = $request->note;
         // $package->price = $request->price;
         // Set other fields as needed
