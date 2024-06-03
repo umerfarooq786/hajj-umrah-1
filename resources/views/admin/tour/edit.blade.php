@@ -38,10 +38,10 @@
                                             <label class="col-md-3 label-control" for="userinput2">Tour Type </label>
                                             <div class="col-md-9">
                                                 <select id="userinput2" class="form-control border-primary" name="type">
-                                                    <option value="umrah"
+                                                    <option value="international"
                                                         {{ $tour->type === 'international' ? 'selected' : '' }}>
                                                         International Tours</option>
-                                                    <option value="hajj"
+                                                    <option value="domestic"
                                                         {{ $tour->type === 'domestic' ? 'selected' : '' }}>Domestic Tours
                                                     </option>
                                                 </select>
