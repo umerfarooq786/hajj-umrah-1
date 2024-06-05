@@ -15,7 +15,7 @@
 
 
 
-                <div class="space-y-5 px-10 py-5">
+                <div class="space-y-5 px-10 py-5 lg:w-[70%]">
                     <h4 class="font-semibold text-xl">{{ $hotel->name }}</h4>
                     <p>{{ Str::of($hotel->description)->limit(300, '...') }}</p>
                     <a href="{{ url('hotel-id/' . $hotel->id) }}"
