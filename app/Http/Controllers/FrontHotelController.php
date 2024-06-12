@@ -525,7 +525,7 @@ class FrontHotelController extends Controller
 
         foreach ($route_ids as $index => $route_id) {
             $vehicle_id = $vehicle_ids;
-            $start_date = $start_dates[$index];
+            $start_date = Carbon::createFromFormat('d-m-Y', $start_dates[$index])->format('Y-m-d'); 
 
             $transports = Transport::with('vehicles')
                 ->where('route_id', $route_id)

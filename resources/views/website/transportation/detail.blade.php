@@ -241,13 +241,13 @@
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Flatpickr for the initial start date input
                 flatpickr(".startDate", {
-                    dateFormat: "Y-m-d",
+                    dateFormat: "d-m-Y",
                     minDate: "today",
                 });
 
                 function initializeFlatpickr(input) {
                     flatpickr(input, {
-                        dateFormat: "Y-m-d",
+                        dateFormat: "d-m-Y",
                     minDate: "today",
                     });
                 }

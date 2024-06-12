@@ -1,5 +1,4 @@
 @extends('website_layouts.master')
-
 @section('custom_styles')
     <link rel="stylesheet" href="{{ asset('css/hotelDetailSlider.css') }}">
     <style>
@@ -325,7 +324,7 @@
         const initFlatpickr = function(element) {
             const startDateInput = flatpickr(element.querySelector(".startDate"), {
                 minDate: "today",
-                dateFormat: "Y-m-d",
+                dateFormat: "d-m-Y",
                 onChange: function(selectedDates, dateStr, instance) {
                     endDateInput.disabled = false;
 
@@ -336,7 +335,7 @@
             });
 
             const endDateInput = flatpickr(element.querySelector(".endDate"), {
-                dateFormat: "Y-m-d",
+                dateFormat: "d-m-Y",
                 disable: [new Date()],
             });
         };
