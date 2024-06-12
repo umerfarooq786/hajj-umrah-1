@@ -81,6 +81,15 @@ class TourController extends Controller
 
         $package = Tour::findOrFail($id);
         if ($request->hasFile('image')) {
+            if (!empty($package->image)) {
+                $oldImagePath = public_path('uploads/' . $package->image);
+
+                // Delete the old image if it exists
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+            
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);

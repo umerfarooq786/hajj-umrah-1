@@ -87,6 +87,15 @@ class PackageController extends Controller
 
         $package = Package::findOrFail($id);
         if ($request->hasFile('image')) {
+            if (!empty($package->image)) {
+                $oldImagePath = public_path('uploads/' . $package->image);
+
+                // Delete the old image if it exists
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);
@@ -111,8 +120,8 @@ class PackageController extends Controller
     public function get_packages(Request $request)
     {
         $result = Package::orderBy('created_at', 'DESC');
-        
-        $aColumns = ['id', 'name','type','image', 'created_at'];
+
+        $aColumns = ['id', 'name', 'type', 'image', 'created_at'];
 
         $iStart = $request->get('iDisplayStart');
         $iPageSize = $request->get('iDisplayLength');
@@ -186,7 +195,7 @@ class PackageController extends Controller
             $imageName = $aRow->image;
             $imageUrl = asset('uploads/' . $imageName);
             $image = "<img style='height:60px; width:60px' src='{$imageUrl}'>";
-            
+
 
             $action = "<span class=\"dropdown\">
                           <button id=\"btnSearchDrop2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\"
@@ -223,7 +232,7 @@ class PackageController extends Controller
         if ($imageFileName && file_exists($imagePath . '/' . $imageFileName)) {
             unlink($imagePath . '/' . $imageFileName);
         }
-       $package->delete();
+        $package->delete();
 
         return response()->json([
             'status' => 'success',

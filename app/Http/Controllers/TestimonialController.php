@@ -119,6 +119,14 @@ class TestimonialController extends Controller
         $Testimonial->designation = $request->input('designation');
     
         if ($request->hasFile('image')) {
+            if (!empty($Testimonial->image)) {
+                $oldImagePath = public_path('uploads/' . $Testimonial->image);
+
+                // Delete the old image if it exists
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('uploads'), $imageName);
