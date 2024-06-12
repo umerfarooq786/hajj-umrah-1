@@ -548,7 +548,7 @@ class FrontHotelController extends Controller
                         $commissionAmount = ($commision / 100) * $totalCost;
                         $costWithCommission = $totalCost + $commissionAmount;
                         $total_transport_cost += $costWithCommission;
-
+                        $start_date = Carbon::createFromFormat('d-m-Y', $start_dates[$index])->format('d-m-Y'); 
                         $results[] = [
                             'route_name' => $transport->route->name,
                             'date' => $start_date,
@@ -559,7 +559,7 @@ class FrontHotelController extends Controller
                         break;
                     }
                 }
-
+                $start_date = Carbon::createFromFormat('d-m-Y', $start_dates[$index])->format('d-m-Y'); 
                 if (!$transportFound) {
                     $results[] = [
                         'route_name' => Route::where('id', $route_id)->pluck('name')->first(),
@@ -569,6 +569,7 @@ class FrontHotelController extends Controller
                     ];
                 }
             } else {
+                $start_date = Carbon::createFromFormat('d-m-Y', $start_dates[$index])->format('d-m-Y'); 
                 $results[] = [
                     'route_name' => Route::where('id', $route_id)->pluck('name')->first(),
                     'date' => $start_date,
