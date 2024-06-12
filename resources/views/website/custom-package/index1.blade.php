@@ -346,6 +346,7 @@
                             <p class="font-semibold text-gray-700 dark:text-gray-400 ">Hajj Calculations are comming soon.
                             </p>
                         </div>
+                    </div>
                 @endif
             @endforeach
         </div>
