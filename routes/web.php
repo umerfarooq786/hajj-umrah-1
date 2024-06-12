@@ -33,7 +33,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    
+    return redirect()->route('home_page');
+    // return redirect()->route('login');
 });
 
 Auth::routes();

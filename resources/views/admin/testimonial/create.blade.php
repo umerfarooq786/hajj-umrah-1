@@ -93,7 +93,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Content<span class="text-danger"> *</span></strong>
-                                                <textarea type="text" name="content" placeholder="Content" class="form-control" required maxlength="200"></textarea>
+                                                <textarea type="text" name="content" placeholder="Content" class="form-control" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">

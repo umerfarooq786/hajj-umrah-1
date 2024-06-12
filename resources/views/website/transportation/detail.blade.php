@@ -193,8 +193,7 @@
                                 </div>
 
                                 <select id="route" name="route[]"
-                                    class="place lg:w-[180px] border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400"
-                                    >
+                                    class="place lg:w-[180px] border-gray-400 rounded-md text-gray-900 text-sm focus:border-gray-400">
                                     <option value="">Select Route</option>
                                     @if ($vehicle->transport)
                                         @foreach ($vehicle->transport as $transport)
@@ -236,242 +235,259 @@
             </div>
 
         </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Flatpickr for the initial start date input
+            flatpickr(".startDate", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+            });
 
+<<<<<<< HEAD
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Flatpickr for the initial start date input
                 flatpickr(".startDate", {
                     dateFormat: "d-m-Y",
+=======
+            function initializeFlatpickr(input) {
+                flatpickr(input, {
+                    dateFormat: "Y-m-d",
+>>>>>>> 66ba0ba44b57caadd572a7855f8fefddf9edded5
                     minDate: "today",
                 });
+            }
 
+<<<<<<< HEAD
                 function initializeFlatpickr(input) {
                     flatpickr(input, {
                         dateFormat: "d-m-Y",
                     minDate: "today",
                     });
                 }
+=======
+            document.getElementById('add-more').addEventListener('click', function(e) {
+                e.preventDefault();
+>>>>>>> 66ba0ba44b57caadd572a7855f8fefddf9edded5
 
-                document.getElementById('add-more').addEventListener('click', function(e) {
-                    e.preventDefault();
+                // Clone the form
+                let formContainer = document.getElementById('form-container');
+                let form = formContainer.querySelector('.transport-form');
+                let clone = form.cloneNode(true);
 
-                    // Clone the form
-                    let formContainer = document.getElementById('form-container');
-                    let form = formContainer.querySelector('.transport-form');
-                    let clone = form.cloneNode(true);
-
-                    // Reset the values of the cloned form
-                    clone.querySelectorAll('input, select').forEach((element) => {
-                        if (element.tagName === 'INPUT') {
-                            element.value = '';
-                        } else if (element.tagName === 'SELECT') {
-                            element.selectedIndex = 0;
-                        }
-                    });
-
-                    // Append the cloned form to the container
-                    formContainer.appendChild(clone);
-
-                    // Reinitialize Flatpickr for the new start date input
-                    initializeFlatpickr(clone.querySelector(".startDate"));
-
-                    // Add event listener to the new remove button
-                    clone.querySelector('.remove-form').addEventListener('click', function() {
-                        if (document.querySelectorAll('.transport-form').length > 1) {
-                            this.parentElement.remove();
-                        } else {
-                            $('.failure-section').empty();
-                            $('.failure-section').append(
-                            'At least one search criteria is required.'
-                        );
-                        $('.begin-section').hide();
-                        $('.failure-section').show();
-                        }
-                    });
+                // Reset the values of the cloned form
+                clone.querySelectorAll('input, select').forEach((element) => {
+                    if (element.tagName === 'INPUT') {
+                        element.value = '';
+                    } else if (element.tagName === 'SELECT') {
+                        element.selectedIndex = 0;
+                    }
                 });
 
-                // Add event listener to the initial remove button
-                document.querySelectorAll('.remove-form').forEach(function(button) {
-                    button.addEventListener('click', function() {
-                        if (document.querySelectorAll('.transport-form').length > 1) {
-                            this.parentElement.remove();
-                        } else {
-                            $('.failure-section').empty();
-                            $('.failure-section').append(
-                            'At least one search criteria is required.'
-                        );
-                        $('.begin-section').hide();
-                        $('.failure-section').show();
-                        }
-                    });
-                });
-            });
+                // Append the cloned form to the container
+                formContainer.appendChild(clone);
 
-            $(document).ready(function() {
-                $('form').submit(function(event) {
-                    event.preventDefault(); // Prevent default form submission
-                    $('.success-section-sar').hide();
-                    $('.success-section-pkr').hide();
-                    $('.success-section-usd').hide();
-                    $('.failure-section').hide();
+                // Reinitialize Flatpickr for the new start date input
+                initializeFlatpickr(clone.querySelector(".startDate"));
 
-                    var formData = $(this).serializeArray(); // Serialize form data as an array
-                    // Check if any start_date[] field is empty
-                    var startDateEmpty = false;
-                    var routeEmpty = false;
-
-                    formData.forEach(function(item) {
-                        if (item.name === 'start_date[]' && item.value === '') {
-                            startDateEmpty = true;
-                        }
-                    });
-                    formData.forEach(function(item) {
-                        if (item.name === 'route[]' && item.value === '') {
-                            routeEmpty = true;
-                        }
-                    });
-
-                    if (startDateEmpty || routeEmpty) {
+                // Add event listener to the new remove button
+                clone.querySelector('.remove-form').addEventListener('click', function() {
+                    if (document.querySelectorAll('.transport-form').length > 1) {
+                        this.parentElement.remove();
+                    } else {
                         $('.failure-section').empty();
                         $('.failure-section').append(
-                            'You must select the date and route both to get calculated result.'
+                            'At least one search criteria is required.'
                         );
                         $('.begin-section').hide();
                         $('.failure-section').show();
-                        return false; // Prevent form submission
                     }
-                    var vehicle_id = $('#vehicle_id').val(); // Get the value of the hidden input field
-                    // formData += '&vehicle_id=' + vehicle_id;
-
-                    // Make AJAX request
-                    $.ajax({
-                        url: '{{ route('search.route_price') }}',
-                        type: 'POST',
-                        data: formData,
-                        success: function(response) {
-                            if (response) {
-                                console.log(response);
-                                if (response.error) {
-                                    $('.failure-section').html(response.error);
-                                    $('.failure-section').show();
-                                    $('.success-section-sar').hide();
-                                    $('.begin-section').hide();
-                                    $('#searched').val('0');
-                                }
-
-                                // Clear previous results
-                                $('.success-section-sar').html('');
-                                $('.success-section-pkr').html('');
-                                $('.success-section-usd').html('');
-
-                                let totalSAR = 0;
-                                let totalPKR = 0;
-                                let totalUSD = 0;
-
-                                response.results.forEach(result => {
-                                    if (result.cost === 0) {
-                                        $('.success-section-sar').append(
-                                            'No transport available for route <b>' +
-                                            result.route_name + '</b> on <b>' + result
-                                            .date + '</b>.<br>'
-                                        );
-                                        $('.success-section-pkr').append(
-                                            'No transport available for route <b>' +
-                                            result.route_name + '</b> on <b>' + result
-                                            .date + '</b>.<br>'
-                                        );
-                                        $('.success-section-usd').append(
-                                            'No transport available for route <b>' +
-                                            result.route_name + '</b> on <b>' + result
-                                            .date + '</b>.<br>'
-                                        );
-                                    } else {
-                                        var formattedSAR = result.cost.toFixed(1);
-                                        var pkr = response.sar_to_pkr * result.cost;
-                                        var formattedPKR = pkr.toFixed(1);
-                                        var usd = response.sar_to_usd * result.cost;
-                                        var formattedUSD = usd.toFixed(1);
-
-                                        $('.success-section-sar').append(
-                                            'Transport price of route <b>' + result
-                                            .route_name + '</b> on <b>' + result.date +
-                                            '</b> is <b>' + formattedSAR +
-                                            ' (SAR)</b><br>'
-                                        );
-                                        $('.success-section-pkr').append(
-                                            'Transport price of route <b>' + result
-                                            .route_name + '</b> on <b>' + result.date +
-                                            '</b> is <b>' + formattedPKR +
-                                            ' (PKR)</b><br>'
-                                        );
-                                        $('.success-section-usd').append(
-                                            'Transport price of route <b>' + result
-                                            .route_name + '</b> on <b>' + result.date +
-                                            '</b> is <b>' + formattedUSD +
-                                            ' (USD)</b><br>'
-                                        );
-
-                                        totalSAR += result.cost;
-                                        totalPKR += pkr;
-                                        totalUSD += usd;
-                                    }
-                                });
-
-                                // Append total cost
-                                $('.success-section-sar').append('<br>Total Transport cost is <b>' +
-                                    totalSAR.toFixed(1) + ' (SAR)</b>');
-                                $('.success-section-pkr').append('<br>Total Transport cost is <b>' +
-                                    totalPKR.toFixed(1) + ' (PKR)</b>');
-                                $('.success-section-usd').append('<br>Total Transport cost is <b>' +
-                                    totalUSD.toFixed(1) + ' (USD)</b>');
-
-                                $('.success-section-sar').show();
-                                $('.failure-section').hide();
-                                $('.begin-section').hide();
-                                $('#searched').val('1');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
-                            $('.failure-section').html(
-                                'An error occurred while processing the request');
-                            $('.success-section').hide();
-                        }
-                    });
-
-
                 });
             });
-        </script>
 
-        <script>
-            document.getElementById('currencySelect').addEventListener('change', function() {
-                // Hide all divs first
-                document.querySelectorAll('.currency-content').forEach(function(div) {
-                    div.style.display = 'none';
+            // Add event listener to the initial remove button
+            document.querySelectorAll('.remove-form').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    if (document.querySelectorAll('.transport-form').length > 1) {
+                        this.parentElement.remove();
+                    } else {
+                        $('.failure-section').empty();
+                        $('.failure-section').append(
+                            'At least one search criteria is required.'
+                        );
+                        $('.begin-section').hide();
+                        $('.failure-section').show();
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+                $('.success-section-sar').hide();
+                $('.success-section-pkr').hide();
+                $('.success-section-usd').hide();
+                $('.failure-section').hide();
+
+                var formData = $(this).serializeArray(); // Serialize form data as an array
+                // Check if any start_date[] field is empty
+                var startDateEmpty = false;
+                var routeEmpty = false;
+
+                formData.forEach(function(item) {
+                    if (item.name === 'start_date[]' && item.value === '') {
+                        startDateEmpty = true;
+                    }
+                });
+                formData.forEach(function(item) {
+                    if (item.name === 'route[]' && item.value === '') {
+                        routeEmpty = true;
+                    }
                 });
 
-                // Show the div corresponding to the selected currency
-                var selectedCurrency = this.value;
-                var sarText = $('#searched').val();
-                if (sarText == "1") {
-                    if (selectedCurrency == 'SAR') {
-                        $('.success-section-sar').show();
-                        $('.success-section-pkr').hide();
-                        $('.success-section-usd').hide();
-                    }
-                    if (selectedCurrency == 'USD') {
-                        $('.success-section-sar').hide();
-                        $('.success-section-pkr').hide();
-                        $('.success-section-usd').show();
-                    }
-                    if (selectedCurrency == 'PKR') {
-                        $('.success-section-sar').hide();
-                        $('.success-section-pkr').show();
-                        $('.success-section-usd').hide();
-                    }
+                if (startDateEmpty || routeEmpty) {
+                    $('.failure-section').empty();
+                    $('.failure-section').append(
+                        'You must select the date and route both to get calculated result.'
+                    );
+                    $('.begin-section').hide();
+                    $('.failure-section').show();
+                    return false; // Prevent form submission
                 }
-                document.getElementById('content' + selectedCurrency).style.display = 'block';
+                var vehicle_id = $('#vehicle_id').val(); // Get the value of the hidden input field
+                // formData += '&vehicle_id=' + vehicle_id;
+
+                // Make AJAX request
+                $.ajax({
+                    url: '{{ route('search.route_price') }}',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response) {
+                            console.log(response);
+                            if (response.error) {
+                                $('.failure-section').html(response.error);
+                                $('.failure-section').show();
+                                $('.success-section-sar').hide();
+                                $('.begin-section').hide();
+                                $('#searched').val('0');
+                            }
+
+                            // Clear previous results
+                            $('.success-section-sar').html('');
+                            $('.success-section-pkr').html('');
+                            $('.success-section-usd').html('');
+
+                            let totalSAR = 0;
+                            let totalPKR = 0;
+                            let totalUSD = 0;
+
+                            response.results.forEach(result => {
+                                if (result.cost === 0) {
+                                    $('.success-section-sar').append(
+                                        'No transport available for route <b>' +
+                                        result.route_name + '</b> on <b>' + result
+                                        .date + '</b>.<br>'
+                                    );
+                                    $('.success-section-pkr').append(
+                                        'No transport available for route <b>' +
+                                        result.route_name + '</b> on <b>' + result
+                                        .date + '</b>.<br>'
+                                    );
+                                    $('.success-section-usd').append(
+                                        'No transport available for route <b>' +
+                                        result.route_name + '</b> on <b>' + result
+                                        .date + '</b>.<br>'
+                                    );
+                                } else {
+                                    var formattedSAR = result.cost.toFixed(1);
+                                    var pkr = response.sar_to_pkr * result.cost;
+                                    var formattedPKR = pkr.toFixed(1);
+                                    var usd = response.sar_to_usd * result.cost;
+                                    var formattedUSD = usd.toFixed(1);
+
+                                    $('.success-section-sar').append(
+                                        'Transport price of route <b>' + result
+                                        .route_name + '</b> on <b>' + result.date +
+                                        '</b> is <b>' + formattedSAR +
+                                        ' (SAR)</b><br>'
+                                    );
+                                    $('.success-section-pkr').append(
+                                        'Transport price of route <b>' + result
+                                        .route_name + '</b> on <b>' + result.date +
+                                        '</b> is <b>' + formattedPKR +
+                                        ' (PKR)</b><br>'
+                                    );
+                                    $('.success-section-usd').append(
+                                        'Transport price of route <b>' + result
+                                        .route_name + '</b> on <b>' + result.date +
+                                        '</b> is <b>' + formattedUSD +
+                                        ' (USD)</b><br>'
+                                    );
+
+                                    totalSAR += result.cost;
+                                    totalPKR += pkr;
+                                    totalUSD += usd;
+                                }
+                            });
+
+                            // Append total cost
+                            $('.success-section-sar').append('<br>Total Transport cost is <b>' +
+                                totalSAR.toFixed(1) + ' (SAR)</b>');
+                            $('.success-section-pkr').append('<br>Total Transport cost is <b>' +
+                                totalPKR.toFixed(1) + ' (PKR)</b>');
+                            $('.success-section-usd').append('<br>Total Transport cost is <b>' +
+                                totalUSD.toFixed(1) + ' (USD)</b>');
+
+                            $('.success-section-sar').show();
+                            $('.failure-section').hide();
+                            $('.begin-section').hide();
+                            $('#searched').val('1');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        $('.failure-section').html(
+                            'An error occurred while processing the request');
+                        $('.success-section').hide();
+                    }
+                });
+
+
             });
-        </script>
-    @endsection
+        });
+    </script>
+
+    <script>
+        document.getElementById('currencySelect').addEventListener('change', function() {
+            // Hide all divs first
+            document.querySelectorAll('.currency-content').forEach(function(div) {
+                div.style.display = 'none';
+            });
+
+            // Show the div corresponding to the selected currency
+            var selectedCurrency = this.value;
+            var sarText = $('#searched').val();
+            if (sarText == "1") {
+                if (selectedCurrency == 'SAR') {
+                    $('.success-section-sar').show();
+                    $('.success-section-pkr').hide();
+                    $('.success-section-usd').hide();
+                }
+                if (selectedCurrency == 'USD') {
+                    $('.success-section-sar').hide();
+                    $('.success-section-pkr').hide();
+                    $('.success-section-usd').show();
+                }
+                if (selectedCurrency == 'PKR') {
+                    $('.success-section-sar').hide();
+                    $('.success-section-pkr').show();
+                    $('.success-section-usd').hide();
+                }
+            }
+            document.getElementById('content' + selectedCurrency).style.display = 'block';
+        });
+    </script>
+@endsection
